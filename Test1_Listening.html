@@ -599,6 +599,9 @@
 </div>
 
 <script>
+// Ghi nhận thời điểm bắt đầu làm bài
+window._testStartTime = Date.now();
+
 // ===================== CHỐNG GIAN LẬN (tab độc lập - GitHub Pages) =====================
 (function() {
   var log          = [];
@@ -928,10 +931,11 @@ function submitTest() {
 
   // Hiện log vi phạm
   var v = window.getViolationLog ? window.getViolationLog() : null;
+  var totalV = 0;
   if (v) {
     var logPanel = document.getElementById('logPanel');
     logPanel.style.display = 'block';
-    var totalV = v.tabViolations + v.focusViolations + v.fsViolations;
+    totalV = v.tabViolations + v.focusViolations + v.fsViolations;
     logPanel.innerHTML =
       '<strong>📋 Báo cáo hành vi</strong><br>' +
       '• Chuyển tab: <b>' + v.tabViolations + '</b> lần<br>' +
@@ -946,6 +950,60 @@ function submitTest() {
       : '<br><small style="color:#27ae60">✅ Không phát hiện hành vi gian lận</small>';
     document.getElementById('scoreMsg').innerHTML += logSummary;
   }
+
+  // ===================== GỬI KẾT QUẢ LÊN GOOGLE SHEETS =====================
+  (function() {
+    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbwHyMXo7QVkk7K7K-0yNGer6HL35hEyoC4-MKWfQxsh2BdHHuRgW-KRpLcr9bZeU3_7/exec';
+
+    // Tính thời gian làm bài
+    var endTime   = Date.now();
+    var startTime = window._testStartTime || endTime;
+    var elapsed   = Math.floor((endTime - startTime) / 1000);
+    var mm = Math.floor(elapsed / 60);
+    var ss = elapsed % 60;
+    var timeTaken = mm + ' phút ' + ss + ' giây';
+
+    // Chi tiết từng câu (Q.01→Q.40: đúng/sai + đáp án học viên)
+    var details = [];
+    for (var i = 1; i <= 40; i++) {
+      var qId = 'q' + i;
+      var el  = document.getElementById(qId);
+      if (!el) continue;
+      var userVal = el.value || '';
+      var correct = el.classList.contains('correct') ? '✔' : '✘';
+      details.push('Q' + String(i).padStart(2,'0') + ':' + correct + '(' + userVal + ')');
+    }
+
+    // Band
+    var bandEl = document.getElementById('scoreMsg');
+    var band   = bandEl ? bandEl.textContent.replace(/⚠️.*|✅.*/g,'').trim() : '';
+
+    // Payload
+    var payload = {
+      student:    'Học viên',
+      test:       'Listening Test 1',
+      score:      score,
+      total:      total,
+      band:       band,
+      timeTaken:  timeTaken,
+      tabViol:    v ? v.tabViolations   : 0,
+      focusViol:  v ? v.focusViolations : 0,
+      fsViol:     v ? v.fsViolations    : 0,
+      details:    details.join(' | ')
+    };
+
+    // Gửi lên Google Sheets
+    fetch(SHEET_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    }).then(function() {
+      console.log('Kết quả đã gửi lên Google Sheets!');
+    }).catch(function(err) {
+      console.warn('Không thể gửi kết quả:', err);
+    });
+  })();
 }
 </script>
 </body>
