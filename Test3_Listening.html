@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IELTS Listening Test 3</title>
+<style>
+/* ===== RESET & BASE ===== */
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;font-size:15px;background:#f4f6f9;color:#222;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+input[type="text"],input[type="text"]:focus,select{
+  -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;}
+@media print{body{display:none!important;}}
+
+/* ===== POPUP NHẬP TÊN ===== */
+#name-overlay{position:fixed;inset:0;background:rgba(10,30,60,0.92);z-index:100000;
+  display:flex;align-items:center;justify-content:center;}
+#name-box{background:#fff;border-radius:14px;padding:36px 40px;max-width:420px;width:92%;
+  box-shadow:0 8px 32px rgba(0,0,0,0.3);text-align:center;}
+#name-box h2{color:#1a3c6e;font-size:21px;margin-bottom:6px;}
+#name-box p{color:#666;font-size:13px;margin-bottom:20px;}
+.name-field{margin-bottom:14px;text-align:left;}
+.name-field label{display:block;font-size:13px;font-weight:bold;color:#1a3c6e;margin-bottom:5px;}
+.name-field input{width:100%;padding:10px 12px;border:2px solid #c8d4e8;border-radius:7px;
+  font-size:15px;outline:none;transition:border-color .2s;}
+.name-field input:focus{border-color:#1a3c6e;}
+#name-error{color:#c0392b;font-size:13px;margin-bottom:10px;min-height:18px;}
+#start-btn{background:#1a3c6e;color:#fff;border:none;border-radius:8px;padding:13px 36px;
+  font-size:16px;font-weight:bold;cursor:pointer;width:100%;transition:background .2s;}
+#start-btn:hover{background:#f39c12;}
+
+/* ===== FULLSCREEN OVERLAY ===== */
+#fs-overlay{display:none;position:fixed;inset:0;background:rgba(10,30,60,0.95);z-index:99998;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;}
+#fs-overlay h2{font-size:26px;margin-bottom:12px;color:#f39c12;}
+#fs-overlay p{font-size:15px;margin-bottom:22px;color:#ccc;}
+#fs-enter-btn{background:#f39c12;color:#fff;border:none;border-radius:8px;padding:12px 34px;
+  font-size:16px;font-weight:bold;cursor:pointer;}
+
+/* ===== DEVTOOLS OVERLAY ===== */
+#devtools-overlay{display:none;position:fixed;inset:0;background:#111;z-index:99999;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+#devtools-overlay h2{font-size:28px;color:#ff4444;margin-bottom:12px;}
+#devtools-overlay p{font-size:15px;color:#ccc;}
+
+/* ===== VIOLATION BANNER ===== */
+#viol-banner{display:none;position:fixed;top:0;left:0;right:0;z-index:99997;
+  background:#c0392b;color:#fff;text-align:center;padding:10px 16px;
+  font-size:15px;font-weight:bold;box-shadow:0 2px 8px rgba(0,0,0,0.3);}
+
+/* ===== TIMER ===== */
+#timer-box{position:fixed;top:14px;right:18px;z-index:9999;background:#1a3c6e;color:#fff;
+  padding:9px 16px;border-radius:10px;font-size:21px;font-weight:bold;
+  box-shadow:0 2px 10px rgba(0,0,0,0.25);min-width:106px;text-align:center;}
+#timer-box.warn{background:#e0a800;}
+#timer-box.danger{background:#c0392b;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes blink-fast{0%,100%{opacity:1}50%{opacity:.1}}
+#timer-box.blink{animation:blink 1s infinite;}
+#timer-box.blink-fast{animation:blink-fast .38s infinite;}
+
+/* ===== TIMEOUT POPUP ===== */
+#timeout-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99990;
+  align-items:center;justify-content:center;}
+#timeout-overlay.show{display:flex;}
+#timeout-box{background:#fff;border-radius:12px;padding:30px 36px;max-width:400px;width:90%;
+  text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.2);}
+#timeout-box h3{font-size:20px;color:#c0392b;margin-bottom:10px;}
+#timeout-box p{color:#444;font-size:15px;margin-bottom:18px;}
+#timeout-submit-btn{background:#c0392b;color:#fff;border:none;border-radius:7px;
+  padding:11px 30px;font-size:16px;font-weight:bold;cursor:pointer;}
+
+/* ===== HEADER ===== */
+header{background:#1a3c6e;color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px;}
+header h1{font-size:21px;letter-spacing:.5px;}
+.badge{background:#f39c12;color:#fff;border-radius:6px;padding:3px 11px;font-size:13px;font-weight:bold;}
+
+/* ===== AUDIO ===== */
+#audio-section{background:#fff;padding:13px 28px;border-bottom:2px solid #e0e0e0;
+  display:flex;align-items:center;gap:12px;}
+#audio-section label{font-weight:bold;color:#1a3c6e;white-space:nowrap;}
+#audio-section audio{flex:1;}
+
+/* ===== MAIN CONTENT ===== */
+.main-content{max-width:960px;margin:22px auto;padding:0 18px 40px;}
+.part-card{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);
+  margin-bottom:28px;overflow:hidden;}
+.part-header{background:#1a3c6e;color:#fff;padding:11px 20px;font-size:16px;font-weight:bold;}
+.part-body{padding:20px 22px;}
+.instruction{background:#eaf1fb;border-left:4px solid #1a3c6e;padding:8px 13px;
+  margin-bottom:15px;font-style:italic;color:#1a3c6e;border-radius:0 6px 6px 0;font-size:14px;}
+.section-title{font-weight:bold;color:#1a3c6e;margin:16px 0 7px;font-size:15px;}
+
+/* ===== TABLE ===== */
+.note-table{width:100%;border-collapse:collapse;margin-bottom:8px;}
+.note-table td{border:1px solid #c8d4e8;padding:8px 11px;vertical-align:top;line-height:1.75;}
+.note-table td:first-child{font-weight:bold;background:#f0f4fb;color:#1a3c6e;}
+.tbl-header td{background:#1a3c6e!important;color:#fff!important;font-weight:bold;text-align:center;}
+
+/* ===== FILL INPUT ===== */
+.fill-input{display:inline-block;border:none;border-bottom:2px solid #1a3c6e;
+  width:128px;padding:2px 5px;font-size:14px;background:#f0f4fb;
+  border-radius:3px 3px 0 0;outline:none;text-align:center;
+  transition:border-color .2s,background .2s;}
+.fill-input:focus{border-bottom-color:#f39c12;background:#fff8e1;}
+.fill-input.correct{background:#d4edda;border-bottom-color:#28a745;color:#155724;}
+.fill-input.wrong{background:#f8d7da;border-bottom-color:#dc3545;color:#721c24;}
+.correct-ans{color:#155724;font-weight:bold;font-size:13px;margin-left:4px;}
+
+/* ===== MCQ RADIO ===== */
+.question-block{margin-bottom:13px;}
+.question-text{font-weight:bold;margin-bottom:6px;color:#333;}
+.option-label{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:6px;
+  cursor:pointer;margin-bottom:3px;transition:background .15s;}
+.option-label:hover{background:#eaf1fb;}
+.option-label input[type=radio]{margin-top:3px;accent-color:#1a3c6e;}
+.option-label.correct-opt{background:#d4edda;}
+.option-label.wrong-opt{background:#f8d7da;}
+
+/* ===== CHOOSE MULTIPLE (CHECKBOX) ===== */
+.choose-block{margin-bottom:14px;}
+.check-label{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:6px;
+  cursor:pointer;margin-bottom:3px;transition:background .15s;}
+.check-label:hover{background:#eaf1fb;}
+.check-label input[type=checkbox]{margin-top:3px;accent-color:#1a3c6e;}
+.check-label.correct-opt{background:#d4edda;}
+.check-label.wrong-opt{background:#f8d7da;}
+.check-label.missed-opt{background:#fff3cd;border:1px dashed #e0a800;}
+
+/* ===== MATCHING ===== */
+.match-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.match-q{flex:1;font-size:14px;}
+.match-select{border:1px solid #1a3c6e;border-radius:5px;padding:4px 8px;
+  font-size:14px;background:#f0f4fb;min-width:68px;cursor:pointer;}
+.match-select.correct{background:#d4edda;border-color:#28a745;}
+.match-select.wrong{background:#f8d7da;border-color:#dc3545;}
+
+/* ===== SUBMIT ===== */
+#submit-btn{display:block;margin:28px auto 10px;background:#1a3c6e;color:#fff;
+  border:none;border-radius:8px;padding:13px 46px;font-size:17px;font-weight:bold;
+  cursor:pointer;box-shadow:0 3px 10px rgba(26,60,110,.25);transition:background .2s;}
+#submit-btn:hover{background:#f39c12;}
+
+/* ===== SCORE ===== */
+#score-section{display:none;background:#fff;border-radius:10px;
+  box-shadow:0 2px 12px rgba(0,0,0,.1);padding:26px 28px;margin-top:18px;text-align:center;}
+#score-section h2{font-size:21px;color:#1a3c6e;margin-bottom:16px;}
+.score-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:14px 0 20px;}
+.score-card{background:#eaf1fb;border-radius:8px;padding:13px 8px;}
+.score-card .num{font-size:30px;font-weight:bold;color:#1a3c6e;}
+.score-card .lbl{font-size:13px;color:#666;margin-top:4px;}
+.band-box{background:#1a3c6e;color:#fff;border-radius:10px;padding:14px 28px;
+  display:inline-block;font-size:19px;font-weight:bold;letter-spacing:1px;margin-bottom:14px;}
+#violation-report{background:#fff8e1;border:1px solid #e0a800;border-radius:8px;
+  padding:12px 16px;margin-top:14px;text-align:left;font-size:14px;}
+#violation-report h4{color:#c0392b;margin-bottom:6px;}
+
+.qnum{color:#1a3c6e;font-weight:bold;font-size:13px;}
+</style>
+</head>
+<body>
+
+<!-- ===== POPUP NHẬP TÊN ===== -->
+<div id="name-overlay">
+  <div id="name-box">
+    <h2>🎧 IELTS Listening Test 3</h2>
+    <p>Vui lòng điền đầy đủ thông tin trước khi bắt đầu làm bài.</p>
+    <div class="name-field">
+      <label for="inp-name">Họ và tên *</label>
+      <input type="text" id="inp-name" placeholder="Nguyễn Văn A"/>
+    </div>
+    <div class="name-field">
+      <label for="inp-class">Lớp *</label>
+      <input type="text" id="inp-class" placeholder="VD: B2-2501"/>
+    </div>
+    <div id="name-error"></div>
+    <button id="start-btn" onclick="startExam()">▶ Bắt đầu làm bài</button>
+  </div>
+</div>
+
+<!-- ===== FULLSCREEN OVERLAY ===== -->
+<div id="fs-overlay">
+  <h2>⚠️ Bạn đã thoát toàn màn hình!</h2>
+  <p>Bài thi yêu cầu chế độ toàn màn hình.<br/>Vui lòng nhấn nút bên dưới để tiếp tục.</p>
+  <button id="fs-enter-btn" onclick="window.enterFullscreen()">🖥️ Vào toàn màn hình</button>
+</div>
+
+<!-- ===== DEVTOOLS OVERLAY ===== -->
+<div id="devtools-overlay">
+  <h2>🚫 Không được mở DevTools!</h2>
+  <p>Trang thi đã bị khoá. Vui lòng đóng DevTools và tải lại trang.</p>
+</div>
+
+<!-- ===== VIOLATION BANNER ===== -->
+<div id="viol-banner"></div>
+
+<!-- ===== TIMER ===== -->
+<div id="timer-box">⏱ 40:00</div>
+
+<!-- ===== TIMEOUT POPUP ===== -->
+<div id="timeout-overlay">
+  <div id="timeout-box">
+    <h3>⏰ Hết thời gian!</h3>
+    <p>Bài sẽ tự nộp sau <span id="extra-countdown">5:00</span>.</p>
+    <button id="timeout-submit-btn" onclick="submitTest()">Nộp bài ngay</button>
+  </div>
+</div>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <h1>🎧 IELTS Listening — Test 3</h1>
+  <span class="badge">40 Questions</span>
+</header>
+
+<!-- ===== AUDIO ===== -->
+<div id="audio-section">
+  <label>▶ Audio:</label>
+  <audio id="main-audio" controls>
+    <source src="Audio test 3.mp3" type="audio/mpeg"/>
+    Trình duyệt không hỗ trợ audio.
+  </audio>
+</div>
+
+<div class="main-content">
+
+<!-- ==================== PART 1 ==================== -->
+<div class="part-card">
+  <div class="part-header">PART 1 — Questions 1–10</div>
+  <div class="part-body">
+    <div class="instruction">Complete the notes below. Write NO MORE THAN TWO WORDS for each answer.</div>
+    <div class="section-title">Job Inquiry</div>
+    <table class="note-table">
+      <tr class="tbl-header"><td colspan="2">Position Available</td><td>Details</td></tr>
+      <tr>
+        <td style="width:30px;text-align:center;background:#f0f4fb;"><span class="qnum">Q.01</span></td>
+        <td style="background:#f0f4fb;min-width:120px;">
+          <input type="text" class="fill-input" id="q1" placeholder="Answer 1"/>
+        </td>
+        <td>
+          <strong>Duty:</strong> to provide
+          <span class="qnum"> Q.02</span> <input type="text" class="fill-input" id="q2" placeholder="Answer 2"/> service<br/>
+          <strong>Working hours:</strong>
+          <span class="qnum"> Q.03</span> <input type="text" class="fill-input" id="q3" placeholder="Answer 3"/><br/>
+          <strong>Requirement:</strong> receive
+          <span class="qnum"> Q.04</span> <input type="text" class="fill-input" id="q4" placeholder="Answer 4"/> without pay<br/>
+          <strong>Day off:</strong> one day a week (request in advance)
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:center;background:#f0f4fb;"><span class="qnum">Q.05</span></td>
+        <td style="background:#f0f4fb;">
+          <input type="text" class="fill-input" id="q5" placeholder="Answer 5"/>
+        </td>
+        <td>
+          <strong>Requirements:</strong> clean and valid license, 6 year experience<br/>
+          <strong>Working hours:</strong>
+          <span class="qnum"> Q.06</span> <input type="text" class="fill-input" id="q6" placeholder="Answer 6"/><br/>
+          <strong>Duty:</strong> to take employees to and from work<br/>
+          &emsp;to collect the <span class="qnum">Q.07</span> <input type="text" class="fill-input" id="q7" placeholder="Answer 7"/><br/>
+          &emsp;to pick up the children<br/>
+          <strong>Day off:</strong>
+          <span class="qnum"> Q.08</span> <input type="text" class="fill-input" id="q8" placeholder="Answer 8"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align:center;background:#f0f4fb;"><span class="qnum">Q.09</span></td>
+        <td style="background:#f0f4fb;">
+          Cashier in a<br/><input type="text" class="fill-input" id="q9" placeholder="Answer 9"/>
+        </td>
+        <td>
+          <strong>Working hours:</strong> 11.30 – 22.30<br/>
+          <strong>Duty:</strong> to sell and dispense tickets<br/>
+          &emsp;to provide refreshments<br/>
+          &emsp;to make <span class="qnum">Q.10</span> <input type="text" class="fill-input" id="q10" placeholder="Answer 10"/><br/>
+          <strong>Day off:</strong> Mondays
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- ==================== PART 2 ==================== -->
+<div class="part-card">
+  <div class="part-header">PART 2 — Questions 11–20</div>
+  <div class="part-body">
+
+    <div class="section-title">Questions 11–13</div>
+    <div class="instruction">Choose THREE letters, A–F.<br/>Which THREE things about the cell phone launch are mentioned by the speaker?</div>
+    <div class="choose-block" id="grp-1113">
+      <label class="check-label"><input type="checkbox" name="q11_13" value="A"/> <strong>A</strong>&nbsp; very promising in the research markets</label>
+      <label class="check-label"><input type="checkbox" name="q11_13" value="B"/> <strong>B</strong>&nbsp; illustrated at the fair one week after promotion campaign</label>
+      <label class="check-label"><input type="checkbox" name="q11_13" value="C"/> <strong>C</strong>&nbsp; unexpected sales in Chinese market</label>
+      <label class="check-label"><input type="checkbox" name="q11_13" value="D"/> <strong>D</strong>&nbsp; sales process was not as good as expected in Europe and North America</label>
+      <label class="check-label"><input type="checkbox" name="q11_13" value="E"/> <strong>E</strong>&nbsp; very attractive to customers after launching</label>
+      <label class="check-label"><input type="checkbox" name="q11_13" value="F"/> <strong>F</strong>&nbsp; not plan for sale in Asian market</label>
+    </div>
+
+    <div class="section-title">Questions 14–16</div>
+    <div class="instruction">Choose THREE letters, A–F.<br/>Which THREE things about new marketing campaign are mentioned by the speaker?</div>
+    <div class="choose-block" id="grp-1416">
+      <label class="check-label"><input type="checkbox" name="q14_16" value="A"/> <strong>A</strong>&nbsp; focusing on the mobile phone's battery</label>
+      <label class="check-label"><input type="checkbox" name="q14_16" value="B"/> <strong>B</strong>&nbsp; using complicated models</label>
+      <label class="check-label"><input type="checkbox" name="q14_16" value="C"/> <strong>C</strong>&nbsp; focusing on the company's reliability</label>
+      <label class="check-label"><input type="checkbox" name="q14_16" value="D"/> <strong>D</strong>&nbsp; attracting traditional customers</label>
+      <label class="check-label"><input type="checkbox" name="q14_16" value="E"/> <strong>E</strong>&nbsp; focusing on the mobile phone's latest functions</label>
+      <label class="check-label"><input type="checkbox" name="q14_16" value="F"/> <strong>F</strong>&nbsp; building a strong position in the target market</label>
+    </div>
+
+    <div class="section-title">Questions 17–20</div>
+    <div class="instruction">Choose the correct letter, A, B or C.</div>
+
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.17.TEST003</span>&nbsp; The total income increased from</div>
+      <label class="option-label"><input type="radio" name="q17" value="A"/> <strong>A</strong>&nbsp; sales and share dividends.</label>
+      <label class="option-label"><input type="radio" name="q17" value="B"/> <strong>B</strong>&nbsp; net profit and sales.</label>
+      <label class="option-label"><input type="radio" name="q17" value="C"/> <strong>C</strong>&nbsp; stock holdings and dividends.</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.18.TEST003</span>&nbsp; The first reason for better profit last year came from</div>
+      <label class="option-label"><input type="radio" name="q18" value="A"/> <strong>A</strong>&nbsp; high-end digital camera market.</label>
+      <label class="option-label"><input type="radio" name="q18" value="B"/> <strong>B</strong>&nbsp; mobile phone market.</label>
+      <label class="option-label"><input type="radio" name="q18" value="C"/> <strong>C</strong>&nbsp; medical device market.</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.19.TEST003</span>&nbsp; What made the software cost reduced significantly in the company?</div>
+      <label class="option-label"><input type="radio" name="q19" value="A"/> <strong>A</strong>&nbsp; replacing domestic staff with Chinese and Indian employees.</label>
+      <label class="option-label"><input type="radio" name="q19" value="B"/> <strong>B</strong>&nbsp; increasing the rate of outsourcing programmers.</label>
+      <label class="option-label"><input type="radio" name="q19" value="C"/> <strong>C</strong>&nbsp; increasing energy efficiency.</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.20.TEST003</span>&nbsp; What was the last year decisions on the company's core business?</div>
+      <label class="option-label"><input type="radio" name="q20" value="A"/> <strong>A</strong>&nbsp; digital devices</label>
+      <label class="option-label"><input type="radio" name="q20" value="B"/> <strong>B</strong>&nbsp; games and music</label>
+      <label class="option-label"><input type="radio" name="q20" value="C"/> <strong>C</strong>&nbsp; playstations and mobile phones</label>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PART 3 ==================== -->
+<div class="part-card">
+  <div class="part-header">PART 3 — Questions 21–30</div>
+  <div class="part-body">
+
+    <div class="section-title">Questions 21–26</div>
+    <div class="instruction">Write the correct letter, A, B or C next to questions 21–26.<br/>At which college are the following features recommended?</div>
+    <div style="margin-bottom:12px;padding:8px 12px;background:#eaf1fb;border-radius:6px;font-size:14px;">
+      <strong>A</strong> at Forth College &nbsp;&nbsp;&nbsp; <strong>B</strong> at Haines College &nbsp;&nbsp;&nbsp; <strong>C</strong> at both Forth and Haines Colleges
+    </div>
+
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.21.TEST003</span>&nbsp; student support services</div>
+      <select class="match-select" id="q21"><option value="">–</option><option>A</option><option>B</option><option>C</option></select>
+      <span class="correct-ans" id="ans21"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.22.TEST003</span>&nbsp; residential accommodation</div>
+      <select class="match-select" id="q22"><option value="">–</option><option>A</option><option>B</option><option>C</option></select>
+      <span class="correct-ans" id="ans22"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.23.TEST003</span>&nbsp; online resources</div>
+      <select class="match-select" id="q23"><option value="">–</option><option>A</option><option>B</option><option>C</option></select>
+      <span class="correct-ans" id="ans23"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.24.TEST003</span>&nbsp; libraries</div>
+      <select class="match-select" id="q24"><option value="">–</option><option>A</option><option>B</option><option>C</option></select>
+      <span class="correct-ans" id="ans24"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.25.TEST003</span>&nbsp; teaching staff</div>
+      <select class="match-select" id="q25"><option value="">–</option><option>A</option><option>B</option><option>C</option></select>
+      <span class="correct-ans" id="ans25"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.26.TEST003</span>&nbsp; research record</div>
+      <select class="match-select" id="q26"><option value="">–</option><option>A</option><option>B</option><option>C</option></select>
+      <span class="correct-ans" id="ans26"></span></div>
+
+    <div class="section-title" style="margin-top:20px;">Questions 27–30</div>
+    <div class="instruction">Choose the correct letter, A, B or C.</div>
+
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.27.TEST003</span>&nbsp; David is concerned that he may feel</div>
+      <label class="option-label"><input type="radio" name="q27" value="A"/> <strong>A</strong>&nbsp; unmotivated</label>
+      <label class="option-label"><input type="radio" name="q27" value="B"/> <strong>B</strong>&nbsp; isolated</label>
+      <label class="option-label"><input type="radio" name="q27" value="C"/> <strong>C</strong>&nbsp; competitive</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.28.TEST003</span>&nbsp; In the future, Dr Smith thinks David should aim to</div>
+      <label class="option-label"><input type="radio" name="q28" value="A"/> <strong>A</strong>&nbsp; do further research</label>
+      <label class="option-label"><input type="radio" name="q28" value="B"/> <strong>B</strong>&nbsp; publish articles</label>
+      <label class="option-label"><input type="radio" name="q28" value="C"/> <strong>C</strong>&nbsp; get teaching work</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.29.TEST003</span>&nbsp; What does Dr Smith think has improved masters' study in recent years?</div>
+      <label class="option-label"><input type="radio" name="q29" value="A"/> <strong>A</strong>&nbsp; the development of the internet</label>
+      <label class="option-label"><input type="radio" name="q29" value="B"/> <strong>B</strong>&nbsp; the growth of flexible courses</label>
+      <label class="option-label"><input type="radio" name="q29" value="C"/> <strong>C</strong>&nbsp; the introduction of changes in assessment</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.30.TEST003</span>&nbsp; David would like to improve the way he</div>
+      <label class="option-label"><input type="radio" name="q30" value="A"/> <strong>A</strong>&nbsp; takes notes in lectures</label>
+      <label class="option-label"><input type="radio" name="q30" value="B"/> <strong>B</strong>&nbsp; writes up assignments</label>
+      <label class="option-label"><input type="radio" name="q30" value="C"/> <strong>C</strong>&nbsp; manages his time</label>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== PART 4 ==================== -->
+<div class="part-card">
+  <div class="part-header">PART 4 — Questions 31–40</div>
+  <div class="part-body">
+    <div class="instruction">Complete the notes below. Write NO MORE THAN ONE WORD for each answer.</div>
+    <table class="note-table">
+      <tr class="tbl-header"><td colspan="2">Balloons and Airships</td></tr>
+      <tr>
+        <td style="background:#dce8f7;color:#1a3c6e;width:150px;"><strong>Gas Balloons</strong></td>
+        <td>
+          <strong>Use:</strong><br/>
+          • instead of <span class="qnum">Q.31.TEST003</span> <input type="text" class="fill-input" id="q31" placeholder="Answer 31"/> in the US civil war<br/>
+          • to make <span class="qnum">Q.32.TEST003</span> <input type="text" class="fill-input" id="q32" placeholder="Answer 32"/><br/>
+          • to <span class="qnum">Q.33.TEST003</span> <input type="text" class="fill-input" id="q33" placeholder="Answer 33"/> data for research<br/>
+          • as part of studies of <span class="qnum">Q.34.TEST003</span> <input type="text" class="fill-input" id="q34" placeholder="Answer 34"/>
+        </td>
+      </tr>
+      <tr>
+        <td style="background:#dce8f7;color:#1a3c6e;"><strong>Hot Air Balloons</strong></td>
+        <td>Create less <span class="qnum">Q.35.TEST003</span> <input type="text" class="fill-input" id="q35" placeholder="Answer 35"/> than gas balloons.</td>
+      </tr>
+      <tr>
+        <td style="background:#dce8f7;color:#1a3c6e;"><strong>Airships</strong></td>
+        <td>
+          Early examples had no <span class="qnum">Q.36.TEST003</span> <input type="text" class="fill-input" id="q36" placeholder="Answer 36"/> protection for crew.<br/>
+          To be efficient, needed a <span class="qnum">Q.37.TEST003</span> <input type="text" class="fill-input" id="q37" placeholder="Answer 37"/>.<br/><br/>
+          <strong>Development of large airships stopped because of:</strong><br/>
+          • success of <span class="qnum">Q.38.TEST003</span> <input type="text" class="fill-input" id="q38" placeholder="Answer 38"/><br/>
+          • series of <span class="qnum">Q.39.TEST003</span> <input type="text" class="fill-input" id="q39" placeholder="Answer 39"/><br/><br/>
+          Recent interest in use for carrying <span class="qnum">Q.40.TEST003</span> <input type="text" class="fill-input" id="q40" placeholder="Answer 40"/>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<!-- SUBMIT -->
+<button id="submit-btn" onclick="submitTest()">📤 Nộp bài</button>
+
+<!-- SCORE -->
+<div id="score-section">
+  <h2>📊 Kết quả — Test 3</h2>
+  <div id="student-info" style="margin-bottom:12px;font-size:15px;color:#444;"></div>
+  <div class="score-grid">
+    <div class="score-card"><div class="num" id="sc-correct">0</div><div class="lbl">Câu đúng</div></div>
+    <div class="score-card"><div class="num" id="sc-wrong">0</div><div class="lbl">Câu sai</div></div>
+    <div class="score-card"><div class="num" id="sc-time">–</div><div class="lbl">Thời gian</div></div>
+  </div>
+  <div class="band-box">Band IELTS: <span id="sc-band">–</span></div>
+  <div id="violation-report"></div>
+  <div id="gs-status" style="margin-top:12px;font-size:13px;color:#888;"></div>
+</div>
+
+</div><!-- /main-content -->
+
+<script>
+(function(){
+'use strict';
+
+/* ============================================================
+   ANSWERS
+   ============================================================ */
+var ANS = {
+  q1:  {type:'fill', correct:['receptionist']},
+  q2:  {type:'fill', correct:['quality customer','customer']},
+  q3:  {type:'fill', correct:['early mornings']},
+  q4:  {type:'fill', correct:['training']},
+  q5:  {type:'fill', correct:['driver']},
+  q6:  {type:'fill', correct:['flexible']},
+  q7:  {type:'fill', correct:['grocery shopping']},
+  q8:  {type:'fill', correct:['weekends']},
+  q9:  {type:'fill', correct:['cinema']},
+  q10: {type:'fill', correct:['bookings']},
+  q11_13: {type:'choose3', correct:['B','D','F']},
+  q14_16: {type:'choose3', correct:['A','C','D']},
+  q17: {type:'radio', correct:'B'},
+  q18: {type:'radio', correct:'C'},
+  q19: {type:'radio', correct:'B'},
+  q20: {type:'radio', correct:'A'},
+  q21: {type:'select', correct:'A'},
+  q22: {type:'select', correct:'C'},
+  q23: {type:'select', correct:'A'},
+  q24: {type:'select', correct:'B'},
+  q25: {type:'select', correct:'B'},
+  q26: {type:'select', correct:'B'},
+  q27: {type:'radio', correct:'B'},
+  q28: {type:'radio', correct:'B'},
+  q29: {type:'radio', correct:'B'},
+  q30: {type:'radio', correct:'C'},
+  q31: {type:'fill', correct:['spies']},
+  q32: {type:'fill', correct:['maps']},
+  q33: {type:'fill', correct:['collect']},
+  q34: {type:'fill', correct:['climate']},
+  q35: {type:'fill', correct:['lift']},
+  q36: {type:'fill', correct:['weather']},
+  q37: {type:'fill', correct:['framework']},
+  q38: {type:'fill', correct:['airliners']},
+  q39: {type:'fill', correct:['crashes']},
+  q40: {type:'fill', correct:['cargo']}
+};
+
+/* ============================================================
+   VIOLATION COUNTERS & LOG
+   ============================================================ */
+var tabViol=0, focusViol=0, fsViol=0;
+var violLog=[];
+var submitted=false;
+
+function logViol(msg){
+  violLog.push('['+new Date().toLocaleTimeString()+'] '+msg);
+}
+
+/* ============================================================
+   FULLSCREEN
+   ============================================================ */
+var fsOverlay = document.getElementById('fs-overlay');
+
+window.enterFullscreen = function(){
+  var el = document.documentElement;
+  if(el.requestFullscreen) el.requestFullscreen();
+  else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  else if(el.mozRequestFullElement) el.mozRequestFullElement();
+  fsOverlay.style.display='none';
+};
+
+function isFullscreen(){
+  return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement);
+}
+
+function onFsChange(){
+  if(submitted) return;
+  if(!window._testStartTime) return; // exam not started yet
+  if(!isFullscreen()){
+    fsViol++;
+    logViol('Thoát toàn màn hình');
+    fsOverlay.style.display='flex';
+  } else {
+    fsOverlay.style.display='none';
+  }
+}
+document.addEventListener('fullscreenchange', onFsChange);
+document.addEventListener('webkitfullscreenchange', onFsChange);
+
+/* ============================================================
+   TIMER — dùng Date.now(), cập nhật 500ms
+   ============================================================ */
+var EXAM_DURATION = 40*60*1000; // 40 phút
+var GRACE_DURATION = 5*60*1000; // 5 phút thêm
+var timerBox = document.getElementById('timer-box');
+var timeoutOverlay = document.getElementById('timeout-overlay');
+var extraCountdownEl = document.getElementById('extra-countdown');
+var timerStopped = false;
+var timeoutShown = false;
+var graceStart = null;
+
+function formatTime(ms){
+  if(ms<0) ms=0;
+  var s=Math.ceil(ms/1000), m=Math.floor(s/60); s=s%60;
+  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+
+function tick(){
+  if(timerStopped) return;
+  if(!window._testStartTime) return; // wait for exam start
+
+  var elapsed = Date.now() - window._testStartTime;
+  var remaining = EXAM_DURATION - elapsed;
+
+  if(remaining > 0){
+    timerBox.textContent = '⏱ '+formatTime(remaining);
+    if(remaining <= 60000)     { timerBox.className='danger blink-fast'; }
+    else if(remaining <= 300000){ timerBox.className='warn blink'; }
+    else                        { timerBox.className=''; }
+  } else {
+    timerBox.textContent='⏱ 00:00';
+    if(!timeoutShown){
+      timeoutShown=true;
+      timeoutOverlay.classList.add('show');
+      graceStart=Date.now();
+    }
+    var graceLeft = GRACE_DURATION - (Date.now()-graceStart);
+    if(graceLeft > 0){
+      extraCountdownEl.textContent = formatTime(graceLeft);
+    } else {
+      submitTest();
+    }
+  }
+}
+
+setInterval(tick, 500);
+
+window.stopTimer = function(){
+  timerStopped=true;
+  timerBox.style.display='none';
+};
+
+/* ============================================================
+   TAB / FOCUS VIOLATION
+   ============================================================ */
+function showBanner(msg){
+  var b=document.getElementById('viol-banner');
+  b.textContent=msg; b.style.display='block';
+  setTimeout(function(){ b.style.display='none'; },4000);
+}
+
+document.addEventListener('visibilitychange',function(){
+  if(submitted||!window._testStartTime) return;
+  if(document.hidden){
+    tabViol++;
+    logViol('Chuyển tab (lần '+tabViol+')');
+    showBanner('⚠️ Vi phạm: Bạn đã chuyển tab! Lần '+tabViol);
+  }
+});
+
+window.addEventListener('blur',function(){
+  if(submitted||!window._testStartTime) return;
+  focusViol++;
+  logViol('Mất focus cửa sổ (lần '+focusViol+')');
+  showBanner('⚠️ Vi phạm: Cửa sổ mất focus! Lần '+focusViol);
+});
+
+/* ============================================================
+   CHẶN PHÍM & CHUỘT PHẢI
+   ============================================================ */
+document.addEventListener('contextmenu',function(e){ e.preventDefault(); });
+
+document.addEventListener('keydown',function(e){
+  var ctrl=e.ctrlKey||e.metaKey;
+  // F12
+  if(e.keyCode===123){ e.preventDefault(); return false; }
+  // Escape
+  if(e.key==='Escape'){ e.preventDefault(); return false; }
+  // Ctrl combos
+  if(ctrl){
+    var k=(e.key||'').toLowerCase();
+    if(['c','a','s','u','p','v'].indexOf(k)!==-1){
+      var tag=(document.activeElement||{}).tagName||'';
+      if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT') return;
+      e.preventDefault(); return false;
+    }
+    if(e.shiftKey && ['i','j','c','k'].indexOf(k)!==-1){
+      e.preventDefault(); return false;
+    }
+  }
+});
+
+document.addEventListener('copy', function(e){
+  var tag=(document.activeElement||{}).tagName||'';
+  if(tag==='INPUT'||tag==='TEXTAREA') return;
+  e.preventDefault();
+});
+document.addEventListener('paste',  function(e){ e.preventDefault(); });
+document.addEventListener('cut',    function(e){
+  var tag=(document.activeElement||{}).tagName||'';
+  if(tag==='INPUT'||tag==='TEXTAREA') return;
+  e.preventDefault();
+});
+document.addEventListener('dragstart',function(e){ e.preventDefault(); });
+document.addEventListener('drop',     function(e){ e.preventDefault(); });
+
+/* ============================================================
+   DEVTOOLS DETECTION
+   ============================================================ */
+var devOverlay=document.getElementById('devtools-overlay');
+var devDetected=false;
+setInterval(function(){
+  if(submitted) return;
+  var w=window.outerWidth-window.innerWidth;
+  var h=window.outerHeight-window.innerHeight;
+  if(w>160||h>160){
+    if(!devDetected){
+      devDetected=true;
+      logViol('DevTools phát hiện');
+      devOverlay.style.display='flex';
+      document.querySelectorAll('header,#audio-section,.main-content,#submit-btn,#score-section,#timer-box')
+        .forEach(function(el){ el.style.visibility='hidden'; });
+    }
+  } else {
+    if(devDetected){
+      devDetected=false;
+      devOverlay.style.display='none';
+      document.querySelectorAll('header,#audio-section,.main-content,#submit-btn,#score-section,#timer-box')
+        .forEach(function(el){ el.style.visibility=''; });
+    }
+  }
+},1000);
+
+/* ============================================================
+   START EXAM (gọi từ popup)
+   ============================================================ */
+window.startExam = function(){
+  var name  = document.getElementById('inp-name').value.trim();
+  var cls   = document.getElementById('inp-class').value.trim();
+  var errEl = document.getElementById('name-error');
+  if(!name||!cls){
+    errEl.textContent = '⚠️ Vui lòng điền đầy đủ Họ tên và Lớp!';
+    return;
+  }
+  errEl.textContent='';
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('name-overlay').style.display='none';
+  window.enterFullscreen();
+};
+
+/* ============================================================
+   HELPER — normalize
+   ============================================================ */
+function norm(s){
+  return (s||'').trim().toLowerCase().replace(/[^a-z0-9\s]/g,'').replace(/\s+/g,' ');
+}
+function checkFill(id, list){
+  var v=norm(document.getElementById(id).value);
+  for(var i=0;i<list.length;i++){
+    var t=norm(list[i]);
+    if(v===t||v.indexOf(t)!==-1) return true;
+  }
+  return false;
+}
+
+/* ============================================================
+   SUBMIT
+   ============================================================ */
+window.submitTest = function(){
+  if(submitted) return;
+  submitted=true;
+  timeoutOverlay.classList.remove('show');
+  window.stopTimer();
+
+  // Pause audio
+  var audio=document.getElementById('main-audio');
+  if(audio) audio.pause();
+
+  var score=0;
+
+  /* ---------- Collect details BEFORE locking ---------- */
+  var details={};
+
+  // Fill (Q1-10, Q31-40)
+  var fillIds=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
+               'q31','q32','q33','q34','q35','q36','q37','q38','q39','q40'];
+  fillIds.forEach(function(id){
+    var el=document.getElementById(id);
+    var ok=checkFill(id, ANS[id].correct);
+    details[id]={val:el.value, ok:ok};
+    el.disabled=true;
+    if(ok){ el.classList.add('correct'); score++; }
+    else  {
+      el.classList.add('wrong');
+      var sp=document.createElement('span');
+      sp.className='correct-ans';
+      sp.textContent='✓ '+ANS[id].correct[0];
+      el.insertAdjacentElement('afterend',sp);
+    }
+  });
+
+  // Choose 3 — Q11-13
+  var sel1113=Array.from(document.querySelectorAll('input[name="q11_13"]:checked')).map(function(x){return x.value;});
+  details['q11_13']={val:sel1113.join(','), ok:null};
+  var cp1=0;
+  document.querySelectorAll('input[name="q11_13"]').forEach(function(inp){
+    inp.disabled=true;
+    var lbl=inp.closest('.check-label');
+    var isC=ANS.q11_13.correct.indexOf(inp.value)!==-1;
+    if(isC&&inp.checked)  { lbl.classList.add('correct-opt'); cp1++; }
+    else if(!isC&&inp.checked) lbl.classList.add('wrong-opt');
+    else if(isC&&!inp.checked) lbl.classList.add('missed-opt');
+  });
+  score+=cp1;
+  details['q11_13'].ok=(cp1===3);
+
+  // Choose 3 — Q14-16
+  var sel1416=Array.from(document.querySelectorAll('input[name="q14_16"]:checked')).map(function(x){return x.value;});
+  details['q14_16']={val:sel1416.join(','), ok:null};
+  var cp2=0;
+  document.querySelectorAll('input[name="q14_16"]').forEach(function(inp){
+    inp.disabled=true;
+    var lbl=inp.closest('.check-label');
+    var isC=ANS.q14_16.correct.indexOf(inp.value)!==-1;
+    if(isC&&inp.checked)  { lbl.classList.add('correct-opt'); cp2++; }
+    else if(!isC&&inp.checked) lbl.classList.add('wrong-opt');
+    else if(isC&&!inp.checked) lbl.classList.add('missed-opt');
+  });
+  score+=cp2;
+  details['q14_16'].ok=(cp2===3);
+
+  // Radio MCQ
+  ['q17','q18','q19','q20','q27','q28','q29','q30'].forEach(function(qid){
+    var all=document.querySelectorAll('input[name="'+qid+'"]');
+    var sel=document.querySelector('input[name="'+qid+'"]:checked');
+    var chosen=sel?sel.value:'';
+    var ok=(chosen===ANS[qid].correct);
+    details[qid]={val:chosen, ok:ok};
+    all.forEach(function(r){
+      r.disabled=true;
+      var lbl=r.closest('.option-label');
+      if(r.value===ANS[qid].correct) lbl.classList.add('correct-opt');
+      else if(r.checked) lbl.classList.add('wrong-opt');
+    });
+    if(ok) score++;
+  });
+
+  // Select matching Q21-26
+  ['q21','q22','q23','q24','q25','q26'].forEach(function(qid){
+    var el=document.getElementById(qid);
+    var ok=(el.value===ANS[qid].correct);
+    details[qid]={val:el.value, ok:ok};
+    el.disabled=true;
+    if(ok){ el.classList.add('correct'); score++; }
+    else  {
+      el.classList.add('wrong');
+      document.getElementById('ans'+qid.substring(1)).textContent='✓ '+ANS[qid].correct;
+    }
+  });
+
+  window._submittedDetails=details;
+
+  /* ---------- Build details string for Google Sheets ---------- */
+  var qOrder=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
+              'q11_13','q14_16',
+              'q17','q18','q19','q20',
+              'q21','q22','q23','q24','q25','q26',
+              'q27','q28','q29','q30',
+              'q31','q32','q33','q34','q35','q36','q37','q38','q39','q40'];
+  var detailsArr=[];
+  var qNum=1;
+  qOrder.forEach(function(k){
+    var d=details[k];
+    if(k==='q11_13'||k==='q14_16'){
+      for(var i=0;i<3;i++){
+        detailsArr.push('Q'+(qNum<10?'0':'')+qNum+':'+(d.ok?'✔':'✘')+'('+d.val+')');
+        qNum++;
+      }
+    } else {
+      detailsArr.push('Q'+(qNum<10?'0':'')+qNum+':'+(d.ok?'✔':'✘')+'('+d.val+')');
+      qNum++;
+    }
+  });
+  var detailsStr=detailsArr.join(' | ');
+
+  /* ---------- Time taken ---------- */
+  var elapsed=window._testStartTime ? Math.floor((Date.now()-window._testStartTime)/1000) : 0;
+  var tm=Math.floor(elapsed/60), ts=elapsed%60;
+  var timeTaken=tm+' phút '+(ts<10?'0':'')+ts+' giây';
+
+  /* ---------- Score display ---------- */
+  var band=getBand(score);
+  document.getElementById('sc-correct').textContent=score;
+  document.getElementById('sc-wrong').textContent=40-score;
+  document.getElementById('sc-time').textContent=timeTaken;
+  document.getElementById('sc-band').textContent=band;
+  document.getElementById('student-info').textContent=
+    '👤 '+(window._studentName||'')+'  |  🏫 '+(window._studentClass||'');
+
+  /* ---------- Violation report ---------- */
+  var vr=document.getElementById('violation-report');
+  if(tabViol||focusViol||fsViol){
+    var html='<h4>⚠️ Báo cáo vi phạm</h4>';
+    html+='<div>Chuyển tab: <strong>'+tabViol+' lần</strong></div>';
+    html+='<div>Mất focus cửa sổ: <strong>'+focusViol+' lần</strong></div>';
+    html+='<div>Thoát toàn màn hình: <strong>'+fsViol+' lần</strong></div>';
+    if(violLog.length){
+      html+='<div style="margin-top:8px;font-size:12px;color:#888;">'+violLog.join('<br/>')+'</div>';
+    }
+    vr.innerHTML=html;
+  }
+
+  document.getElementById('score-section').style.display='block';
+  document.getElementById('score-section').scrollIntoView({behavior:'smooth'});
+
+  /* ---------- Send to Google Sheets ---------- */
+  var payload={
+    student:(window._studentName||'?')+' — '+(window._studentClass||'?'),
+    test:'Listening Test 3',
+    score:score,
+    total:40,
+    band:band,
+    timeTaken:timeTaken,
+    tabViol:tabViol,
+    focusViol:focusViol,
+    fsViol:fsViol,
+    details:detailsStr
+  };
+  var gsUrl='https://script.google.com/macros/s/AKfycbwHyMXo7QVkk7K7K-0yNGer6HL35hEyoC4-MKWfQxsh2BdHHuRgW-KRpLcr9bZeU3_7/exec';
+  document.getElementById('gs-status').textContent='📡 Đang gửi kết quả...';
+  fetch(gsUrl,{
+    method:'POST',
+    mode:'no-cors',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(payload)
+  }).then(function(){
+    document.getElementById('gs-status').textContent='✅ Đã gửi kết quả thành công!';
+  }).catch(function(){
+    document.getElementById('gs-status').textContent='⚠️ Không gửi được — kiểm tra kết nối mạng.';
+  });
+};
+
+/* ============================================================
+   BAND IELTS
+   ============================================================ */
+function getBand(s){
+  if(s>=39) return '9.0'; if(s>=37) return '8.5'; if(s>=35) return '8.0';
+  if(s>=33) return '7.5'; if(s>=30) return '7.0'; if(s>=27) return '6.5';
+  if(s>=23) return '6.0'; if(s>=20) return '5.5'; if(s>=16) return '5.0';
+  if(s>=13) return '4.5'; if(s>=10) return '4.0'; return 'Below 4.0';
+}
+
+/* ============================================================
+   EXPORT getViolationLog
+   ============================================================ */
+window.getViolationLog=function(){
+  return {tabViol:tabViol,focusViol:focusViol,fsViol:fsViol,log:violLog};
+};
+
+})();
+</script>
+</body>
+</html>
