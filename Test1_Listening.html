@@ -966,12 +966,38 @@ function submitTest() {
     // Chi tiết từng câu (Q.01→Q.40: đúng/sai + đáp án học viên)
     var details = [];
     for (var i = 1; i <= 40; i++) {
-      var qId = 'q' + i;
-      var el  = document.getElementById(qId);
-      if (!el) continue;
-      var userVal = el.value || '';
-      var correct = el.classList.contains('correct') ? '✔' : '✘';
-      details.push('Q' + String(i).padStart(2,'0') + ':' + correct + '(' + userVal + ')');
+      var qId  = 'q' + i;
+      var qNum = 'Q' + String(i).padStart(2,'0');
+      var userVal = '';
+      var correct = '✘';
+
+      // Text input (Q1-20, Q31-40)
+      var inputEl = document.getElementById(qId);
+      if (inputEl && inputEl.tagName === 'INPUT' && inputEl.type === 'text') {
+        userVal = inputEl.value || '';
+        correct = inputEl.classList.contains('correct') ? '✔' : '✘';
+
+      // Select/dropdown (Q27-30)
+      } else if (inputEl && inputEl.tagName === 'SELECT') {
+        userVal = inputEl.value || '';
+        correct = inputEl.classList.contains('correct') ? '✔' : '✘';
+
+      // Radio button (Q21-26)
+      } else {
+        var radios = document.querySelectorAll('input[name="' + qId + '"]');
+        if (radios.length > 0) {
+          radios.forEach(function(r) { if (r.checked) userVal = r.value; });
+          // Xác định đúng/sai dựa vào label
+          var checkedLabel = document.querySelector('input[name="' + qId + '"]:checked');
+          if (checkedLabel) {
+            correct = checkedLabel.parentElement.classList.contains('correct-label') ? '✔' : '✘';
+          } else {
+            correct = '✘';
+          }
+        }
+      }
+
+      details.push(qNum + ':' + correct + '(' + userVal + ')');
     }
 
     // Band
