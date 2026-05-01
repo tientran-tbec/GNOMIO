@@ -771,6 +771,10 @@
     overlay.classList.remove('show');
     submitTest();
   };
+
+  window.stopTimer = function() {
+    timerStopped = true;
+  };
 })();
 
 // Answer keys (lowercase, trimmed for comparison)
@@ -912,6 +916,15 @@ function submitTest() {
   });
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('submitBtn').textContent = '✅ Đã nộp bài';
+
+  // Dừng timer
+  if (window.stopTimer) window.stopTimer();
+  var timerBox = document.getElementById('timerBox');
+  if (timerBox) timerBox.style.display = 'none';
+
+  // Dừng audio
+  var audioEl = document.querySelector('audio');
+  if (audioEl) { audioEl.pause(); }
 
   // Hiện log vi phạm
   var v = window.getViolationLog ? window.getViolationLog() : null;
