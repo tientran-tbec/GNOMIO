@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Reading Test 1</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;line-height:1.7;background:#f5f5f5;user-select:none}
+@media print{body{display:none!important}}
+
+/* POPUP */
+#namePopup{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center}
+#nameBox{background:#fff;border-radius:12px;padding:36px 40px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.25)}
+#nameBox h2{color:#1a56a0;margin-bottom:20px;font-size:1.3em;text-align:center}
+#nameBox label{display:block;margin-bottom:6px;font-weight:600;color:#333}
+#nameBox input{width:100%;padding:10px 12px;border:1.5px solid #ccc;border-radius:7px;font-size:15px;margin-bottom:16px;user-select:text}
+#nameBox input:focus{outline:none;border-color:#1a56a0}
+#nameError{color:#c0392b;font-size:13px;margin-bottom:12px;display:none}
+#startBtn{width:100%;padding:12px;background:linear-gradient(135deg,#1a56a0,#2980b9);color:#fff;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer}
+#startBtn:hover{background:linear-gradient(135deg,#154a8a,#2471a3)}
+
+/* HEADER */
+#header{position:fixed;top:0;left:0;right:0;height:50px;background:linear-gradient(135deg,#1a56a0,#2980b9);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,0.2)}
+#tabNav{display:flex;gap:6px}
+.tabBtn{padding:6px 18px;border:2px solid rgba(255,255,255,0.5);border-radius:20px;background:transparent;color:#fff;font-size:14px;font-weight:600;cursor:pointer;transition:all 0.2s}
+.tabBtn.active{background:#fff;color:#1a56a0;border-color:#fff}
+.tabBtn:hover:not(.active){background:rgba(255,255,255,0.15)}
+#timerBox{background:rgba(255,255,255,0.15);border:2px solid rgba(255,255,255,0.4);border-radius:8px;padding:4px 14px;color:#fff;font-size:16px;font-weight:700;min-width:90px;text-align:center}
+#timerBox.warn{background:rgba(255,165,0,0.3);border-color:#ffa500;animation:blink1 1s infinite}
+#timerBox.danger{background:rgba(255,0,0,0.3);border-color:#ff4444;animation:blink2 0.5s infinite}
+@keyframes blink1{0%,100%{opacity:1}50%{opacity:0.5}}
+@keyframes blink2{0%,100%{opacity:1}50%{opacity:0.3}}
+
+/* MAIN LAYOUT */
+#main{margin-top:50px;height:calc(100vh - 50px);display:flex;overflow:hidden}
+#leftPanel{flex:0 0 50%;height:100%;overflow-y:auto;background:#fff;border-right:1px solid #ddd;display:flex;flex-direction:column}
+#hlToolbar{padding:8px 14px;background:#f8f9fa;border-bottom:1px solid #e0e0e0;display:flex;gap:8px;align-items:center;flex-shrink:0}
+#hlToolbar span{font-size:12px;color:#666;font-weight:600}
+.hlBtn{width:28px;height:28px;border:2px solid transparent;border-radius:50%;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:transform 0.1s}
+.hlBtn:hover{transform:scale(1.15)}
+.hlBtn.selected{border-color:#333;transform:scale(1.1)}
+#eraserBtn{width:32px;height:28px;border-radius:6px;background:#f0f0f0;border:1.5px solid #ccc;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center}
+#eraserBtn.selected{background:#ffe0e0;border-color:#e74c3c}
+#passageContent{padding:24px 28px;flex:1;user-select:text}
+.passageSection{display:none}
+.passageSection.active{display:block}
+
+/* Passage typography */
+.passageTitle{font-size:1.2em;font-weight:700;color:#1a56a0;margin-bottom:6px;text-align:center}
+.passageInstr{color:#555;font-size:13.5px;margin-bottom:16px;text-align:center;font-style:italic}
+.passageHeading{font-size:1.1em;font-weight:700;color:#222;text-align:center;margin:18px 0 10px;letter-spacing:1px;text-transform:uppercase}
+.subheading{font-weight:700;color:#333;display:inline-block;margin-right:6px;min-width:20px}
+.passagePara{margin-bottom:14px;text-align:justify}
+
+/* Highlight classes */
+.hl-yellow{background:#FFE066;border-radius:2px}
+.hl-green{background:#90EE90;border-radius:2px}
+.hl-pink{background:#FFB6C1;border-radius:2px}
+
+/* DIVIDER */
+#divider{width:6px;background:#ddd;cursor:col-resize;flex-shrink:0;transition:background 0.2s;position:relative}
+#divider:hover,#divider.dragging{background:#1a56a0}
+#divider::after{content:'⋮';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#999;font-size:20px}
+
+/* RIGHT PANEL */
+#rightPanel{flex:1;height:100%;overflow-y:auto;background:#fafafa;padding:0}
+.questionSection{display:none;padding:20px 24px}
+.questionSection.active{display:block}
+
+.qGroupBox{background:#fff;border:1px solid #e0e0e0;border-radius:10px;padding:18px 20px;margin-bottom:22px;box-shadow:0 1px 4px rgba(0,0,0,0.06)}
+.qGroupTitle{font-weight:700;color:#1a56a0;font-size:15px;margin-bottom:8px}
+.qGroupInstr{color:#555;font-size:13.5px;margin-bottom:14px;font-style:italic;line-height:1.6}
+.qNote{background:#fff8e1;border-left:3px solid #ffc107;padding:6px 12px;margin-bottom:12px;font-size:13px;color:#555}
+
+/* Question items */
+.qItem{margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #f0f0f0}
+.qItem:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.qLabel{font-weight:600;color:#333;margin-bottom:6px;font-size:14px}
+.qLabel .qNum{color:#1a56a0;margin-right:4px}
+
+/* Radio options */
+.radioGroup label{display:flex;align-items:flex-start;gap:10px;padding:7px 10px;border-radius:7px;cursor:pointer;transition:background 0.15s;margin-bottom:4px;font-size:14px;line-height:1.5}
+.radioGroup label:hover{background:#f0f6ff}
+.radioGroup input[type=radio]{margin-top:3px;flex-shrink:0;accent-color:#1a56a0}
+
+/* Dropdown */
+.qSelect{padding:6px 10px;border:1.5px solid #ccc;border-radius:6px;font-size:14px;background:#fff;min-width:200px;max-width:100%;cursor:pointer}
+.qSelect:focus{outline:none;border-color:#1a56a0}
+
+/* Text input */
+.qInput{padding:7px 12px;border:1.5px solid #ccc;border-radius:6px;font-size:14px;min-width:180px;user-select:text}
+.qInput:focus{outline:none;border-color:#1a56a0}
+
+/* Inline blank */
+.inlineBlank{display:inline-block;border-bottom:2px solid #1a56a0;padding:2px 4px;min-width:80px;margin:0 4px;vertical-align:bottom}
+.inlineBlank input{border:none;outline:none;background:transparent;width:100%;min-width:80px;font-size:14px;user-select:text}
+
+/* Table for matching */
+.matchTable{width:100%;border-collapse:collapse;margin-bottom:12px;font-size:13.5px}
+.matchTable td,.matchTable th{padding:7px 10px;border:1px solid #ddd;vertical-align:top}
+.matchTable th{background:#e8f0fb;color:#1a56a0;font-weight:700}
+.matchTable tr:hover td{background:#f9f9f9}
+
+/* Word bank */
+.wordBank{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;padding:12px;background:#f0f6ff;border-radius:8px;border:1px solid #c3d8f7}
+.wordBankItem{background:#fff;border:1px solid #aac4e8;border-radius:5px;padding:4px 10px;font-size:13.5px;color:#1a56a0;font-weight:600}
+
+/* Summary paragraph */
+.summaryText{font-size:14px;line-height:2;background:#f9f9fc;padding:14px;border-radius:8px;border:1px solid #e0e0e0}
+
+/* Diagram */
+.diagramImg{display:block;margin:0 auto 16px;max-width:100%;border:1px solid #ddd;border-radius:8px}
+
+/* After submit */
+.correct-label{background:#d4edda!important;color:#155724!important;border-radius:6px}
+.wrong-label{background:#f8d7da!important;color:#721c24!important;border-radius:6px}
+input.correct,.correct{border-color:#28a745!important;background:#d4edda!important}
+input.wrong,.wrong{border-color:#dc3545!important;background:#f8d7da!important}
+select.correct{border-color:#28a745!important;background:#d4edda!important}
+select.wrong{border-color:#dc3545!important;background:#f8d7da!important}
+.correctAnswerTag{font-size:12px;color:#155724;background:#d4edda;border-radius:4px;padding:2px 8px;margin-left:8px;font-weight:600}
+.wrongAnswerTag{font-size:12px;color:#721c24;background:#f8d7da;border-radius:4px;padding:2px 8px;margin-left:8px;font-weight:600}
+
+/* SUBMIT BUTTON */
+#submitBtnFloat{position:fixed;bottom:24px;right:24px;z-index:200;padding:14px 28px;background:linear-gradient(135deg,#e74c3c,#c0392b);color:#fff;border:none;border-radius:30px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(231,76,60,0.4);transition:all 0.2s}
+#submitBtnFloat:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(231,76,60,0.5)}
+
+/* SCORE PANEL */
+#scorePanel{display:none;background:#fff;border-radius:10px;border:2px solid #1a56a0;padding:24px;margin:20px 24px;box-shadow:0 2px 12px rgba(0,0,0,0.1)}
+#scorePanel h3{color:#1a56a0;margin-bottom:16px;font-size:1.2em;text-align:center}
+.scoreLine{display:flex;justify-content:space-between;margin-bottom:8px;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:14px}
+.scoreLine:last-child{border-bottom:none;font-weight:700;font-size:15px}
+.bandTag{display:inline-block;background:#1a56a0;color:#fff;border-radius:20px;padding:6px 20px;font-size:18px;font-weight:700;margin:12px auto;display:block;text-align:center;width:fit-content}
+.violReport{font-size:13px;color:#666;margin-top:12px;padding:10px;background:#f8f8f8;border-radius:6px}
+
+/* CONFIRM POPUP */
+#confirmPopup{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;display:none;align-items:center;justify-content:center}
+#confirmPopup.show{display:flex}
+#confirmBox{background:#fff;border-radius:12px;padding:30px 36px;max-width:380px;width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,0.2)}
+#confirmBox h3{margin-bottom:14px;color:#333}
+#confirmBox p{color:#555;margin-bottom:20px;font-size:14px}
+.confirmBtns{display:flex;gap:12px;justify-content:center}
+.confirmBtns button{padding:10px 24px;border-radius:8px;border:none;font-size:15px;font-weight:600;cursor:pointer}
+#confirmYes{background:#e74c3c;color:#fff}
+#confirmNo{background:#eee;color:#333}
+
+/* TIME POPUP */
+#timePopup{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:8500;display:none;align-items:center;justify-content:center}
+#timePopup.show{display:flex}
+#timeBox{background:#fff;border-radius:12px;padding:30px;max-width:380px;width:90%;text-align:center}
+#timeBox h3{color:#e74c3c;margin-bottom:12px}
+#timeBox p{margin-bottom:20px;color:#555}
+#timeBox button{padding:12px 28px;background:#e74c3c;color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer}
+
+/* FULLSCREEN OVERLAY */
+#fsOverlay{position:fixed;inset:0;background:rgba(180,0,0,0.92);z-index:8000;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:40px}
+#fsOverlay.show{display:flex}
+#fsOverlay h2{font-size:1.5em;margin-bottom:16px}
+#fsOverlay p{margin-bottom:24px;opacity:0.9}
+#fsOverlay button{padding:12px 32px;background:#fff;color:#c00;border:none;border-radius:8px;font-size:16px;font-weight:700;cursor:pointer}
+
+/* VIOLATION BANNER */
+#violBanner{position:fixed;top:50px;left:0;right:0;background:#c0392b;color:#fff;text-align:center;padding:10px;font-weight:700;z-index:5000;display:none;font-size:14px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #leftPanel{flex:0 0 50vh;height:50vh}
+  #divider{display:none}
+  #rightPanel{flex:1;height:auto}
+  .tabBtn{font-size:12px;padding:5px 10px}
+}
+</style>
+</head>
+<body>
+
+<!-- NAME POPUP -->
+<div id="namePopup">
+  <div id="nameBox">
+    <h2>📝 IELTS Reading Test 1</h2>
+    <label for="nameInput">Họ và tên</label>
+    <input type="text" id="nameInput" placeholder="Nhập họ và tên..." autocomplete="name">
+    <label for="classInput">Lớp</label>
+    <input type="text" id="classInput" placeholder="Nhập tên lớp..." autocomplete="off">
+    <div id="nameError">⚠ Vui lòng điền đầy đủ họ tên và lớp!</div>
+    <button id="startBtn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div id="header">
+  <div id="tabNav">
+    <button class="tabBtn active" onclick="switchTab(1)">Passage 1</button>
+    <button class="tabBtn" onclick="switchTab(2)">Passage 2</button>
+    <button class="tabBtn" onclick="switchTab(3)">Passage 3</button>
+  </div>
+  <div id="timerBox">60:00</div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+  <!-- LEFT: PASSAGE -->
+  <div id="leftPanel">
+    <div id="hlToolbar">
+      <span>Highlight:</span>
+      <div class="hlBtn selected" id="hlYellow" style="background:#FFE066" onclick="setHLColor('yellow')" title="Vàng">🟡</div>
+      <div class="hlBtn" id="hlGreen" style="background:#90EE90" onclick="setHLColor('green')" title="Xanh lá">🟢</div>
+      <div class="hlBtn" id="hlPink" style="background:#FFB6C1" onclick="setHLColor('pink')" title="Hồng">🩷</div>
+      <div id="eraserBtn" onclick="setHLColor('eraser')" title="Tẩy highlight">🧹</div>
+    </div>
+    <div id="passageContent">
+
+      <!-- PASSAGE 1 -->
+      <div class="passageSection active" id="passText1">
+        <div class="passageTitle">PASSAGE 1</div>
+        <div class="passageInstr">You should spend about 20 minutes on Questions 1–13 which are based on Reading Passage 1 below.</div>
+        <div class="passageHeading">ELECTRORECEPTION</div>
+
+        <div class="passagePara"><span class="subheading">A</span>Open your eyes in sea water and it is difficult to see much more than a murky, bleary green colour. Sounds, too, are garbled and difficult to comprehend. Without specialised equipment humans would be lost in these deep sea habitats, so how do fish make it seem so easy? Much of this is due to a biological phenomenon known as electroreception – the ability to perceive and act upon electrical stimuli as part of the overall senses. This ability is only found in aquatic or amphibious species because water is an efficient conductor of electricity.</div>
+
+        <div class="passagePara"><span class="subheading">B</span>Electroreception comes in two variants. While all animals (including humans) generate electric signals, because they are emitted by the nervous system, some animals have the ability – known as passive electroreception – to receive and decode electric signals generated by other animals in order to sense their location.</div>
+
+        <div class="passagePara"><span class="subheading">C</span>Other creatures can go further still, however. Animals with active electroreception possess bodily organs that generate special electric signals on cue. These can be used for mating signals and territorial displays as well as locating objects in the water. Active electroreceptors can differentiate between the various resistances that their electrical currents encounter. This can help them identify whether another creature is prey, predator or something that is best left alone. Active electroreception has a range of about one body length – usually just enough to give its host time to get out of the way or go in for the kill.</div>
+
+        <div class="passagePara"><span class="subheading">D</span>One fascinating use of active electroreception – known as the Jamming Avoidance Response mechanism – has been observed between members of some species known as the weakly electric fish. When two such electric fish meet in the ocean using the same frequency, each fish will then shift the frequency of its discharge so that they are transmitting on different frequencies. Doing so prevents their electroreception faculties from becoming jammed. Long before citizens' band radio users first had to yell "Get off my frequency!" at hapless novices cluttering the air waves, at least one species had found a way to peacefully and quickly resolve this type of dispute.</div>
+
+        <div class="passagePara"><span class="subheading">E</span>Electroreception can also play an important role in animal defences. Rays are one such example. Young ray embryos develop inside egg cases that are attached to the sea bed. The embryos keep their tails in constant motion so as to pump water and allow them to breathe through the egg's casing. If the embryo's electroreceptors detect the presence of a predatory fish in the vicinity, however, the embryo stops moving (and in so doing ceases transmitting electric currents) until the fish has moved on. Because marine life of various types is often travelling past, the embryo has evolved only to react to signals that are characteristic of the respiratory movements of potential predators such as sharks.</div>
+
+        <div class="passagePara"><span class="subheading">F</span>Many people fear swimming in the ocean because of sharks. In some respects, this concern is well grounded – humans are poorly equipped when it comes to electroreceptive defence mechanisms. Sharks, meanwhile, hunt with extraordinary precision. They initially lock onto their prey through a keen sense of smell (two thirds of a shark's brain is devoted entirely to its olfactory organs). As the shark reaches proximity to its prey, it tunes into electric signals that ensure a precise strike on its target; this sense is so strong that the shark even attacks blind by letting its eyes recede for protection.</div>
+
+        <div class="passagePara"><span class="subheading">G</span>Normally, when humans are attacked it is purely by accident. Since sharks cannot detect from electroreception whether or not something will satisfy their tastes, they tend to "try before they buy", taking one or two bites and then assessing the results (our sinewy muscle does not compare well with plumper, softer prey such as seals). Repeat attacks are highly likely once a human is bleeding, however; the force of the electric field is heightened by salt in the blood which creates the perfect setting for a feeding frenzy. In areas where shark attacks on humans are likely to occur, scientists are exploring ways to create artificial electroreceptors that would disorient the sharks and repel them from swimming beaches.</div>
+
+        <div class="passagePara"><span class="subheading">H</span>There is much that we do not yet know concerning how electroreception functions. Although researchers have documented how electroreception alters hunting, defence and communication systems through observation, the exact neurological processes that encode and decode this information are unclear. Scientists are also exploring the role electroreception plays in navigation. Some have proposed that salt water and magnetic fields from the Earth's core may interact to form electrical currents that sharks use for migratory purposes.</div>
+      </div>
+
+      <!-- PASSAGE 2 -->
+      <div class="passageSection" id="passText2">
+        <div class="passageTitle">PASSAGE 2</div>
+        <div class="passageInstr">You should spend about 20 minutes on Questions 14–26 which are based on Reading Passage 2 below.</div>
+        <div class="passageHeading">Left-handed or Right-handed</div>
+
+        <div class="passagePara"><span class="subheading">Section A</span><br>The probability that two right-handed people would have a left-handed child is only about 9.5 percent. The chance rises to 19.5 percent if one parent is a lefty and 26 percent if both parents are left-handed: The preference, however, could also stem from an infant's imitation of his parents. To test genetic influence, starting in the 1970s British biologist Marian Annett of the University of Leicester hypothesized that no single gene determines handedness. Rather, during fetal development, a certain molecular factor helps to strengthen the brain's left hemisphere, which increases the probability that the right hand will be dominant because the left side of the brain controls the right side of the body, and vice versa. Among the minority of people who lack this factor, handedness develops entirely by chance.</div>
+
+        <div class="passagePara">Research conducted on twins complicates the theory, however. One in five sets of identical twins involves one right-handed and one left-handed person, despite the fact that their genetic material is the same. Genes, therefore, are not solely responsible for handedness.</div>
+
+        <div class="passagePara"><span class="subheading">Section B</span><br>The genetic theory is also undermined by results from Peter Hepper and his team at Queen's University in Belfast, Ireland. In 2004 the psychologists used ultrasound to show that by the 15th week of pregnancy, fetuses already have a preference as to which thumb they suck. In most cases, the preference continued after birth. At 15 weeks, though, the brain does not yet have control over the body's limbs. Hepper speculates that fetuses tend to prefer whichever side of the body is developing quicker and that their movements, in turn, influence the brain's development. Whether this early preference is temporary or holds up throughout development and infancy is unknown. Genetic predetermination is also contradicted by the widespread observation that children do not settle on either their right or left hand until they are two or three years old.</div>
+
+        <div class="passagePara"><span class="subheading">Section C</span><br>But even if these correlations were true, they did not explain what actually causes left-handedness. Furthermore, specialization on either side of the body is common among animals. Cats will favor one paw over another when fishing toys out from under the couch. Horses stomp more frequently with one hoof than the other. Certain crabs motion predominantly with the left or right claw. In evolutionary terms, focusing power and dexterity in one limb is more efficient than having to train two, four or even eight limbs equally. Yet for most animals, the preference for one side or the other is seemingly random. The overwhelming dominance of the right hand is associated only with humans. That fact directs attention toward the brain's two hemispheres and perhaps toward language.</div>
+
+        <div class="passagePara"><span class="subheading">Section D</span><br>Interest in hemispheres dates back to at least 1836. That year, at a medical conference, French physician Marc Dax reported on an unusual commonality among his patients. During his many years as a country doctor, Dax had encountered more than 40 men and women for whom speech was difficult, the result of some kind of brain damage. What was unique was that every individual suffered damage to the left side of the brain. At the conference, Dax elaborated on his theory, stating that each half of the brain was responsible for certain functions and that the left hemisphere controlled speech. Other experts showed little interest in the Frenchman's ideas.</div>
+
+        <div class="passagePara">Over time, however, scientists found more and more evidence of people experiencing speech difficulties following an injury to the left brain. Patients with damage to the right hemisphere most often displayed disruptions in perception or concentration. Major advancements in understanding the brain's asymmetry were made in the 1960s as a result of so-called split-brain surgery, developed to help patients with epilepsy. During this operation, doctors severed the corpus callosum – the nerve bundle that connects the two hemispheres. The surgical cut also stopped almost all normal communication between the two hemispheres, which offered researchers the opportunity to investigate each side's activity.</div>
+
+        <div class="passagePara"><span class="subheading">Section E</span><br>In 1949 neurosurgeon Juhn Wada devised the first test to provide access to the brain's functional organization of language. By injecting an anesthetic into the right or left carotid artery, Wada temporarily paralyzed one side of a healthy brain, enabling him to more closely study the other side's capabilities. Based on this approach, Brenda Milner and the late Theodore Rasmussen of the Montreal Neurological Institute published a major study in 1975 that confirmed the theory that country doctor Dax had formulated nearly 140 years earlier: in 96 percent of right-handed people, language is processed much more intensely in the left hemisphere. The correlation is not as clear in lefties, however. For two-thirds of them, the left hemisphere is still the most active language processor. But for the remaining third, either the right side is dominant or both sides work equally, controlling different language functions.</div>
+
+        <div class="passagePara">That last statistic has slowed acceptance of the notion that the predominance of right-handedness is driven by left-hemisphere dominance in language processing. It is not at all clear why language control should somehow have dragged the control of body movement with it. Some experts think one reason the left hemisphere reigns over language is that the organs of speech processing – the larynx and tongue – are positioned on the body's symmetry axis. Because these structures were centered, it may have been unclear, in evolutionary terms, which side of the brain should control them, and it seems unlikely that shared operation would result in smooth motor activity.</div>
+
+        <div class="passagePara">Language and handedness could have developed preferentially for very different reasons as well. For example, some researchers, including evolutionary psychologist Michael C. Corballis of the University of Auckland in New Zealand, think that the origin of human speech lies in gestures. Gestures predated words and helped language emerge. If the left hemisphere began to dominate speech, it would have dominated gestures, too, and because the left brain controls the right side of the body, the right hand developed more strongly.</div>
+
+        <div class="passagePara"><span class="subheading">Section F</span><br>Perhaps we will know more soon. In the meantime, we can revel in what, if any, differences handedness brings to our human talents. Popular wisdom says right-handed, left-brained people excel at logical, analytical thinking. Left-handed, right-brained individuals are thought to possess more creative skills and maybe better at combining the functional features emergent on both sides of the brain. Yet some neuroscientists see such claims as pure speculation. Fewer scientists are ready to claim that left-handedness means greater creative potential. Yet lefties are prevalent among artists, composers and the generally acknowledged great political thinkers. Possibly if these individuals are among the lefties whose language abilities are evenly distributed between hemispheres, the intense interplay required could lead to unusual mental capabilities.</div>
+
+        <div class="passagePara"><span class="subheading">Section G</span><br>Or perhaps some lefties become highly creative because they must be more clever to get by in our right-handed world. This battle, which begins during the very early stages of childhood, may lay the groundwork for exceptional achievements.</div>
+      </div>
+
+      <!-- PASSAGE 3 -->
+      <div class="passageSection" id="passText3">
+        <div class="passageTitle">PASSAGE 3</div>
+        <div class="passageInstr">You should spend about 20 minutes on Questions 27–40 which are based on Reading Passage 3 below.</div>
+        <div class="passageHeading">Environmentally-friendly Vehicles</div>
+
+        <div class="passagePara"><span class="subheading">A</span>In the early 1990s, the California Air Resources Board (CARB), the government of California's "clean air agency", began a push for more fuel-efficient, lower-emissions vehicles, with the ultimate goal being a move to zero-emissions vehicles such as electric vehicles. In response, automakers developed electric models, including the Chrysler TEVan, Ford Ranger EV pickup truck, GM EV1 and S10 EV pickup, Honda EV Plus hatchback, Nissan lithium-battery Altra EV miniwagon and Toyota RAV4 EV. Ford Fusion is manufactured at Ford's Hermosillo Stamping &amp; Assembly plant, located in Sonora Mexico. I thought going green was supposed to provide the U.S. with more jobs.</div>
+
+        <div class="passagePara"><span class="subheading">B</span>The automakers were accused of pandering to the wishes of CARB in order to continue to be allowed to sell cars in the lucrative Californian market, while failing to adequately promote their electric vehicles in order to create the impression that the consumers were not interested in the cars, all the while joining oil industry lobbyists in vigorously protesting CARB's mandate. GM's program came under particular scrutiny; in an unusual move, consumers were not allowed to purchase EV1s, but were instead asked to sign closed-end leases, meaning that the cars had to be returned to GM at the end of the lease period, with no option to purchase, despite lesser interest in continuing to own the cars. Chrysler, Toyota, and a group of GM dealers sued CARB in Federal court, leading to the eventual neutering of CARB's ZEV Mandate.</div>
+
+        <div class="passagePara"><span class="subheading">C</span>After public protests by EV drivers' groups upset by the repossession of their cars, Toyota offered the last 328 RAV4-EVs for sale to the general public during six months, up until November 22, 2002. Almost all other production electric cars were withdrawn from the market and were in some cases seen to have been destroyed by their manufactures. Toyota continues to support the several hundred Toyota RAV4-EV in the hands of the general public and in fleet usage. GM famously de-activated the few EV1s that were donated to engineering schools and museums.</div>
+
+        <div class="passagePara"><span class="subheading">D</span>Throughout the 1990s, the appeal of fuel-efficient or environmentally friendly cars declined among Americans, who instead favored sport utility vehicles, which were affordable to operate despite their poor fuel efficiency thanks to lower gasoline prices. American automakers chose to focus their product lines around the truck-based vehicles, which enjoyed larger profit margins than the smaller cars which were preferred in places like Europe or Japan. In 1999, the Honda Insight hybrid car became the first hybrid to be sold in North America since the little-known Woods hybrid of 1917.</div>
+
+        <div class="passagePara"><span class="subheading">E</span>In 1995, Toyota debuted a hybrid concept car at the Tokyo Motor Show, with testing following a year later. The first Prius, model NHW10, went on sale on December 10, 1997. It was available only in Japan, though it has been imported privately to at least the United Kingdom, Australia, and New Zealand. The first-generation Prius, at its launch, became the world's first mass-produced gasoline-electric hybrid car. The NHW10 Prius styling originated from California designers, who were selected over competing designs from other Toyota design studios.</div>
+
+        <div class="passagePara"><span class="subheading">F</span>In the United States, the NHW11 was the first Prius to be sold. The Prius was marketed between the smaller Corolla and the larger Camry. The published retail price of the car was US$19,995. The NHW11 Prius became more powerful partly to satisfy the higher speeds and longer distances that Americans drive. Air conditioning and electric power steering were standard equipment. The vehicle was the second mass-produced hybrid on the American market, after the two-seat Honda Insight. While the larger Prius could seat five, its battery pack restricted cargo space.</div>
+
+        <div class="passagePara"><span class="subheading">G</span>Hybrids, which featured a combined gasoline and electric powertrain, were seen as a balance, offering an environmentally friendly image and improved fuel economy, without being hindered by the low range of electric vehicles, albeit at an increased price over comparable gasoline cars. Sales were poor, the lack of interest attributed to the car's small size and the lack of necessity for a fuel-efficient car at the time. The 2000s energy crisis brought renewed interest in hybrid and electric cars. In America, sales of the Toyota Prius jumped, and a variety of automakers followed suit, releasing hybrid models of their own. Several began to produce new electric car prototypes, as consumers called for cars that would free them from the fluctuations of oil prices.</div>
+
+        <div class="passagePara"><span class="subheading">H</span>In 2000, Hybrid Technologies, later renamed Li-ion Motors, started manufacturing electric cars in Mooresville, North Carolina. There has been increasing controversy with Li-ion Motors though due to the ongoing 'Lemon issues' regarding their product. California electric-car maker Tesla Motors began development in 2004 on the Tesla Roadster, which was first delivered to customers in 2008. The Roadster remained the only highway-capable EV in serial production and available for sale until 2010. Senior leaders at several large automakers, including Nissan and General Motors, have stated that the Roadster was a catalyst which demonstrated that there is pent-up consumer demand for more efficient vehicles. GM Vice Chairman Bob Lutz said in 2007 that the Tesla Roadster inspired him to push GM to develop the Chevrolet Volt, a plug-in hybrid sedan prototype that aims to reverse years of dwindling market share and massive financial losses for America's largest automaker.</div>
+      </div>
+
+    </div><!-- end passageContent -->
+  </div><!-- end leftPanel -->
+
+  <div id="divider"></div>
+
+  <!-- RIGHT: QUESTIONS -->
+  <div id="rightPanel">
+
+    <!-- SCORE PANEL -->
+    <div id="scorePanel">
+      <h3>📊 Kết quả bài thi</h3>
+      <div id="scoreDetails"></div>
+    </div>
+
+    <!-- PASSAGE 1 QUESTIONS -->
+    <div class="questionSection active" id="qSection1">
+
+      <!-- Q1-6: Matching Information -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 1–6</div>
+        <div class="qGroupInstr">Reading Passage 1 has eight paragraphs, <strong>A–H</strong>.<br>Which paragraph contains the following information?<br><em>Write the correct letter, A–H, in boxes 1–6 on your answer sheet.</em></div>
+
+        <!-- Q1 -->
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.01.TEST001</span></div>
+          <div style="margin-bottom:6px;font-size:14px">How electroreception can be used to help fish reproduce</div>
+          <select class="qSelect" id="q1" name="q1">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+
+        <!-- Q2 -->
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.02.TEST001</span></div>
+          <div style="margin-bottom:6px;font-size:14px">A possible use for electroreception that will benefit humans</div>
+          <select class="qSelect" id="q2" name="q2">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+
+        <!-- Q3 -->
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.03.TEST001</span></div>
+          <div style="margin-bottom:6px;font-size:14px">The term for the capacity which enables an animal to pick up but not send out electrical signals</div>
+          <select class="qSelect" id="q3" name="q3">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+
+        <!-- Q4 -->
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.04.TEST001</span></div>
+          <div style="margin-bottom:6px;font-size:14px">Why only creatures that live in or near water have electroreceptive abilities</div>
+          <select class="qSelect" id="q4" name="q4">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+
+        <!-- Q5 -->
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.05.TEST001</span></div>
+          <div style="margin-bottom:6px;font-size:14px">How electroreception might help creatures find their way over long distances</div>
+          <select class="qSelect" id="q5" name="q5">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+
+        <!-- Q6 -->
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.06.TEST001</span></div>
+          <div style="margin-bottom:6px;font-size:14px">A description of how some fish can avoid disrupting each other's electric signals</div>
+          <select class="qSelect" id="q6" name="q6">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Q7-9: Diagram Label Completion -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 7–9</div>
+        <div class="qGroupInstr">Label the diagram.<br><strong>Choose NO MORE THAN TWO WORDS</strong> from the passage for each answer.<br><em>Write your answers in boxes 7–9 on your answer sheet.</em></div>
+        <p style="font-size:13px;color:#888;margin-bottom:10px;font-style:italic">Refer to the diagram above and complete the labels below:</p>
+        <img src="data:image/jpeg;base64,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" alt="Diagram: Ray embryo and shark" class="diagramImg">
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.07.TEST001</span> Shark's <span class="inlineBlank"><input type="text" class="qInput" id="q7" placeholder="answer..."></span> alert the young ray to its presence</div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.08.TEST001</span> Embryo moves its <span class="inlineBlank"><input type="text" class="qInput" id="q8" placeholder="answer..."></span> in order to breathe</div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.09.TEST001</span> Embryo stops sending <span class="inlineBlank"><input type="text" class="qInput" id="q9" placeholder="answer..."></span> when predator close by</div>
+        </div>
+      </div>
+
+      <!-- Q10-13: Summary Completion -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 10–13</div>
+        <div class="qGroupInstr">Complete the summary below.<br><strong>Choose NO MORE THAN THREE words</strong> from the passage for each answer.<br><em>Write your answers in boxes 10–13 on your answer sheet.</em></div>
+        <div class="summaryText">
+          <strong>Shark Attack</strong><br><br>
+          A shark is a very effective hunter. Firstly, it uses its
+          <span class="inlineBlank"><input type="text" class="qInput" id="q10" placeholder="10..."></span>
+          to smell its target. When the shark gets close, it uses
+          <span class="inlineBlank"><input type="text" class="qInput" id="q11" placeholder="11..."></span>
+          to guide it toward an accurate attack. Within the final few feet the shark rolls its eyes back into its head. Humans are not popular food sources for most sharks – our
+          <span class="inlineBlank"><input type="text" class="qInput" id="q12" placeholder="12..."></span>
+          does not compare well with plumper prey. However, once a human is bleeding, the
+          <span class="inlineBlank"><input type="text" class="qInput" id="q13" placeholder="13..."></span>
+          is heightened by salt in the blood, making repeat attacks likely.
+        </div>
+      </div>
+
+    </div><!-- end qSection1 -->
+
+    <!-- PASSAGE 2 QUESTIONS -->
+    <div class="questionSection" id="qSection2">
+
+      <!-- Q14-18: Matching Information -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 14–18</div>
+        <div class="qGroupInstr">The Reading Passage has seven paragraphs <strong>A–G</strong>.<br>Which paragraph contains the following information?<br><em>Write the correct letter A–G, in boxes 14–18 on your answer sheet.</em></div>
+        <div class="qNote">NB &nbsp; You may use any letter more than once.</div>
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.14.TEST001</span> The phenomenon of using one side of their body for animals.</div>
+          <select class="qSelect" id="q14" name="q14">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.15.TEST001</span> Statistics on the rate of one-handedness born.</div>
+          <select class="qSelect" id="q15" name="q15">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.16.TEST001</span> The age when the preference for using one hand is fixed.</div>
+          <select class="qSelect" id="q16" name="q16">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.17.TEST001</span> Great talents of occupations in the left-handed population.</div>
+          <select class="qSelect" id="q17" name="q17">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.18.TEST001</span> The earliest record of researching hemisphere's function.</div>
+          <select class="qSelect" id="q18" name="q18">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Q19-22: Matching Features -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 19–22</div>
+        <div class="qGroupInstr">Look at the following researchers (Questions 19–22) and the list of findings below.<br>Match each researcher with the correct finding.<br><em>Write the correct letter A–D in boxes 19–22 on your answer sheet.</em></div>
+        <table class="matchTable">
+          <tr><th>Letter</th><th>Researcher</th></tr>
+          <tr><td><strong>A</strong></td><td>Brenda Milner</td></tr>
+          <tr><td><strong>B</strong></td><td>Marian Annett</td></tr>
+          <tr><td><strong>C</strong></td><td>Peter Hepper</td></tr>
+          <tr><td><strong>D</strong></td><td>Michael Corballis</td></tr>
+        </table>
+        <table class="matchTable" style="margin-bottom:14px">
+          <tr><th colspan="2">Findings</th></tr>
+          <tr><td style="width:30px">19.</td><td>Ancient language evolution is connected to body gesture and therefore influences handedness.</td></tr>
+          <tr><td>20.</td><td>A child's handedness is not determined by just biological factors.</td></tr>
+          <tr><td>21.</td><td>Language process is generally undergoing in the left hemisphere of the brain.</td></tr>
+          <tr><td>22.</td><td>The rate of development of one side of the body has an influence on hemisphere preference in the fetus.</td></tr>
+        </table>
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.19.TEST001</span> Finding 19 → Researcher:</div>
+          <select class="qSelect" id="q19" name="q19">
+            <option value="">-- Select --</option>
+            <option value="A">A – Brenda Milner</option>
+            <option value="B">B – Marian Annett</option>
+            <option value="C">C – Peter Hepper</option>
+            <option value="D">D – Michael Corballis</option>
+          </select>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.20.TEST001</span> Finding 20 → Researcher:</div>
+          <select class="qSelect" id="q20" name="q20">
+            <option value="">-- Select --</option>
+            <option value="A">A – Brenda Milner</option>
+            <option value="B">B – Marian Annett</option>
+            <option value="C">C – Peter Hepper</option>
+            <option value="D">D – Michael Corballis</option>
+          </select>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.21.TEST001</span> Finding 21 → Researcher:</div>
+          <select class="qSelect" id="q21" name="q21">
+            <option value="">-- Select --</option>
+            <option value="A">A – Brenda Milner</option>
+            <option value="B">B – Marian Annett</option>
+            <option value="C">C – Peter Hepper</option>
+            <option value="D">D – Michael Corballis</option>
+          </select>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.22.TEST001</span> Finding 22 → Researcher:</div>
+          <select class="qSelect" id="q22" name="q22">
+            <option value="">-- Select --</option>
+            <option value="A">A – Brenda Milner</option>
+            <option value="B">B – Marian Annett</option>
+            <option value="C">C – Peter Hepper</option>
+            <option value="D">D – Michael Corballis</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Q23-26: Yes/No/Not Given -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 23–26</div>
+        <div class="qGroupInstr">Do the following statements agree with the information given in Reading Passage 2?<br>In boxes 23–26 on your answer sheet write:<br><strong>YES</strong> if the statement is true &nbsp;|&nbsp; <strong>NO</strong> if the statement is false &nbsp;|&nbsp; <strong>NOT GIVEN</strong> if the information is not given</div>
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.23.TEST001</span> The study of twins shows that genetic determination is not the only factor for left handedness.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q23" value="YES"> YES</label>
+            <label><input type="radio" name="q23" value="NO"> NO</label>
+            <label><input type="radio" name="q23" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.24.TEST001</span> The number of men with left-handedness is more than that of women.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q24" value="YES"> YES</label>
+            <label><input type="radio" name="q24" value="NO"> NO</label>
+            <label><input type="radio" name="q24" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.25.TEST001</span> Marc Dax's report was widely recognized in his time.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q25" value="YES"> YES</label>
+            <label><input type="radio" name="q25" value="NO"> NO</label>
+            <label><input type="radio" name="q25" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.26.TEST001</span> Juhn Wada based his findings on his research of people with language problems.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q26" value="YES"> YES</label>
+            <label><input type="radio" name="q26" value="NO"> NO</label>
+            <label><input type="radio" name="q26" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end qSection2 -->
+
+    <!-- PASSAGE 3 QUESTIONS -->
+    <div class="questionSection" id="qSection3">
+
+      <!-- Q27-30: Multiple Choice -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 27–30</div>
+        <div class="qGroupInstr">Choose the correct letter, <strong>A</strong>, <strong>B</strong>, <strong>C</strong> or <strong>D</strong>.</div>
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.27.TEST001</span> What does the author think of the factory in Sonora in Mexico where the Ford Fusion is manufactured?</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q27" value="A"> A &nbsp; The factory should be helpful in the US soil business</label>
+            <label><input type="radio" name="q27" value="B"> B &nbsp; Employment of US will be created as consumers change their awareness</label>
+            <label><input type="radio" name="q27" value="C"> C &nbsp; More competitive cars will be introduced into the market</label>
+            <label><input type="radio" name="q27" value="D"> D &nbsp; This issue is hard to predict</label>
+          </div>
+        </div>
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.28.TEST001</span> In the 1990s, what dropped in America for environmentally friendly vehicles?</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q28" value="A"> A &nbsp; Production</label>
+            <label><input type="radio" name="q28" value="B"> B &nbsp; Attractiveness</label>
+            <label><input type="radio" name="q28" value="C"> C &nbsp; Announcement</label>
+            <label><input type="radio" name="q28" value="D"> D &nbsp; Expectation</label>
+          </div>
+        </div>
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.29.TEST001</span> What did GM notably send to engineering schools and museums?</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q29" value="A"> A &nbsp; EV1</label>
+            <label><input type="radio" name="q29" value="B"> B &nbsp; CARB</label>
+            <label><input type="radio" name="q29" value="C"> C &nbsp; RAV4</label>
+            <label><input type="radio" name="q29" value="D"> D &nbsp; MINI E</label>
+          </div>
+        </div>
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.30.TEST001</span> Nissan and GM high-level leaders declared the real reason for the popularity of Roadster is its</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q30" value="A"> A &nbsp; Legendary concert</label>
+            <label><input type="radio" name="q30" value="B"> B &nbsp; Huge population in the market</label>
+            <label><input type="radio" name="q30" value="C"> C &nbsp; Bursting demand</label>
+            <label><input type="radio" name="q30" value="D"> D &nbsp; Artistic design</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q31-35: Yes/No/Not Given -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 31–35</div>
+        <div class="qGroupInstr">Do the following statements agree with the information given in Reading Passage 3?<br>In boxes 31–35 on your answer sheet, write:<br><strong>YES</strong> if the statement is true &nbsp;|&nbsp; <strong>NO</strong> if the statement is false &nbsp;|&nbsp; <strong>NOT GIVEN</strong> if the information is not given</div>
+
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.31.TEST001</span> Some automakers mislead and suppressed the real demand for electric cars by luring the want of CARB.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q31" value="YES"> YES</label>
+            <label><input type="radio" name="q31" value="NO"> NO</label>
+            <label><input type="radio" name="q31" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.32.TEST001</span> Toyota started to sell 328 RAV4-EVs for taking up the market share.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q32" value="YES"> YES</label>
+            <label><input type="radio" name="q32" value="NO"> NO</label>
+            <label><input type="radio" name="q32" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.33.TEST001</span> In some countries, American auto-makers would like to earn money in bigger litre engine cars rather than smaller ones.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q33" value="YES"> YES</label>
+            <label><input type="radio" name="q33" value="NO"> NO</label>
+            <label><input type="radio" name="q33" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.34.TEST001</span> Hybrid cars are superior vehicles that combine an environmentally friendly electric power engine and a lower unit sale price.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q34" value="YES"> YES</label>
+            <label><input type="radio" name="q34" value="NO"> NO</label>
+            <label><input type="radio" name="q34" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+        <div class="qItem">
+          <div class="qLabel"><span class="qNum">Q.35.TEST001</span> An inspiration to produce hybrid cars is to cope with economic difficulties resulting from a declining market for General Motors.</div>
+          <div class="radioGroup">
+            <label><input type="radio" name="q35" value="YES"> YES</label>
+            <label><input type="radio" name="q35" value="NO"> NO</label>
+            <label><input type="radio" name="q35" value="NOT GIVEN"> NOT GIVEN</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q36-40: Summary Completion Word Bank -->
+      <div class="qGroupBox">
+        <div class="qGroupTitle">Questions 36–40</div>
+        <div class="qGroupInstr">Complete the summary using the list of words, <strong>A–L</strong> below.<br><em>Write the correct letter, A–L in boxes 36–40 on your answer sheet.</em></div>
+
+        <div class="wordBank">
+          <div class="wordBankItem">A – electric car</div>
+          <div class="wordBankItem">B – United Kingdom</div>
+          <div class="wordBankItem">C – Market</div>
+          <div class="wordBankItem">D – concept car</div>
+          <div class="wordBankItem">E – longer distances</div>
+          <div class="wordBankItem">F – Emissions</div>
+          <div class="wordBankItem">G – battery</div>
+          <div class="wordBankItem">H – Consumers</div>
+          <div class="wordBankItem">I – gasoline-electricity</div>
+          <div class="wordBankItem">J – inspiration</div>
+          <div class="wordBankItem">K – cargo space</div>
+          <div class="wordBankItem">L – orientation</div>
+        </div>
+
+        <div class="summaryText">
+          A
+          <select class="qSelect" id="q36" name="q36" style="min-width:120px">
+            <option value="">36. --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+            <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+            <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
+          </select>
+          was firstly introduced by Car maker Toyota in 1995. Then it started for sale in 1997 with a new first-generation model. Not only in Japan but included other countries such as
+          <select class="qSelect" id="q37" name="q37" style="min-width:120px">
+            <option value="">37. --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+            <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+            <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
+          </select>
+          and Oceania in which the Prius was imported to. The first-generation Prius was the first car in mass production which is powered by
+          <select class="qSelect" id="q38" name="q38" style="min-width:120px">
+            <option value="">38. --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+            <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+            <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
+          </select>
+          hybrid power. The model NHW10 was designed by a winning Californian designer. The innovated NHW11 Prius has considerably higher running velocity and
+          <select class="qSelect" id="q39" name="q39" style="min-width:120px">
+            <option value="">39. --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+            <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+            <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
+          </select>
+          than American counterparts. Still, the load capacity of current Prius version was limited in its
+          <select class="qSelect" id="q40" name="q40" style="min-width:120px">
+            <option value="">40. --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+            <option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+            <option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option>
+          </select>.
+        </div>
+      </div>
+
+    </div><!-- end qSection3 -->
+
+  </div><!-- end rightPanel -->
+</div><!-- end main -->
+
+<!-- SUBMIT BUTTON -->
+<button id="submitBtnFloat" onclick="showConfirm()">📝 Nộp bài</button>
+
+<!-- CONFIRM POPUP -->
+<div id="confirmPopup">
+  <div id="confirmBox">
+    <h3>⚠ Xác nhận nộp bài</h3>
+    <p>Bạn có chắc muốn nộp bài? Sau khi nộp sẽ không thể sửa lại.</p>
+    <div class="confirmBtns">
+      <button id="confirmYes" onclick="submitTest()">Xác nhận nộp</button>
+      <button id="confirmNo" onclick="document.getElementById('confirmPopup').classList.remove('show')">Quay lại làm bài</button>
+    </div>
+  </div>
+</div>
+
+<!-- TIME UP POPUP -->
+<div id="timePopup">
+  <div id="timeBox">
+    <h3>⏰ Hết giờ!</h3>
+    <p id="timeMsg">Bạn đã hết 60 phút. Bài sẽ tự nộp sau 5 phút nữa.</p>
+    <button onclick="submitTest()">Nộp bài ngay</button>
+  </div>
+</div>
+
+<!-- FULLSCREEN OVERLAY -->
+<div id="fsOverlay">
+  <h2>⚠ Cảnh báo thoát toàn màn hình!</h2>
+  <p>Vui lòng quay lại toàn màn hình để tiếp tục làm bài.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+
+<!-- VIOLATION BANNER -->
+<div id="violBanner" id="violBanner"></div>
+
+<script>
+(function() {
+  'use strict';
+
+  // ===== ANSWERS =====
+  var answers = {
+    q1: 'C', q2: 'G', q3: 'B', q4: 'A', q5: 'H', q6: 'D',
+    q7: ['respiratory movements', 'respiratory signals'],
+    q8: ['tail'],
+    q9: ['electric currents'],
+    q10: ['olfactory organs'],
+    q11: ['electric signals'],
+    q12: ['sinewy muscle'],
+    q13: ['electric field'],
+    q14: 'C', q15: 'A', q16: 'B', q17: 'F', q18: 'D',
+    q19: 'D', q20: 'B', q21: 'A', q22: 'C',
+    q23: 'YES', q24: 'NOT GIVEN', q25: 'NO', q26: 'NOT GIVEN',
+    q27: 'B', q28: 'B', q29: 'A', q30: 'C',
+    q31: 'YES', q32: 'NO', q33: 'NOT GIVEN', q34: 'NO', q35: 'YES',
+    q36: 'D', q37: 'B', q38: 'I', q39: 'E', q40: 'G'
+  };
+
+  var TOTAL = 40;
+  var P1_TOTAL = 13, P2_TOTAL = 13, P3_TOTAL = 14;
+
+  // ===== STATE =====
+  var tabViolations = 0, focusViolations = 0, fsViolations = 0;
+  var violationLog = [];
+  var timerStopped = false;
+  var submitted = false;
+  var currentTab = 1;
+  var hlColor = 'yellow';
+  var hlMode = 'color'; // 'color' or 'eraser'
+  var startTime = null;
+
+  // ===== EXPORTS =====
+  window.stopTimer = function() { timerStopped = true; };
+  window.enterFullscreen = function() {
+    var el = document.documentElement;
+    if (el.requestFullscreen) el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    document.getElementById('fsOverlay').classList.remove('show');
+  };
+  window.getViolationLog = function() {
+    submitted = true;
+    return { tab: tabViolations, focus: focusViolations, fs: fsViolations, log: violationLog };
+  };
+
+  // ===== START EXAM =====
+  window.startExam = function() {
+    var name = document.getElementById('nameInput').value.trim();
+    var cls = document.getElementById('classInput').value.trim();
+    if (!name || !cls) {
+      document.getElementById('nameError').style.display = 'block';
+      return;
+    }
+    window._studentName = name;
+    window._studentClass = cls;
+    window._testStartTime = Date.now();
+    startTime = window._testStartTime;
+    document.getElementById('namePopup').style.display = 'none';
+    window.enterFullscreen();
+  };
+
+  // ===== TIMER =====
+  var DURATION = 60 * 60 * 1000;
+  var GRACE = 5 * 60 * 1000;
+  var graceStarted = false;
+  var graceInterval = null;
+
+  function tick() {
+    if (timerStopped) return;
+    if (!startTime) { if (!window._testStartTime) return; startTime = window._testStartTime; }
+    var elapsed = Date.now() - startTime;
+    var remaining = DURATION - elapsed;
+    var box = document.getElementById('timerBox');
+    if (!box) return;
+
+    if (remaining <= 0) {
+      box.textContent = '00:00';
+      box.className = 'danger';
+      if (!graceStarted) {
+        graceStarted = true;
+        document.getElementById('timePopup').classList.add('show');
+        var graceEnd = Date.now() + GRACE;
+        graceInterval = setInterval(function() {
+          var gr = graceEnd - Date.now();
+          if (gr <= 0) {
+            clearInterval(graceInterval);
+            submitTest();
+          } else {
+            var gm = Math.floor(gr/60000), gs = Math.floor((gr%60000)/1000);
+            document.getElementById('timeMsg').textContent = 'Bài sẽ tự nộp sau ' + gm + ' phút ' + gs + ' giây.';
+          }
+        }, 500);
+      }
+      return;
+    }
+
+    var mins = Math.floor(remaining / 60000);
+    var secs = Math.floor((remaining % 60000) / 1000);
+    box.textContent = String(mins).padStart(2,'0') + ':' + String(secs).padStart(2,'0');
+
+    if (remaining <= 2*60*1000) { box.className = 'danger'; }
+    else if (remaining <= 10*60*1000) { box.className = 'warn'; }
+    else { box.className = ''; }
+  }
+  setInterval(tick, 500);
+
+  // ===== TAB SWITCHING =====
+  window.switchTab = function(n) {
+    currentTab = n;
+    document.querySelectorAll('.passageSection').forEach(function(el,i) {
+      el.classList.toggle('active', i+1 === n);
+    });
+    document.querySelectorAll('.questionSection').forEach(function(el,i) {
+      el.classList.toggle('active', i+1 === n);
+    });
+    document.querySelectorAll('.tabBtn').forEach(function(el,i) {
+      el.classList.toggle('active', i+1 === n);
+    });
+  };
+
+  // ===== HIGHLIGHT =====
+  window.setHLColor = function(c) {
+    hlColor = c;
+    document.getElementById('hlYellow').classList.toggle('selected', c==='yellow');
+    document.getElementById('hlGreen').classList.toggle('selected', c==='green');
+    document.getElementById('hlPink').classList.toggle('selected', c==='pink');
+    document.getElementById('eraserBtn').classList.toggle('selected', c==='eraser');
+    hlMode = (c === 'eraser') ? 'eraser' : 'color';
+  };
+
+  document.getElementById('passageContent').addEventListener('mouseup', function(e) {
+    if (submitted) return;
+    if (hlMode === 'eraser') {
+      var t = e.target;
+      if (t.classList && (t.classList.contains('hl-yellow') || t.classList.contains('hl-green') || t.classList.contains('hl-pink'))) {
+        var parent = t.parentNode;
+        while (t.firstChild) parent.insertBefore(t.firstChild, t);
+        parent.removeChild(t);
+        parent.normalize();
+      }
+      return;
+    }
+    var sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    var range = sel.getRangeAt(0);
+    if (!range || range.collapsed) return;
+    var colorClass = 'hl-' + hlColor;
+    try {
+      var span = document.createElement('span');
+      span.className = colorClass;
+      var frag = range.extractContents();
+      span.appendChild(frag);
+      range.insertNode(span);
+    } catch(ex) {}
+    sel.removeAllRanges();
+  });
+
+  // ===== ANTI-CHEAT =====
+  // Fullscreen
+  function fsChange() {
+    var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+    if (!isFs && window._testStartTime && !submitted) {
+      fsViolations++;
+      violationLog.push({type:'fullscreen', time: new Date().toISOString()});
+      document.getElementById('fsOverlay').classList.add('show');
+    } else {
+      document.getElementById('fsOverlay').classList.remove('show');
+    }
+  }
+  document.addEventListener('fullscreenchange', fsChange);
+  document.addEventListener('webkitfullscreenchange', fsChange);
+
+  // Tab visibility
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && window._testStartTime && !submitted) {
+      tabViolations++;
+      violationLog.push({type:'tab', time: new Date().toISOString()});
+      showBanner('⚠ Cảnh báo: Bạn đã chuyển tab! Lần ' + tabViolations);
+    }
+  });
+
+  // Window blur
+  window.addEventListener('blur', function() {
+    if (window._testStartTime && !submitted) {
+      focusViolations++;
+      violationLog.push({type:'focus', time: new Date().toISOString()});
+      showBanner('⚠ Cảnh báo: Mất focus cửa sổ! Lần ' + focusViolations);
+    }
+  });
+
+  function showBanner(msg) {
+    var b = document.getElementById('violBanner');
+    b.textContent = msg;
+    b.style.display = 'block';
+    setTimeout(function() { b.style.display = 'none'; }, 4000);
+  }
+
+  // Right click
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+
+  // Key shortcuts
+  document.addEventListener('keydown', function(e) {
+    var k = e.key;
+    if (k === 'F12') { e.preventDefault(); return; }
+    if (k === 'Escape' && window._testStartTime && !submitted) { e.preventDefault(); return; }
+    if (e.ctrlKey || e.metaKey) {
+      var blocked = ['c','a','s','u','p','v'];
+      if (blocked.indexOf(k.toLowerCase()) !== -1) { e.preventDefault(); return; }
+      if (e.shiftKey && ['i','j','c','k'].indexOf(k.toLowerCase()) !== -1) { e.preventDefault(); return; }
+    }
+  });
+
+  // Copy/paste/cut
+  document.addEventListener('copy', function(e) { e.preventDefault(); });
+  document.addEventListener('cut', function(e) { e.preventDefault(); });
+  document.addEventListener('paste', function(e) { e.preventDefault(); });
+  document.addEventListener('dragstart', function(e) { e.preventDefault(); });
+  document.addEventListener('drop', function(e) { e.preventDefault(); });
+
+  // DevTools detection
+  setInterval(function() {
+    if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
+      if (!submitted && window._testStartTime) {
+        violationLog.push({type:'devtools', time: new Date().toISOString()});
+        document.body.innerHTML = '<div style="background:red;color:white;padding:40px;font-size:24px;text-align:center"><h1>⚠ DevTools đã bị phát hiện!</h1><p>Vui lòng đóng DevTools và tải lại trang.</p></div>';
+      }
+    }
+  }, 1000);
+
+  // ===== CONFIRM POPUP =====
+  window.showConfirm = function() {
+    document.getElementById('confirmPopup').classList.add('show');
+  };
+
+  // ===== SUBMIT =====
+  window.submitTest = function() {
+    if (submitted) return;
+    submitted = true;
+    document.getElementById('confirmPopup').classList.remove('show');
+    document.getElementById('timePopup').classList.remove('show');
+    window.stopTimer();
+
+    // Collect answers
+    var details = [];
+    var correct = 0;
+    var p1c=0, p2c=0, p3c=0;
+
+    function normalize(s) { return (s||'').toLowerCase().trim().replace(/\s+/g,' '); }
+
+    function checkQ(qId, passageIdx) {
+      var ans = answers[qId];
+      var isCorrect = false;
+      var userVal = '';
+      var el = document.getElementById(qId);
+      if (el) {
+        if (el.tagName === 'SELECT' || el.tagName === 'INPUT') {
+          userVal = el.value;
+        }
+      } else {
+        // Radio
+        var radios = document.querySelectorAll('input[name="'+qId+'"]');
+        radios.forEach(function(r) { if(r.checked) userVal = r.value; });
+      }
+
+      if (Array.isArray(ans)) {
+        isCorrect = ans.some(function(a) { return normalize(a) === normalize(userVal); });
+      } else {
+        isCorrect = normalize(ans) === normalize(userVal);
+      }
+
+      if (isCorrect) {
+        correct++;
+        if (passageIdx===1) p1c++;
+        else if (passageIdx===2) p2c++;
+        else if (passageIdx===3) p3c++;
+      }
+
+      var qNum = qId.replace('q','');
+      var displayNum = String(parseInt(qNum)).padStart(2,'0');
+      var correctAns = Array.isArray(ans) ? ans[0] : ans;
+      details.push('Q'+displayNum+':'+(isCorrect?'✔':'✘')+'('+userVal+')');
+      return {isCorrect: isCorrect, userVal: userVal, correctAns: correctAns};
+    }
+
+    // P1: q1-q13
+    var results = {};
+    for (var i=1; i<=13; i++) { results['q'+i] = checkQ('q'+i, 1); }
+    for (var i=14; i<=26; i++) { results['q'+i] = checkQ('q'+i, 2); }
+    for (var i=27; i<=40; i++) { results['q'+i] = checkQ('q'+i, 3); }
+
+    window._submittedDetails = details.join(' | ');
+
+    // Visual feedback
+    // Selects
+    [1,2,3,4,5,6,14,15,16,17,18,19,20,21,22,27,28,29,30,36,37,38,39,40].forEach(function(n) {
+      var el = document.getElementById('q'+n);
+      if (!el) return;
+      var r = results['q'+n];
+      el.className = 'qSelect ' + (r.isCorrect ? 'correct' : 'wrong');
+      el.disabled = true;
+      if (!r.isCorrect) {
+        var tag = document.createElement('span');
+        tag.className = 'correctAnswerTag';
+        tag.textContent = '✓ ' + r.correctAns;
+        el.parentNode.insertBefore(tag, el.nextSibling);
+      }
+    });
+
+    // Text inputs
+    [7,8,9,10,11,12,13].forEach(function(n) {
+      var el = document.getElementById('q'+n);
+      if (!el) return;
+      var r = results['q'+n];
+      el.className = 'qInput ' + (r.isCorrect ? 'correct' : 'wrong');
+      el.disabled = true;
+      if (!r.isCorrect) {
+        var tag = document.createElement('span');
+        tag.className = 'correctAnswerTag';
+        tag.textContent = '✓ ' + r.correctAns;
+        el.parentNode.appendChild(tag);
+      }
+    });
+
+    // Radio buttons (YN, MCQ)
+    [23,24,25,26,31,32,33,34,35].forEach(function(n) {
+      var r = results['q'+n];
+      var labels = document.querySelectorAll('input[name="q'+n+'"]');
+      labels.forEach(function(inp) {
+        inp.disabled = true;
+        var lbl = inp.parentElement;
+        if (inp.value === answers['q'+n]) {
+          lbl.classList.add('correct-label');
+        } else if (inp.checked && !r.isCorrect) {
+          lbl.classList.add('wrong-label');
+        }
+      });
+    });
+    [27,28,29,30].forEach(function(n) {
+      var r = results['q'+n];
+      var labels = document.querySelectorAll('input[name="q'+n+'"]');
+      labels.forEach(function(inp) {
+        inp.disabled = true;
+        var lbl = inp.parentElement;
+        if (inp.value === answers['q'+n]) {
+          lbl.classList.add('correct-label');
+        } else if (inp.checked && !r.isCorrect) {
+          lbl.classList.add('wrong-label');
+        }
+      });
+    });
+
+    // Band calculation
+    function getBand(score) {
+      if (score>=39) return 'Band 9';
+      if (score>=37) return 'Band 8.5';
+      if (score>=35) return 'Band 8';
+      if (score>=33) return 'Band 7.5';
+      if (score>=30) return 'Band 7';
+      if (score>=27) return 'Band 6.5';
+      if (score>=23) return 'Band 6';
+      if (score>=19) return 'Band 5.5';
+      if (score>=15) return 'Band 5';
+      if (score>=13) return 'Band 4.5';
+      if (score>=10) return 'Band 4';
+      return 'Dưới Band 4';
+    }
+
+    var band = getBand(correct);
+
+    // Time taken
+    var elapsed = Date.now() - (window._testStartTime || Date.now());
+    var em = Math.floor(elapsed/60000), es = Math.floor((elapsed%60000)/1000);
+    var timeTaken = em + ' phút ' + es + ' giây';
+
+    // Score panel
+    var sp = document.getElementById('scorePanel');
+    sp.style.display = 'block';
+    sp.innerHTML = '<h3>📊 Kết quả bài thi</h3>' +
+      '<div class="scoreLine"><span>Passage 1</span><span><strong>'+p1c+' / '+P1_TOTAL+'</strong></span></div>' +
+      '<div class="scoreLine"><span>Passage 2</span><span><strong>'+p2c+' / '+P2_TOTAL+'</strong></span></div>' +
+      '<div class="scoreLine"><span>Passage 3</span><span><strong>'+p3c+' / '+P3_TOTAL+'</strong></span></div>' +
+      '<div class="scoreLine" style="font-weight:700;font-size:15px;border-top:2px solid #1a56a0;padding-top:10px;margin-top:6px"><span>Tổng điểm</span><span>'+correct+' / '+TOTAL+'</span></div>' +
+      '<div style="text-align:center;margin:10px 0"><div class="bandTag">Ước lượng: '+band+'</div></div>' +
+      '<div class="scoreLine"><span>Thời gian</span><span>'+timeTaken+'</span></div>' +
+      '<div class="violReport">Vi phạm: Chuyển tab: '+tabViolations+' | Mất focus: '+focusViolations+' | Thoát fullscreen: '+fsViolations+'</div>';
+
+    sp.scrollIntoView({behavior:'smooth'});
+
+    // Hide submit btn
+    document.getElementById('submitBtnFloat').style.display = 'none';
+
+    // Send to Google Sheets
+    fetch('https://script.google.com/macros/s/AKfycbwHyMXo7QVkk7K7K-0yNGer6HL35hEyoC4-MKWfQxsh2BdHHuRgW-KRpLcr9bZeU3_7/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        timestamp: new Date().toISOString(),
+        student: (window._studentName||'') + ' — ' + (window._studentClass||''),
+        test: 'Reading Test 1',
+        score: correct,
+        total: TOTAL,
+        band: band,
+        timeTaken: timeTaken,
+        p1score: p1c+'/'+P1_TOTAL,
+        p2score: p2c+'/'+P2_TOTAL,
+        p3score: p3c+'/'+P3_TOTAL,
+        tabViol: tabViolations,
+        focusViol: focusViolations,
+        fsViol: fsViolations,
+        details: window._submittedDetails
+      })
+    }).catch(function(){});
+  };
+
+  // ===== RESIZABLE DIVIDER =====
+  var divider = document.getElementById('divider');
+  var main = document.getElementById('main');
+  var dragging = false;
+
+  divider.addEventListener('mousedown', function(e) {
+    dragging = true;
+    divider.classList.add('dragging');
+    e.preventDefault();
+  });
+  document.addEventListener('mousemove', function(e) {
+    if (!dragging) return;
+    var rect = main.getBoundingClientRect();
+    var x = e.clientX - rect.left;
+    var total = rect.width;
+    var pct = Math.min(Math.max(x/total*100, 20), 80);
+    document.getElementById('leftPanel').style.flex = '0 0 '+pct+'%';
+    document.getElementById('rightPanel').style.flex = '1';
+  });
+  document.addEventListener('mouseup', function() {
+    dragging = false;
+    divider.classList.remove('dragging');
+  });
+  // Touch support
+  divider.addEventListener('touchstart', function(e) { dragging = true; e.preventDefault(); }, {passive:false});
+  document.addEventListener('touchmove', function(e) {
+    if (!dragging) return;
+    var rect = main.getBoundingClientRect();
+    var x = e.touches[0].clientX - rect.left;
+    var pct = Math.min(Math.max(x/rect.width*100, 20), 80);
+    document.getElementById('leftPanel').style.flex = '0 0 '+pct+'%';
+  }, {passive:false});
+  document.addEventListener('touchend', function() { dragging = false; });
+
+})();
+</script>
+</body>
+</html>
