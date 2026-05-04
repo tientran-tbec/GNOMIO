@@ -647,127 +647,145 @@
 
     var essay1 = document.getElementById('essay1').value;
     var essay2 = document.getElementById('essay2').value;
-    var wc1 = essay1.trim() ? essay1.trim().split(/\s+/).filter(function(w){return w.length>0;}).length : 0;
-    var wc2 = essay2.trim() ? essay2.trim().split(/\s+/).filter(function(w){return w.length>0;}).length : 0;
     var elapsed = window._testStartTime ? Math.floor((Date.now()-window._testStartTime)/1000) : 0;
-    var timeTaken = Math.floor(elapsed/60)+'m '+( elapsed%60)+'s';
+    var timeTaken = Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+    var viols = window.getViolationLog();
 
     var task1Prompt = "The graph below shows the rate of smoking per 1,000 people in Someland from 1960 to 2000. Write a report for a university lecturer describing the information in the graph below.";
     var task2Prompt = "Some people want the government to spend more money on looking for life on other planets. However, others think it is a waste of public money when there are so many problems on Earth that the government should be dealing with. Give reasons for your answer and include any relevant examples from your own knowledge or experience.";
 
     // Show spinner
     var ra = document.getElementById('resultArea');
-    ra.innerHTML = '<div class="spinner-wrap"><span class="spinner"></span> Đang chấm bài... vui lòng đợi</div>';
+    ra.innerHTML = '<div class="spinner-wrap"><span class="spinner"></span> Đang chấm bài... vui lòng đợi (30-60 giây)</div>';
     ra.classList.add('show');
-    // Scroll to result
     ra.scrollIntoView({behavior:'smooth'});
 
     var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHyMXo7QVkk7K7K-0yNGer6HL35hEyoC4-MKWfQxsh2BdHHuRgW-KRpLcr9bZeU3_7/exec';
 
-    var gradePayload = {
-      action: 'grade_writing',
-      test: 'Writing Test 1',
+    // Gửi 1 lần duy nhất: grade_writing vừa chấm vừa lưu Sheets
+    var payload = {
+      action:       'grade_writing',
+      student:      (window._studentName||'') + ' — ' + (window._studentClass||''),
+      test:         'Writing Test 1',
       task1_prompt: task1Prompt,
-      task1_essay: essay1,
+      task1_essay:  essay1,
       task2_prompt: task2Prompt,
-      task2_essay: essay2
+      task2_essay:  essay2,
+      timeTaken:    timeTaken,
+      tabViol:      viols.tabViolations,
+      focusViol:    viols.focusViolations,
+      fsViol:       viols.fsViolations
     };
 
-    var gradeTimeout = setTimeout(function(){
-      handleGradeResult(null, essay1, essay2, wc1, wc2, timeTaken, task1Prompt, task2Prompt);
-    }, 30000);
+    // Timeout 65 giây — lưu bài không có điểm
+    var gradeTimeout = setTimeout(function() {
+      saveFallback(essay1, essay2, timeTaken, viols, task1Prompt, task2Prompt);
+      ra.innerHTML =
+        '<div class="result-card">' +
+        '<p style="color:#e53935;font-weight:600;">⚠ Bài thi không thể chấm tự động, đã được lưu và báo cho giáo viên.</p>' +
+        '<p style="color:#555;margin-top:8px;">Giáo viên sẽ xem lại và thông báo điểm sau.</p>' +
+        '</div>';
+    }, 65000);
 
     fetch(APPS_SCRIPT_URL, {
       method: 'POST',
-      body: JSON.stringify(gradePayload)
+      body: JSON.stringify(payload)
     })
-    .then(function(r){ return r.json(); })
+    .then(function(r) { return r.json(); })
     .then(function(result) {
       clearTimeout(gradeTimeout);
-      handleGradeResult(result, essay1, essay2, wc1, wc2, timeTaken, task1Prompt, task2Prompt);
+      if (result && result.status === 'ok' && result.grading) {
+        renderResult(result.grading, ra);
+      } else {
+        var errMsg = (result && result.msg) ? result.msg : 'Lỗi không xác định';
+        ra.innerHTML =
+          '<div class="result-card">' +
+          '<p style="color:#e53935;font-weight:600;">⚠ Không thể chấm tự động: ' + errMsg + '</p>' +
+          '<p style="color:#555;margin-top:8px;">Bài viết đã được lưu — giáo viên sẽ chấm sau.</p>' +
+          '</div>';
+      }
     })
     .catch(function() {
       clearTimeout(gradeTimeout);
-      handleGradeResult(null, essay1, essay2, wc1, wc2, timeTaken, task1Prompt, task2Prompt);
+      saveFallback(essay1, essay2, timeTaken, viols, task1Prompt, task2Prompt);
+      ra.innerHTML =
+        '<div class="result-card">' +
+        '<p style="color:#e53935;font-weight:600;">⚠ Bài thi không thể chấm tự động, đã được lưu và báo cho giáo viên.</p>' +
+        '</div>';
     });
   };
 
-  function handleGradeResult(result, essay1, essay2, wc1, wc2, timeTaken, t1p, t2p) {
-    var viols = window.getViolationLog();
-    var ai_t1_band='', ai_t2_band='', ai_overall='', ai_feedback='';
-    var ra = document.getElementById('resultArea');
-
-    if (result && result.task1 && result.task2) {
-      ai_t1_band   = result.task1.band || '';
-      ai_t2_band   = result.task2.band || '';
-      var t1b = parseFloat(ai_t1_band) || 0;
-      var t2b = parseFloat(ai_t2_band) || 0;
-      var raw = (t1b + t2b*2) / 3;
-      ai_overall = (Math.round(raw*2)/2).toFixed(1);
-      ai_feedback = JSON.stringify(result);
-      renderResult(result, ra, ai_t1_band, ai_t2_band, ai_overall);
-    } else {
-      ra.innerHTML = '<div class="result-card"><p style="color:#e53935;font-weight:600;">Không thể chấm tự động. Bài viết đã được lưu — giáo viên sẽ chấm sau.</p></div>';
-    }
-
-    // Send to Google Sheets
+  // Lưu bài khi timeout hoặc lỗi — không có điểm AI
+  function saveFallback(essay1, essay2, timeTaken, viols, t1p, t2p) {
     var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHyMXo7QVkk7K7K-0yNGer6HL35hEyoC4-MKWfQxsh2BdHHuRgW-KRpLcr9bZeU3_7/exec';
-    var savePayload = {
-      action: 'save_writing',
-      timestamp: new Date().toISOString(),
-      student: (window._studentName||'')+ ' — '+(window._studentClass||''),
-      test: 'Writing Test 1',
-      task1_prompt: t1p,
-      task1_essay: essay1,
-      task1_words: wc1,
-      task2_prompt: t2p,
-      task2_essay: essay2,
-      task2_words: wc2,
-      ai_t1_band: ai_t1_band,
-      ai_t2_band: ai_t2_band,
-      ai_overall: ai_overall,
-      ai_feedback: ai_feedback,
-      teacher_t1_band: '',
-      teacher_t2_band: '',
-      teacher_overall: '',
-      teacher_notes: '',
-      timeTaken: timeTaken,
-      tabViol: viols.tabViolations,
-      focusViol: viols.focusViolations,
-      fsViol: viols.fsViolations,
-      pasteViol: viols.pasteViolations
-    };
     fetch(APPS_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
-      body: JSON.stringify(savePayload)
+      body: JSON.stringify({
+        action:       'save_writing',
+        student:      (window._studentName||'') + ' — ' + (window._studentClass||''),
+        test:         'Writing Test 1',
+        task1_prompt: t1p,
+        task1_essay:  essay1,
+        task2_prompt: t2p,
+        task2_essay:  essay2,
+        timeTaken:    timeTaken,
+        tabViol:      viols.tabViolations
+      })
     }).catch(function(){});
   }
 
-  function renderResult(data, ra, t1band, t2band, overall) {
-    function critRow(code, label, scoreObj, fbObj) {
-      var score = scoreObj ? (scoreObj[code] || '—') : '—';
-      var fb    = fbObj    ? (fbObj[code]    || '') : '';
-      return '<div class="criterion-row"><span class="crit-label">'+code+'</span><span class="crit-score">'+score+' / 9</span><span class="crit-feedback">'+escHtml(fb)+'</span></div>';
+  function renderResult(grading, ra) {
+    var t1 = grading.t1 || {};
+    var t2 = grading.t2 || {};
+    var overall = grading.overall || '—';
+
+    function esc(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function critBlock(code, score, fb_en, fb_vi) {
+      return '<div class="criterion-row">' +
+        '<span class="crit-label">' + code + '</span>' +
+        '<span class="crit-score">' + (score||'—') + ' / 9</span>' +
+        '<span class="crit-feedback"><strong>' + esc(fb_en) + '</strong>' +
+        (fb_vi ? '<br><em style="color:#555;">' + esc(fb_vi) + '</em>' : '') +
+        '</span></div>';
     }
-    function escHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
-    var t1 = data.task1 || {}; var t2 = data.task2 || {};
+
+    function tipsBlock(tips_en, tips_vi) {
+      if (!tips_en || !tips_en.length) return '';
+      var html = '<div class="band-row" style="margin-top:10px;">💡 Gợi ý cải thiện:<ul style="margin:6px 0 0 18px;">';
+      for (var i = 0; i < tips_en.length; i++) {
+        html += '<li>' + esc(tips_en[i]);
+        if (tips_vi && tips_vi[i]) html += '<br><em style="color:#777;font-size:0.85em;">' + esc(tips_vi[i]) + '</em>';
+        html += '</li>';
+      }
+      html += '</ul></div>';
+      return html;
+    }
+
     var html = '';
-    html += '<div class="overall-band">OVERALL BAND: '+overall+' &nbsp;|&nbsp; Task 1: '+t1band+' &nbsp;|&nbsp; Task 2: '+t2band+'</div>';
-    html += '<div class="result-card"><h3>TASK 1 — Detailed Scores</h3>';
-    html += critRow('TA','Task Achievement', t1.scores, t1.feedback);
-    html += critRow('CC','Coherence & Cohesion', t1.scores, t1.feedback);
-    html += critRow('LR','Lexical Resource', t1.scores, t1.feedback);
-    html += critRow('GRA','Grammatical Range & Accuracy', t1.scores, t1.feedback);
-    if (t1.suggestions) html += '<div class="band-row">💡 Gợi ý: '+escHtml(t1.suggestions)+'</div>';
+    html += '<div class="overall-band">OVERALL BAND: ' + overall +
+            ' &nbsp;|&nbsp; Task 1: ' + (t1.band||'—') +
+            ' &nbsp;|&nbsp; Task 2: ' + (t2.band||'—') + '</div>';
+
+    // Task 1
+    html += '<div class="result-card"><h3>TASK 1 — Chi tiết điểm</h3>';
+    html += critBlock('TA',  t1.ta,  t1.ta_en,  t1.ta_vi);
+    html += critBlock('CC',  t1.cc,  t1.cc_en,  t1.cc_vi);
+    html += critBlock('LR',  t1.lr,  t1.lr_en,  t1.lr_vi);
+    html += critBlock('GRA', t1.gra, t1.gra_en, t1.gra_vi);
+    html += tipsBlock(t1.tips_en, t1.tips_vi);
     html += '</div>';
-    html += '<div class="result-card"><h3>TASK 2 — Detailed Scores</h3>';
-    html += critRow('TR','Task Response', t2.scores, t2.feedback);
-    html += critRow('CC','Coherence & Cohesion', t2.scores, t2.feedback);
-    html += critRow('LR','Lexical Resource', t2.scores, t2.feedback);
-    html += critRow('GRA','Grammatical Range & Accuracy', t2.scores, t2.feedback);
-    if (t2.suggestions) html += '<div class="band-row">💡 Gợi ý: '+escHtml(t2.suggestions)+'</div>';
+
+    // Task 2
+    html += '<div class="result-card"><h3>TASK 2 — Chi tiết điểm</h3>';
+    html += critBlock('TR',  t2.tr,  t2.tr_en,  t2.tr_vi);
+    html += critBlock('CC',  t2.cc,  t2.cc_en,  t2.cc_vi);
+    html += critBlock('LR',  t2.lr,  t2.lr_en,  t2.lr_vi);
+    html += critBlock('GRA', t2.gra, t2.gra_en, t2.gra_vi);
+    html += tipsBlock(t2.tips_en, t2.tips_vi);
     html += '</div>';
+
     html += '<div class="ai-disclaimer">⚠ Đây là điểm AI sơ bộ — giáo viên sẽ xem lại và xác nhận điểm chính thức.</div>';
     ra.innerHTML = html;
   }
