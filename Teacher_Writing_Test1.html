@@ -287,10 +287,10 @@
           .catch(function(){});
         loadSubmissions();
       } else {
-        document.getElementById('loginError').textContent = 'Bạn không có quyền truy cập trang này. (' + email + ')';
+        document.getElementById('loginError').textContent = 'Không có quyền: [' + email + '] — liên hệ quản trị viên.';
       }
     } catch(e) {
-      document.getElementById('loginError').textContent = 'Lỗi đọc token. Thử lại.';
+      document.getElementById('loginError').textContent = 'Lỗi token: ' + e.message;
     }
   }
 
