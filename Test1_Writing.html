@@ -198,9 +198,8 @@
   /* ── RESULT AREA ── */
   #resultArea {
     display: none; overflow-y: auto; padding: 20px;
-    background: #f0f2f5; flex: 1;
+    background: #f0f2f5; flex: 1; min-height: 0;
   }
-  #resultArea.show { display: block; }
   #resultArea > * { max-width: 860px; margin-left: auto; margin-right: auto; }
   .result-card {
     background: #fff; border-radius: 10px; padding: 20px 24px;
@@ -338,7 +337,7 @@
   </div><!-- /contentArea -->
 
   <!-- RESULT AREA (shown after submit, scrollable below content) -->
-  <div id="resultArea" style="overflow-y:auto;padding:16px;background:#f0f2f5;display:none;flex:1;"></div>
+  <div id="resultArea"></div>
 
   <!-- SUBMIT BUTTON -->
   <button id="btnSubmit" onclick="confirmSubmit()">Nộp bài</button>
@@ -661,8 +660,12 @@
     document.getElementById('tabBtn1').style.display = 'none';
     document.getElementById('tabBtn2').style.display = 'none';
     var ra = document.getElementById('resultArea');
+    ra.style.display = 'block';
+    ra.style.overflowY = 'auto';
+    ra.style.flex = '1';
+    ra.style.padding = '20px';
+    ra.style.background = '#f0f2f5';
     ra.innerHTML = '<div class="spinner-wrap"><span class="spinner"></span> Đang chấm bài... vui lòng đợi (30-60 giây)</div>';
-    ra.classList.add('show');
 
     var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
 
