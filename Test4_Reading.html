@@ -64,6 +64,27 @@ input[type=text].q-input.wrong{background:#ffcdd2;border-color:#e53935}
 </style>
 </head>
 <body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 4</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
 <div id="header">
   <div id="tabRow">
     <button class="tab active" onclick="showPass(1)">Passage 1</button>
@@ -397,6 +418,25 @@ input[type=text].q-input.wrong{background:#ffcdd2;border-color:#e53935}
 <div id="fsWarning">⚠ Please stay in fullscreen!</div>
 
 <script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+}
+
 var SHEET_URL='https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
 var ANS={
   q1:'D',q2:'D',q3:'C',
@@ -740,7 +780,34 @@ function doSubmit(){
   // Submit to Google Sheets
   var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;
   var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
-  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 4',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0})}).catch(function(){});
+    // Build details string from DOM
+  var detailsParts = [];
+  document.querySelectorAll('input[type="text"]').forEach(function(el) {
+    var qid = el.id || el.name || '?';
+    var val = el.value || '';
+    var ok = el.classList.contains('correct') ? '✔' : '✘';
+    detailsParts.push(qid.replace('q','Q') + ':' + ok + '(' + val + ')');
+  });
+  document.querySelectorAll('select').forEach(function(el) {
+    var qid = el.id || el.name || '?';
+    var val = el.value || '';
+    var ok = el.classList.contains('correct') ? '✔' : '✘';
+    detailsParts.push(qid.replace('q','Q') + ':' + ok + '(' + val + ')');
+  });
+  document.querySelectorAll('input[type="radio"]:checked').forEach(function(el) {
+    var qid = el.name || '?';
+    var lbl = el.closest('label');
+    var ok = (lbl && lbl.classList.contains('correct-label')) ? '✔' : '✘';
+    detailsParts.push(qid.replace('q','Q') + ':' + ok + '(' + el.value + ')');
+  });
+  document.querySelectorAll('input[type="checkbox"]:checked').forEach(function(el) {
+    var qid = el.name || '?';
+    var lbl = el.closest('label');
+    var ok = (lbl && lbl.classList.contains('correct-label')) ? '✔' : '✘';
+    detailsParts.push(qid.replace('q','Q') + ':' + ok + '(' + el.value + ')');
+  });
+  var details = detailsParts.join(' | ');
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 4',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
 }
 </script>
 </body>
