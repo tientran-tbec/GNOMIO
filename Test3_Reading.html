@@ -51,6 +51,27 @@ select.selected-answer{background:#FFD580}
 .highlight-green{background:#90EE90}
 .highlight-pink{background:#FFB6C1}
 </style></head><body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 3</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
 <div id="header">
   <div id="row1">
     <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
@@ -261,6 +282,25 @@ select.selected-answer{background:#FFD580}
 </div>
 </div></div>
 <script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+}
+
 var warned=0;
 function doWarn(){if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated.</h2>';}}
 document.addEventListener('visibilitychange',function(){if(document.hidden)doWarn();});
@@ -330,7 +370,16 @@ function submitExam(){
   var sb=document.getElementById('score-box');sb.style.display='block';
   sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p><table class="band-table"><tr><th>Score</th><th>Band</th></tr><tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr><tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr><tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr><tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
   sb.scrollIntoView({behavior:'smooth'});showTab(2);
-  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',body:JSON.stringify({test:'Test3',score:score,band:band,timestamp:new Date().toISOString()})}).catch(function(){});
+
+  // Build details
+  var detailsParts = [];
+  document.querySelectorAll('input[type="text"]').forEach(function(el){var qid=el.id||el.name||'?';detailsParts.push(qid.replace('q','Q')+':'+(el.classList.contains('correct')?'✔':'✘')+'('+el.value+')');});
+  document.querySelectorAll('select').forEach(function(el){var qid=el.id||el.name||'?';detailsParts.push(qid.replace('q','Q')+':'+(el.classList.contains('correct')?'✔':'✘')+'('+el.value+')');});
+  document.querySelectorAll('input[type="radio"]:checked').forEach(function(el){var lbl=el.closest('label');detailsParts.push((el.name||'?').replace('q','Q')+':'+(lbl&&lbl.classList.contains('correct-label')?'✔':'✘')+'('+el.value+')');});
+  document.querySelectorAll('input[type="checkbox"]:checked').forEach(function(el){var lbl=el.closest('label');detailsParts.push((el.name||'?').replace('q','Q')+':'+(lbl&&lbl.classList.contains('correct-label')?'✔':'✘')+'('+el.value+')');});
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 3',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
 }
 (function(){var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});document.addEventListener('mouseup',function(){dragging=false;});})();
 </script></body></html>
