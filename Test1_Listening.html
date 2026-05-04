@@ -646,8 +646,7 @@ function startExam() {
   setTimeout(function() { if (window.enterFullscreen) window.enterFullscreen(); }, 300);
 }
 
-// Ghi nhận thời điểm bắt đầu làm bài
-window._testStartTime = Date.now();
+// _testStartTime được ghi nhận trong startExam() — không ghi ở đây
 
 // ===================== CHỐNG GIAN LẬN (tab độc lập - GitHub Pages) =====================
 (function() {
@@ -772,7 +771,7 @@ window._testStartTime = Date.now();
   var MAIN_MS  = 40 * 60 * 1000;
   var EXTRA_MS =  5 * 60 * 1000;
 
-  var startTime    = Date.now();
+  var startTime    = null;   // set from window._testStartTime when first tick runs
   var inExtraTime  = false;
   var extraStart   = null;
   var timerStopped = false;
@@ -791,6 +790,11 @@ window._testStartTime = Date.now();
 
   function tick() {
     if (timerStopped) return;
+    if (!startTime) {
+      // Wait until student has started the exam
+      if (!window._testStartTime) return;
+      startTime = window._testStartTime;
+    }
     var now = Date.now();
     if (!inExtraTime) {
       var remaining = MAIN_MS - (now - startTime);
@@ -1030,7 +1034,7 @@ function submitTest() {
 
   // ===================== GỬI KẾT QUẢ LÊN GOOGLE SHEETS =====================
   (function() {
-    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbwHyMXo7QVkk7K7K-0yNGer6HL35hEyoC4-MKWfQxsh2BdHHuRgW-KRpLcr9bZeU3_7/exec';
+    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
 
     // Tính thời gian làm bài
     var endTime   = Date.now();
