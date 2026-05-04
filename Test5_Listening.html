@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>IELTS Listening Test 5</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:Arial,sans-serif;font-size:15px;background:#f4f6f9;color:#222;
+  -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;}
+input[type="text"],input[type="text"]:focus,select{
+  -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;}
+@media print{body{display:none!important;}}
+
+/* NAME POPUP */
+#name-overlay{position:fixed;inset:0;background:rgba(10,30,60,.92);z-index:100000;display:flex;align-items:center;justify-content:center;}
+#name-box{background:#fff;border-radius:14px;padding:36px 40px;max-width:420px;width:92%;box-shadow:0 8px 32px rgba(0,0,0,.3);text-align:center;}
+#name-box h2{color:#1a3c6e;font-size:21px;margin-bottom:6px;}
+#name-box p{color:#666;font-size:13px;margin-bottom:20px;}
+.name-field{margin-bottom:14px;text-align:left;}
+.name-field label{display:block;font-size:13px;font-weight:bold;color:#1a3c6e;margin-bottom:5px;}
+.name-field input{width:100%;padding:10px 12px;border:2px solid #c8d4e8;border-radius:7px;font-size:15px;outline:none;
+  -webkit-user-select:text;user-select:text;}
+.name-field input:focus{border-color:#1a3c6e;}
+#name-error{color:#c0392b;font-size:13px;margin-bottom:10px;min-height:18px;}
+#start-btn{background:#1a3c6e;color:#fff;border:none;border-radius:8px;padding:13px 36px;font-size:16px;font-weight:bold;cursor:pointer;width:100%;}
+#start-btn:hover{background:#f39c12;}
+
+/* CONFIRM POPUP */
+#confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99995;align-items:center;justify-content:center;}
+#confirm-overlay.show{display:flex;}
+#confirm-box{background:#fff;border-radius:12px;padding:30px 36px;max-width:420px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.25);}
+#confirm-box h3{font-size:19px;color:#1a3c6e;margin-bottom:10px;}
+#confirm-box p{color:#555;font-size:14px;margin-bottom:22px;line-height:1.6;}
+.confirm-btns{display:flex;gap:12px;}
+#confirm-yes{flex:1;background:#c0392b;color:#fff;border:none;border-radius:7px;padding:11px;font-size:15px;font-weight:bold;cursor:pointer;}
+#confirm-no{flex:1;background:#e0e0e0;color:#333;border:none;border-radius:7px;padding:11px;font-size:15px;font-weight:bold;cursor:pointer;}
+#confirm-yes:hover{background:#a93226;}#confirm-no:hover{background:#ccc;}
+
+/* FS OVERLAY */
+#fs-overlay{display:none;position:fixed;inset:0;background:rgba(10,30,60,.95);z-index:99998;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;}
+#fs-overlay h2{font-size:26px;margin-bottom:12px;color:#f39c12;}
+#fs-overlay p{font-size:15px;margin-bottom:22px;color:#ccc;}
+#fs-enter-btn{background:#f39c12;color:#fff;border:none;border-radius:8px;padding:12px 34px;font-size:16px;font-weight:bold;cursor:pointer;}
+
+/* DEVTOOLS */
+#devtools-overlay{display:none;position:fixed;inset:0;background:#111;z-index:99999;flex-direction:column;align-items:center;justify-content:center;text-align:center;}
+#devtools-overlay h2{font-size:28px;color:#ff4444;margin-bottom:12px;}
+#devtools-overlay p{font-size:15px;color:#ccc;}
+
+/* BANNER */
+#viol-banner{display:none;position:fixed;top:0;left:0;right:0;z-index:99997;background:#c0392b;color:#fff;text-align:center;padding:10px 16px;font-size:15px;font-weight:bold;}
+
+/* TIMER */
+#timer-box{position:fixed;top:14px;right:18px;z-index:9999;background:#1a3c6e;color:#fff;padding:9px 16px;border-radius:10px;font-size:21px;font-weight:bold;min-width:106px;text-align:center;}
+#timer-box.warn{background:#e0a800;}
+#timer-box.danger{background:#c0392b;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
+@keyframes blink-fast{0%,100%{opacity:1}50%{opacity:.1}}
+#timer-box.blink{animation:blink 1s infinite;}
+#timer-box.blink-fast{animation:blink-fast .38s infinite;}
+
+/* TIMEOUT */
+#timeout-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99990;align-items:center;justify-content:center;}
+#timeout-overlay.show{display:flex;}
+#timeout-box{background:#fff;border-radius:12px;padding:30px 36px;max-width:400px;width:90%;text-align:center;}
+#timeout-box h3{font-size:20px;color:#c0392b;margin-bottom:10px;}
+#timeout-box p{color:#444;font-size:15px;margin-bottom:18px;}
+#timeout-submit-btn{background:#c0392b;color:#fff;border:none;border-radius:7px;padding:11px 30px;font-size:16px;font-weight:bold;cursor:pointer;}
+
+/* HEADER */
+header{background:#1a3c6e;color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px;}
+header h1{font-size:21px;}
+.badge{background:#f39c12;color:#fff;border-radius:6px;padding:3px 11px;font-size:13px;font-weight:bold;}
+
+/* AUDIO */
+#audio-section{background:#fff;padding:13px 28px;border-bottom:2px solid #e0e0e0;display:flex;align-items:center;gap:12px;}
+#audio-section label{font-weight:bold;color:#1a3c6e;white-space:nowrap;}
+#audio-section audio{flex:1;}
+
+/* MAIN */
+.main-content{max-width:960px;margin:22px auto;padding:0 18px 40px;}
+.part-card{background:#fff;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:28px;overflow:hidden;}
+.part-header{background:#1a3c6e;color:#fff;padding:11px 20px;font-size:16px;font-weight:bold;}
+.part-body{padding:20px 22px;}
+.instruction{background:#eaf1fb;border-left:4px solid #1a3c6e;padding:8px 13px;margin-bottom:15px;font-style:italic;color:#1a3c6e;border-radius:0 6px 6px 0;font-size:14px;}
+.section-title{font-weight:bold;color:#1a3c6e;margin:16px 0 8px;font-size:15px;border-bottom:1px solid #e8e8e8;padding-bottom:4px;}
+
+/* NOTE TABLE */
+.note-table{width:100%;border-collapse:collapse;margin-bottom:10px;}
+.note-table td{border:1px solid #c8d4e8;padding:9px 13px;vertical-align:top;line-height:1.85;}
+.note-table td:first-child{font-weight:bold;background:#f0f4fb;color:#1a3c6e;}
+.tbl-header td{background:#1a3c6e!important;color:#fff!important;font-weight:bold;text-align:center;}
+
+/* FORM BOX */
+.form-box{background:#f9f9f9;border:2px solid #c8d4e8;border-radius:8px;padding:18px 22px;line-height:2.4;font-size:15px;margin-bottom:10px;}
+.form-box .form-title{font-weight:bold;font-size:16px;text-align:center;color:#1a3c6e;margin-bottom:12px;letter-spacing:.5px;}
+
+/* FILL INPUT */
+.fill-input{display:inline-block;border:none;border-bottom:2px solid #1a3c6e;width:150px;padding:2px 5px;font-size:14px;background:#f0f4fb;border-radius:3px 3px 0 0;outline:none;text-align:center;transition:border-color .2s,background .2s;}
+.fill-input:focus{border-bottom-color:#f39c12;background:#fff8e1;}
+.fill-input.correct{background:#d4edda;border-bottom-color:#28a745;color:#155724;}
+.fill-input.wrong{background:#f8d7da;border-bottom-color:#dc3545;color:#721c24;}
+.correct-ans{color:#155724;font-weight:bold;font-size:13px;margin-left:4px;}
+
+/* CHECKBOX / CHOOSE */
+.choose-block{margin-bottom:14px;}
+.check-label{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:6px;cursor:pointer;margin-bottom:3px;transition:background .15s;}
+.check-label:hover{background:#eaf1fb;}
+.check-label input[type=checkbox]{margin-top:3px;accent-color:#1a3c6e;}
+.check-label.correct-opt{background:#d4edda;}
+.check-label.wrong-opt{background:#f8d7da;}
+.check-label.missed-opt{background:#fff3cd;border:1px dashed #e0a800;}
+
+/* MCQ RADIO */
+.question-block{margin-bottom:13px;}
+.question-text{font-weight:bold;margin-bottom:6px;color:#333;}
+.option-label{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:6px;cursor:pointer;margin-bottom:3px;transition:background .15s;}
+.option-label:hover{background:#eaf1fb;}
+.option-label input[type=radio]{margin-top:3px;accent-color:#1a3c6e;}
+.option-label.correct-opt{background:#d4edda;}
+.option-label.wrong-opt{background:#f8d7da;}
+
+/* MATCHING SELECT */
+.match-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;}
+.match-q{flex:1;font-size:14px;line-height:1.5;}
+.match-select{border:1px solid #1a3c6e;border-radius:5px;padding:4px 8px;font-size:14px;background:#f0f4fb;min-width:68px;cursor:pointer;}
+.match-select.correct{background:#d4edda;border-color:#28a745;}
+.match-select.wrong{background:#f8d7da;border-color:#dc3545;}
+
+/* KEY BOX */
+.key-box{background:#eaf1fb;border-radius:7px;padding:10px 14px;margin-bottom:14px;font-size:14px;line-height:1.9;}
+.key-box strong{color:#1a3c6e;}
+
+/* FLOWCHART */
+.flow-table{width:100%;border-collapse:collapse;}
+.flow-table td{border:1px solid #c8d4e8;padding:12px 16px;text-align:center;line-height:1.9;font-size:15px;}
+.flow-step{background:#f0f4fb;font-weight:bold;color:#1a3c6e;width:80px;}
+.flow-arrow{background:#fff;text-align:center;font-size:20px;border:none!important;padding:4px;}
+
+/* SUBMIT */
+#submit-btn{display:block;margin:28px auto 10px;background:#1a3c6e;color:#fff;border:none;border-radius:8px;padding:13px 46px;font-size:17px;font-weight:bold;cursor:pointer;box-shadow:0 3px 10px rgba(26,60,110,.25);}
+#submit-btn:hover{background:#f39c12;}
+
+/* SCORE */
+#score-section{display:none;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,.1);padding:26px 28px;margin-top:18px;text-align:center;}
+#score-section h2{font-size:21px;color:#1a3c6e;margin-bottom:16px;}
+.score-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:14px 0 20px;}
+.score-card{background:#eaf1fb;border-radius:8px;padding:13px 8px;}
+.score-card .num{font-size:30px;font-weight:bold;color:#1a3c6e;}
+.score-card .lbl{font-size:13px;color:#666;margin-top:4px;}
+.band-box{background:#1a3c6e;color:#fff;border-radius:10px;padding:14px 28px;display:inline-block;font-size:19px;font-weight:bold;letter-spacing:1px;margin-bottom:14px;}
+#violation-report{background:#fff8e1;border:1px solid #e0a800;border-radius:8px;padding:12px 16px;margin-top:14px;text-align:left;font-size:14px;}
+#violation-report h4{color:#c0392b;margin-bottom:6px;}
+#gs-status{margin-top:10px;font-size:13px;color:#888;}
+.qnum{color:#1a3c6e;font-weight:bold;font-size:13px;}
+</style>
+</head>
+<body>
+
+<!-- NAME POPUP -->
+<div id="name-overlay">
+  <div id="name-box">
+    <h2>🎧 IELTS Listening Test 5</h2>
+    <p>Vui lòng điền đầy đủ thông tin trước khi bắt đầu làm bài.</p>
+    <div class="name-field"><label for="inp-name">Họ và tên *</label><input type="text" id="inp-name" placeholder="Nguyễn Văn A" autocomplete="off"/></div>
+    <div class="name-field"><label for="inp-class">Lớp *</label><input type="text" id="inp-class" placeholder="VD: B2-2501" autocomplete="off"/></div>
+    <div id="name-error"></div>
+    <button id="start-btn" onclick="startExam()">▶ Bắt đầu làm bài</button>
+  </div>
+</div>
+
+<!-- CONFIRM POPUP -->
+<div id="confirm-overlay">
+  <div id="confirm-box">
+    <h3>📋 Xác nhận nộp bài</h3>
+    <p>Bạn có chắc muốn nộp bài?<br/>Sau khi nộp sẽ không thể sửa lại.</p>
+    <div class="confirm-btns">
+      <button id="confirm-yes" onclick="submitTest()">✅ Xác nhận nộp</button>
+      <button id="confirm-no" onclick="document.getElementById('confirm-overlay').classList.remove('show')">↩ Quay lại làm bài</button>
+    </div>
+  </div>
+</div>
+
+<!-- FS OVERLAY -->
+<div id="fs-overlay">
+  <h2>⚠️ Bạn đã thoát toàn màn hình!</h2>
+  <p>Bài thi yêu cầu chế độ toàn màn hình.<br/>Vui lòng nhấn nút bên dưới để tiếp tục.</p>
+  <button id="fs-enter-btn" onclick="window.enterFullscreen()">🖥️ Vào toàn màn hình</button>
+</div>
+<div id="devtools-overlay"><h2>🚫 Không được mở DevTools!</h2><p>Vui lòng đóng DevTools và tải lại trang.</p></div>
+<div id="viol-banner"></div>
+<div id="timer-box">⏱ 40:00</div>
+<div id="timeout-overlay">
+  <div id="timeout-box">
+    <h3>⏰ Hết thời gian!</h3>
+    <p>Bài sẽ tự nộp sau <span id="extra-countdown">5:00</span>.</p>
+    <button id="timeout-submit-btn" onclick="submitTest()">Nộp bài ngay</button>
+  </div>
+</div>
+
+<header><h1>🎧 IELTS Listening — Test 5</h1><span class="badge">40 Questions</span></header>
+
+<div id="audio-section">
+  <label>▶ Audio:</label>
+  <audio id="main-audio" controls>
+    <source src="https://tientran-tbec.github.io/GNOMIO/Audio%20Test%205.mp3" type="audio/mpeg"/>
+    Trình duyệt không hỗ trợ audio.
+  </audio>
+</div>
+
+<div class="main-content">
+
+<!-- ===== PART 1 ===== -->
+<div class="part-card">
+  <div class="part-header">PART 1 — Questions 1–10</div>
+  <div class="part-body">
+    <div class="instruction">Complete the form below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</div>
+    <div class="form-box">
+      <div class="form-title">ABLE EMPLOYMENT AGENCY — APPLICATION FORM</div>
+      <div><strong>Full name:</strong> <span class="qnum">Q.01.TEST005</span> <input type="text" class="fill-input" id="q1" placeholder="Answer 1"/></div>
+      <div><strong>Address:</strong> <span class="qnum">Q.02.TEST005</span> <input type="text" class="fill-input" id="q2" placeholder="Answer 2"/> Melford MF4 SJB</div>
+      <div><strong>Contact number:</strong> <span class="qnum">Q.03.TEST005</span> <input type="text" class="fill-input" id="q3" placeholder="Answer 3"/></div>
+      <div><strong>Qualifications:</strong>
+        <div style="margin-left:20px;">
+          (a) A levels<br/>
+          (b) <span class="qnum">Q.04.TEST005</span> <input type="text" class="fill-input" id="q4" placeholder="Answer 4"/><br/>
+          (c) <span class="qnum">Q.05.TEST005</span> <input type="text" class="fill-input" id="q5" placeholder="Answer 5"/> certificate
+        </div>
+      </div>
+      <div><strong>Previous experience:</strong>
+        <div style="margin-left:20px;">
+          (a) general work in a <span class="qnum">Q.06.TEST005</span> <input type="text" class="fill-input" id="q6" placeholder="Answer 6"/> (3 months)<br/>
+          (b) part-time job as a <span class="qnum">Q.07.TEST005</span> <input type="text" class="fill-input" id="q7" placeholder="Answer 7"/>
+        </div>
+      </div>
+      <div><strong>Interests:</strong>
+        <div style="margin-left:20px;">
+          (a) member of a <span class="qnum">Q.08.TEST005</span> <input type="text" class="fill-input" id="q8" placeholder="Answer 8"/><br/>
+          (b) enjoys <span class="qnum">Q.09.TEST005</span> <input type="text" class="fill-input" id="q9" placeholder="Answer 9"/> (10 years)
+        </div>
+      </div>
+      <div><strong>Date available:</strong> <span class="qnum">Q.10.TEST005</span> <input type="text" class="fill-input" id="q10" placeholder="Answer 10"/></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PART 2 ===== -->
+<div class="part-card">
+  <div class="part-header">PART 2 — Questions 11–20</div>
+  <div class="part-body">
+
+    <div class="section-title">Questions 11–17</div>
+    <div class="instruction">Complete the notes below. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</div>
+    <div class="form-box">
+      <div class="form-title">RUN-WELL CHARITY</div>
+      <div><strong>Background to Run-Well charity</strong></div>
+      <div>Set up in <span class="qnum">Q.11.TEST005</span> <input type="text" class="fill-input" id="q11" placeholder="Answer 11"/></div>
+      <div>Aim: raise money for the <span class="qnum">Q.12.TEST005</span> <input type="text" class="fill-input" id="q12" placeholder="Answer 12"/></div>
+      <div style="margin-top:10px;"><strong>Race details</strong></div>
+      <div>Teams to supply own <span class="qnum">Q.13.TEST005</span> <input type="text" class="fill-input" id="q13" placeholder="Answer 13"/></div>
+      <div>Teams should <span class="qnum">Q.14.TEST005</span> <input type="text" class="fill-input" id="q14" placeholder="Answer 14"/> together</div>
+      <div>Important to bring enough <span class="qnum">Q.15.TEST005</span> <input type="text" class="fill-input" id="q15" placeholder="Answer 15"/></div>
+      <div>Race will finish in the <span class="qnum">Q.16.TEST005</span> <input type="text" class="fill-input" id="q16" placeholder="Answer 16"/></div>
+      <div>Prizes given by the <span class="qnum">Q.17.TEST005</span> <input type="text" class="fill-input" id="q17" placeholder="Answer 17"/></div>
+    </div>
+
+    <div class="section-title">Questions 18–20</div>
+    <div class="instruction">Choose THREE letters A–H. Which THREE ways of raising money for the charity are recommended?</div>
+    <div class="key-box">
+      <strong>A</strong> badges &nbsp;&nbsp; <strong>B</strong> bread and cake stall &nbsp;&nbsp; <strong>C</strong> swimming event &nbsp;&nbsp; <strong>D</strong> concert<br/>
+      <strong>E</strong> door-to-door collecting &nbsp;&nbsp; <strong>F</strong> picnic &nbsp;&nbsp; <strong>G</strong> postcards &nbsp;&nbsp; <strong>H</strong> quiz &nbsp;&nbsp; <strong>I</strong> second-hand sale
+    </div>
+    <div class="choose-block" id="grp-1820">
+      <label class="check-label"><input type="checkbox" name="q18_20" value="A"/> <strong>A</strong>&nbsp; badges</label>
+      <label class="check-label"><input type="checkbox" name="q18_20" value="B"/> <strong>B</strong>&nbsp; bread and cake stall</label>
+      <label class="check-label"><input type="checkbox" name="q18_20" value="C"/> <strong>C</strong>&nbsp; swimming event</label>
+      <label class="check-label"><input type="checkbox" name="q18_20" value="D"/> <strong>D</strong>&nbsp; concert</label>
+      <label class="check-label"><input type="checkbox" name="q18_20" value="E"/> <strong>E</strong>&nbsp; door-to-door collecting</label>
+      <label class="check-label"><input type="checkbox" name="q18_20" value="F"/> <strong>F</strong>&nbsp; picnic</label>
+      <label class="check-label"><input type="checkbox" name="q18_20" value="G"/> <strong>G</strong>&nbsp; postcards</label>
+      <label class="check-label"><input type="checkbox" name="q18_20" value="H"/> <strong>H</strong>&nbsp; quiz</label>
+      <label class="check-label"><input type="checkbox" name="q18_20" value="I"/> <strong>I</strong>&nbsp; second-hand sale</label>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PART 3 ===== -->
+<div class="part-card">
+  <div class="part-header">PART 3 — Questions 21–30</div>
+  <div class="part-body">
+
+    <div class="section-title">Questions 21–24</div>
+    <div class="instruction">Choose the correct letter, A, B or C.</div>
+
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.21.TEST005</span> How old are the students on the nursing program?</div>
+      <label class="option-label"><input type="radio" name="q21" value="A"/> <strong>A</strong>&nbsp; They are teenagers</label>
+      <label class="option-label"><input type="radio" name="q21" value="B"/> <strong>B</strong>&nbsp; They are in their twenties</label>
+      <label class="option-label"><input type="radio" name="q21" value="C"/> <strong>C</strong>&nbsp; They belong to different age groups</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.22.TEST005</span> What do the speakers say about the group project?</div>
+      <label class="option-label"><input type="radio" name="q22" value="A"/> <strong>A</strong>&nbsp; It helps to improve relationship among different classmates</label>
+      <label class="option-label"><input type="radio" name="q22" value="B"/> <strong>B</strong>&nbsp; It helps to develop problem solving skills</label>
+      <label class="option-label"><input type="radio" name="q22" value="C"/> <strong>C</strong>&nbsp; It provides supportive learning environment</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.23.TEST005</span> Which part of the program surprised Paul?</div>
+      <label class="option-label"><input type="radio" name="q23" value="A"/> <strong>A</strong>&nbsp; There's a number of essays to write</label>
+      <label class="option-label"><input type="radio" name="q23" value="B"/> <strong>B</strong>&nbsp; There's a lot of practical work</label>
+      <label class="option-label"><input type="radio" name="q23" value="C"/> <strong>C</strong>&nbsp; There's internship provided</label>
+    </div>
+    <div class="question-block">
+      <div class="question-text"><span class="qnum">Q.24.TEST005</span> What do they feel about learning law?</div>
+      <label class="option-label"><input type="radio" name="q24" value="A"/> <strong>A</strong>&nbsp; It is essential training</label>
+      <label class="option-label"><input type="radio" name="q24" value="B"/> <strong>B</strong>&nbsp; It is too theoretical</label>
+      <label class="option-label"><input type="radio" name="q24" value="C"/> <strong>C</strong>&nbsp; It takes up too much time</label>
+    </div>
+
+    <div class="section-title" style="margin-top:20px;">Questions 25–30</div>
+    <div class="instruction">Choose SIX answers from the box and write the correct letter, A–H, next to Questions 25–30.<br/>What are the suggestions offered by the speakers?</div>
+    <div class="key-box">
+      <strong>A</strong> get feedback from teaching staff &nbsp;&nbsp;
+      <strong>B</strong> do more reading &nbsp;&nbsp;
+      <strong>C</strong> get help from school supporting staff<br/>
+      <strong>D</strong> get help for nursing problems &nbsp;&nbsp;
+      <strong>E</strong> manage time properly &nbsp;&nbsp;
+      <strong>F</strong> be well prepared<br/>
+      <strong>G</strong> review the notes regularly &nbsp;&nbsp;
+      <strong>H</strong> don't set unrealistic goals
+    </div>
+
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.25.TEST005</span>&nbsp; Essays</div>
+      <select class="match-select" id="q25"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <span class="correct-ans" id="ans25"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.26.TEST005</span>&nbsp; Lectures</div>
+      <select class="match-select" id="q26"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <span class="correct-ans" id="ans26"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.27.TEST005</span>&nbsp; Research</div>
+      <select class="match-select" id="q27"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <span class="correct-ans" id="ans27"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.28.TEST005</span>&nbsp; Online forum</div>
+      <select class="match-select" id="q28"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <span class="correct-ans" id="ans28"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.29.TEST005</span>&nbsp; Placement tests</div>
+      <select class="match-select" id="q29"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <span class="correct-ans" id="ans29"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.30.TEST005</span>&nbsp; Freshmen</div>
+      <select class="match-select" id="q30"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+      <span class="correct-ans" id="ans30"></span></div>
+  </div>
+</div>
+
+<!-- ===== PART 4 ===== -->
+<div class="part-card">
+  <div class="part-header">PART 4 — Questions 31–40</div>
+  <div class="part-body">
+
+    <div class="section-title">Questions 31–36</div>
+    <div class="instruction">Match the hat color in the box to the descriptions below. Choose your answers from the box and write the letters A–F next to the questions 31–36.</div>
+    <div class="key-box">
+      <strong>A</strong> Black &nbsp;&nbsp; <strong>B</strong> Blue &nbsp;&nbsp; <strong>C</strong> Green &nbsp;&nbsp; <strong>D</strong> Red &nbsp;&nbsp; <strong>E</strong> White &nbsp;&nbsp; <strong>F</strong> Yellow
+    </div>
+
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.31.TEST005</span>&nbsp; A creative response - be inventive</div>
+      <select class="match-select" id="q31"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <span class="correct-ans" id="ans31"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.32.TEST005</span>&nbsp; An emotional response - use intuition</div>
+      <select class="match-select" id="q32"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <span class="correct-ans" id="ans32"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.33.TEST005</span>&nbsp; A managerial response - take control</div>
+      <select class="match-select" id="q33"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <span class="correct-ans" id="ans33"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.34.TEST005</span>&nbsp; An optimistic response - be encouraging</div>
+      <select class="match-select" id="q34"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <span class="correct-ans" id="ans34"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.35.TEST005</span>&nbsp; A pessimistic response - be wary</div>
+      <select class="match-select" id="q35"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <span class="correct-ans" id="ans35"></span></div>
+    <div class="match-row"><div class="match-q"><span class="qnum">Q.36.TEST005</span>&nbsp; A rational response - focus on data</div>
+      <select class="match-select" id="q36"><option value="">–</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+      <span class="correct-ans" id="ans36"></span></div>
+
+    <div class="section-title" style="margin-top:20px;">Questions 37–40</div>
+    <div class="instruction">Write MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</div>
+    <div style="background:#f0f4fb;border-radius:8px;padding:14px 18px;margin-bottom:12px;"><strong>The Stepladder Technique</strong></div>
+    <table class="flow-table">
+      <tr><td class="flow-step">Step 1</td><td><span class="qnum">Q.37.TEST005</span> <input type="text" class="fill-input" id="q37" placeholder="Answer 37"/> members presented with task</td></tr>
+      <tr><td class="flow-arrow" colspan="2">▼</td></tr>
+      <tr><td class="flow-step">Step 2</td><td>a <span class="qnum">Q.38.TEST005</span> <input type="text" class="fill-input" id="q38" placeholder="Answer 38"/> of two members is created</td></tr>
+      <tr><td class="flow-arrow" colspan="2">▼</td></tr>
+      <tr><td class="flow-step">Step 3</td><td>3rd member added: discuss <span class="qnum">Q.39.TEST005</span> <input type="text" class="fill-input" id="q39" placeholder="Answer 39"/> together</td></tr>
+      <tr><td class="flow-arrow" colspan="2">▼</td></tr>
+      <tr><td class="flow-step">Step 4</td><td>repeat the process adding 4th member</td></tr>
+      <tr><td class="flow-arrow" colspan="2">▼</td></tr>
+      <tr><td class="flow-step">Step 5</td><td>all members reach a <span class="qnum">Q.40.TEST005</span> <input type="text" class="fill-input" id="q40" placeholder="Answer 40"/></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- SUBMIT -->
+<button id="submit-btn" onclick="document.getElementById('confirm-overlay').classList.add('show')">📤 Nộp bài</button>
+
+<!-- SCORE -->
+<div id="score-section">
+  <h2>📊 Kết quả — Test 5</h2>
+  <div id="student-info" style="margin-bottom:12px;font-size:15px;color:#444;"></div>
+  <div class="score-grid">
+    <div class="score-card"><div class="num" id="sc-correct">0</div><div class="lbl">Câu đúng</div></div>
+    <div class="score-card"><div class="num" id="sc-wrong">0</div><div class="lbl">Câu sai</div></div>
+    <div class="score-card"><div class="num" id="sc-time">–</div><div class="lbl">Thời gian</div></div>
+  </div>
+  <div class="band-box">Band IELTS: <span id="sc-band">–</span></div>
+  <div id="violation-report"></div>
+  <div id="gs-status"></div>
+</div>
+</div><!-- /main-content -->
+
+<script>
+(function(){
+'use strict';
+
+var GS_URL='https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+
+/* ===== ANSWERS ===== */
+var ANS={
+  q1:{type:'fill',correct:['james bowen']},
+  q2:{type:'fill',correct:['4 lion road']},
+  q3:{type:'fill',correct:['09954 721 822','09954721822']},
+  q4:{type:'fill',correct:['history diploma']},
+  q5:{type:'fill',correct:['computer skills','computer skill']},
+  q6:{type:'fill',correct:['hospital']},
+  q7:{type:'fill',correct:['tour guide']},
+  q8:{type:'fill',correct:['swimming club']},
+  q9:{type:'fill',correct:['playing piano','piano']},
+  q10:{type:'fill',correct:['june 28','28 june','june 28th','28th june']},
+  q11:{type:'fill',correct:['1992']},
+  q12:{type:'fill',correct:['hospital','hospitals']},
+  q13:{type:'fill',correct:['numbers']},
+  q14:{type:'fill',correct:['train']},
+  q15:{type:'fill',correct:['food and drink','food and drinks']},
+  q16:{type:'fill',correct:['main square']},
+  q17:{type:'fill',correct:['minister for health','health minister']},
+  q18_20:{type:'choose3',correct:['C','A','H']},
+  q21:{type:'radio',correct:'C'},
+  q22:{type:'radio',correct:'A'},
+  q23:{type:'radio',correct:'A'},
+  q24:{type:'radio',correct:'A'},
+  q25:{type:'select',correct:'E'},
+  q26:{type:'select',correct:'G'},
+  q27:{type:'select',correct:'C'},
+  q28:{type:'select',correct:'A'},
+  q29:{type:'select',correct:'B'},
+  q30:{type:'select',correct:'H'},
+  q31:{type:'select',correct:'C'},
+  q32:{type:'select',correct:'D'},
+  q33:{type:'select',correct:'B'},
+  q34:{type:'select',correct:'F'},
+  q35:{type:'select',correct:'A'},
+  q36:{type:'select',correct:'E'},
+  q37:{type:'fill',correct:['individual']},
+  q38:{type:'fill',correct:['core group']},
+  q39:{type:'fill',correct:['options']},
+  q40:{type:'fill',correct:['final decision']}
+};
+
+/* ===== VIOLATIONS ===== */
+var tabViol=0,focusViol=0,fsViol=0,violLog=[],submitted=false;
+function logV(msg){violLog.push('['+new Date().toLocaleTimeString()+'] '+msg);}
+
+/* ===== FULLSCREEN ===== */
+var fsOv=document.getElementById('fs-overlay');
+window.enterFullscreen=function(){
+  var el=document.documentElement;
+  if(el.requestFullscreen)el.requestFullscreen();
+  else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
+  fsOv.style.display='none';
+};
+function isFS(){return!!(document.fullscreenElement||document.webkitFullscreenElement);}
+function onFsChg(){
+  if(submitted||!window._testStartTime)return;
+  if(!isFS()){fsViol++;logV('Thoát toàn màn hình');fsOv.style.display='flex';}
+  else fsOv.style.display='none';
+}
+document.addEventListener('fullscreenchange',onFsChg);
+document.addEventListener('webkitfullscreenchange',onFsChg);
+
+/* ===== TIMER ===== */
+var EXAM_MS=40*60*1000,GRACE_MS=5*60*1000;
+var tBox=document.getElementById('timer-box');
+var toOv=document.getElementById('timeout-overlay');
+var exEl=document.getElementById('extra-countdown');
+var timerStopped=false,toShown=false,graceStart=null,startTime=null;
+function fmt(ms){if(ms<0)ms=0;var s=Math.ceil(ms/1000),m=Math.floor(s/60);s=s%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function tick(){
+  if(timerStopped)return;
+  if(!startTime){if(!window._testStartTime)return;startTime=window._testStartTime;}
+  var rem=EXAM_MS-(Date.now()-startTime);
+  if(rem>0){
+    tBox.textContent='⏱ '+fmt(rem);
+    if(rem<=60000)tBox.className='danger blink-fast';
+    else if(rem<=300000)tBox.className='warn blink';
+    else tBox.className='';
+  } else {
+    tBox.textContent='⏱ 00:00';
+    if(!toShown){toShown=true;toOv.classList.add('show');graceStart=Date.now();}
+    var gl=GRACE_MS-(Date.now()-graceStart);
+    if(gl>0)exEl.textContent=fmt(gl);else submitTest();
+  }
+}
+setInterval(tick,500);
+window.stopTimer=function(){timerStopped=true;tBox.style.display='none';};
+
+/* ===== TAB/FOCUS ===== */
+function showBanner(msg){var b=document.getElementById('viol-banner');b.textContent=msg;b.style.display='block';setTimeout(function(){b.style.display='none';},4000);}
+document.addEventListener('visibilitychange',function(){
+  if(submitted||!window._testStartTime)return;
+  if(document.hidden){tabViol++;logV('Chuyển tab (lần '+tabViol+')');showBanner('⚠️ Vi phạm: Chuyển tab! Lần '+tabViol);}
+});
+window.addEventListener('blur',function(){
+  if(submitted||!window._testStartTime)return;
+  focusViol++;logV('Mất focus (lần '+focusViol+')');showBanner('⚠️ Vi phạm: Mất focus! Lần '+focusViol);
+});
+
+/* ===== CHỐNG GIAN LẬN ===== */
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  var ctrl=e.ctrlKey||e.metaKey;
+  if(e.keyCode===123){e.preventDefault();return false;}
+  if(e.key==='Escape'){e.preventDefault();return false;}
+  if(ctrl){
+    var k=(e.key||'').toLowerCase();
+    if(['c','a','s','u','p','v'].indexOf(k)!==-1){
+      var tag=(document.activeElement||{}).tagName||'';
+      if(tag==='INPUT'||tag==='TEXTAREA'||tag==='SELECT')return;
+      e.preventDefault();return false;
+    }
+    if(e.shiftKey&&['i','j','c','k'].indexOf(k)!==-1){e.preventDefault();return false;}
+  }
+});
+document.addEventListener('copy',function(e){var t=(document.activeElement||{}).tagName||'';if(t==='INPUT'||t==='TEXTAREA')return;e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){var t=(document.activeElement||{}).tagName||'';if(t==='INPUT'||t==='TEXTAREA')return;e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+
+/* ===== DEVTOOLS ===== */
+var devOv=document.getElementById('devtools-overlay'),devDet=false;
+setInterval(function(){
+  if(submitted)return;
+  var open=(window.outerWidth-window.innerWidth>160)||(window.outerHeight-window.innerHeight>160);
+  if(open&&!devDet){devDet=true;logV('DevTools phát hiện');devOv.style.display='flex';
+    document.querySelectorAll('header,#audio-section,.main-content,#submit-btn,#score-section,#timer-box').forEach(function(el){el.style.visibility='hidden';});}
+  else if(!open&&devDet){devDet=false;devOv.style.display='none';
+    document.querySelectorAll('header,#audio-section,.main-content,#submit-btn,#score-section,#timer-box').forEach(function(el){el.style.visibility='';});}
+},1000);
+
+/* ===== START ===== */
+window.startExam=function(){
+  var name=document.getElementById('inp-name').value.trim();
+  var cls=document.getElementById('inp-class').value.trim();
+  var err=document.getElementById('name-error');
+  if(!name||!cls){err.textContent='⚠️ Vui lòng điền đầy đủ Họ tên và Lớp!';return;}
+  err.textContent='';
+  window._studentName=name;window._studentClass=cls;window._testStartTime=Date.now();
+  document.getElementById('name-overlay').style.display='none';
+  window.enterFullscreen();
+};
+
+/* ===== HELPERS ===== */
+function norm(s){return(s||'').trim().toLowerCase().replace(/\s+/g,' ');}
+function checkFill(id,list){
+  var v=norm(document.getElementById(id).value);
+  for(var i=0;i<list.length;i++){if(v===norm(list[i]))return true;}
+  return false;
+}
+
+/* ===== SUBMIT ===== */
+window.submitTest=function(){
+  if(submitted)return;
+  submitted=true;
+  document.getElementById('confirm-overlay').classList.remove('show');
+  document.getElementById('timeout-overlay').classList.remove('show');
+  window.stopTimer();
+  var audio=document.getElementById('main-audio');if(audio)audio.pause();
+
+  var score=0,details={};
+
+  /* Fill Q1-17, Q37-40 */
+  var fillIds=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
+               'q11','q12','q13','q14','q15','q16','q17',
+               'q37','q38','q39','q40'];
+  fillIds.forEach(function(id){
+    var el=document.getElementById(id);if(!el)return;
+    var ok=checkFill(id,ANS[id].correct);
+    details[id]={val:el.value,ok:ok};
+    el.disabled=true;
+    if(ok){el.classList.add('correct');score++;}
+    else{el.classList.add('wrong');var sp=document.createElement('span');sp.className='correct-ans';sp.textContent='✓ '+ANS[id].correct[0];el.insertAdjacentElement('afterend',sp);}
+  });
+
+  /* Choose 3 — Q18-20 */
+  var sel1820=Array.from(document.querySelectorAll('input[name="q18_20"]:checked')).map(function(x){return x.value;});
+  var correct1820=ANS.q18_20.correct;
+  var cp=0;
+  document.querySelectorAll('input[name="q18_20"]').forEach(function(inp){
+    inp.disabled=true;
+    var lbl=inp.closest('.check-label');
+    var isC=correct1820.indexOf(inp.value)!==-1;
+    if(isC&&inp.checked){lbl.classList.add('correct-opt');cp++;}
+    else if(!isC&&inp.checked)lbl.classList.add('wrong-opt');
+    else if(isC&&!inp.checked)lbl.classList.add('missed-opt');
+  });
+  score+=cp;
+  details['q18_20']={val:sel1820.join(','),ok:(cp===3)};
+
+  /* Radio Q21-24 */
+  ['q21','q22','q23','q24'].forEach(function(id){
+    var all=document.querySelectorAll('input[name="'+id+'"]');
+    var sel=document.querySelector('input[name="'+id+'"]:checked');
+    var chosen=sel?sel.value:'';
+    var ok=(chosen===ANS[id].correct);
+    details[id]={val:chosen,ok:ok};
+    all.forEach(function(r){r.disabled=true;var lbl=r.closest('.option-label');if(r.value===ANS[id].correct)lbl.classList.add('correct-opt');else if(r.checked)lbl.classList.add('wrong-opt');});
+    if(ok)score++;
+  });
+
+  /* Select Q25-36 */
+  ['q25','q26','q27','q28','q29','q30','q31','q32','q33','q34','q35','q36'].forEach(function(id){
+    var el=document.getElementById(id);if(!el)return;
+    var ok=(el.value===ANS[id].correct);
+    details[id]={val:el.value,ok:ok};
+    el.disabled=true;
+    if(ok){el.classList.add('correct');score++;}
+    else{el.classList.add('wrong');var num=id.substring(1);var ae=document.getElementById('ans'+num);if(ae)ae.textContent='✓ '+ANS[id].correct;}
+  });
+
+  window._submittedDetails=details;
+
+  /* Details string — đúng thứ tự Q1-Q40 */
+  var qOrder=['q1','q2','q3','q4','q5','q6','q7','q8','q9','q10',
+              'q11','q12','q13','q14','q15','q16','q17',
+              'q18_20',/* 3 câu */
+              'q21','q22','q23','q24',
+              'q25','q26','q27','q28','q29','q30',
+              'q31','q32','q33','q34','q35','q36',
+              'q37','q38','q39','q40'];
+  var detArr=[],qNum=1;
+  qOrder.forEach(function(k){
+    var d=details[k];
+    if(k==='q18_20'){
+      for(var i=0;i<3;i++){detArr.push('Q'+(qNum<10?'0':'')+qNum+':'+(d.ok?'✔':'✘')+'('+d.val+')');qNum++;}
+    } else {
+      detArr.push('Q'+(qNum<10?'0':'')+qNum+':'+(d.ok?'✔':'✘')+'('+d.val+')');qNum++;
+    }
+  });
+
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;
+  var tm=Math.floor(elapsed/60),ts=elapsed%60;
+  var timeTaken=tm+' phút '+(ts<10?'0':'')+ts+' giây';
+  var band=getBand(score);
+
+  document.getElementById('sc-correct').textContent=score;
+  document.getElementById('sc-wrong').textContent=40-score;
+  document.getElementById('sc-time').textContent=timeTaken;
+  document.getElementById('sc-band').textContent=band;
+  document.getElementById('student-info').textContent='👤 '+(window._studentName||'')+' | 🏫 '+(window._studentClass||'');
+
+  var vr=document.getElementById('violation-report');
+  if(tabViol||focusViol||fsViol){
+    var vh='<h4>⚠️ Báo cáo vi phạm</h4>';
+    vh+='<div>Chuyển tab: <strong>'+tabViol+' lần</strong></div>';
+    vh+='<div>Mất focus: <strong>'+focusViol+' lần</strong></div>';
+    vh+='<div>Thoát toàn màn hình: <strong>'+fsViol+' lần</strong></div>';
+    if(violLog.length)vh+='<div style="margin-top:8px;font-size:12px;color:#888;">'+violLog.join('<br/>')+'</div>';
+    vr.innerHTML=vh;
+  }
+
+  document.getElementById('score-section').style.display='block';
+  document.getElementById('score-section').scrollIntoView({behavior:'smooth'});
+
+  var payload={
+    action:'save_result',
+    student:(window._studentName||'?')+' — '+(window._studentClass||'?'),
+    test:'Listening Test 5',
+    score:score,total:40,band:band,timeTaken:timeTaken,
+    tabViol:tabViol,focusViol:focusViol,fsViol:fsViol,
+    details:detArr.join(' | ')
+  };
+  document.getElementById('gs-status').textContent='📡 Đang gửi kết quả...';
+  fetch(GS_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+    .then(function(){document.getElementById('gs-status').textContent='✅ Đã gửi kết quả!';})
+    .catch(function(){document.getElementById('gs-status').textContent='⚠️ Không gửi được — kiểm tra mạng.';});
+};
+
+function getBand(s){
+  if(s>=39)return'9.0';if(s>=37)return'8.5';if(s>=35)return'8.0';
+  if(s>=32)return'7.5';if(s>=30)return'7.0';if(s>=26)return'6.5';
+  if(s>=23)return'6.0';if(s>=18)return'5.5';if(s>=16)return'5.0';
+  if(s>=13)return'4.5';if(s>=10)return'4.0';return'Dưới Band 4';
+}
+window.getViolationLog=function(){return{tabViol:tabViol,focusViol:focusViol,fsViol:fsViol,log:violLog};};
+})();
+</script>
+</body>
+</html>
