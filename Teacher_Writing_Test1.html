@@ -271,24 +271,27 @@
   };
 
   function handleCredential(response) {
-    // Send token to Apps Script for verification
+    // Decode JWT token client-side to get email
     var token = response.credential;
-    fetch(APPS_SCRIPT_URL + '?action=verify_teacher&token=' + encodeURIComponent(token))
-      .then(function(r){ return r.json(); })
-      .then(function(res) {
-        if (res.ok) {
-          document.getElementById('loginScreen').style.display = 'none';
-          document.getElementById('mainApp').classList.add('show');
-          document.getElementById('teacherName').textContent = res.email || '';
-          loadSubmissions();
-        } else {
-          document.getElementById('loginError').textContent = 'Bạn không có quyền truy cập trang này.';
-        }
-      })
-      .catch(function() {
-        // Fallback: allow rd.tbec@gmail.com to bypass for testing
-        document.getElementById('loginError').textContent = 'Lỗi xác thực. Thử lại hoặc liên hệ quản trị viên.';
-      });
+    var ALLOWED_EMAILS = ['rd.tbec@gmail.com'];
+    try {
+      var payload = JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+      var email = (payload.email || '').toLowerCase();
+      if (ALLOWED_EMAILS.indexOf(email) >= 0) {
+        // Email hợp lệ — cho vào
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('mainApp').classList.add('show');
+        document.getElementById('teacherName').textContent = payload.name || email;
+        // Gửi token lên Apps Script để log (không chặn nếu fail)
+        fetch(APPS_SCRIPT_URL + '?action=verify_teacher&token=' + encodeURIComponent(token))
+          .catch(function(){});
+        loadSubmissions();
+      } else {
+        document.getElementById('loginError').textContent = 'Bạn không có quyền truy cập trang này. (' + email + ')';
+      }
+    } catch(e) {
+      document.getElementById('loginError').textContent = 'Lỗi đọc token. Thử lại.';
+    }
   }
 
   window.logout = function() {
