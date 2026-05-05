@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 10</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 10</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <!-- PASSAGE 1 -->
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">Weathering In The Desert</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">In the deserts, as elsewhere, rocks at the earth’s surface are changed by weathering, which may be defined as the disintegration of rocks where they lie. Weathering processes are either chemical, when alteration of some of the constituent particles is involved; or mechanical, when there is merely the physical breaking apart and fragmentation of rocks. Which process will dominate depends primarily on the mineralogy and texture of the rock and the local climate, but several individual processes usually work together to the common end of rock disintegration.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">The great daily changes in temperature of deserts have long been supposed to be responsible for the disintegration of rocks, either by the differential heating of the various rock-forming minerals or by differential heating between the outer and inner parts of rock masses. However, both field observations and laboratory experiments have led to a reassessment of the importance of ’ exposure to the sun’s rays in desert weathering. Almost half a century ago Barton remarked that the buried parts of some of the ancient monuments in Egypt were more weathered than were those parts fully exposed to the sun’s rays, and attributed this to the effects of water absorption below the ground surface. Laboratory experiments have shown that rocks subjected to many cycles of large temperature oscillations (larger than those experienced in nature) display no evidence of fissuring or fragmentation, as a result. However, when marked fluctuations of temperature occur in moist conditions small rock fragments quickly form.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">The expansive action of crystallising salts is often alleged to exert sufficient force to disintegrate rocks. Few would dispute that this mechanism is capable of disrupting fissile or well-cleaved rocks or rocks already weakened by other weathering agencies; wood is splintered, terracotta tiles disintegrated and clays disturbed by the mechanism, but its importance when acting upon fresh and cohesive crystalline rocks remains uncertain.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">Weathering achieves more than the disintegration of rocks, though this is its most important geomorphic effect. It causes specific landforms to develop. Many boulders possess a superficial hard layer of iron oxide and/or silica, substances which have migrated in solution from the inside of the block towards the surface. Not only is the exterior thus case-hardened but the depleted interior disintegrates easily. When weathering penetrates the shell the inside is rapidly attacked and only the hard outer layer remains to give hollowed or ‘tortoiseshell’ rocks.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">Another superficial layer, the precise nature of which is little understood, is the well-known desert varnish or patina, a shiny coat on the surface of rocks and pebbles and characteristic of arid environments. Some varnishes are colourless, others light brown, yet others so dark a brown as to be virtually black. It’s origin is unknown but is significant, for it has been suggested that the varnish grows darker with the passage of time; obviously before such a criterion could be used with confidence as a chronological tool its origin must be known with precision. Its formation is so slow that in Egypt, for example, it has been estimated that a light brown coating requires between 2,000 and 5,000 years to develop, a fully formed blackish veneer between 20,000 and 50,000 years.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">The development of relatively impermeable soil horizons that are subsequently exposed at the surface because of erosion of once overlying, easily eroded materials, and which thus become surface crusts, is widespread in arid regions, although it is also known outside the deserts, and indeed many of the examples in arid lands probably originated in former periods of humid climate. The crusts prevent the waters of occasional torrential downpours from penetrating deeply into the soil, and thus they contribute to the rapid run-off associated with desert storms. Also, after erosion has cut through the crust and exposed underlying soil layers, the hard layer forms a resistant capping (duricrust) on plateaux and mesas, such as are common in many parts of arid and semi-arid Australia.</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">Some duricrust layers have been used as time markers for landforms and geological formations. The necessary conditions for this are that the crust forms fairly rapidly, and that it is sufficiently distinct in appearance to preclude the possibility of confusion with other crusts formed at other times. The Barrilaco calcrete of Mexico for instance is believed to date from about 7,000 B.C. The main silcrete of the northern districts of South Australia is believed to date from the Lower Miocene, the laterite of northern Australia to be of the Lower or Middle Miocene age.</div>
+    </div>
+    <!-- PASSAGE 2 -->
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Time Travel</div>
+      <div class="passage-para">Time travel took a small step away from science fiction and toward science recently when physicists discovered that sub-atomic particles known as neutrinos – progeny of the sun’s radioactive debris – can exceed the speed of light. The unassuming particle – it is electrically neutral, small but with a “non-zero mass” and able to penetrate the human form undetected – is on its way to becoming a rock star of the scientific world.</div>
+      <div class="passage-para">Researchers from the European Organisation for Nuclear Research (CERN) in Geneva sent the neutrinos hurtling through an underground corridor toward their colleagues at the Oscillation Project with Emulsion-Tracing Apparatus (OPERA) team 730 kilometres away in Gran Sasso, Italy. The neutrinos arrived promptly – so promptly, in fact, that they triggered what scientists are calling the unthinkable – that everything they have learnt, known or taught stemming from the last one hundred years of the physics discipline may need to be reconsidered.</div>
+      <div class="passage-para">The issue at stake is a tiny segment of time – precisely sixty nanoseconds (which is sixty billionths of a second). This is how much faster than the speed of light the neutrinos managed to go in their underground travels and at a consistent rate (15,000 neutrinos were sent over three years). Even allowing for a margin of error of ten billionths of a second, this stands as proof that it is possible to race against light and win. The duration of the experiment also accounted for and ruled out any possible lunar effects or tidal bulges in the earth’s crust.</div>
+      <div class="passage-para">Nevertheless, there’s plenty of reason to remain sceptical. According to Harvard University science historian Peter Galison, Einstein’s relativity theory has been “pushed harder than any theory in the history of the physical sciences”. Yet each prior challenge has come to no avail, and relativity has so far refused to buckle.</div>
+      <div class="passage-para">So is time travel just around the corner? The prospect has certainly been wrenched much closer to the realm of possibility now that a major physical hurdle – the speed of light – has been cleared. If particles can travel faster than light, in theory travelling back in time is possible. How anyone harnesses that to some kind of helpful end is far beyond the scope of any modern technologies, however, and will be left to future generations to explore.</div>
+      <div class="passage-para">Certainly, any prospective time travellers may have to overcome more physical and logical hurdles than merely overtaking the speed of light. One such problem, posited by René Barjavel in his 1943 text Le Voyageur Imprudent is the so-called grandfather paradox. Barjavel theorised that, if it were possible to go back in time, a time traveller could potentially kill his own grandfather. If this were to happen, however, the time traveller himself would not be born, which is already known to be true. In other words, there is a paradox in circumventing an already known future; time travel is able to facilitate past actions that mean time travel itself cannot occur.</div>
+      <div class="passage-para">Other possible routes have been offered, though. For Igor Novikov, astrophysicist behind the 1980s’ theorem known as the self-consistency principle, time travel is possible within certain boundaries. Novikov argued that any event causing a paradox would have zero probability. It would be possible, however, to “affect” rather than “change” historical outcomes if travellers avoided all inconsistencies. Averting the sinking of the Titanic, for example, would revoke any future imperative to stop it from sinking – it would be impossible. Saving selected passengers from the water and replacing them with realistic corpses would not be impossible, however, as the historical record would not be altered in any way.</div>
+      <div class="passage-para">A further possibility is that of parallel universes. Popularised by Bryce Seligman DeWitt in the 1960s (from the seminal formulation of Hugh Everett), the many-worlds interpretation holds that an alternative pathway for every conceivable occurrence actually exists. If we were to send someone back in time, we might therefore expect never to see him again – any alterations would divert that person down a new historical trajectory.</div>
+      <div class="passage-para">A final hypothesis, one of unidentified provenance, reroutes itself quite efficiently around the grandfather paradox. Non-existence theory suggests exactly that – a person would quite simply never exist if they altered their ancestry in ways that obstructed their own birth. They would still exist in person upon returning to the present, but any chain reactions associated with their actions would not be registered. Their “historical identity” would be gone.</div>
+      <div class="passage-para">So, will humans one day step across the same boundary that the neutrinos have? World-renowned astrophysicist Stephen Hawking believes that once spaceships can exceed the speed of light, humans could feasibly travel millions of years into the future in order to repopulate earth in the event of a forthcoming apocalypse. This is because, as the spaceships accelerate into the future, time would slow down around them (Hawking concedes that bygone eras are off limits – this would violate the fundamental rule that cause comes before effect).</div>
+      <div class="passage-para">Hawking is therefore reserved yet optimistic. “Time travel was once considered scientific heresy, and I used to avoid talking about it for fear of being labelled a crank. These days I’m not so cautious.”</div>
+    </div>
+    <!-- PASSAGE 3 -->
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">The Power of Nothing</div>
+      <div style="font-size:13px;color:#666;margin-bottom:8px">Geoff Watts, New Scientist (May 26th, 2001)</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">Want to devise a new form of alternative medicine? No problem. Here is the recipe. Be warm, sympathetic, reassuring and enthusiastic. Your treatment should involve physical contact, and each session with your patients should last at least half an hour. Encourage your patients to take an active part in their treatment and understand how their disorders relate to the rest of their lives. Tell them that their own bodies possess the true power to heal. Make them pay you out of their own pockets. Describe your treatment in familiar words, but embroidered with a hint of mysticism: energy fields, energy flows, energy blocks, meridians, forces, auras, rhythms and the like. Refer to the knowledge of an earlier age: wisdom carelessly swept aside by the rise and rise of blind, mechanistic science. Oh, come off it, you are saying. Something invented off the top of your head could not possibly work, could it?</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Well yes, it could – and often well enough to earn you a living. A good living if you are sufficiently convincing, or better still, really believe in your therapy. Many illnesses get better on their own, so if you are lucky and administer your treatment at just the right time you will get the credit. But that’s only part of it. Some of the improvement really would be down to you. Your healing power would be the outcome of a paradoxical force that conventional medicine recognizes but remains oddly ambivalent about: the placebo effect.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">Placebos are treatments that have no direct effect on the body, yet still, work because the patient has faith in their power to heal. Most often the term refers to a dummy pill, but it applies just as much to any device or procedure, from a sticking plaster to a crystal to an operation. The existence of the placebo effect implies that even quackery may confer real benefits, which is why any mention of placebo is a touchy subject for many practitioners of complementary and alternative medicine, who are likely to regard it as tantamount to a charge of charlatanism. In fact, the placebo effect is a powerful part of all medical care, orthodox or otherwise, though its role is often neglected or misunderstood.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">One of the great strengths of CAM may be its practitioners’ skill in deploying the placebo effect to accomplish real healing. “Complementary practitioners are miles better at producing non-specific effects and good therapeutic relationships,” says Edzard Ernst, professor of CAM at Exeter University. The question is whether CAM could be integrated into conventional medicines, as some would like, without losing much of this power.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">At one level, it should come as no surprise that our state of mind can influence our physiology: anger opens the superficial blood vessels of the face; sadness pumps the tear glands. But exactly how placebos work their medical magic is still largely unknown. Most of the scant research done so far has focused on the control of pain because it’s one of the commonest complaints and lends itself to experimental study. Here, attention has turned to the endorphins, morphine-like neurochemicals known to help control pain.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">But exactly how placebos work their medical magic is still largely unknown. Most of the scant research to date has focused on the control of pain because it’s one of the commonest complaints and lends itself to experimental study. Here, attention has turned to the endorphins, natural counterparts of morphine that are known to help control pain. “Any of the neurochemicals involved in transmitting pain impulses or modulating them might also be involved in generating the placebo response,” says Don Price, an oral surgeon at the University of Florida who studies the placebo effect in dental pain.</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">“But endorphins are still out in front.” That case has been strengthened by the recent work of Fabrizio Benedetti of the University of Turin, who showed that the placebo effect can be abolished by a drug, naloxone, which blocks the effects of endorphins. Benedetti induced pain in human volunteers by inflating a blood-pressure cuff on the forearm. He did this several times a day for several days, using morphine each time to control the pain. On the final day, without saying anything, he replaced the morphine with a saline solution. This still relieved the subjects’ pain: a placebo effect. But when he added naloxone to the saline the pain relief disappeared. Here was direct proof that placebo analgesia is mediated, at least in part, by these natural opiates.</div>
+      <div class="section-label">H</div>
+      <div class="passage-para">Still, no one knows how belief triggers endorphin release, or why most people can’t achieve placebo pain relief simply by willing it. Though scientists don’t know exactly how placebos work, they have accumulated a fair bit of knowledge about how to trigger the effect. A London rheumatologist found, for example, that red dummy capsules made more effective painkillers than blue, green or yellow ones. Research on American students revealed that blue pills make better sedatives than pink, a colour more suitable for stimulants. Even branding can make a difference: if Aspro or Tylenol is what you like to take for a headache, their chemically identical generic equivalents may be less effective.</div>
+      <div class="section-label">I</div>
+      <div class="passage-para">It matters, too, how the treatment is delivered. Decades ago, when the major tranquilliser chlorpromazine was being introduced, a doctor in Kansas categorised his colleagues according to whether they were keen on it, openly skeptical of its benefits, or took a “let’s try and see” attitude. His conclusion: the more enthusiastic the doctor, the better the drug performed. And this year Ernst surveyed published studies that compared doctors’ bedside manners. The studies turned up one consistent finding: “Physicians who adopt a warm, friendly and reassuring manner,” he reported, “are more effective than those whose consultations are formal and do not offer reassurance.”</div>
+      <div class="section-label">J</div>
+      <div class="passage-para">Warm, friendly and reassuring are precisely CAM’s strong suits, of course. Many of the ingredients of that opening recipe – the physical contact, the generous swathes of time, the strong hints of supernormal healing power – are just the kind of thing likely to impress patients. It’s hardly surprising, then, that complementary practitioners are generally best at mobilising the placebo effect, says Arthur Kleinman, professor of social anthropology at Harvard University.</div>
+    </div>
+
+  </div><!-- left-panel -->
+  <div id="divider"></div>
+  <div id="right-panel">
+
+    <!-- QUESTIONS TAB 0 (Passage 1) -->
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1–7: Which paragraph (A–G) contains the following information?</div>
+
+      <div class="q-block">
+        <div class="q-label">Q1. The idea that crystalline salts may not disintegrate solid rock as easily as other substances</div>
+        <div class="tfng-row">
+          <select id="q1" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. The fact that daily temperature changes cause rocks to weather may not be as important as supposed</div>
+        <div class="tfng-row">
+          <select id="q2" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. The regions where weathering creates a thick layer of earth that water cannot penetrate easily</div>
+        <div class="tfng-row">
+          <select id="q3" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. The fact that weathering not only breaks down rocks, but also shapes the landscape</div>
+        <div class="tfng-row">
+          <select id="q4" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. The idea of using impenetrable layers of earth to measure chronology</div>
+        <div class="tfng-row">
+          <select id="q5" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r5"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q6. The two different kinds of weathering in rocks</div>
+        <div class="tfng-row">
+          <select id="q6" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. The possibility of using the colour of the shiny surface on rocks to measure chronology</div>
+        <div class="tfng-row">
+          <select id="q7" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+            <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+            <option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r7"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 8–13: TRUE / FALSE / NOT GIVEN</div>
+      <div class="q-block">
+        <div class="q-label">Q8. Desert rocks can become weathered when there is a chemical reaction within the rock.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q8" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q8" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q8" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r8"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q9. The parts of Egyptian monuments exposed to sunlight were found to be affected by the weather more than those below the ground.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q9" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q9" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q9" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r9"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q10. Granite which has been subjected to huge temperature swings tends not to exhibit any signs of disintegration as a result.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q10" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q10" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q10" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r10"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q11. It is estimated that dark patina originated between 2,000 and 5,000 years ago.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q11" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q11" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q11" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. Because of surface crusts, water from torrential rains cannot be fully absorbed into the ground and as a result causes run offs in arid regions.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q12" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q12" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q12" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. Duricrust layering is no longer used as an indicator of time because of the confusion with similar crusts.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q13" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q13" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q13" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r13"></div>
+      </div>
+
+    </div><!-- qtab0 -->
+
+    <!-- QUESTIONS TAB 1 (Passage 2) -->
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14–19: TRUE / FALSE / NOT GIVEN</div>
+      <div class="q-block">
+        <div class="q-label">Q14. It is unclear where neutrinos come from.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q14" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q14" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q14" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. Neutrinos can pass through a person’s body without causing harm.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q15" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q15" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q15" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. It took scientists between 50-70 nanoseconds to send the neutrinos from Geneva to Italy.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q16" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q16" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q16" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. Researchers accounted for effects the moon might have had on the experiment.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q17" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q17" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q17" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. The theory of relativity has often been called into question unsuccessfully.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q18" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q18" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q18" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r18"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q19. This experiment could soon lead to some practical uses for time travel.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q19" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q19" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q19" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r19"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 4px">Questions 20–25: Complete the table. Choose NO MORE THAN THREE WORDS from the passage.</div>
+      <table class="q-table">
+        <tr><th>Original Theorist</th><th>Theory</th><th>Principle</th></tr>
+        <tr>
+          <td>René Barjavel</td>
+          <td>Grandfather paradox</td>
+          <td>Time travel would allow for <b>20</b> <input type="text" id="q20" oninput="markTxt(this)" placeholder="answer"> that would actually make time travel impossible.</td>
+        </tr>
+        <tr>
+          <td>Igor Novikov</td>
+          <td>Self-consistency principle</td>
+          <td>It is only possible to alter history in ways that result in no <b>21</b> <input type="text" id="q21" oninput="markTxt(this)" placeholder="answer"></td>
+        </tr>
+        <tr>
+          <td><b>23</b> <input type="text" id="q23" oninput="markTxt(this)" placeholder="answer"></td>
+          <td>Many-worlds interpretation</td>
+          <td>Each possible event has an <b>22</b> <input type="text" id="q22" oninput="markTxt(this)" placeholder="answer">, so a time traveller changing the past would simply end up in a different branch of history.</td>
+        </tr>
+        <tr>
+          <td>Unknown</td>
+          <td><b>24</b> <input type="text" id="q24" oninput="markTxt(this)" placeholder="answer"></td>
+          <td>If a time traveller changed the past to prevent his future life, he would not have a <b>25</b> <input type="text" id="q25" oninput="markTxt(this)" placeholder="answer"> as the person never existed.</td>
+        </tr>
+      </table>
+      <div class="q-result" id="r20"></div><div class="q-result" id="r21"></div>
+      <div class="q-result" id="r22"></div><div class="q-result" id="r23"></div>
+      <div class="q-result" id="r24"></div><div class="q-result" id="r25"></div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Question 26: Choose the correct letter.</div>
+      <div class="q-block">
+        <div class="q-label">Q26. Stephen Hawking has stated that</div>
+        <label class="radio-opt"><input type="radio" name="q26" value="A" onchange="markRad(this)"> A &nbsp;A    Human time travel is theoretically possible, but is unlikely to ever actually occur.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="B" onchange="markRad(this)"> B &nbsp;B    Human time travel might be possible, but only moving backward in time.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="C" onchange="markRad(this)"> C &nbsp;C    Human time travel might be possible, but only moving forward in time.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="D" onchange="markRad(this)"> D &nbsp;D    All time travel is impossible.</label>
+        <div class="q-result" id="r26"></div>
+      </div>
+    </div><!-- qtab1 -->
+
+    <!-- QUESTIONS TAB 2 (Passage 3) -->
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27–32: Match the deed (A–H) with the people/things below.</div>
+      <div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px">
+        <b>A</b> Should easily be understood &nbsp;|&nbsp;
+        <b>B</b> Should improve by itself &nbsp;|&nbsp;
+        <b>C</b> Should not involve any mysticism &nbsp;|&nbsp;
+        <b>D</b> Ought to last a minimum length of time &nbsp;|&nbsp;
+        <b>E</b> Needs to be treated at the right time &nbsp;|&nbsp;
+        <b>F</b> Should give more recognition &nbsp;|&nbsp;
+        <b>G</b> Can earn valuable money &nbsp;|&nbsp;
+        <b>H</b> Do not rely on any specific treatment
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q27. Appointments with an alternative practitioner</div>
+        <div class="tfng-row">
+          <select id="q27" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. An alternative practitioner’s description of the treatment</div>
+        <div class="tfng-row">
+          <select id="q28" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. An alternative practitioner who has faith in what he does</div>
+        <div class="tfng-row">
+          <select id="q29" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. The illness of patients convinced of alternative practice</div>
+        <div class="tfng-row">
+          <select id="q30" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q31. Improvements of patients receiving alternative practice</div>
+        <div class="tfng-row">
+          <select id="q31" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r31"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q32. Conventional medical doctors (who is aware of placebo)</div>
+        <div class="tfng-row">
+          <select id="q32" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r32"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 33–35: Choose the correct letter A, B, C or D.</div>
+
+      <div class="q-block">
+        <div class="q-label">Q33. 33. In the fifth paragraph, the writer uses the example of anger and sadness to illustrate that:</div>
+        <label class="radio-opt"><input type="radio" name="q33" value="A" onchange="markRad(this)"> A &nbsp;A   People’s feeling could affect their physical behaviour</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="B" onchange="markRad(this)"> B &nbsp;B   Scientists don’t understand how the mind influences the body.</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="C" onchange="markRad(this)"> C &nbsp;C   Research on the placebo effect is very limited</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="D" onchange="markRad(this)"> D &nbsp;D   How placebo achieves its effect is yet to be understood.</label>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. 34. Research on pain control attracts most of the attention because</div>
+        <label class="radio-opt"><input type="radio" name="q34" value="A" onchange="markRad(this)"> A &nbsp;A   Scientists have discovered that endorphins can help to reduce pain.</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="B" onchange="markRad(this)"> B &nbsp;B   Only a limited number of researchers gain relevant experience</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="C" onchange="markRad(this)"> C &nbsp;C   Pain reducing agents might also be involved in the placebo effect.</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="D" onchange="markRad(this)"> D &nbsp;D   Patients often experience pain and like to complain about it</label>
+        <div class="q-result" id="r34"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q35. 35. Fabrizio Benedetti’s research on endorphins indicates that</div>
+        <label class="radio-opt"><input type="radio" name="q35" value="A" onchange="markRad(this)"> A &nbsp;A   They are widely used to regulate pain.</label>
+        <label class="radio-opt"><input type="radio" name="q35" value="B" onchange="markRad(this)"> B &nbsp;B   They can be produced by willful thoughts</label>
+        <label class="radio-opt"><input type="radio" name="q35" value="C" onchange="markRad(this)"> C &nbsp;C   They can be neutralized by introducing naloxone.</label>
+        <label class="radio-opt"><input type="radio" name="q35" value="D" onchange="markRad(this)"> D &nbsp;D   Their pain-relieving effects do not last long enough.</label>
+        <div class="q-result" id="r35"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 36–40: TRUE / FALSE / NOT GIVEN</div>
+      <div class="q-block">
+        <div class="q-label">Q36. here is enough information for scientists to fully understand the placebo effect.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q36" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q36" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q36" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q37. London based researcher discovered that red pills should be taken off the market.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q37" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q37" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q37" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. People’s preference for brands would also have an effect on their healing.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q38" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q38" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q38" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. edical doctors have a range of views of the newly introduced drug of chlorpromazine.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q39" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q39" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q39" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. Alternative practitioners are seldom known for applying the placebo effect.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q40" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q40" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q40" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r40"></div>
+      </div>
+
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div><!-- qtab2 -->
+
+  </div><!-- right-panel -->
+</div><!-- main -->
+
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+}
+
+// ===== ANTI-CHEAT =====
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+ warned +'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden)doWarn();});
+window.addEventListener('blur',doWarn);
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u')){e.preventDefault();}
+});
+(function devcheck(){
+  var t=setInterval(function(){
+    if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160){doWarn();}
+  },2000);
+})();
+try{document.documentElement.requestFullscreen();}catch(e){}
+
+// ===== TIMER =====
+var endTime = Date.now() + 60*60*1000;
+var graceEnd = null;
+function fmtTime(ms){
+  if(ms<0)ms=0;
+  var s=Math.round(ms/1000);
+  return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){
+    var left=graceEnd-now;
+    timerEl.textContent='Grace: '+fmtTime(left);
+    timerEl.classList.add('warn');
+    if(left<=0){clearInterval(timerInterval);submitExam();}
+  } else {
+    var left=endTime-now;
+    timerEl.textContent=fmtTime(left);
+    if(left<=300000)timerEl.classList.add('warn');
+    if(left<=0){
+      timerEl.textContent='Time Up!';
+      graceEnd=Date.now()+5*60*1000;
+    }
+  }
+},500);
+
+// ===== HIGHLIGHT =====
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?' Highlight: '+c:'';}
+document.getElementById('left-panel').addEventListener('mouseup',function(){
+  if(!hlColor)return;
+  var sel=window.getSelection();
+  if(!sel||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);
+  if(hlColor==='clear'){
+    var frag=range.extractContents();
+    var wrap=document.createElement('span');
+    wrap.appendChild(frag);
+    var html=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+    var tmp=document.createElement('span');
+    tmp.innerHTML=html;
+    range.insertNode(tmp);
+    while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);
+    tmp.parentNode.removeChild(tmp);
+  } else {
+    var mark=document.createElement('mark');
+    mark.className='highlight-'+hlColor;
+    mark.appendChild(range.extractContents());
+    range.insertNode(mark);
+  }
+  sel.removeAllRanges();
+});
+document.getElementById('right-panel').addEventListener('mouseup',function(){
+  if(!hlColor)return;
+  var sel=window.getSelection();
+  if(!sel||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);
+  if(hlColor==='clear'){
+    var frag=range.extractContents();
+    var wrap=document.createElement('span');
+    wrap.appendChild(frag);
+    var html=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+    var tmp=document.createElement('span');
+    tmp.innerHTML=html;
+    range.insertNode(tmp);
+    while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);
+    tmp.parentNode.removeChild(tmp);
+  } else {
+    var mark=document.createElement('mark');
+    mark.className='highlight-'+hlColor;
+    mark.appendChild(range.extractContents());
+    range.insertNode(mark);
+  }
+  sel.removeAllRanges();
+});
+
+// ===== TABS =====
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// ===== ANSWER MARKING =====
+function markRad(el){
+  var nm=el.name;
+  document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){
+    r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);
+  });
+}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// ===== HELPERS =====
+function getRadio(name){
+  var r=document.querySelector('input[name="'+name+'"]:checked');
+  return r?r.value:'';
+}
+function getVal(id){
+  var el=document.getElementById(id);
+  if(!el)return'';
+  return el.value.trim();
+}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkText(id,ans){return getVal(id).toLowerCase()===ans.toLowerCase()?1:0;}
+
+// ===== ANSWER KEY =====
+var ANS={
+  q1:'C',q2:'B',q3:'F',q4:'D',q5:'G',q6:'A',q7:'E',
+  q8:'TRUE',q9:'FALSE',q10:'NOT GIVEN',q11:'FALSE',q12:'TRUE',q13:'NOT GIVEN',
+  q14:'FALSE',q15:'TRUE',q16:'NOT GIVEN',q17:'TRUE',q18:'TRUE',q19:'FALSE',
+  q20:'past actions',q21:'inconsistencies',q22:'alternative pathway',q23:'Hugh Everett',
+  q24:'non-existence theory',q25:'historical identity',
+  q26:'C',
+  q27:'D',q28:'A',q29:'G',q30:'B',q31:'H',q32:'F',
+  q33:'A',q34:'D',q35:'C',
+  q36:'FALSE',q37:'NOT GIVEN',q38:'TRUE',q39:'TRUE',q40:'FALSE'
+};
+
+// ===== SUBMIT =====
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  // Q1-7 select
+  for(var i=1;i<=7;i++){
+    var ok=chkSel('q'+i,ANS['q'+i]);
+    score+=ok;
+    var r=document.getElementById('r'+i);
+    if(r){r.innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  }
+  // Q8-13 radio
+  for(var i=8;i<=13;i++){
+    var ok=chkRad('q'+i,ANS['q'+i]);
+    score+=ok;
+    var r=document.getElementById('r'+i);
+    if(r){r.innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  }
+  // Q14-19 radio
+  for(var i=14;i<=19;i++){
+    var ok=chkRad('q'+i,ANS['q'+i]);
+    score+=ok;
+    var r=document.getElementById('r'+i);
+    if(r){r.innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  }
+  // Q20-25 text
+  for(var i=20;i<=25;i++){
+    var ok=chkText('q'+i,ANS['q'+i]);
+    score+=ok;
+    var r=document.getElementById('r'+i);
+    if(r){r.innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  }
+  // Q26 radio
+  var ok26=chkRad('q26',ANS['q26']);
+  score+=ok26;
+  document.getElementById('r26').innerHTML=ok26?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q26']+'</span>';
+  // Q27-32 select
+  for(var i=27;i<=32;i++){
+    var ok=chkSel('q'+i,ANS['q'+i]);
+    score+=ok;
+    var r=document.getElementById('r'+i);
+    if(r){r.innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  }
+  // Q33-35 radio
+  for(var i=33;i<=35;i++){
+    var ok=chkRad('q'+i,ANS['q'+i]);
+    score+=ok;
+    var r=document.getElementById('r'+i);
+    if(r){r.innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  }
+  // Q36-40 radio
+  for(var i=36;i<=40;i++){
+    var ok=chkRad('q'+i,ANS['q'+i]);
+    score+=ok;
+    var r=document.getElementById('r'+i);
+    if(r){r.innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  }
+
+  // BAND TABLE
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';
+  for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');
+  sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr>'
+    +'<tr><td>35–36</td><td>8.0</td></tr><tr><td>33–34</td><td>7.5</td></tr>'
+    +'<tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr>'
+    +'<tr><td>15–18</td><td>5.0</td></tr><tr><td>13–14</td><td>4.5</td></tr>'
+    +'<tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr>'
+    +'</table>';
+  sb.scrollIntoView({behavior:'smooth'});
+  showTab(2);
+
+
+  // Build details từ ANS object (đúng thứ tự Q1-Q40)
+  var detailsParts=[];
+  // Q1-7 select
+  for(var i=1;i<=7;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q8-19 radio
+  for(var i=8;i<=19;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q20-25 text
+  for(var i=20;i<=25;i++){var v=getVal('q'+i);var ok=v.toLowerCase()===ANS['q'+i].toLowerCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q26 radio
+  var v26=getRadio('q26');var ok26=v26.toUpperCase()===ANS['q26'].toUpperCase()?'✔':'✘';detailsParts.push('Q26:'+ok26+'('+v26+')');
+  // Q27-32 select
+  for(var i=27;i<=32;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q33-40 radio
+  for(var i=33;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 10',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// ===== RESIZABLE DIVIDER =====
+(function(){
+  var div=document.getElementById('divider');
+  var left=document.getElementById('left-panel');
+  var dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
