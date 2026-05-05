@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 3</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.passage-subtitle{font-weight:700;color:#444;margin-top:14px;font-size:1em}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:240px}
+select.selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+</style></head><body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 3</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+<div id="left-panel">
+
+<div class="passage-tab" id="ptab0">
+  <div class="passage-title">Corporate Social Responsibility</div>
+  <div class="passage-para">Maybe Ben &amp; Jerry’s and The Body Shop set themselves up for a fall by appearing to have a monopoly on making an honest buck. But their struggles are a lesson on how little we know about the minefield of “ethical” marketing. The Body Shop, along with the American ice cream maker Ben and Jerry’s, was hailed as a new breed of green, or environmentally conscious, business.</div>
+  <div class="passage-subtitle">Ben &amp; Jerry&#x27;s</div>
+  <div class="section-label">A</div><div class="passage-para">Ben &amp; Jerry’s offers a very sweet benefits package to employees. First, every one of the 700+ Ben &amp; Jerry’s workers is entitled to three free pints of ice cream, sorbet or frozen yoghurt per day worked. (Some workers use allotments of their free treats to barter for other goods and services in town such as haircuts). Beyond the freebies, personnel receive a 50% discount on the company’s frozen goodies, a 40% discount on merchandise and further 30% break on no- Ben &amp; Jerry’s foods at company outlets.</div>
+<div class="section-label">B</div><div class="passage-para">Workers are further entitled to paid family leave and may take advantage of the Employee Stock Purchase Program to purchase company stock (after six months with the organization) at a 15% discount. Beginning in 1998, 316 stock options are awarded to each worker (excluding directors and officers) and stock is also assigned to each employee’s 410K plan at the end of the calendar year. These contributions are intended to achieve the company’s goal of linked prosperity, i.e. to assure that future prosperity is widely shared by all employees.</div>
+
+  <div class="passage-subtitle">The Body Shop</div>
+  <div class="section-label">C</div><div class="passage-para">History of The Body Shop Anita Roddick started The Body Shop with a mere £4,000 and a dream. With over 1,900 stores in 50 countries. The Body Shop was founded in 1976 in Brighton, England. From her original shop, which offered a line of 25 different lotions, creams, and oils, Roddick became the first successful marketer of body care products that combined natural ingredients with ecologically-benign manufacturing processes. Her company’s refusal to test products on animals, along with an insistence on nonexploitative labor practices among suppliers around the world, appealed especially to upscale, mainly middle-class women, who were and have continued to be the company’s primary market. As sales boomed, even the conservative financial markets approved of The Body Shop’s impressive profit picture, and a public stock offering in 1984 was successful. An expansion campaign followed. In 1988 the company entered the U.S. market by opening a store in New York City, and by 1977 the company boasted 1,500 stores, including franchises, in 47 countries. Anti-marketing seemed to be smart marketing, at least as far as The Body Shop was concerned.</div>
+<div class="section-label">D</div><div class="passage-para">Part of the secret of The Body Shop’s early success was that it had created a market niche for itself. The company was not directly competing against the traditional cosmetics companies, which marketed their products as fashion accessories designed to cover up flaws and make women look more like the fashion models who appeared in their lavish ads. Instead, The Body Shop offered a line of products that promised benefits other than appearance – healthier skin, for instance – rather than simply a better-looking complexion. The company is known for pioneering the natural-ingredient cosmetic market and establishing social responsibility as an integral part of company operations. The Body Shop is known for its ethical stances, such as its monetary donations to be communities in which it operates, and its business partnerships with developing countries. In 1988 Roddick opened her first store in the United States, and by that time – through various social initiatives such as the “Stop the Burn” campaign to save the Brazilian rainforest (the source of many of the company’s natural ingredients), and strong support of employee volunteerism – The Body Shop name had become synonymous with social activism and global preservation worldwide. The company had also become immensely profitable.</div>
+<div class="section-label">E</div><div class="passage-para">By the mid-1990s, however, The Body Shop faced growing competition, forcing it to begin its first major advertising initiative, the most prominent part of which was the “Ruby” campaign. The campaign was personified by Ruby, a doll with Rubenesque proportions who was perched on an antique couch and who looked quite pleased with herself and her plump frame. Randy Williamson, a spokesperson for The Body Shop, said, “Ruby is the fruit of our long-established practice of challenging the way the cosmetic industry talks to women. The Ruby campaign is designed to promote the idea that The Body Shop creates products designed to enhance features, moisturize, cleanse, and polish, not to correct ‘flaws.’ The Body Shop philosophy is that there is real beauty in everyone. We are not claiming that our products perform miracles.”</div>
+<div class="section-label">F</div><div class="passage-para">The Competition the Body Shop lost market share in the late 1990s to product-savvy competitors that offered similar cosmetics at lower prices. The main competitors are H20, Sephora, Bath and Body Works, and Origins. Research Results Research showed that women appreciate The Body Shop for their ethical standards. They are pleased by companies with green actions, not promises. The research proved that The Body Shop has been put on the back burner in many people’s minds: overcrowded by newer, fresher Brands. Companies like the Body Shop continually hype their products through advertising and marketing, often creating a demand for something where a real need for it does not exist. The message pushed is that the route to happiness is through buying more and more of their products. Under such consumerism, the increasing domination of multinationals and their standardised products is leading to global cultural conformity. Other downfall factors also include misleading the public, low pay and against unions, exploiting indigenous people; Also the mass production, packaging and transportation of huge quantities of goods are using up the world’s resources faster than they can be renewed and filling the land, sea and air with dangerous pollution and waste.</div>
+<div class="section-label">G</div><div class="passage-para">The Problem The Body Shop has used safe and timid advertising over the last decade, decreasing market share and brand value. With the rise of new, more natural and environmentally friendly competitors, The Body Shop can no longer stand behind being the greenest or most natural. The Solution The Body Shop is the originator of ethical beauty with our actions speaking louder than our words. This is the new direction of The Body Shop. We will be a part of different acts of kindness in big cities. We will eliminate unwanted graffiti, purify city air, and give the customer an opportunity to be a part of something good.</div>
+
+</div>
+<div class="passage-tab" id="ptab1" style="display:none">
+  <div class="passage-title">Psychology Of New Product Adoption</div>
+  <div class="section-label">A</div><div class="passage-para">In today’s hypercompetitive marketplace, companies that successfully introduce new products are more likely to flourish than those that don’t. businesses spend billions of dollars making better “mousetraps” only to find consumers roundly rejecting them. Studies show that new products fail at the stunning rate of between 40% and 90%, depending on the category, and the odds haven’t changed much in the past 25 years. In the U.S. packaged goods industry, for instance, companies introduce 30,000 products every year, but 70% to 90% of them don’t stay on store shelves for more than 12 months. Most innovative products – those that create new product categories or revolutionize old ones – are also unsuccessful. According to one study, 47% of first movers have failed, meaning that approximately half the companies that pioneered new product categories later pulled out of those businesses.</div>
+<div class="section-label">B</div><div class="passage-para">After the fact, experts and novices alike tend to dismiss unsuccessful innovations as bad ideas that were destined to fail. Why do consumers fail to buy innovative products even when they offer distinct improvements over existing ones? Why do companies invariably have more faith in new products than is warranted? Few would question the objective advantages of many innovations over existing alternatives, but that’s often not enough for them to succeed. To understand why new products fail to live up to companies’ expectations, we must delve into the psychology of behavior change.</div>
+<div class="section-label">C</div><div class="passage-para">New products often require consumers to change their behavior. As companies know, those behavior changes entail costs. Consumers costs, such as the activation fees they have to pay when they switch from one cellular service provider to another. They also bear learning costs, such as when they shift from manual to automatic automobile transmissions. People sustain obsolescence costs, too. For example, when they switch from VCRs to DVD players, their videotape collections become useless. All of these are economic switching costs that most companies routinely anticipate.</div>
+<div class="section-label">D</div><div class="passage-para">What businesses don’t take into account, however, are the psychological costs associated with behavior change. Many products fail because of a universal, but largely ignored, psychological bias: People irrationally overvalue benefits they currently possess relative to those they don’t. The bias leads consumers to value the advantages of products they own more than the benefits of new ones. It also leads executives to value the benefits of innovations they’ve developed over the advantages of incumbent products.</div>
+<div class="section-label">E</div><div class="passage-para">Companies have long assumed that people will adopt new products that deliver more value or utility than existing ones. Thus, businesses need only to develop innovations that are objectively superior to incumbent products, and consumers will have sufficient incentive to purchase them. In the 1960s, communications scholar Everett Rogers called the concept “relative advantage” and identified it as the most critical driver of new-product adoption. This argument assumes that companies make unbiased assessments of innovations and of consumers, likelihood of adopting them. Although compelling, the theory has one major flaw: It fails to capture the psychological biases that affect decision making.</div>
+
+  <div class="section-label">F</div><div class="passage-para">In 2002, psychologist Daniel Kahneman won the Nobel Prize in economics for a body of work that explores why and when individuals deviate from rational economic behavior. One of the cornerstones of that research, developed with psychologist Amos Tversky, is how individuals value prospects, or choices, in the marketplace. Kahneman and Tversky showed, and others have confirmed, that human beings’ responses to the alternatives before they have four distinct characteristics.</div>
+<div class="section-label">G</div><div class="passage-para">First, people evaluate the attractiveness of an alternative based not on its objective, or actual, value but on its subjective, or perceived value. Second, consumers evaluate new products or investments relative to a reference point, usually the products they already own or consume. Third, people view any improvements relative to this reference point as gains and treat all shortcomings as losses. Fourth, and most important, losses have a far greater impact on people than similarly sized gains, a phenomenon that Kahneman and Tversky called “loss aversion.” For instance, studies show that most people will not accept a bet in which there is a 50% chance of winning $100 and a 50% chance of losing $100. The gains from the wager must outweigh the losses by a factor of between two and three before most people find such a bet attractive. Similarly, a survey of 1,500 customers of Pacific Gas and Electric revealed that consumers demand three to four times more compensation to endure a power outage – and suffer a loss – than they are willing to pay to avoid the problem, a potential gain. As Kahneman and Tversky wrote, “losses loom larger than gains.”</div>
+<div class="section-label">H</div><div class="passage-para">Loss aversion leads people to value products that they already possess – those that are part of their endowment – more than those they don’t have. According to behavioral economist Richard Thaler, consumers value what they own, but many have to give up, much more than they value what they don’t own but could obtain. Thaler called that bias the “endowment effect.”</div>
+<div class="section-label">I</div><div class="passage-para">In a 1990 paper, Thaler and his colleagues describe a series of experiments they conducted to measure the magnitude of the endowment effect. In one such experiment, they gave coffee mugs to a group of people, the Sellers, and asked at what price point – from 25 cents to $9.25 – the Sellers would be willing to part with those mugs. They asked another group – the Choosers – to whom they didn’t give coffee mugs, to indicate whether they would choose the mug or the money at each price point. In objective terms, all the Sellers and Choosers were in the same situation: They were choosing between a mug and a sum of money. In one trial of this experiment, the Sellers priced the mug at $7.12, on average, but the Choosers were willing to pay only $3.12. In another trial, the Sellers and the Choosers valued the mug at $7.00 and $3.50, respectively. Overall, the Sellers always demanded at least twice as much to give up the mugs as the Choosers would pay to obtain them.</div>
+<div class="section-label">J</div><div class="passage-para">Kahneman and Tversky’s research also explains why people tend to stick with what they have even if a better alternative exists. In a 1989 paper, economist Jack Knetsch provided a compelling demonstration of what economists William Samuelson and Richard Zeckhauser called the “status quo bias.” Knetsch asked one group of students to choose between an attractive coffee mug and a large bar of Swiss chocolate. He gave a second group of students the coffee mugs but a short time later allowed each student to exchange his or her mug for a chocolate bar. Finally, Knetsch gave chocolate bars to a third group of students but much later allowed each student to exchange his or her bar for a mug. Of the students given a choice at the outset, 56% chose the mug, and 44% chose the chocolate bar, indicating a near even split in preferences between the two products. Logically, therefore, about half of the students to whom Knetsch gave the coffee mug should have traded for the chocolate bar and vice versa. That didn’t happen. Only 11% of the students who had been given the mugs and 10% of those who had been given the chocolate bars wanted to exchange their products. To approximately 90% of the students, giving up what they already had seemed like a painful loss and shrank their desire to trade.</div>
+<div class="section-label">K</div><div class="passage-para">Interestingly, most people seem oblivious to the existence of the behaviors implicit in the endowment effect and the status quo bias. In study after study, when researchers presented people with evidence that they had irrationally overvalued the status quo, they were shocked, skeptical, and more than a bit defensive. These behavioral tendencies are universal, but awareness of them is not.</div>
+
+</div>
+<div class="passage-tab" id="ptab2" style="display:none">
+  <div class="passage-title">All The Ways Women Are Still Pressured To Put Family Before Career</div>
+  <div class="section-label">A</div><div class="passage-para">There’s no denying that women around the world have made great strides toward equality in the past century. One hundred years ago, women in the United States still didn’t have the right to vote, and very few were allowed to pursue higher education or a meaningful career outside of their household duties. Fast forward to today, and more than 70 percent of women between the ages of 20 and 54 are active members of the national workforce. On top of this, 2015 marked the first year when women were, on average, more likely to have a bachelor’s degree than men, and this trend is on the rise.</div>
+  <div class="section-label">B</div><div class="passage-para">But despite all this newfound opportunity, the prevailing societal attitudes about what women are historically supposed to value still have a long way to go. That’s why we’ve partnered with SK-II to learn more about all of the ways women are still pressured to stick to outdated gender norms. “Women have won unprecedented rights thanks to the feminist movement, but as a society, we still expect women to prioritize family over career, or even over their own needs,” says Silvia Dutchevici, president and founder of the Critical Therapy Center in New York City. Dutchevici says many women feel pressure to “have it all,” meaning both a thriving career and the perfect family, but that can be very difficult to achieve.</div>
+  <div class="section-label">C</div><div class="passage-para">“Most women try to balance work and family,” Dutchevici says, “but that balance is seldom equal.” In fact, she says working mothers ― even those with partners ― often find themselves essentially working two full-time jobs: keeping their career together while doing the brunt of housework, cooking and child-rearing. This happens for a variety of reasons, but societal expectations about the roles of women and men at home are still very much to blame, says Tamra Lashchyk, a Wall Street executive, business coach and author of the book “Lose the Gum: A Survival Guide to Women on Wall Street.”</div>
+  <div class="section-label">D</div><div class="passage-para">“No matter how successful she is, the burden of running a household still falls on the woman’s shoulders,” Lashchyk says. “Men get more of a pass when it comes to these duties, especially those that involve children.” Lashchyk says much of this pressure on women to conform to a more domestic lifestyle comes from friends and family.</div>
+  <div class="section-label">E</div><div class="passage-para">“In many people’s minds, a woman’s career success pales in comparison to having a family,” she says. “Especially if the woman is single, no matter how great her professional achievements, almost every single one of her conversations with her family will include questions about her romantic life or lack thereof. I could literally tell my family I’d cured cancer and the conversation would still end with, ‘But are you dating anyone?’” While covert societal expectations might contribute to some of this inequality, workplace policies on maternity and paternity leave can hold a lot of the blame.</div>
+  <div class="section-label">F</div><div class="passage-para">“Unfortunately, many workplace policies regarding taking time off to care for family do not the changing times,” Dutchevici says. “Both men and women suffer in their careers when they prioritize family, but women carry far harsher punishments. Their choice to take time off and start a family can result in lower pay, and fewer promotions in the future. The right to family leave is not a woman’s issue, it is a society’s issue, a family’s issue.” Lashchyk agrees with this sentiment. “There should be more flexibility and benefits [in the workplace], like longer periods of time for paternity leave….If paternity leave was extended, men could share a greater responsibility in child care, and they could also spend more time bonding with their infant children, which is beneficial for the entire family.</div>
+  <div class="section-label">G</div><div class="passage-para">Another less visible way the modern workplace forces women to choose family over career has to do with the fact that women are pushing back pregnancy, says Jeni Mayorskaya, a fertility expert and CEO of Stork Club, an online community for women dedicated to fertility issues. “Compared to our parents, our generation is having children a decade later,” Mayorskaya says. “Unfortunately, when we hit our mid-30s and we’re finally ready for that managing position or that title of a partner at a firm we fought so hard for, we have to think about putting our career on pause and becoming a mom.”</div>
+  <div class="section-label">H</div><div class="passage-para">So what can women do to combat these societal pressures? Finding workplaces that offer flexible schedules, work-at-home opportunities and ample maternity and paternity leave is a good first step, but Dr. Neeta Bhushan, an emotional intelligence advocate and author, says women should also learn to put themselves first. “The first step is being mindful of your emotional health in your relationships with others and the relationship you have with yourself,“ Bhushan says. “When you put yourself first, you are able to make a bigger impact on your community. This is different than being selfish ― think beyond you. You want to make sure that you are being taken care of so that you can take care of others.”</div>
+</div>
+</div><div id="divider"></div><div id="right-panel">
+<div class="qtab" id="qtab0">
+<div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1–4: Which paragraph (A–G) contains the following information?</div>
+<div class="q-block"><div class="q-label">Q1. an action is taken to Establishing social responsibility in the conservation project</div><div class="tfng-row"><select id="q1" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select></div><div class="q-result" id="r1"></div></div>
+<div class="q-block"><div class="q-label">Q2. a description of the conventional way the ads applied to talk to its customers</div><div class="tfng-row"><select id="q2" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select></div><div class="q-result" id="r2"></div></div>
+<div class="q-block"><div class="q-label">Q3. a history of a humble origin and expansion</div><div class="tfng-row"><select id="q3" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select></div><div class="q-result" id="r3"></div></div>
+<div class="q-block"><div class="q-label">Q4. management practices are intended to line up the company’s goal with participants’ prosperity</div><div class="tfng-row"><select id="q4" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select></div><div class="q-result" id="r4"></div></div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 4px">Questions 5–7: What is true about Ben &amp; Jerry&#x27;s company management? Choose THREE letters A–F.</div>
+<div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:8px;font-size:13px"><b>A</b> There was little difference between the highest salary and the lowest<br><b>B</b> They were advertising their product with powerful internal marketing.<br><b>C</b> They offer the employee complimentary product<br><b>D</b> Employee was encouraged to give services back to the community<br><b>E</b> the products are designed for workers to barter for other goods and services<br><b>F</b> offered a package of benefits for disabled employee.<br></div>
+<div class="q-block"><div class="q-label">Select THREE answers (Q5, Q6, Q7):</div>
+<label class="check-opt"><input type="checkbox" name="q5to7" value="A" onchange="markChk(this)"> A &nbsp;There was little difference between the highest salary and the lowest</label>
+<label class="check-opt"><input type="checkbox" name="q5to7" value="B" onchange="markChk(this)"> B &nbsp;They were advertising their product with powerful internal marketing.</label>
+<label class="check-opt"><input type="checkbox" name="q5to7" value="C" onchange="markChk(this)"> C &nbsp;They offer the employee complimentary product</label>
+<label class="check-opt"><input type="checkbox" name="q5to7" value="D" onchange="markChk(this)"> D &nbsp;Employee was encouraged to give services back to the community</label>
+<label class="check-opt"><input type="checkbox" name="q5to7" value="E" onchange="markChk(this)"> E &nbsp;the products are designed for workers to barter for other goods and services</label>
+<label class="check-opt"><input type="checkbox" name="q5to7" value="F" onchange="markChk(this)"> F &nbsp;offered a package of benefits for disabled employee.</label>
+<div class="q-result" id="r5"></div></div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 4px">Questions 8–10: Factors that contributed to the success of The Body Shop. Choose THREE letters A–F.</div>
+<div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:8px;font-size:13px"><b>A</b> its philosophy that there is real beauty in everyone is faulty<br><b>B</b> fail to fulfil promises while acted like misleading the public,<br><b>C</b> faced growing competition<br><b>D</b> its creating demand for something that the customers do not actually need<br><b>E</b> its newer, fresher Brands are not successful in the Market<br><b>F</b> fail to offer cosmetics at lower prices than competitors<br></div>
+<div class="q-block"><div class="q-label">Select THREE answers (Q8, Q9, Q10):</div>
+<label class="check-opt"><input type="checkbox" name="q8to10" value="A" onchange="markChk(this)"> A &nbsp;its philosophy that there is real beauty in everyone is faulty</label>
+<label class="check-opt"><input type="checkbox" name="q8to10" value="B" onchange="markChk(this)"> B &nbsp;fail to fulfil promises while acted like misleading the public,</label>
+<label class="check-opt"><input type="checkbox" name="q8to10" value="C" onchange="markChk(this)"> C &nbsp;faced growing competition</label>
+<label class="check-opt"><input type="checkbox" name="q8to10" value="D" onchange="markChk(this)"> D &nbsp;its creating demand for something that the customers do not actually need</label>
+<label class="check-opt"><input type="checkbox" name="q8to10" value="E" onchange="markChk(this)"> E &nbsp;its newer, fresher Brands are not successful in the Market</label>
+<label class="check-opt"><input type="checkbox" name="q8to10" value="F" onchange="markChk(this)"> F &nbsp;fail to offer cosmetics at lower prices than competitors</label>
+<div class="q-result" id="r8"></div></div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 4px">Questions 11–13: Factors leading to the later failure of The Body Shop. Choose THREE letters A–F.</div>
+<div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:8px;font-size:13px"><b>A</b> its philosophy that there is real beauty in everyone is faulty<br><b>B</b> fail to fulfil promises while acted like misleading the public,<br><b>C</b> faced growing competition<br><b>D</b> its creating demand for something that the customers do not actually need<br><b>E</b> its newer, fresher Brands are not successful in the Market<br><b>F</b> fail to offer cosmetics at lower prices than competitors<br></div>
+<div class="q-block"><div class="q-label">Select THREE answers (Q11, Q12, Q13):</div>
+<label class="check-opt"><input type="checkbox" name="q11to13" value="A" onchange="markChk(this)"> A &nbsp;its philosophy that there is real beauty in everyone is faulty</label>
+<label class="check-opt"><input type="checkbox" name="q11to13" value="B" onchange="markChk(this)"> B &nbsp;fail to fulfil promises while acted like misleading the public,</label>
+<label class="check-opt"><input type="checkbox" name="q11to13" value="C" onchange="markChk(this)"> C &nbsp;faced growing competition</label>
+<label class="check-opt"><input type="checkbox" name="q11to13" value="D" onchange="markChk(this)"> D &nbsp;its creating demand for something that the customers do not actually need</label>
+<label class="check-opt"><input type="checkbox" name="q11to13" value="E" onchange="markChk(this)"> E &nbsp;its newer, fresher Brands are not successful in the Market</label>
+<label class="check-opt"><input type="checkbox" name="q11to13" value="F" onchange="markChk(this)"> F &nbsp;fail to offer cosmetics at lower prices than competitors</label>
+<div class="q-result" id="r11"></div></div>
+</div>
+<div class="qtab" id="qtab1" style="display:none">
+<div style="font-weight:700;color:#1a3a5c;margin-bottom:6px">Questions 14–17: Match each statement with the correct person (A–C).</div>
+<div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px"><b>A</b> Richard Thaler &nbsp;|&nbsp; <b>B</b> Everett Rogers &nbsp;|&nbsp; <b>C</b> Kahneman and Tversky</div>
+<div class="q-block"><div class="q-label">Q14. stated a theory which bears potential fault in the application</div><div class="tfng-row"><select id="q14" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div><div class="q-result" id="r14"></div></div>
+<div class="q-block"><div class="q-label">Q15. decided the consumers’ several behavior features when they face other options</div><div class="tfng-row"><select id="q15" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div><div class="q-result" id="r15"></div></div>
+<div class="q-block"><div class="q-label">Q16. generalised that customers value more of their possession they are going to abandon for a purpose than alternative they are going to swap in</div><div class="tfng-row"><select id="q16" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div><div class="q-result" id="r16"></div></div>
+<div class="q-block"><div class="q-label">Q17. answered the reason why people don’t replace existing products</div><div class="tfng-row"><select id="q17" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div><div class="q-result" id="r17"></div></div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 18–22: TRUE / FALSE / NOT GIVEN</div>
+<div class="q-block">
+  <div class="q-label">Q18. The products of innovations which beat existing alternatives can guarantee a successful market share.</div>
+  <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q18" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q18" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q18" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+  <div class="q-result" id="r18"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q19. The fact that most companies recognised the benefits of switching to new products guarantees a successful innovation</div>
+  <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q19" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q19" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q19" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+  <div class="q-result" id="r19"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q20. Gender affects the loss and gain outcome in the real market place.</div>
+  <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q20" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q20" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q20" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+  <div class="q-result" id="r20"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q21. Endowment-effect experiment showed there was a huge gap between the seller’s anticipation and the chooser’s offer.</div>
+  <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q21" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q21" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q21" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+  <div class="q-result" id="r21"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q22. Customers accept the fact peacefully when they are revealed the status quo bias.</div>
+  <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q22" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q22" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q22" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+  <div class="q-result" id="r22"></div>
+</div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 23–26: Choose the correct letter A, B, C or D.</div>
+<div class="q-block"><div class="q-label">Q23. 23   What does paragraph A illustrated in the business creative venture?</div>
+<label class="radio-opt"><input type="radio" name="q23" value="A" onchange="markRad(this)"> A &nbsp;A   above 70% of products stored in the warehouse</label>
+<label class="radio-opt"><input type="radio" name="q23" value="B" onchange="markRad(this)"> B &nbsp;B   only US packaged goods industry affected</label>
+<label class="radio-opt"><input type="radio" name="q23" value="C" onchange="markRad(this)"> C &nbsp;C   roughly half of new product business failed</label>
+<label class="radio-opt"><input type="radio" name="q23" value="D" onchange="markRad(this)"> D &nbsp;D   new products have a long life span.</label>
+<div class="q-result" id="r23"></div></div>
+<div class="q-block"><div class="q-label">Q24. 24   What do specialists and freshers tend to think how a product sold well:</div>
+<label class="radio-opt"><input type="radio" name="q24" value="A" onchange="markRad(this)"> A &nbsp;A   as more products stored on a shelf</label>
+<label class="radio-opt"><input type="radio" name="q24" value="B" onchange="markRad(this)"> B &nbsp;B   being creative and innovative enough</label>
+<label class="radio-opt"><input type="radio" name="q24" value="C" onchange="markRad(this)"> C &nbsp;C   having more chain stores</label>
+<label class="radio-opt"><input type="radio" name="q24" value="D" onchange="markRad(this)"> D &nbsp;D   learning from a famous company like Webvan</label>
+<div class="q-result" id="r24"></div></div>
+<div class="q-block"><div class="q-label">Q25. 25   According to this passage, a number of products fail because of the following reason:</div>
+<label class="radio-opt"><input type="radio" name="q25" value="A" onchange="markRad(this)"> A &nbsp;A   they ignore the fact that people tend to overvalue the product they own.</label>
+<label class="radio-opt"><input type="radio" name="q25" value="B" onchange="markRad(this)"> B &nbsp;B   they are not confident with their products</label>
+<label class="radio-opt"><input type="radio" name="q25" value="C" onchange="markRad(this)"> C &nbsp;C   they are familiar with people’s psychology state</label>
+<label class="radio-opt"><input type="radio" name="q25" value="D" onchange="markRad(this)"> D &nbsp;D   they forget to mention the advantages of products</label>
+<div class="q-result" id="r25"></div></div>
+<div class="q-block"><div class="q-label">Q26. 26   What does the experiment of “status quo bias” suggest which conducted by Nobel prize winner Kahneman and Tversky:</div>
+<label class="radio-opt"><input type="radio" name="q26" value="A" onchange="markRad(this)"> A &nbsp;A   about half of them are willing to change</label>
+<label class="radio-opt"><input type="radio" name="q26" value="B" onchange="markRad(this)"> B &nbsp;B   student is always to welcome new items</label>
+<label class="radio-opt"><input type="radio" name="q26" value="C" onchange="markRad(this)"> C &nbsp;C   90% of both owners in a neutral position</label>
+<label class="radio-opt"><input type="radio" name="q26" value="D" onchange="markRad(this)"> D &nbsp;D   only 10% of chocolate bar owner is willing to swap</label>
+<div class="q-result" id="r26"></div></div>
+</div>
+<div class="qtab" id="qtab2" style="display:none">
+<div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27–34: Which paragraph (A–H) contains the following information?</div>
+<div class="q-block"><div class="q-label">Q27. 27  Two &quot;jobs&quot; that women essentially do</div><div class="tfng-row"><select id="q27" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div><div class="q-result" id="r27"></div></div>
+<div class="q-block"><div class="q-label">Q28. 28  Question about dating</div><div class="tfng-row"><select id="q28" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div><div class="q-result" id="r28"></div></div>
+<div class="q-block"><div class="q-label">Q29. 29  Delaying pregnancy</div><div class="tfng-row"><select id="q29" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div><div class="q-result" id="r29"></div></div>
+<div class="q-block"><div class="q-label">Q30. 30  The first year, when women are more likely to have bachelor&#x27;s a degree</div><div class="tfng-row"><select id="q30" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div><div class="q-result" id="r30"></div></div>
+<div class="q-block"><div class="q-label">Q31. 31  The reasons to put yourself first</div><div class="tfng-row"><select id="q31" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div><div class="q-result" id="r31"></div></div>
+<div class="q-block"><div class="q-label">Q32. 32  The source of conformation to domestic lifestyle</div><div class="tfng-row"><select id="q32" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div><div class="q-result" id="r32"></div></div>
+<div class="q-block"><div class="q-label">Q33. 33  Our expectancy over women&#x27;s prioritization</div><div class="tfng-row"><select id="q33" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div><div class="q-result" id="r33"></div></div>
+<div class="q-block"><div class="q-label">Q34. 34  Pros of extended paternity</div><div class="tfng-row"><select id="q34" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div><div class="q-result" id="r34"></div></div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 35–40: Choose the correct letter A, B, C or D.</div>
+<div class="q-block"><div class="q-label">Q35. 35  One hundred years ago, women in USA:</div>
+<label class="radio-opt"><input type="radio" name="q35" value="A" onchange="markRad(this)"> A &nbsp;A. had no rights.</label>
+<label class="radio-opt"><input type="radio" name="q35" value="B" onchange="markRad(this)"> B &nbsp;B. were not allowed to pursue higher education.</label>
+<label class="radio-opt"><input type="radio" name="q35" value="C" onchange="markRad(this)"> C &nbsp;C. couldn&#x27;t vote.</label>
+<label class="radio-opt"><input type="radio" name="q35" value="D" onchange="markRad(this)"> D &nbsp;D. were members of the national workforce.</label>
+<div class="q-result" id="r35"></div></div>
+<div class="q-block"><div class="q-label">Q36. 36  According to Silvia Dutchevici:</div>
+<label class="radio-opt"><input type="radio" name="q36" value="A" onchange="markRad(this)"> A &nbsp;A. feminist movement has more disadvantages than advantages.</label>
+<label class="radio-opt"><input type="radio" name="q36" value="B" onchange="markRad(this)"> B &nbsp;B. now we expect women to prioritize career over family.</label>
+<label class="radio-opt"><input type="radio" name="q36" value="C" onchange="markRad(this)"> C &nbsp;C. now we expect women to prioritize their own needs over family.</label>
+<label class="radio-opt"><input type="radio" name="q36" value="D" onchange="markRad(this)"> D &nbsp;D. women rarely achieve equal balance between family and work.</label>
+<div class="q-result" id="r36"></div></div>
+<div class="q-block"><div class="q-label">Q37. 37  Tamra Lashchyk, a Wall Street executive, says that</div>
+<label class="radio-opt"><input type="radio" name="q37" value="A" onchange="markRad(this)"> A &nbsp;A. most women are still responsible for the house duties.</label>
+<label class="radio-opt"><input type="radio" name="q37" value="B" onchange="markRad(this)"> B &nbsp;B. men don&#x27;t really need to do any housework.</label>
+<label class="radio-opt"><input type="radio" name="q37" value="C" onchange="markRad(this)"> C &nbsp;C. it&#x27;s more important for a women to have a career than a family.</label>
+<label class="radio-opt"><input type="radio" name="q37" value="D" onchange="markRad(this)"> D &nbsp;D. both A and B.</label>
+<div class="q-result" id="r37"></div></div>
+<div class="q-block"><div class="q-label">Q38. 38  Lashchyk agrees with Dutchevici on</div>
+<label class="radio-opt"><input type="radio" name="q38" value="A" onchange="markRad(this)"> A &nbsp;A. women&#x27;s rights and feminism.</label>
+<label class="radio-opt"><input type="radio" name="q38" value="B" onchange="markRad(this)"> B &nbsp;B. the fact that he right to family leave is a society’s issue.</label>
+<label class="radio-opt"><input type="radio" name="q38" value="C" onchange="markRad(this)"> C &nbsp;C. the state of women&#x27;s rights in America.</label>
+<label class="radio-opt"><input type="radio" name="q38" value="D" onchange="markRad(this)"> D &nbsp;D. the reason why women want to pursue their careers.</label>
+<div class="q-result" id="r38"></div></div>
+<div class="q-block"><div class="q-label">Q39. 39  Jeni Mayorskaya says that</div>
+<label class="radio-opt"><input type="radio" name="q39" value="A" onchange="markRad(this)"> A &nbsp;A. nowadays women give birth later than they used to.</label>
+<label class="radio-opt"><input type="radio" name="q39" value="B" onchange="markRad(this)"> B &nbsp;B. now women don&#x27;t push pregnancy back.</label>
+<label class="radio-opt"><input type="radio" name="q39" value="C" onchange="markRad(this)"> C &nbsp;C. when women are in their 30s, they have to think about putting career on pause to become a mother.</label>
+<label class="radio-opt"><input type="radio" name="q39" value="D" onchange="markRad(this)"> D &nbsp;D. Both A and C.</label>
+<div class="q-result" id="r39"></div></div>
+<div class="q-block"><div class="q-label">Q40. 40  According to the last paragraph, how can women deal with societal pressure?</div>
+<label class="radio-opt"><input type="radio" name="q40" value="A" onchange="markRad(this)"> A &nbsp;A. They should be selfish.</label>
+<label class="radio-opt"><input type="radio" name="q40" value="B" onchange="markRad(this)"> B &nbsp;B. They shouldn&#x27;t work at home.</label>
+<label class="radio-opt"><input type="radio" name="q40" value="C" onchange="markRad(this)"> C &nbsp;C. They should put themselves first.</label>
+<label class="radio-opt"><input type="radio" name="q40" value="D" onchange="markRad(this)"> D &nbsp;D. They should avoid marriage at all.</label>
+<div class="q-result" id="r40"></div></div>
+<button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+<div id="score-box"></div>
+</div>
+</div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+}
+
+var warned=0;
+function doWarn(){if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated.</h2>';}}
+document.addEventListener('visibilitychange',function(){if(document.hidden)doWarn();});
+window.addEventListener('blur',doWarn);
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();});
+(function(){setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160)doWarn();},2000);})();
+try{document.documentElement.requestFullscreen();}catch(e){}
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){var now=Date.now();if(graceEnd){var l=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(l);timerEl.classList.add('warn');if(l<=0){clearInterval(timerInterval);submitExam();}}else{var l=endTime-now;timerEl.textContent=fmtTime(l);if(l<=300000)timerEl.classList.add('warn');if(l<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}},500);
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){panel.addEventListener('mouseup',function(){if(!hlColor)return;var sel=window.getSelection();if(!sel||sel.isCollapsed)return;var range=sel.getRangeAt(0);if(hlColor==='clear'){var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);}else{var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);}sel.removeAllRanges();});}
+doHL(document.getElementById('left-panel'));doHL(document.getElementById('right-panel'));
+function showTab(i){document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});}
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markChk(el){el.closest('.check-opt').classList.toggle('selected-answer',el.checked);}
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getChecked(name){return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(function(x){return x.value;}).sort();}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkThree(name,correct){
+  var sel=getChecked(name);var c=correct.slice().sort();
+  if(JSON.stringify(sel)===JSON.stringify(c))return 3;
+  return sel.filter(function(v){return c.indexOf(v)>=0;}).length;
+}
+var ANS={
+  q1:'E',q2:'F',q3:'D',q4:'B',
+  q5to7:['C','E','F'],
+  q8to10:['A','E','F'],
+  q11to13:['B','C','D'],
+  q14:'B',q15:'C',q16:'A',q17:'C',
+  q18:'FALSE',q19:'TRUE',q20:'NOT GIVEN',q21:'TRUE',q22:'FALSE',
+  q23:'C',q24:'B',q25:'A',q26:'D',
+  q27:'C',q28:'E',q29:'G',q30:'A',q31:'H',q32:'D',q33:'B',q34:'F',
+  q35:'C',q36:'D',q37:'A',q38:'B',q39:'D',q40:'C'
+};
+
+  // Giới hạn checkbox
+  function showCheckLimit(name, max){
+    var el=document.getElementById('chk-limit-'+name);
+    if(!el){
+      el=document.createElement('div');
+      el.id='chk-limit-'+name;
+      el.style.cssText='color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;';
+      var grp=document.querySelector('input[name="'+name+'"]');
+      if(grp&&grp.closest('.q-block,div')){
+        grp.closest('.q-block,div').appendChild(el);
+      }
+    }
+    el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';
+    clearTimeout(el._t);
+    el._t=setTimeout(function(){el.textContent='';},2500);
+  }
+  document.querySelectorAll('input[name="q5to7"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){
+        var n=document.querySelectorAll('input[name="q5to7"]:checked').length;
+        if(n>3){inp.checked=false;showCheckLimit('q5to7',3);return;}
+      }
+    });
+  });
+  document.querySelectorAll('input[name="q8to10"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){
+        var n=document.querySelectorAll('input[name="q8to10"]:checked').length;
+        if(n>3){inp.checked=false;showCheckLimit('q8to10',3);return;}
+      }
+    });
+  });
+  document.querySelectorAll('input[name="q11to13"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){
+        var n=document.querySelectorAll('input[name="q11to13"]:checked').length;
+        if(n>3){inp.checked=false;showCheckLimit('q11to13',3);return;}
+      }
+    });
+  });
+
+function submitExam(){
+  clearInterval(timerInterval);var score=0;
+  // Q1-4 select
+  for(var i=1;i<=4;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q5-7 choose THREE
+  var s57=chkThree('q5to7',ANS['q5to7']);score+=s57;
+  document.getElementById('r5').innerHTML=s57===3?'<span class="correct-label">✓ All 3 correct (+3)</span>':'<span class="wrong-label">'+s57+'/3 correct. Correct: '+ANS['q5to7'].join(', ')+'</span>';
+  // Q8-10 choose THREE
+  var s810=chkThree('q8to10',ANS['q8to10']);score+=s810;
+  document.getElementById('r8').innerHTML=s810===3?'<span class="correct-label">✓ All 3 correct (+3)</span>':'<span class="wrong-label">'+s810+'/3 correct. Correct: '+ANS['q8to10'].join(', ')+'</span>';
+  // Q11-13 choose THREE
+  var s1113=chkThree('q11to13',ANS['q11to13']);score+=s1113;
+  document.getElementById('r11').innerHTML=s1113===3?'<span class="correct-label">✓ All 3 correct (+3)</span>':'<span class="wrong-label">'+s1113+'/3 correct. Correct: '+ANS['q11to13'].join(', ')+'</span>';
+  // Q14-17 select
+  for(var i=14;i<=17;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q18-22 radio
+  for(var i=18;i<=22;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q23-26 radio
+  for(var i=23;i<=26;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q27-34 select
+  for(var i=27;i<=34;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q35-40 radio
+  for(var i=35;i<=40;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p><table class="band-table"><tr><th>Score</th><th>Band</th></tr><tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr><tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr><tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr><tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  // Build details từ ANS object (đúng thứ tự Q1-Q40)
+  var detailsParts=[];
+  // Q1-4 select
+  for(var i=1;i<=4;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+// Q5-7 choose THREE — từng option
+  (function(){var chosen=getChecked('q5to7');var correct=ANS['q5to7'];var parts=chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');});var missed=correct.filter(function(v){return chosen.indexOf(v)<0;}).map(function(v){return v+'(đáp án)';});detailsParts.push('Q5-7:['+parts.concat(missed).join(' ')+']');})();
+  // Q8-10 choose THREE — từng option
+  (function(){var chosen=getChecked('q8to10');var correct=ANS['q8to10'];var parts=chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');});var missed=correct.filter(function(v){return chosen.indexOf(v)<0;}).map(function(v){return v+'(đáp án)';});detailsParts.push('Q8-10:['+parts.concat(missed).join(' ')+']');})();
+  // Q11-13 choose THREE — từng option
+  (function(){var chosen=getChecked('q11to13');var correct=ANS['q11to13'];var parts=chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');});var missed=correct.filter(function(v){return chosen.indexOf(v)<0;}).map(function(v){return v+'(đáp án)';});detailsParts.push('Q11-13:['+parts.concat(missed).join(' ')+']');})();
+  // Q14-17 select
+  for(var i=14;i<=17;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q18-26 radio
+  for(var i=18;i<=26;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q27-34 select
+  for(var i=27;i<=34;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q35-40 radio
+  for(var i=35;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 3',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+(function(){var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});document.addEventListener('mouseup',function(){dragging=false;});})();
+</script></body></html>
