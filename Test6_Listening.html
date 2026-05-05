@@ -595,13 +595,6 @@ document.addEventListener('keydown', function(e){
   if (blocked.some(Boolean)) e.preventDefault();
 });
 
-setInterval(function(){
-  if (!window._testStartTime || submitted) return;
-  if (window.outerWidth - window.innerWidth > 160 || window.outerHeight - window.innerHeight > 160) {
-    document.body.innerHTML = '<div style="background:#e74c3c;color:#fff;padding:60px;text-align:center;font-size:24px;font-weight:700;">⚠️ DevTools đã được phát hiện. Bài thi đã bị khoá.</div>';
-    timerStopped = true;
-  }
-}, 1000);
 
 // ---- START EXAM ----
 window.startExam = function() {
