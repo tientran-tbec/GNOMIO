@@ -492,11 +492,13 @@
     var ov_disp  = document.getElementById('disp_overall').textContent.replace('Overall Band: ','');
     var payload = {
       action: 'save_teacher_grade',
-      rowIndex: currentRowIndex,
-      teacher_t1_band: t1b_disp !== '—' ? t1b_disp : '',
-      teacher_t2_band: t2b_disp !== '—' ? t2b_disp : '',
-      teacher_overall: ov_disp  !== '—' ? ov_disp  : '',
-      teacher_notes:   document.getElementById('teacherNotes').value,
+      token:   _teacherToken,
+      student: currentRow ? currentRow.student : '',
+      test:    currentRow ? currentRow.test    : '',
+      t1Band:  t1b_disp !== '—' ? t1b_disp : '',
+      t2Band:  t2b_disp !== '—' ? t2b_disp : '',
+      overall: ov_disp  !== '—' ? ov_disp  : '',
+      teacherNote: document.getElementById('teacherNotes').value,
       g_t1_ta:  document.getElementById('g_t1_ta').value,
       g_t1_cc:  document.getElementById('g_t1_cc').value,
       g_t1_lr:  document.getElementById('g_t1_lr').value,
@@ -517,15 +519,15 @@
     .then(function(r){ return r.json(); })
     .then(function(res) {
       btn.disabled = false;
-      if (res.ok) {
+      if (res.status === 'ok') {
         ss.textContent = '✅ Đã lưu điểm thành công!';
         ss.style.color = '#2e7d32';
         // Update local data
         if (currentRow) {
-          currentRow.teacher_t1_band = payload.teacher_t1_band;
-          currentRow.teacher_t2_band = payload.teacher_t2_band;
-          currentRow.teacher_overall = payload.teacher_overall;
-          currentRow.teacher_notes   = payload.teacher_notes;
+          currentRow.t1Band      = payload.t1Band;
+          currentRow.t2Band      = payload.t2Band;
+          currentRow.overall     = payload.overall;
+          currentRow.teacherNote = payload.teacherNote;
         }
         applyFilter();
       } else {
