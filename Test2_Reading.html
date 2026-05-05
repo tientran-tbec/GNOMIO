@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 2</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:240px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:190px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+</style></head><body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 2</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+<div id="left-panel">
+
+<div class="passage-tab" id="ptab0">
+  <div class="passage-title">SOSUS: Listening to the Ocean</div>
+  <div class="section-label">A</div><div class="passage-para">The oceans of Earth cover more than 70 percent of the planet’s surface, yet, until quite recently, we knew less about their depths than we did about the surface of the Moon. Distant as it is, the Moon has been far more accessible to study because astronomers long have been able to look at its surface, first with the naked eye and then with the telescope-both instruments that focus light. And, with telescopes tuned to different wavelengths of light, modern astronomers can not only analyze Earth’s atmosphere but also determine the temperature and composition of the Sun or other stars many hundreds of light-years away. Until the twentieth century, however, no analogous instruments were available for the study of Earth’s oceans: Light, which can travel trillions of miles through the vast vacuum of space, cannot penetrate very far in seawater.</div>
+<div class="section-label">B</div><div class="passage-para">Curious investigators long have been fascinated by sound and the way it travels in water. As early as 1490, Leonardo da Vinci observed: “If you cause your ship to stop and place the head of a long tube in the water and place the outer extremity to your ear, you will hear ships at a great distance from you.” In 1687, the first mathematical theory of sound propagation was published by Sir Isaac Newton in his Philosophiae Naturalis Principia Mathematica. Investigators were measuring the speed of sound in the air beginning in the mid-seventeenth century, but it was not until 1826 that Daniel Colladon, a Swiss physicist, and Charles Sturm, a French mathematician, accurately measured its speed in the water. Using a long tube to listen underwater (as da Vinci had suggested), they recorded how fast the sound of a submerged bell traveled across Lake Geneva. Their result-1,435 meters (1,569 yards) per second in the water of 1.8 degrees Celsius (35 degrees Fahrenheit) – was only 3 meters per second off from the speed accepted today. What these investigators demonstrated was that water – whether fresh or salt – is an excellent medium for sound, transmitting it almost five times faster than its speed in air.</div>
+<div class="section-label">C</div><div class="passage-para">In 1877 and 1878, the British scientist John William Strutt, third Baron Rayleigh, published his two-volume seminal work, The Theory of Sound, often regarded as marking the beginning of the modern study of acoustics. The recipient of the Nobel Prize for Physics in 1904 for his successful isolation of the element argon, Lord Rayleigh made key discoveries in the fields of acoustics and optics that are critical to the theory of wave propagation in fluids. Among other things, Lord Rayleigh was the first to describe a sound wave as a mathematical equation (the basis of all theoretical work on acoustics) and the first to describe how small particles in the atmosphere scatter certain wavelengths of sunlight, a principle that also applies to the behavior of sound waves in water.</div>
+<div class="section-label">D</div><div class="passage-para">A number of factors influence how far sound travels underwater and how long it lasts. For one, particles in seawater can reflect, scatter, and absorb certain frequencies of sound – just as certain wavelengths of light may be reflected, scattered, and absorbed by specific types of particles in the atmosphere. Seawater absorbs 30 times the amount of sound absorbed by distilled water, with specific chemicals (such as magnesium sulfate and boric acid) damping out certain frequencies of sound. Researchers also learned that low-frequency sounds, whose long wavelengths generally pass over tiny particles, tend to travel farther without loss through absorption or scattering. Further work on the effects of salinity, temperature, and pressure on the speed of sound has yielded fascinating insights into the structure of the ocean. Speaking generally, the ocean is divided into horizontal layers in which sound speed is influenced more greatly by temperature in the upper regions and by pressure in the lower depths. At the surface is a sun-warmed upper layer, the actual temperature and thickness of which varies with the season. At mid-latitudes, this layer tends to be isothermal, that is, the temperature tends to be uniform throughout the layer because the water is well mixed by the action of waves, winds, and convection currents; a sound signal moving down through this layer tends to travel at an almost constant speed. Next comes a transitional layer called the thermocline, in which temperature drops steadily with depth; as the temperature falls, so does the speed of sound.</div>
+<div class="section-label">E</div><div class="passage-para">The U.S. Navy was quick to appreciate the usefulness of low-frequency sound and the deep sound channel in extending the range at which it could detect submarines. In great secrecy during the 1950s, the U.S. Navy launched a project that went by the code name Jezebel; it would later come to be known as the Sound Surveillance System (SOSUS). The system involved arrays of underwater microphones, called hydrophones, that were placed on the ocean bottom and connected by cables to onshore processing centers. With SOSUS deployed in both deep and shallow water along both coasts of North America and the British West Indies, the U.S. Navy not only could detect submarines in much of the northern hemisphere, it also could distinguish how many propellers a submarine had, whether it was conventional or nuclear, and sometimes even the class of sub.</div>
+<div class="section-label">F</div><div class="passage-para">The realization that SOSUS could be used to listen to whales also was made by Christopher Clark, a biological acoustician at Cornell University, when he first visited a SOSUS station in 1992. When Clark looked at the graphic representations of sound, scrolling 24 hours day, every day, he saw the voice patterns of blue, finback, minke, and humpback whales. He also could hear the sounds. Using a SOSUS receiver in the West Indies, he could hear whales that were 1,770 kilometers (1,100 miles) away. Whales are the biggest of Earth’s creatures. The blue whale, for example, can be 100 feet long and weigh as many tons. Yet these animals also are remarkably elusive. Scientists wish to observe blue time and position them on a map. Moreover, they can track not just one whale at a time, but many creatures simultaneously throughout the North Atlantic and the eastern North Pacific. They also can learn to distinguish whale calls. For example, Fox and colleagues have detected changes in the calls of finback whales during different seasons and have found that blue whales in different regions of the Pacific Ocean have different calls. Whales firsthand must wait in their ships for the whales to surface. A few whales have been tracked briefly in the wild this way but not for very great distances, and much about them remains unknown. Using the SOSUS stations, scientists can track the whales in real-time and position them on a map. Moreover, they can track not just one whale at a time, but many creatures simultaneously throughout the North Atlantic and the eastern North Pacific. They also can learn to distinguish whale calls. For example, Fox and colleagues have detected changes in the calls of finback whales during different seasons and have found that blue whales in different regions of the Pacific Ocean have different calls.</div>
+<div class="section-label">G</div><div class="passage-para">SOSUS, with its vast reach, also has proved instrumental in obtaining information crucial to our understanding of Earth’s weather and climate. Specifically, the system has enabled researchers to begin making ocean temperature measurements on a global scale – measurements that are keys to puzzling out the workings of heat transfer between the ocean and the atmosphere. The ocean plays an enormous role in determining air temperature – the heat capacity in only the upper few meters of the ocean is thought to be equal to all of the heat in the entire atmosphere. For sound waves traveling horizontally in the ocean, speed is largely a function of temperature. Thus, the travel time of a wave of sound between two points is a sensitive indicator of the average temperature along its path. Transmitting sound in numerous directions through the deep sound channel can give scientists measurements spanning vast areas of the globe. Thousands of sound paths in the ocean could be pieced together into a map of global ocean temperatures and, by repeating measurements along the same paths overtimes, scientists could track changes in temperature over months or years.</div>
+<div class="section-label">H</div><div class="passage-para">Researchers also are using other acoustic techniques to monitor climate. Oceanographer Jeff Nystuen at the University of Washington, for example, has explored the use of sound to measure rainfall over the ocean. Monitoring changing global rainfall patterns undoubtedly will contribute to understanding major climate change as well as the weather phenomenon known as El Niño. Since 1985, Nystuen has used hydrophones to listen to rain over the ocean, acoustically measuring not only the rainfall rate but also the rainfall type, from drizzle to thunderstorms. By using the sound of rain underwater as a “natural” rain gauge, the measurement of rainfall over the oceans will become available to climatologists.</div>
+
+</div>
+<div class="passage-tab" id="ptab1" style="display:none">
+  <div class="passage-title">Griffith and American films</div>
+  <div class="passage-para">Movies are key cultural artefacts that offer a window into American cultural and social history. A mixture of art, business, and popular entertainment, the popular entertainment, the movies provide a host of insights into Americans’ shifting ideas, fantasies, and preoccupations</div>
+  <div class="section-label">A</div><div class="passage-para">Many films of the early silent era dealt with gender relations. Before 1905, as Kathy Peiss has argued, movie screens were filled with salacious sexual imagery and risque humor, drawn from burlesque halls and vaudeville theaters. Early films offered many glimpses of women disrobing or of passionate kisses. As the movies’ female audience grew, sexual titillation and voyeurism persisted. But an ever-increasing number of the film dealt with the changing work and sexual roles of women in a more sophisticated manner. While D.W. Griffith’s films presented an idealized picture of the frail Victorian child-woman and showed an almost obsessive preoccupation with female honor and chastity, other silent movies presented quite different images of femininity. These ranged from the exotic, sexually aggressive vamp to the athletic, energetic “serial queen”; the street smart urban working gal, who repels the sexual advances of her lascivious boss; and cigarette-smoking, alcohol drinking chorus girls or burlesque queens.</div>
+<div class="section-label">B</div><div class="passage-para">In early 1910, director D.W. Griffith was sent by the Biograph Company to the west coast with his acting troupe, consisting of actors Blanche Sweet, Lillian Gish, Mary Pickford, Lionel Barrymore, and others. While there, the company decided to explore new territories, traveling several miles north to Hollywood, a little village that was friendly and enjoyed the movie company filming there. By focusing the camera on particular actors and actresses, Griffith inadvertently encouraged the development of the star system. As early as 1910, newspapers were deluged with requests for actors’ names. But most studios refused to divulge their identities, fearing the salary demands of popular performers. As one industry observer put it, “In the ‘star’ your producer gets not only a ‘production’ value …. but a ‘trademark’ value, and an ‘insurance’ value which are … very potent in guaranteeing the sale of this product.” As the star system emerged, salaries soared. In the course of just two years, the salary of actress Mary Pickford rose from less than $400 a week in 1914 to $10,000 a week in 1916. This action made Griffith believe the big potential in the movie industry. Thus many competitors completely copy the same system as Griffith used, for the considerable profits. Additionally, they also study the theory and methods which Griffith suggested.</div>
+<div class="section-label">C</div><div class="passage-para">From the moment America entered the war, Hollywood feared that the industry would be subject to heavy-handed government censorship. But the government itself wanted no repeat of World War I, when the Committee on Public Information had whipped up anti-German hysteria and oversold the war as “a Crusade not merely to re-win the tomb of Christ, but to bring back to earth the rule of right, the peace, goodwill to men and gentleness he taught.”</div>
+
+  <div class="section-label">E</div>
+  <div class="passage-para">With just six months of film experience, Griffith, a former stage actor, was hired as a director by the Biograph Company and promised $50 a week and one-twentieth of a cent for every foot of film sold to a rental exchange. Each week, Griffith turned out two or three one-reelers. While earlier directors had used such cinematic devices as close-ups, slow motion, fade-ins and fade-outs, lighting effects, and editing before, Griffith’s great contribution to the movie industry was to show how these techniques could be used to create a wholly new style of storytelling, distinct from the theater. Griffith’s approach to movie storytelling has been aptly called “photographic realism.” This is not to say that he merely wished to record a story accurately; rather he sought to convey the illusion of realism. He demanded that his performers act less in a more lifelike manner, avoiding the broad, exaggerated gestures and pantomiming of emotions that characterized the nineteenth-century stage. He wanted his performers to take on a role rather than directly addressing the camera.</div>
+  <div class="passage-para">Above all, he used close-ups, lighting, editing, and other cinematic techniques convey suspense and other emotions and to focus the audience’s attention on individual performers.</div>
+  <div class="section-label">F</div><div class="passage-para">During the 1920s and 1930s, a small group of film companies consolidated their control. Known as the “Big Five” – Paramount, Warner Brothers, RKO, 20th Century-Fox, and Lowe’s (MGM) and the “Little Three” – Universal, Columbia, and United Artists, they formed fully integrated companies. The old film company’s opposition was shocked by new tycoons. The confusion of tongues in the foreign version of American films deepened when American directors themselves embarked on the shooting of the new version. They did not usually speak Spanish (or the given target language) and, at that time, there were only a few translators at the studio’s disposal. For this reason, it was more general to contract Spanish directors, actors, and screenwriters to produce American films in Spanish for Latin American audiences and for the public in the Iberian Peninsula. Hollywood had depended on overseas markets for as much as 40 percent of its revenue. But in an effort to nurture their own film industries and prevent an excessive outflow of dollars, Britain, France, and Italy imposed stiff import tariffs and restrictive quotas on imported American movies.</div>
+<div class="section-label">G</div><div class="passage-para">A basic problem facing today’s Hollywood is the rapidly rising cost of making and marketing a movie: an average of $40 million today. The immense cost of producing movies has led the studios to seek guaranteed hits: blockbuster loaded with high-tech special effects, sequels, and remakes of earlier movies, foreign films, and even old TV shows. Hollywood has also sought to cope with rising costs by focusing ever more intently on its core audiences. Since the mid-1980s, the movie-going audience has continued to decrease in size. Ticket sales fell from 1.2 billion in 1983 to 950 million in 1992, with the biggest drop occurring among adults. And since over half of Hollywood’s profits are earned overseas, the target market has to be changed due to the increasing costs and salary of making a film. The industry has concentrated much of its energy on crude action films easily understood by an international audience, featuring stars like Arnold Schwarzenegger and Sylvester Stallone.</div>
+
+</div>
+<div class="passage-tab" id="ptab2" style="display:none">
+  <div class="passage-title">Art in Iron and Steel</div>
+  <div class="section-label">A</div><div class="passage-para">Works of engineering and technology are sometimes viewed as the antitheses of art and humanity. Think of the connotations of assembly lines, robots, and computers. Any positive values there might be in such creations of the mind and human industry can be overwhelmed by the associated negative images of repetitive, stressful, and threatened jobs. Such images fuel the arguments of critics of technology even as they may drive powerful cars and use the Internet to protest what they see as the artless and dehumanizing aspects of living in an industrialized and digitized society. At the same time, landmark megastructures such as the Brooklyn and Golden Gate bridges are almost universally hailed as majestic human achievements as well as great engineering monuments that have come to embody the spirits of their respective cities. The relationship between art and engineering has seldom been easy or consistent.</div>
+<div class="section-label">B</div><div class="passage-para">The human worker may have appeared to be but a cog in the wheel of industry, yet photographers could reveal the beauty of line and composition in a worker doing something as common as using a wrench to turn a bolt. When Henry Ford’s enormous River Rouge plant opened in 1927 to produce the Model A, the painter/photographer Charles Sheeler was chosen to photograph it. The world’s largest car factory captured the imagination of Sheeler, who described it as the most thrilling subject he ever had to work with. The artist also composed oil paintings of the plant, giving them titles such as American Landscape and Classic Landscape.</div>
+<div class="section-label">C</div><div class="passage-para">Long before Sheeler, other artists, too, had seen the beauty and humanity in works of engineering and technology. This is perhaps no more evident than in Coalbrookdale, England, where iron, which was so important to the industrial revolution, was worked for centuries. Here, in the late eighteenth century, Abraham Darby III cast on the banks of the Severn River the large ribs that formed the world’s first iron bridge, a dramatic departure from the classic stone and timber bridges that dotted the countryside and were captured in numerous serene landscape paintings. The metal structure, simply but appropriately called Iron Bridge, still spans the river and still beckons engineers, artists, and tourists to gaze upon and walk across it, as if on a pilgrimage to a revered place.</div>
+<div class="section-label">D</div><div class="passage-para">At Coalbrookdale, the reflection of the ironwork in the water completes the semicircular structure to form a wide-open eye into the future that is now the past. One artist’s bucolic depiction shows pedestrians and horsemen on the bridge, as if on a woodland trail. On one shore, a pair of well-dressed onlookers interrupts their stroll along the riverbank, perhaps to admire the bridge. On the other side of the gently flowing river, a lone man leads two mules beneath an arch that lets the towpath pass through the bridge’s abutment. A single boatman paddles across the river in a tiny tub boat. He is in no rush because there is no towline to carry from one side of the bridge to the other. This is how Michael Rooker was Iron Bridge in his 1792 painting. A colored engraving of the scene hangs in the nearby Coalbrookdale museum, along with countless other contemporary renderings of the bridge in its full glory and in its context, showing the iron structure not as a blight on the landscape but at the center of it. The surrounding area at the same time radiates out from the bridge and pales behind it.</div>
+<div class="section-label">E</div><div class="passage-para">In the nineteenth century, the railroads captured the imagination of artists, and the steam engine in the distance of a landscape became as much a part of it as the herd of cows in the foreground. The Impressionist Claude Monet painted man-made structures like railway stations and cathedrals as well as water lilies. Portrait painters such as Christian Schussele found subjects in engineers and inventors – and their inventions – as well as in the American founding fathers. By the twentieth century, engineering, technology, and industry were very well established as subjects for artists.</div>
+<div class="section-label">F</div><div class="passage-para">American-born Joseph Pennell illustrated many European travel articles and books. Pennell, who early in his career made drawings of buildings under construction and shrouded in scaffolding, returned to America late in life and recorded industrial activities during World War I. He is perhaps best known among engineers for his depiction of the Panama Canal as it neared completion and his etchings of the partially completed Hell Gate and Delaware River bridges.</div>
+<div class="section-label">G</div><div class="passage-para">Pennell has often been quoted as saying, “Great engineering is great art,” a sentiment that he expressed repeatedly. He wrote of his contemporaries, “I understand nothing of engineering, but I know that engineers are the greatest architects and the most pictorial builders since the Greeks.” Where some observers saw only utility, Pennell saw also beauty, if not in form then at least in scale. He felt he was not only rendering a concrete subject but also conveying through his drawings the impression that it made on him. Pennell called the sensation that he felt before a great construction project ‘The Wonder of Work”. He saw engineering as a process. That process is memorialized in every completed dam, skyscraper, bridge, or other great achievement of engineering.</div>
+<div class="section-label">H</div><div class="passage-para">If Pennell experienced the wonder of work in the aggregate, Lewis Hine focused on the individuals who engaged in the work. Hine was trained as a sociologist but became best known as a photographer who exposed the exploitation of children. His early work documented immigrants passing through Ellis Island, along with the conditions in the New York tenements where they lived and the sweatshops where they worked. Upon returning to New York, he was given the opportunity to record the construction of the Empire State Building, which resulted in the striking photographs that have become such familiar images of daring and insouciance. He put his own life at risk to capture workers suspended on cables hundreds of feet in the air and sitting on a high girder eating lunch. To engineers today, one of the most striking features of these photos, published in 1932 in Men at Work, is the absence of safety lines and hard hats. However, perhaps more than anything, the photos evoke Pennell’s “The Wonder of Work” and inspire admiration for the bravery and skill that bring a great engineering project to completion.</div>
+
+</div>
+</div><div id="divider"></div><div id="right-panel">
+<div class="qtab" id="qtab0">
+<div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1–4: TRUE / FALSE / NOT GIVEN</div>
+<div class="q-block">
+  <div class="q-label">Q1. In the past, difficulties of research carried out on Moon were much easier than that of the ocean.</div>
+  <div class="tfng-row">
+    <label class="radio-opt"><input type="radio" name="q1" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q1" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q1" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+  </div>
+  <div class="q-result" id="r1"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q2. The same light technology used in the investigation of the moon can be employed in the field of the ocean.</div>
+  <div class="tfng-row">
+    <label class="radio-opt"><input type="radio" name="q2" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q2" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q2" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+  </div>
+  <div class="q-result" id="r2"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q3. Research on the depth of the ocean by the method of the sound wave is more time-consuming.</div>
+  <div class="tfng-row">
+    <label class="radio-opt"><input type="radio" name="q3" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q3" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q3" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+  </div>
+  <div class="q-result" id="r3"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q4. Hydrophones technology is able to detect the category of precipitation.</div>
+  <div class="tfng-row">
+    <label class="radio-opt"><input type="radio" name="q4" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q4" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q4" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+  </div>
+  <div class="q-result" id="r4"></div>
+</div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 5–8: Which paragraph (A–H) contains the following information?</div>
+<div class="q-block">
+  <div class="q-label">Q5. lements affect sound transmission in the ocean.</div>
+  <div class="tfng-row"><select id="q5" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r5"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q6. Relationship between global climate and ocean temperature</div>
+  <div class="tfng-row"><select id="q6" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r6"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q7. Examples of how sound technology help people research ocean and creatures in it</div>
+  <div class="tfng-row"><select id="q7" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r7"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q8. Sound transmission underwater is similar to that of light in any condition.</div>
+  <div class="tfng-row"><select id="q8" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r8"></div>
+</div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 9–13: Choose the correct letter A, B, C or D.</div>
+<div class="q-block"><div class="q-label">Q9. 9. Who of the followings is dedicated to the research of rate of sound?</div>
+<label class="radio-opt"><input type="radio" name="q9" value="A" onchange="markRad(this)"> A &nbsp;A   Leonardo da Vinci</label>
+<label class="radio-opt"><input type="radio" name="q9" value="B" onchange="markRad(this)"> B &nbsp;B   Isaac Newton</label>
+<label class="radio-opt"><input type="radio" name="q9" value="C" onchange="markRad(this)"> C &nbsp;C   John William Strutt</label>
+<label class="radio-opt"><input type="radio" name="q9" value="D" onchange="markRad(this)"> D &nbsp;D   Charles Sturm</label>
+<div class="q-result" id="r9"></div></div>
+<div class="q-block"><div class="q-label">Q10. 10. Who explained that the theory of light or sound wavelength is significant in the water?</div>
+<label class="radio-opt"><input type="radio" name="q10" value="A" onchange="markRad(this)"> A &nbsp;A   Lord Rayleigh</label>
+<label class="radio-opt"><input type="radio" name="q10" value="B" onchange="markRad(this)"> B &nbsp;B   John William Strutt</label>
+<label class="radio-opt"><input type="radio" name="q10" value="C" onchange="markRad(this)"> C &nbsp;C   Charles Sturm</label>
+<label class="radio-opt"><input type="radio" name="q10" value="D" onchange="markRad(this)"> D &nbsp;D   Christopher Clark</label>
+<div class="q-result" id="r10"></div></div>
+<div class="q-block"><div class="q-label">Q11. 11. According to Fox and colleagues, in what pattern does the change of finback whale calls happen</div>
+<label class="radio-opt"><input type="radio" name="q11" value="A" onchange="markRad(this)"> A &nbsp;A   Change in various seasons</label>
+<label class="radio-opt"><input type="radio" name="q11" value="B" onchange="markRad(this)"> B &nbsp;B   Change in various days</label>
+<label class="radio-opt"><input type="radio" name="q11" value="C" onchange="markRad(this)"> C &nbsp;C   Change in different months</label>
+<label class="radio-opt"><input type="radio" name="q11" value="D" onchange="markRad(this)"> D &nbsp;D   Change in different years</label>
+<div class="q-result" id="r11"></div></div>
+<div class="q-block"><div class="q-label">Q12. 12.In which way does the SOSUS technology inspect whales?</div>
+<label class="radio-opt"><input type="radio" name="q12" value="A" onchange="markRad(this)"> A &nbsp;A   Track all kinds of whales in the ocean</label>
+<label class="radio-opt"><input type="radio" name="q12" value="B" onchange="markRad(this)"> B &nbsp;B   Track bunches of whales at the same time</label>
+<label class="radio-opt"><input type="radio" name="q12" value="C" onchange="markRad(this)"> C &nbsp;C   Track only finback whale in the ocean</label>
+<label class="radio-opt"><input type="radio" name="q12" value="D" onchange="markRad(this)"> D &nbsp;D   Track whales by using multiple appliances or devices</label>
+<div class="q-result" id="r12"></div></div>
+<div class="q-block"><div class="q-label">Q13. 13. What could scientists inspect via monitoring along a repeated route?</div>
+<label class="radio-opt"><input type="radio" name="q13" value="A" onchange="markRad(this)"> A &nbsp;A   Temperature of the surface passed</label>
+<label class="radio-opt"><input type="radio" name="q13" value="B" onchange="markRad(this)"> B &nbsp;B   Temperature of the deepest ocean floor</label>
+<label class="radio-opt"><input type="radio" name="q13" value="C" onchange="markRad(this)"> C &nbsp;C   Variation of temperature</label>
+<label class="radio-opt"><input type="radio" name="q13" value="D" onchange="markRad(this)"> D &nbsp;D   Fixed data of temperature</label>
+<div class="q-result" id="r13"></div></div>
+</div>
+<div class="qtab" id="qtab1" style="display:none">
+<div style="font-weight:700;color:#1a3a5c;margin-bottom:6px">Questions 14–19: Choose the correct heading (i–vii) for each paragraph.</div>
+<div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px"><b>i</b> Detailed description for a film system<br><b>ii</b> Griffith’s contribution to American films<br><b>iii</b> The gender in the development of American film<br><b>iv</b> Change the view of the American movie<br><b>v</b> People’s reaction to making movies in the war period<br><b>vi</b> The increasing market of the film in society<br><b>vii</b> Griffith improved gender recognition in society<br></div>
+<div class="q-block">
+  <div class="q-label">Q14. Paragraph A</div>
+  <div class="tfng-row">
+    <select id="q14" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option>
+    </select>
+  </div>
+  <div class="q-result" id="r14"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q15. Paragraph B</div>
+  <div class="tfng-row">
+    <select id="q15" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option>
+    </select>
+  </div>
+  <div class="q-result" id="r15"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q16. Paragraph C</div>
+  <div class="tfng-row">
+    <select id="q16" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option>
+    </select>
+  </div>
+  <div class="q-result" id="r16"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q17. Paragraph D</div>
+  <div class="tfng-row">
+    <select id="q17" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option>
+    </select>
+  </div>
+  <div class="q-result" id="r17"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q18. Paragraph E</div>
+  <div class="tfng-row">
+    <select id="q18" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option>
+    </select>
+  </div>
+  <div class="q-result" id="r18"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q19. Paragraph F</div>
+  <div class="tfng-row">
+    <select id="q19" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option>
+    </select>
+  </div>
+  <div class="q-result" id="r19"></div>
+</div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 20–23: Match with A–D.</div>
+<div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px"><b>A</b> A old company’s opposition &nbsp;|&nbsp; <b>B</b> B huge drop happens among adults &nbsp;|&nbsp; <b>C</b> C the pressure to change its market &nbsp;|&nbsp; <b>D</b> D completely copy his system</div>
+<div class="q-block">
+  <div class="q-label">Q20. 20. Griffith’s successful in the 1910s, led his rivals</div>
+  <div class="tfng-row">
+    <select id="q20" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+    </select>
+  </div>
+  <div class="q-result" id="r20"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q21. 21. The growing costs and salary in Hollywood which shows it has</div>
+  <div class="tfng-row">
+    <select id="q21" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+    </select>
+  </div>
+  <div class="q-result" id="r21"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q22. 22. The increasing new movie industries have a big impact on</div>
+  <div class="tfng-row">
+    <select id="q22" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+    </select>
+  </div>
+  <div class="q-result" id="r22"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q23. 23. In 1992, ticket sales declined dramatically, due to</div>
+  <div class="tfng-row">
+    <select id="q23" onchange="markSel(this)">
+      <option value="">-- Select --</option>
+      <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+    </select>
+  </div>
+  <div class="q-result" id="r23"></div>
+</div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 24–26: Choose the correct letter A, B, C or D.</div>
+<div class="q-block"><div class="q-label">Q24. 24. Why Griffith believe the potential in making movies?</div>
+<label class="radio-opt"><input type="radio" name="q24" value="A" onchange="markRad(this)"> A &nbsp;A   The gender development in American films</label>
+<label class="radio-opt"><input type="radio" name="q24" value="B" onchange="markRad(this)"> B &nbsp;B   He used the star system successfully</label>
+<label class="radio-opt"><input type="radio" name="q24" value="C" onchange="markRad(this)"> C &nbsp;C   He prefers advanced movie techniques</label>
+<label class="radio-opt"><input type="radio" name="q24" value="D" onchange="markRad(this)"> D &nbsp;D   He earns lots of money</label>
+<div class="q-result" id="r24"></div></div>
+<div class="q-block"><div class="q-label">Q25. 25. What is other competitors’ reaction to Griffith?</div>
+<label class="radio-opt"><input type="radio" name="q25" value="A" onchange="markRad(this)"> A &nbsp;A   Adopt Griffith’s theory and methods in making films</label>
+<label class="radio-opt"><input type="radio" name="q25" value="B" onchange="markRad(this)"> B &nbsp;B   Complete copy his theory and methods</label>
+<label class="radio-opt"><input type="radio" name="q25" value="C" onchange="markRad(this)"> C &nbsp;C   Try to catch up with their innovations</label>
+<label class="radio-opt"><input type="radio" name="q25" value="D" onchange="markRad(this)"> D &nbsp;D   Find a new system against Griffith</label>
+<div class="q-result" id="r25"></div></div>
+<div class="q-block"><div class="q-label">Q26. 26. What is the great change in films industries during the 1920s and 1930s?</div>
+<label class="radio-opt"><input type="radio" name="q26" value="A" onchange="markRad(this)"> A &nbsp;A   Try to seek the high-tech special efforts</label>
+<label class="radio-opt"><input type="radio" name="q26" value="B" onchange="markRad(this)"> B &nbsp;B   Dismiss the needs of overseas audiences</label>
+<label class="radio-opt"><input type="radio" name="q26" value="C" onchange="markRad(this)"> C &nbsp;C   Changed its goal market</label>
+<label class="radio-opt"><input type="radio" name="q26" value="D" onchange="markRad(this)"> D &nbsp;D   Improved the foreign version of American movies</label>
+<div class="q-result" id="r26"></div></div>
+</div>
+<div class="qtab" id="qtab2" style="display:none">
+<div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27–31: Which paragraph (A–H) contains the following information?</div>
+<div class="q-block">
+  <div class="q-label">Q27. Art connected with architecture for the first time.</div>
+  <div class="tfng-row"><select id="q27" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r27"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q28. small artistic object and constructions built are put together</div>
+  <div class="tfng-row"><select id="q28" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r28"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q29. the working condition were recorded by the artist as an exciting subject.</div>
+  <div class="tfng-row"><select id="q29" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r29"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q30. mention of one engineers’ artistic work on an unfinished engineering project</div>
+  <div class="tfng-row"><select id="q30" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r30"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q31. Two examples of famous bridges which became the iconic symbols of those cities</div>
+  <div class="tfng-row"><select id="q31" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option></select></div>
+  <div class="q-result" id="r31"></div>
+</div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 32–36: Match the person (A–F) with each deed.</div>
+<div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px"><b>A</b> Charles Sheeler &nbsp;|&nbsp; <b>B</b> Michael Rooker &nbsp;|&nbsp; <b>C</b> Claude Monet &nbsp;|&nbsp; <b>D</b> Christian Schussele &nbsp;|&nbsp; <b>E</b> Joseph Pennell &nbsp;|&nbsp; <b>F</b> Lewis Hine</div>
+<div class="q-block">
+  <div class="q-label">Q32. who made a comment that concrete constructions have a beauty just as artistic processes created by engineers the architects</div>
+  <div class="tfng-row">
+    <select id="q32" onchange="markSel(this)">
+      <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+    </select>
+  </div>
+  <div class="q-result" id="r32"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q33. who made a romantic depiction of an old bridge in one painting</div>
+  <div class="tfng-row">
+    <select id="q33" onchange="markSel(this)">
+      <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+    </select>
+  </div>
+  <div class="q-result" id="r33"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q34. who produced art pieces demonstrating the courage of workers in the site</div>
+  <div class="tfng-row">
+    <select id="q34" onchange="markSel(this)">
+      <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+    </select>
+  </div>
+  <div class="q-result" id="r34"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q35. who produced portraits involving subjects in engineers and inventions and historical human heroes.</div>
+  <div class="tfng-row">
+    <select id="q35" onchange="markSel(this)">
+      <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+    </select>
+  </div>
+  <div class="q-result" id="r35"></div>
+</div>
+<div class="q-block">
+  <div class="q-label">Q36. who produced a painting of factories and named them ambitiously</div>
+  <div class="tfng-row">
+    <select id="q36" onchange="markSel(this)">
+      <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+    </select>
+  </div>
+  <div class="q-result" id="r36"></div>
+</div>
+<div style="font-weight:700;color:#1a3a5c;margin:14px 0 4px">Questions 37–40: Complete the summary. NO MORE THAN THREE WORDS.</div>
+<div class="q-block">
+  <div style="font-weight:600;margin-bottom:6px">Iron bridge Coalbrookdale, England</div>
+  <div class="passage-para">In the late eighteenth century, as artists began to capture the artistic attractiveness incorporated into architecture via engineering and technology were captured in numerous serene landscape paintings. One good example, the engineer called <b>37.</b> <input type="text" id="q37" oninput="markTxt(this)" placeholder="answer"> had designed the first iron bridge in the world and changed to using irons yet earlier bridges in the countryside were constructed using materials such as <b>38.</b> <input type="text" id="q38" oninput="markTxt(this)" placeholder="answer"> and wood. This first Iron bridge which across the <b>39.</b> <input type="text" id="q39" oninput="markTxt(this)" placeholder="answer"> was much significant in the industrial revolution period and it functioned for centuries. Numerous spectacular paintings and sculpture of Iron Bridge are collected and exhibited locally in <b>40.</b> <input type="text" id="q40" oninput="markTxt(this)" placeholder="answer">, showing the iron structure as a theme on the landscape.</div>
+  <div class="q-result" id="r37"></div><div class="q-result" id="r38"></div>
+  <div class="q-result" id="r39"></div><div class="q-result" id="r40"></div>
+</div>
+<button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+<div id="score-box"></div>
+</div>
+</div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+}
+
+var warned=0;
+function doWarn(){if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated.</h2>';}}
+document.addEventListener('visibilitychange',function(){if(document.hidden)doWarn();});
+window.addEventListener('blur',doWarn);
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();});
+(function(){setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160)doWarn();},2000);})();
+try{document.documentElement.requestFullscreen();}catch(e){}
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){var now=Date.now();if(graceEnd){var l=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(l);timerEl.classList.add('warn');if(l<=0){clearInterval(timerInterval);submitExam();}}else{var l=endTime-now;timerEl.textContent=fmtTime(l);if(l<=300000)timerEl.classList.add('warn');if(l<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}},500);
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){panel.addEventListener('mouseup',function(){if(!hlColor)return;var sel=window.getSelection();if(!sel||sel.isCollapsed)return;var range=sel.getRangeAt(0);if(hlColor==='clear'){var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);}else{var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);}sel.removeAllRanges();});}
+doHL(document.getElementById('left-panel'));doHL(document.getElementById('right-panel'));
+function showTab(i){document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});}
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkText(id,ans){var v=getVal(id).toLowerCase();if(!Array.isArray(ans))ans=[ans];return ans.some(function(a){return v===a.toLowerCase();})?1:0;}
+var ANS={
+  q1:'TRUE',q2:'FALSE',q3:'NOT GIVEN',q4:'TRUE',
+  q5:'D',q6:'G',q7:'F',q8:'D',
+  q9:'D',q10:'A',q11:'A',q12:'B',q13:'C',
+  q14:'iii',q15:'i',q16:'v',q17:'iv',q18:'ii',q19:'vi',
+  q20:'D',q21:'C',q22:'A',q23:'B',
+  q24:'B',q25:'A',q26:'D',
+  q27:'C',q28:'E',q29:'B',q30:'F',q31:'A',
+  q32:'E',q33:'B',q34:'F',q35:'D',q36:'A',
+  q37:['Abraham Darby III','Abraham Darby'],
+  q38:['stone'],
+  q39:['river'],
+  q40:['Coalbrookdale Museum']
+};
+function submitExam(){
+  clearInterval(timerInterval);var score=0;
+  for(var i=1;i<=4;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=5;i<=8;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=9;i<=13;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=14;i<=19;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=20;i<=23;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=24;i<=26;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=27;i<=31;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=32;i<=36;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=37;i<=40;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;var a=Array.isArray(ANS['q'+i])?ANS['q'+i][0]:ANS['q'+i];document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+a+'</span>';}
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p><table class="band-table"><tr><th>Score</th><th>Band</th></tr><tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr><tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr><tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr><tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  // Build details từ ANS object (đúng thứ tự Q1-Q40)
+  var detailsParts=[];
+  // Q1-4 radio
+  for(var i=1;i<=4;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q5-8 select
+  for(var i=5;i<=8;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q9-13 radio
+  for(var i=9;i<=13;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q14-23 select
+  for(var i=14;i<=23;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q24-26 radio
+  for(var i=24;i<=26;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q27-36 select
+  for(var i=27;i<=36;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q37-40 text
+  for(var i=37;i<=40;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=(Array.isArray(ans)?ans.some(function(a){return v.toLowerCase()===a.toLowerCase();}):v.toLowerCase()===ans.toLowerCase())?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 2',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+(function(){var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});document.addEventListener('mouseup',function(){dragging=false;});})();
+</script></body></html>
