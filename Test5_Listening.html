@@ -473,8 +473,10 @@ function logV(msg){violLog.push('['+new Date().toLocaleTimeString()+'] '+msg);}
 var fsOv=document.getElementById('fs-overlay');
 window.enterFullscreen=function(){
   var el=document.documentElement;
-  if(el.requestFullscreen)el.requestFullscreen();
-  else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
+  try{
+    if(el.requestFullscreen)el.requestFullscreen().catch(function(){});
+    else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();
+  }catch(e){}
   fsOv.style.display='none';
 };
 function isFS(){return!!(document.fullscreenElement||document.webkitFullscreenElement);}
@@ -577,6 +579,7 @@ function checkFill(id,list){
 }
 
 /* ===== SUBMIT ===== */
+
 window.submitTest=function(){
   if(submitted)return;
   submitted=true;
@@ -650,7 +653,12 @@ window.submitTest=function(){
   qOrder.forEach(function(k){
     var d=details[k];
     if(k==='q18_20'){
-      for(var i=0;i<3;i++){detArr.push('Q'+(qNum<10?'0':'')+qNum+':'+(d.ok?'✔':'✘')+'('+d.val+')');qNum++;}
+      var chosen=(d.val||'').split(',').filter(function(x){return x;});
+      var correct=ANS.q18_20.correct;
+      var parts=chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');});
+      var missed=correct.filter(function(v){return chosen.indexOf(v)<0;}).map(function(v){return v+'(đáp án)';});
+      detArr.push('Q'+(qNum<10?'0':'')+qNum+'-'+(qNum+2)+':['+parts.concat(missed).join(' ')+']');
+      qNum+=3;
     } else {
       detArr.push('Q'+(qNum<10?'0':'')+qNum+':'+(d.ok?'✔':'✘')+'('+d.val+')');qNum++;
     }
@@ -696,11 +704,37 @@ window.submitTest=function(){
 
 function getBand(s){
   if(s>=39)return'9.0';if(s>=37)return'8.5';if(s>=35)return'8.0';
-  if(s>=32)return'7.5';if(s>=30)return'7.0';if(s>=26)return'6.5';
+  if(s>=32)return'7.5';
+  if(s>=30)return'7.0';if(s>=26)return'6.5';
   if(s>=23)return'6.0';if(s>=18)return'5.5';if(s>=16)return'5.0';
-  if(s>=13)return'4.5';if(s>=10)return'4.0';return'Dưới Band 4';
+  if(s>=13)return'4.5';if(s>=11)return'4.0';return'3.5';
 }
-window.getViolationLog=function(){return{tabViol:tabViol,focusViol:focusViol,fsViol:fsViol,log:violLog};};
+
+// Giới hạn checkbox - wire sau DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function(){
+  function showCheckLimit(name, max){
+    var id='chk-limit-'+name;
+    var el=document.getElementById(id);
+    if(!el){
+      el=document.createElement('div');
+      el.id=id;
+      el.style.cssText='color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;';
+      var grp=document.querySelector('input[name="'+name+'"]');
+      if(grp&&grp.parentNode) grp.parentNode.appendChild(el);
+    }
+    el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';
+    clearTimeout(el._t);
+    el._t=setTimeout(function(){el.textContent='';},2500);
+  }
+  document.querySelectorAll('input[name="q18_20"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){
+        var n=document.querySelectorAll('input[name="q18_20"]:checked').length;
+        if(n>3){inp.checked=false;showCheckLimit('q18_20',3);}
+      }
+    });
+  });
+});
 })();
 </script>
 </body>
