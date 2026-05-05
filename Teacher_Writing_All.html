@@ -352,7 +352,7 @@
       var parts   = (r.student || '').split('—');
       var rName   = (parts[0] || '').trim().toLowerCase();
       var rCls    = (parts[1] || '').trim().toLowerCase();
-      var isGraded= !!(r.teacher_t1_band || r.teacher_overall);
+      var isGraded= !!(r.t1Band || r.overall || r.teacher_t1_band || r.teacher_overall);
       if (name   && !rName.includes(name))  return false;
       if (cls    && !rCls.includes(cls))    return false;
       if (status === 'pending' && isGraded) return false;
@@ -370,7 +370,7 @@
     }
     var html = '';
     rows.forEach(function(r, i) {
-      var isGraded = !!(r.teacher_t1_band || r.teacher_overall);
+      var isGraded = !!(r.t1Band || r.overall || r.teacher_t1_band || r.teacher_overall);
       var badge = isGraded
         ? '<span class="badge-graded">Đã chấm</span>'
         : '<span class="badge-pending">Chưa chấm</span>';
@@ -380,13 +380,13 @@
       var viols = [r.tabViol,r.focusViol,r.fsViol,r.pasteViol].map(Number).reduce(function(a,b){return a+b;},0);
       html += '<tr onclick="openDetail('+r._rowIndex+')">'
         + '<td>'+(i+1)+'</td>'
-        + '<td>'+(r.timestamp||'').replace('T',' ').slice(0,16)+'</td>'
+        + '<td>'+(r.timestamp||'').slice(0,16).replace('T',' ')+'</td>'
         + '<td>'+esc(sName)+'</td>'
         + '<td>'+esc(sCls)+'</td>'
-        + '<td>'+(r.task1_words||0)+'</td>'
-        + '<td>'+(r.task2_words||0)+'</td>'
-        + '<td>'+(r.ai_overall||'—')+'</td>'
-        + '<td>'+(r.teacher_overall||'—')+'</td>'
+        + '<td>'+(r.task1_words||r.t1Words||0)+'</td>'
+        + '<td>'+(r.task2_words||r.t2Words||0)+'</td>'
+        + '<td>'+(r.ai_overall||r.aiOverall||'—')+'</td>'
+        + '<td>'+(r.overall||r.teacher_overall||'—')+'</td>'
         + '<td>'+badge+'</td>'
         + '<td style="color:'+(viols>0?'#c62828':'#888')+'">'+(viols>0?'⚠ '+viols:'✓')+'</td>'
         + '</tr>';
