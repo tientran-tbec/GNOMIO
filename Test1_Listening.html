@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Listening Test 1</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f4f6f9; color: #222; }
+
+  .container { max-width: 860px; margin: 30px auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); padding: 36px 40px 50px; }
+
+  h1 { text-align: center; font-size: 1.6em; letter-spacing: 2px; color: #1a3a5c; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #666; font-size: 0.95em; margin-bottom: 28px; }
+
+  /* Audio */
+  .audio-section { background: #eaf3fb; border: 1px solid #b3d4ef; border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; text-align: center; }
+  .audio-section p { font-weight: bold; color: #1a3a5c; margin-bottom: 10px; }
+  audio { width: 100%; }
+
+  /* Parts */
+  .part { margin-bottom: 36px; }
+  .part-title { background: #1a3a5c; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 1.05em; font-weight: bold; margin-bottom: 14px; }
+  .question-block { margin-bottom: 18px; }
+  .instruction { font-style: italic; color: #555; margin-bottom: 12px; font-size: 0.93em; }
+  .question-id { font-size: 0.75em; color: #999; margin-bottom: 2px; }
+
+  /* Notes layout */
+  .notes-box { border: 1px solid #ccc; border-radius: 8px; padding: 18px 22px; background: #fafafa; margin-bottom: 12px; }
+  .notes-box h3 { text-align: center; font-size: 1em; color: #1a3a5c; margin-bottom: 12px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+  .note-row { display: flex; align-items: center; padding: 5px 0; border-bottom: 1px dotted #e0e0e0; flex-wrap: wrap; gap: 6px; }
+  .note-row:last-child { border-bottom: none; }
+  .note-label { min-width: 160px; font-weight: bold; color: #333; }
+  .note-value { color: #555; }
+  .note-static { color: #444; font-style: italic; }
+  .qid-tag { font-size: 0.72em; color: #aaa; margin-right: 4px; }
+
+  /* Input styling */
+  input[type="text"] {
+    border: none; border-bottom: 2px solid #1a3a5c; background: transparent;
+    font-size: 0.95em; padding: 2px 6px; width: 140px; color: #1a3a5c;
+    outline: none; transition: border-color 0.2s;
+  }
+  input[type="text"]:focus { border-bottom-color: #f39c12; }
+  input[type="text"].correct { border-bottom-color: #27ae60; background: #eafaf1; }
+  input[type="text"].wrong { border-bottom-color: #e74c3c; background: #fdf0ef; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th { background: #1a3a5c; color: #fff; padding: 8px 10px; text-align: center; font-size: 0.9em; }
+  td { border: 1px solid #ccc; padding: 8px 10px; text-align: center; font-size: 0.9em; }
+  td.left { text-align: left; }
+  tr:nth-child(even) td { background: #f7f7f7; }
+
+  /* MCQ */
+  .mcq-question { margin-bottom: 20px; }
+  .mcq-question p { font-weight: bold; margin-bottom: 8px; color: #1a3a5c; }
+  .mcq-options { display: flex; flex-direction: column; gap: 6px; margin-left: 16px; }
+  .mcq-options label { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-size: 0.95em; }
+  .mcq-options label.correct-label { color: #27ae60; font-weight: bold; }
+  .mcq-options label.wrong-label { color: #e74c3c; }
+
+  /* Matching */
+  .matching-intro { margin-bottom: 10px; font-size: 0.93em; color: #555; }
+  .matching-key { background: #eaf3fb; border-radius: 6px; padding: 10px 16px; margin-bottom: 12px; font-size: 0.9em; }
+  .matching-key p { margin-bottom: 3px; }
+  .matching-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .matching-row span { font-weight: bold; min-width: 160px; }
+  select {
+    border: 1px solid #1a3a5c; border-radius: 4px; padding: 4px 8px;
+    font-size: 0.93em; color: #1a3a5c; background: #fff; cursor: pointer;
+  }
+  select.correct { border-color: #27ae60; background: #eafaf1; color: #27ae60; }
+  select.wrong { border-color: #e74c3c; background: #fdf0ef; color: #e74c3c; }
+
+  /* Submit */
+  .submit-section { text-align: center; margin-top: 36px; }
+  button#submitBtn {
+    background: #1a3a5c; color: #fff; border: none; padding: 13px 50px;
+    font-size: 1.05em; border-radius: 8px; cursor: pointer; letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+  button#submitBtn:hover { background: #f39c12; }
+
+  /* Score */
+  #scoreBoard { display: none; margin-top: 28px; border: 2px solid #1a3a5c; border-radius: 10px; padding: 24px 30px; text-align: center; background: #eaf3fb; }
+  #scoreBoard h2 { color: #1a3a5c; font-size: 1.4em; margin-bottom: 8px; }
+  #scoreBoard p { font-size: 1.05em; color: #333; }
+  .score-num { font-size: 2em; font-weight: bold; color: #f39c12; }
+
+  /* Answer reveal */
+  .answer-reveal { font-size: 0.82em; color: #27ae60; margin-top: 3px; display: none; }
+  .answer-reveal.show { display: inline; }
+  .wrong-ans { color: #e74c3c; }
+
+  /* Timer */
+  #timerBox {
+    position: fixed; top: 18px; right: 22px; z-index: 999;
+    background: #1a3a5c; color: #fff;
+    padding: 10px 18px; border-radius: 10px;
+    font-size: 1.05em; font-weight: bold;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    min-width: 120px; text-align: center;
+  }
+  #timerBox .timer-label { font-size: 0.72em; letter-spacing: 1px; opacity: 0.8; }
+  #timerBox .timer-time { font-size: 1.4em; letter-spacing: 2px; }
+  #timerBox.warning { background: #e67e22; animation: pulse 1s infinite; }
+  #timerBox.danger  { background: #e74c3c; animation: pulse 0.5s infinite; }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(231,76,60,0.6); }
+    70%  { box-shadow: 0 0 0 10px rgba(231,76,60,0); }
+    100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); }
+  }
+
+  /* Chống gian lận */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  input[type="text"], select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+  @media print {
+    body { display: none !important; }
+  }
+
+  /* Tab warning banner */
+  #tabWarning {
+    display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 99998;
+    background: #e74c3c; color: #fff; text-align: center;
+    padding: 10px; font-size: 0.95em; font-weight: bold;
+  }
+  #tabWarning.show { display: block; }
+  #fsWarning.show  { display: flex !important; }
+
+  /* Log panel */
+  #logPanel {
+    display: none; position: fixed; bottom: 18px; left: 18px; z-index: 9997;
+    background: rgba(26,58,92,0.92); color: #fff; border-radius: 8px;
+    padding: 10px 16px; font-size: 0.78em; max-width: 260px; line-height: 1.6;
+  }
+
+  /* Warning overlay */
+  #warningOverlay {
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.55); justify-content: center; align-items: center;
+  }
+  #warningOverlay.show { display: flex; }
+  #warningBox {
+    background: #fff; border-radius: 14px; padding: 36px 40px; text-align: center;
+    max-width: 380px; box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+  }
+  #warningBox h2 { color: #e74c3c; font-size: 1.4em; margin-bottom: 12px; }
+  #warningBox p  { color: #444; margin-bottom: 18px; font-size: 0.97em; line-height: 1.5; }
+  #warningBox .countdown-big { font-size: 2.4em; font-weight: bold; color: #e74c3c; margin-bottom: 16px; }
+  #warningBox button {
+    background: #1a3a5c; color: #fff; border: none;
+    padding: 10px 30px; border-radius: 8px; font-size: 1em; cursor: pointer;
+  }
+  #warningBox button:hover { background: #f39c12; }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px 14px; }
+    .note-label { min-width: 120px; }
+    input[type="text"] { width: 110px; }
+    #timerBox { top: 10px; right: 10px; padding: 7px 12px; min-width: 95px; }
+    #timerBox .timer-time { font-size: 1.15em; }
+  }
+</style>
+</head>
+<body>
+<!-- TIMER -->
+<div id="timerBox">
+  <span class="timer-label">⏱ THỜI GIAN</span>
+  <span class="timer-time" id="timerDisplay">40:00</span>
+</div>
+
+<!-- WARNING OVERLAY -->
+<div id="warningOverlay">
+  <div id="warningBox">
+    <h2>⏰ Hết giờ làm bài!</h2>
+    <p>Bạn đã dùng hết <strong>40 phút</strong>.<br>Bài sẽ tự động nộp sau:</p>
+    <div class="countdown-big" id="extraCountdown">5:00</div>
+    <p style="font-size:0.88em; color:#888;">Hoặc bấm nộp bài ngay bây giờ.</p>
+    <button onclick="forceSubmit()">✅ Nộp bài ngay</button>
+  </div>
+</div>
+
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">🎧 IELTS Listening Test 1</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+
+<!-- TAB WARNING BANNER -->
+<div id="tabWarning"></div>
+
+<!-- FULLSCREEN WARNING -->
+<div id="fsWarning" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);justify-content:center;align-items:center;flex-direction:column;gap:16px;">
+  <h2 style="color:#f39c12;font-family:Arial;">⚠️ Vui lòng quay lại chế độ toàn màn hình!</h2>
+  <p style="color:#fff;font-family:Arial;text-align:center;">Bài thi yêu cầu toàn màn hình.<br>Hành vi thoát fullscreen đã được ghi lại.</p>
+  <button onclick="enterFullscreen()" style="background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;">🔲 Vào toàn màn hình</button>
+</div>
+
+<!-- LOG PANEL -->
+<div id="logPanel"></div>
+
+<div class="container">
+
+  <h1>IELTS LISTENING — TEST 1</h1>
+  <p class="subtitle">Điền vào chỗ trống hoặc chọn đáp án đúng. Bấm <strong>Submit</strong> để xem kết quả.</p>
+
+  <!-- AUDIO -->
+  <div class="audio-section">
+    <p>🎧 Audio — Listening Test 1</p>
+    <audio controls>
+      <source src="Audio test 1.mp3" type="audio/mpeg">
+      Trình duyệt của bạn không hỗ trợ audio.
+    </audio>
+  </div>
+
+  <!-- ==================== PART 1 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 1 &nbsp;|&nbsp; Questions 1–10</div>
+
+    <!-- Q1-6: Note Completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 1–6: Complete the notes below. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+
+      <div class="notes-box">
+        <h3>School Excursion</h3>
+
+        <div class="note-row">
+          <span class="note-label">Day:</span>
+          <span class="note-static">Wednesday</span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Destination:</span>
+          <span class="qid-tag">Q.01.TEST001</span>
+          <input type="text" id="q1" placeholder="answer..." data-answer="animal park">
+          <span class="answer-reveal" id="r1"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Weather:</span>
+          <span class="qid-tag">Q.02.TEST001</span>
+          <input type="text" id="q2" placeholder="answer..." data-answer="cold and cloudy">
+          <span class="answer-reveal" id="r2"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Arrival time:</span>
+          <span class="qid-tag">Q.03.TEST001</span>
+          <input type="text" id="q3" placeholder="answer..." data-answer="10.15 am">
+          <span class="answer-reveal" id="r3"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Activities planned — See:</span>
+          <span class="qid-tag">Q.04.TEST001</span>
+          <input type="text" id="q4" placeholder="answer..." data-answer="birds of prey">
+          <span class="answer-reveal" id="r4"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Eat:</span>
+          <span class="note-static">Catered lunch</span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Attend:</span>
+          <span class="qid-tag">Q.05.TEST001</span>
+          <input type="text" id="q5" placeholder="answer..." data-answer="reptile display">
+          <span class="answer-reveal" id="r5"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Return time:</span>
+          <span class="qid-tag">Q.06.TEST001</span>
+          <input type="text" id="q6" placeholder="answer..." data-answer="6.30 pm">
+          <span class="answer-reveal" id="r6"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7-10: Table Completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 7–10: Complete the table below. Write ONE WORD only for each answer.</p>
+      <div class="notes-box">
+        <table>
+          <thead>
+            <tr><th>Nationality</th><th>%</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left"><span class="qid-tag">Q.07.TEST001</span><input type="text" id="q7" placeholder="answer..." data-answer="chinese"></td>
+              <td>26</td>
+            </tr>
+            <tr>
+              <td class="left"><span class="qid-tag">Q.08.TEST001</span><input type="text" id="q8" placeholder="answer..." data-answer="japanese"></td>
+              <td>25</td>
+            </tr>
+            <tr>
+              <td class="left"><span class="qid-tag">Q.09.TEST001</span><input type="text" id="q9" placeholder="answer..." data-answer="koreans"></td>
+              <td>16</td>
+            </tr>
+            <tr><td class="left">Indonesia</td><td>15</td></tr>
+            <tr>
+              <td class="left"><span class="qid-tag">Q.10.TEST001</span><input type="text" id="q10" placeholder="answer..." data-answer="thai"></td>
+              <td>8</td>
+            </tr>
+            <tr><td class="left">Saudi</td><td>7</td></tr>
+            <tr><td class="left">Other</td><td>3</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;">
+          <span class="answer-reveal" id="r7"></span>
+          <span class="answer-reveal" id="r8"></span>
+          <span class="answer-reveal" id="r9"></span>
+          <span class="answer-reveal" id="r10"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 2 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 2 &nbsp;|&nbsp; Questions 11–20</div>
+    <div class="question-block">
+      <p class="instruction">Questions 11–20: Complete the timetable below. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+      <div class="notes-box">
+        <h3>Park Arts Center</h3>
+        <table>
+          <thead>
+            <tr><th>Dates</th><th>Times</th><th>Event</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>18 – 24 Feb</td>
+              <td>
+                <span class="qid-tag">Q.11.TEST001</span>
+                <input type="text" id="q11" placeholder="time..." data-answer="2.30/7.30 pm" style="width:110px">
+              </td>
+              <td>Folk music concert</td>
+              <td>Can get a <span class="qid-tag">Q.12.TEST001</span><input type="text" id="q12" placeholder="..." data-answer="cd" style="width:60px"> in shop</td>
+            </tr>
+            <tr>
+              <td>1 – 8 Feb</td>
+              <td>See the <span class="qid-tag">Q.13.TEST001</span><input type="text" id="q13" placeholder="..." data-answer="separate programme" style="width:110px"></td>
+              <td>Annual <span class="qid-tag">Q.14.TEST001</span><input type="text" id="q14" placeholder="..." data-answer="dance festival" style="width:100px"></td>
+              <td>Groups from <span class="qid-tag">Q.15.TEST001</span><input type="text" id="q15" placeholder="..." data-answer="4 continents" style="width:90px"></td>
+            </tr>
+            <tr>
+              <td><span class="qid-tag">Q.16.TEST001</span><input type="text" id="q16" placeholder="date..." data-answer="14-20 march" style="width:100px"></td>
+              <td>8 pm</td>
+              <td>Film: <span class="qid-tag">Q.17.TEST001</span><input type="text" id="q17" placeholder="..." data-answer="love and hope" style="width:100px"></td>
+              <td>Talk by the <span class="qid-tag">Q.18.TEST001</span><input type="text" id="q18" placeholder="..." data-answer="producer" style="width:80px"></td>
+            </tr>
+            <tr>
+              <td>2 April</td>
+              <td>To be confirmed</td>
+              <td><span class="qid-tag">Q.19.TEST001</span><input type="text" id="q19" placeholder="..." data-answer="singing competition" style="width:120px"></td>
+              <td>It will be <span class="qid-tag">Q.20.TEST001</span><input type="text" id="q20" placeholder="..." data-answer="shown on tv" style="width:90px"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="answer-reveal" id="r11"></span><span class="answer-reveal" id="r12"></span>
+          <span class="answer-reveal" id="r13"></span><span class="answer-reveal" id="r14"></span>
+          <span class="answer-reveal" id="r15"></span><span class="answer-reveal" id="r16"></span>
+          <span class="answer-reveal" id="r17"></span><span class="answer-reveal" id="r18"></span>
+          <span class="answer-reveal" id="r19"></span><span class="answer-reveal" id="r20"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 3 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 3 &nbsp;|&nbsp; Questions 21–30</div>
+
+    <!-- Q21-26: MCQ -->
+    <div class="question-block">
+      <p class="instruction">Questions 21–26: Choose the correct letter A, B or C.</p>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.21.TEST001</span> 21. What kind of research method does the professor recommend?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q21" value="A"> A &nbsp; interview</label>
+          <label><input type="radio" name="q21" value="B"> B &nbsp; observation</label>
+          <label><input type="radio" name="q21" value="C"> C &nbsp; questionnaire</label>
+        </div>
+        <span class="answer-reveal" id="r21"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.22.TEST001</span> 22. What is the project based on?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q22" value="A"> A &nbsp; a study they did before in Australia</label>
+          <label><input type="radio" name="q22" value="B"> B &nbsp; a similar angle someone has done before</label>
+          <label><input type="radio" name="q22" value="C"> C &nbsp; an Australian study</label>
+        </div>
+        <span class="answer-reveal" id="r22"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.23.TEST001</span> 23. What does the professor advise Douglas to do about the formation of the focus groups?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q23" value="A"> A &nbsp; strengthen the group in size</label>
+          <label><input type="radio" name="q23" value="B"> B &nbsp; reduce the number of children in each group</label>
+          <label><input type="radio" name="q23" value="C"> C &nbsp; build more than 3 groups</label>
+        </div>
+        <span class="answer-reveal" id="r23"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.24.TEST001</span> 24. To do the project best, the professor suggests the students</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q24" value="A"> A &nbsp; interview various people or sectors.</label>
+          <label><input type="radio" name="q24" value="B"> B &nbsp; not be too ambitious.</label>
+          <label><input type="radio" name="q24" value="C"> C &nbsp; work hard enough.</label>
+        </div>
+        <span class="answer-reveal" id="r24"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.25.TEST001</span> 25. To gather data, the professor asks Jane</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q25" value="A"> A &nbsp; to replace other people's advice.</label>
+          <label><input type="radio" name="q25" value="B"> B &nbsp; to simplify the textbook.</label>
+          <label><input type="radio" name="q25" value="C"> C &nbsp; to practice using the date table.</label>
+        </div>
+        <span class="answer-reveal" id="r25"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.26.TEST001</span> 26. The reason why Douglas hasn't read enough reference books is that</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q26" value="A"> A &nbsp; he doesn't have enough time.</label>
+          <label><input type="radio" name="q26" value="B"> B &nbsp; he thinks there are too many books to read.</label>
+          <label><input type="radio" name="q26" value="C"> C &nbsp; he hasn't spent time in the library.</label>
+        </div>
+        <span class="answer-reveal" id="r26"></span>
+      </div>
+    </div>
+
+    <!-- Q27-30: Matching -->
+    <div class="question-block">
+      <p class="instruction">Questions 27–30: What do the students decide about the following parts of the project? Write the correct letter A, B or C next to questions 27–30.</p>
+      <div class="matching-key">
+        <p><strong>A</strong> — Jane will do</p>
+        <p><strong>B</strong> — Douglas will do</p>
+        <p><strong>C</strong> — They will do together</p>
+      </div>
+
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.27.TEST001</span> 27. final report</span>
+        <select id="q27" data-answer="C">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r27"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.28.TEST001</span> 28. sheet preparation</span>
+        <select id="q28" data-answer="B">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r28"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.29.TEST001</span> 29. letter</span>
+        <select id="q29" data-answer="A">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r29"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.30.TEST001</span> 30. transcript</span>
+        <select id="q30" data-answer="C">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r30"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 4 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 4 &nbsp;|&nbsp; Questions 31–40</div>
+    <div class="question-block">
+      <p class="instruction">Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.</p>
+
+      <div class="notes-box">
+        <h3>History of Ancient Aztecs</h3>
+
+        <p style="font-weight:bold; margin-bottom:8px; color:#1a3a5c;">History of Aztec Origins:</p>
+        <div class="note-row">
+          <span class="note-value">The great Aztec civilization was discovered by Heman Cortez.</span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">The Aztec group was originated in the Northwestern
+            <span class="qid-tag">Q.31.TEST001</span>
+            <input type="text" id="q31" placeholder="..." data-answer="plains">
+            <span class="answer-reveal" id="r31"></span>
+            of Mexico, then moved to the South.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">They created various advances in science, specialized in the fields of
+            <span class="qid-tag">Q.32.TEST001</span>
+            <input type="text" id="q32" placeholder="..." data-answer="astronomy">
+            <span class="answer-reveal" id="r32"></span>
+            and pharmacy.
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Farming Practices:</p>
+        <div class="note-row">
+          <span class="note-value">Increasing productivity by irrigation, fertilizer, and
+            <span class="qid-tag">Q.33.TEST001</span>
+            <input type="text" id="q33" placeholder="..." data-answer="terraces">
+            <span class="answer-reveal" id="r33"></span>
+            built on mount to protect landslide.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Gardens float on swamps made by digging
+            <span class="qid-tag">Q.34.TEST001</span>
+            <input type="text" id="q34" placeholder="..." data-answer="canals">
+            <span class="answer-reveal" id="r34"></span>
+            between marshes and swamps.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">The chinapas were kept firmly in place to plant main crops like
+            <span class="qid-tag">Q.35.TEST001</span>
+            <input type="text" id="q35" placeholder="..." data-answer="corns">
+            <span class="answer-reveal" id="r35"></span>
+            and vegetables.
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Field of Sciences:</p>
+        <div class="note-row">
+          <span class="note-value">Aztec's Calendar Stone was manufactured from 1427 to
+            <span class="qid-tag">Q.36.TEST001</span>
+            <input type="text" id="q36" placeholder="..." data-answer="1479">
+            <span class="answer-reveal" id="r36"></span>.
+            Dimension: 3-feet thickness, 12-feet
+            <span class="qid-tag">Q.37.TEST001</span>
+            <input type="text" id="q37" placeholder="..." data-answer="diameter">
+            <span class="answer-reveal" id="r37"></span>,
+            24-ton weight.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">The "Nemontemi" called
+            <span class="qid-tag">Q.38.TEST001</span>
+            <input type="text" id="q38" placeholder="..." data-answer="sacrificial">
+            <span class="answer-reveal" id="r38"></span>
+            days, added to the calendar.
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Field of Medicine:</p>
+        <div class="note-row">
+          <span class="note-value">The Aztec believed ailments were derived from God and the wrong signs of
+            <span class="qid-tag">Q.39.TEST001</span>
+            <input type="text" id="q39" placeholder="..." data-answer="birth">
+            <span class="answer-reveal" id="r39"></span>.
+            Illness was treated by praying and killing
+            <span class="qid-tag">Q.40.TEST001</span>
+            <input type="text" id="q40" placeholder="..." data-answer="animals">
+            <span class="answer-reveal" id="r40"></span>.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <button id="submitBtn" onclick="submitTest()">✅ NỘP BÀI</button>
+  </div>
+
+  <!-- SCORE BOARD -->
+  <div id="scoreBoard">
+    <h2>🎯 KẾT QUẢ</h2>
+    <p class="score-num" id="scoreNum"></p>
+    <p id="scoreMsg"></p>
+  </div>
+
+</div>
+
+<script>
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+
+  // Đóng popup
+  document.getElementById('studentPopup').style.display = 'none';
+
+  // Bắt đầu vào fullscreen sau khi đóng popup
+  setTimeout(function() { if (window.enterFullscreen) window.enterFullscreen(); }, 300);
+}
+
+// _testStartTime được ghi nhận trong startExam() — không ghi ở đây
+
+// ===================== CHỐNG GIAN LẬN (tab độc lập - GitHub Pages) =====================
+(function() {
+  var log          = [];
+  var tabViolations   = 0;
+  var focusViolations = 0;
+  var fsViolations    = 0;
+  var submitted    = false;
+
+  function addLog(msg) {
+    var now  = new Date();
+    var time = now.toTimeString().slice(0,8);
+    log.push('[' + time + '] ' + msg);
+  }
+  addLog('Bắt đầu làm bài');
+
+  var tabWarningEl = document.getElementById('tabWarning');
+  var tabCountEl   = document.getElementById('tabCount');
+
+  function showWarning(msg) {
+    if (submitted) return;
+    tabWarningEl.innerHTML = msg;
+    tabWarningEl.classList.add('show');
+    setTimeout(function() { tabWarningEl.classList.remove('show'); }, 4000);
+  }
+
+  // 1. Phát hiện chuyển tab
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && !submitted) {
+      tabViolations++;
+      addLog('Chuyển tab lần ' + tabViolations);
+      showWarning('⚠️ CẢNH BÁO: Bạn vừa chuyển tab! Hành vi đã được ghi lại. (Tổng vi phạm: <span id="tabCount">' + (tabViolations + focusViolations) + '</span> lần)');
+    }
+  });
+
+  // 2. Phát hiện mất focus cửa sổ (window.blur hoạt động đúng ở tab độc lập)
+  window.addEventListener('blur', function() {
+    if (submitted) return;
+    focusViolations++;
+    addLog('Mất focus cửa sổ lần ' + focusViolations);
+    showWarning('⚠️ CẢNH BÁO: Bạn vừa rời khỏi cửa sổ thi! Hành vi đã được ghi lại. (Tổng vi phạm: ' + (tabViolations + focusViolations) + ' lần)');
+  });
+
+  // 3. Fullscreen bắt buộc
+  function enterFullscreen() {
+    var el = document.documentElement;
+    if (el.requestFullscreen)       el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+    document.getElementById('fsWarning').classList.remove('show');
+  }
+  window.enterFullscreen = enterFullscreen;
+
+  // Fullscreen được kích hoạt từ startExam() sau khi đóng popup
+
+  // Phát hiện thoát fullscreen
+  document.addEventListener('fullscreenchange', function() {
+    if (!document.fullscreenElement && !submitted) {
+      fsViolations++;
+      addLog('Thoát fullscreen lần ' + fsViolations);
+      document.getElementById('fsWarning').classList.add('show');
+    }
+  });
+  document.addEventListener('webkitfullscreenchange', function() {
+    if (!document.webkitFullscreenElement && !submitted) {
+      fsViolations++;
+      addLog('Thoát fullscreen lần ' + fsViolations);
+      document.getElementById('fsWarning').classList.add('show');
+    }
+  });
+
+  // 4. Chặn chuột phải
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+
+  // 5. Chặn phím tắt
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12') { e.preventDefault(); return false; }
+    if (e.ctrlKey && ['c','a','s','u','p','v'].includes(e.key.toLowerCase())) {
+      e.preventDefault(); return false;
+    }
+    if (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(e.key.toLowerCase())) {
+      e.preventDefault(); return false;
+    }
+    // Escape thoát fullscreen — chặn
+    if (e.key === 'Escape') { e.preventDefault(); return false; }
+  });
+
+  // 6. Chặn copy & paste
+  document.addEventListener('copy',  function(e) { e.preventDefault(); return false; });
+  document.addEventListener('paste', function(e) { e.preventDefault(); return false; });
+  document.addEventListener('cut',   function(e) { e.preventDefault(); return false; });
+
+  // 7. Chặn drag & drop
+  document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
+  document.addEventListener('drop',      function(e) { e.preventDefault(); return false; });
+
+  // 8. Phát hiện DevTools (hoạt động ở tab độc lập)
+  var devtoolsOpen = false;
+  setInterval(function() {
+    if (submitted) return;
+    var threshold  = 160;
+    var widthDiff  = window.outerWidth  - window.innerWidth  > threshold;
+    var heightDiff = window.outerHeight - window.innerHeight > threshold;
+    if ((widthDiff || heightDiff) && !devtoolsOpen) {
+      devtoolsOpen = true;
+      addLog('Phát hiện mở DevTools');
+      document.body.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:Arial;flex-direction:column;gap:16px;background:#f4f6f9;">' +
+        '<h2 style="color:#e74c3c;">⚠️ Không được mở DevTools trong khi làm bài!</h2>' +
+        '<p style="color:#555;">Vui lòng đóng DevTools và tải lại trang để tiếp tục.</p></div>';
+    }
+  }, 1000);
+
+  // Export
+  window.getViolationLog = function() {
+    submitted = true;
+    return { tabViolations: tabViolations, focusViolations: focusViolations, fsViolations: fsViolations, log: log };
+  };
+})();
+
+// ===================== TIMER =====================
+(function() {
+  var MAIN_MS  = 40 * 60 * 1000;
+  var EXTRA_MS =  5 * 60 * 1000;
+
+  var startTime    = null;   // set from window._testStartTime when first tick runs
+  var inExtraTime  = false;
+  var extraStart   = null;
+  var timerStopped = false;
+
+  var timerBox     = document.getElementById('timerBox');
+  var timerDisplay = document.getElementById('timerDisplay');
+  var overlay      = document.getElementById('warningOverlay');
+  var extraDisplay = document.getElementById('extraCountdown');
+
+  function fmt(ms) {
+    var total = Math.max(0, Math.ceil(ms / 1000));
+    var m = Math.floor(total / 60);
+    var s = total % 60;
+    return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+
+  function tick() {
+    if (timerStopped) return;
+    if (!startTime) {
+      // Wait until student has started the exam
+      if (!window._testStartTime) return;
+      startTime = window._testStartTime;
+    }
+    var now = Date.now();
+    if (!inExtraTime) {
+      var remaining = MAIN_MS - (now - startTime);
+      timerDisplay.textContent = fmt(remaining);
+      if      (remaining <= 60000)  timerBox.className = 'danger';
+      else if (remaining <= 300000) timerBox.className = 'warning';
+      if (remaining <= 0) {
+        inExtraTime = true;
+        extraStart  = Date.now();
+        overlay.classList.add('show');
+        timerBox.style.display = 'none';
+      }
+    } else {
+      var extraRemaining = EXTRA_MS - (now - extraStart);
+      extraDisplay.textContent = fmt(extraRemaining);
+      if (extraRemaining <= 0) forceSubmit();
+    }
+  }
+
+  setInterval(tick, 500);
+
+  window.forceSubmit = function() {
+    timerStopped = true;
+    overlay.classList.remove('show');
+    submitTest();
+  };
+
+  window.stopTimer = function() {
+    timerStopped = true;
+  };
+})();
+
+// Answer keys (lowercase, trimmed for comparison)
+const answers = {
+  q1:  ["animal park"],
+  q2:  ["cold and cloudy"],
+  q3:  ["10.15 am","10:15 am","10.15am"],
+  q4:  ["birds of prey"],
+  q5:  ["reptile display"],
+  q6:  ["6.30 pm","6:30 pm","6.30pm"],
+  q7:  ["chinese"],
+  q8:  ["japanese"],
+  q9:  ["koreans","korean"],
+  q10: ["thai"],
+  q11: ["2.30/7.30 pm","2.30 / 7.30 pm","2:30/7:30 pm","2.30 and 7.30 pm"],
+  q12: ["cd"],
+  q13: ["separate programme","separate program"],
+  q14: ["dance festival"],
+  q15: ["4 continents","four continents"],
+  q16: ["14-20 march","14–20 march","march 14-20","march 14–20"],
+  q17: ["love and hope"],
+  q18: ["producer"],
+  q19: ["singing competition"],
+  q20: ["shown on tv","shown on television"],
+  q21: ["a"],
+  q22: ["c"],
+  q23: ["b"],
+  q24: ["b"],
+  q25: ["c"],
+  q26: ["a"],
+  q27: ["c"],
+  q28: ["b"],
+  q29: ["a"],
+  q30: ["c"],
+  q31: ["plains","plain"],
+  q32: ["astronomy"],
+  q33: ["terraces","terrace"],
+  q34: ["canals","canal"],
+  q35: ["corns","corn"],
+  q36: ["1479"],
+  q37: ["diameter"],
+  q38: ["sacrificial"],
+  q39: ["birth"],
+  q40: ["animals","animal"]
+};
+
+function normalize(str) {
+  return str.toLowerCase().trim().replace(/\s+/g, ' ');
+}
+
+function submitTest() {
+  let score = 0;
+  const total = 40;
+
+  for (let i = 1; i <= 40; i++) {
+    const qId = 'q' + i;
+    const rId = 'r' + i;
+    const correctList = answers[qId];
+    const revealEl = document.getElementById(rId);
+
+    // Text inputs (Q1-20, Q31-40)
+    const inputEl = document.getElementById(qId);
+    if (inputEl && inputEl.tagName === 'INPUT') {
+      const userAns = normalize(inputEl.value);
+      const isCorrect = correctList.some(a => normalize(a) === userAns);
+      inputEl.classList.remove('correct','wrong');
+      inputEl.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ &rarr; <strong>' + correctList[0] + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+
+    // Radio (Q21-26)
+    const radioEls = document.querySelectorAll('input[name="' + qId + '"]');
+    if (radioEls.length > 0) {
+      let userAns = '';
+      radioEls.forEach(r => { if (r.checked) userAns = r.value; });
+      const isCorrect = correctList.some(a => normalize(a) === normalize(userAns));
+      // highlight labels
+      radioEls.forEach(r => {
+        const lbl = r.parentElement;
+        lbl.classList.remove('correct-label','wrong-label');
+        if (r.value === correctList[0].toUpperCase()) lbl.classList.add('correct-label');
+        else if (r.checked && !isCorrect) lbl.classList.add('wrong-label');
+      });
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔ Correct!';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ Answer: <strong>' + correctList[0].toUpperCase() + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+
+    // Select (Q27-30)
+    const selectEl = document.getElementById(qId);
+    if (selectEl && selectEl.tagName === 'SELECT') {
+      const userAns = normalize(selectEl.value);
+      const isCorrect = correctList.some(a => normalize(a) === userAns);
+      selectEl.classList.remove('correct','wrong');
+      selectEl.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ &rarr; <strong>' + correctList[0].toUpperCase() + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+  }
+
+  // Show score
+  const board = document.getElementById('scoreBoard');
+  board.style.display = 'block';
+  document.getElementById('scoreNum').textContent = score + ' / ' + total;
+  let msg = '';
+  if (score >= 35) msg = '🏆 Xuất sắc! Band 8.5–9.0';
+  else if (score >= 30) msg = '🥇 Giỏi! Band 7.5–8.0';
+  else if (score >= 23) msg = '🥈 Khá! Band 6.0–7.0';
+  else if (score >= 16) msg = '🥉 Trung bình. Band 5.0–5.5';
+  else msg = '📚 Cần luyện tập thêm. Band dưới 5.0';
+  document.getElementById('scoreMsg').textContent = msg;
+
+  board.scrollIntoView({ behavior: 'smooth' });
+
+  // ===================== ĐỌC CHI TIẾT TỪNG CÂU (TRƯỚC KHI KHÓA INPUT) =====================
+  var _details = [];
+  for (var di = 1; di <= 40; di++) {
+    var dqId  = 'q' + di;
+    var dqNum = 'Q' + String(di).padStart(2,'0');
+    var dVal  = '';
+    var dOk   = '✘';
+
+    // Text input
+    var dEl = document.getElementById(dqId);
+    if (dEl && dEl.tagName === 'INPUT' && dEl.type === 'text') {
+      dVal = dEl.value || '';
+      dOk  = dEl.classList.contains('correct') ? '✔' : '✘';
+
+    // Select
+    } else if (dEl && dEl.tagName === 'SELECT') {
+      dVal = dEl.value || '';
+      dOk  = dEl.classList.contains('correct') ? '✔' : '✘';
+
+    // Radio
+    } else {
+      var dRadios = document.querySelectorAll('input[name="' + dqId + '"]');
+      if (dRadios.length > 0) {
+        dRadios.forEach(function(r) { if (r.checked) dVal = r.value; });
+        var dChecked = document.querySelector('input[name="' + dqId + '"]:checked');
+        if (dChecked) {
+          dOk = dChecked.parentElement.classList.contains('correct-label') ? '✔' : '✘';
+        }
+      }
+    }
+    _details.push(dqNum + ':' + dOk + '(' + dVal + ')');
+  }
+  window._submittedDetails = _details;
+
+  // Khóa toàn bộ input sau khi nộp
+  document.querySelectorAll('input[type="text"], input[type="radio"], select').forEach(function(el) {
+    el.disabled = true;
+  });
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = '✅ Đã nộp bài';
+
+  // Dừng timer
+  if (window.stopTimer) window.stopTimer();
+  var timerBox = document.getElementById('timerBox');
+  if (timerBox) timerBox.style.display = 'none';
+
+  // Dừng audio
+  var audioEl = document.querySelector('audio');
+  if (audioEl) { audioEl.pause(); }
+
+  // Hiện log vi phạm
+  var v = window.getViolationLog ? window.getViolationLog() : null;
+  var totalV = 0;
+  if (v) {
+    var logPanel = document.getElementById('logPanel');
+    logPanel.style.display = 'block';
+    totalV = v.tabViolations + v.focusViolations + v.fsViolations;
+    logPanel.innerHTML =
+      '<strong>📋 Báo cáo hành vi</strong><br>' +
+      '• Chuyển tab: <b>' + v.tabViolations + '</b> lần<br>' +
+      '• Mất focus cửa sổ: <b>' + v.focusViolations + '</b> lần<br>' +
+      '• Thoát fullscreen: <b>' + v.fsViolations + '</b> lần<br>' +
+      (totalV > 0
+        ? '<span style="color:#f39c12">⚠️ Tổng vi phạm: ' + totalV + ' lần</span>'
+        : '<span style="color:#2ecc71">✅ Không có vi phạm</span>');
+
+    var logSummary = totalV > 0
+      ? '<br><small style="color:#e74c3c">⚠️ Ghi nhận ' + totalV + ' lần hành vi đáng ngờ</small>'
+      : '<br><small style="color:#27ae60">✅ Không phát hiện hành vi gian lận</small>';
+    document.getElementById('scoreMsg').innerHTML += logSummary;
+  }
+
+  // ===================== GỬI KẾT QUẢ LÊN GOOGLE SHEETS =====================
+  (function() {
+    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+
+    // Tính thời gian làm bài
+    var endTime   = Date.now();
+    var startTime = window._testStartTime || endTime;
+    var elapsed   = Math.floor((endTime - startTime) / 1000);
+    var mm = Math.floor(elapsed / 60);
+    var ss = elapsed % 60;
+    var timeTaken = mm + ' phút ' + ss + ' giây';
+
+    // Chi tiết từng câu — đã đọc trước khi khóa input
+    var details = window._submittedDetails || [];
+
+    // Band
+    var bandEl = document.getElementById('scoreMsg');
+    var band   = bandEl ? bandEl.textContent.replace(/⚠️.*|✅.*/g,'').trim() : '';
+
+    // Payload
+    var payload = {
+      student:    (window._studentName || 'Ẩn danh') + ' — ' + (window._studentClass || ''),
+      test:       'Listening Test 1',
+      score:      score,
+      total:      total,
+      band:       band,
+      timeTaken:  timeTaken,
+      tabViol:    v ? v.tabViolations   : 0,
+      focusViol:  v ? v.focusViolations : 0,
+      fsViol:     v ? v.fsViolations    : 0,
+      details:    details.join(' | ')
+    };
+
+    // Gửi lên Google Sheets
+    fetch(SHEET_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    }).then(function() {
+      console.log('Kết quả đã gửi lên Google Sheets!');
+    }).catch(function(err) {
+      console.warn('Không thể gửi kết quả:', err);
+    });
+  })();
+}
+</script>
+</body>
+</html>
