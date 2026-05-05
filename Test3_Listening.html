@@ -516,9 +516,11 @@ var fsOverlay = document.getElementById('fs-overlay');
 
 window.enterFullscreen = function(){
   var el = document.documentElement;
-  if(el.requestFullscreen) el.requestFullscreen();
-  else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-  else if(el.mozRequestFullElement) el.mozRequestFullElement();
+  try{
+    if(el.requestFullscreen) el.requestFullscreen().catch(function(){});
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if(el.mozRequestFullElement) el.mozRequestFullElement();
+  }catch(e){}
   fsOverlay.style.display='none';
 };
 
@@ -827,10 +829,13 @@ window.submitTest = function(){
   qOrder.forEach(function(k){
     var d=details[k];
     if(k==='q11_13'||k==='q14_16'){
-      for(var i=0;i<3;i++){
-        detailsArr.push('Q'+(qNum<10?'0':'')+qNum+':'+(d.ok?'✔':'✘')+'('+d.val+')');
-        qNum++;
-      }
+      // Hiển thị từng option đã chọn: đúng/sai + đáp án bị bỏ sót
+      var chosen=(d.val||'').split(',').filter(function(x){return x;});
+      var correct=ANS[k].correct;
+      var parts=chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');});
+      var missed=correct.filter(function(v){return chosen.indexOf(v)<0;}).map(function(v){return v+'(đáp án)';});
+      detailsArr.push('Q'+(qNum<10?'0':'')+qNum+'-'+(qNum+2)+':['+parts.concat(missed).join(' ')+']');
+      qNum+=3;
     } else {
       detailsArr.push('Q'+(qNum<10?'0':'')+qNum+':'+(d.ok?'✔':'✘')+'('+d.val+')');
       qNum++;
@@ -902,16 +907,37 @@ function getBand(s){
   if(s>=39) return '9.0'; if(s>=37) return '8.5'; if(s>=35) return '8.0';
   if(s>=33) return '7.5'; if(s>=30) return '7.0'; if(s>=27) return '6.5';
   if(s>=23) return '6.0'; if(s>=20) return '5.5'; if(s>=16) return '5.0';
-  if(s>=13) return '4.5'; if(s>=10) return '4.0'; return 'Below 4.0';
+  if(s>=13) return '4.5'; if(s>=11) return '4.0'; return '3.5';
 }
 
-/* ============================================================
-   EXPORT getViolationLog
-   ============================================================ */
-window.getViolationLog=function(){
-  return {tabViol:tabViol,focusViol:focusViol,fsViol:fsViol,log:violLog};
-};
-
+// Giới hạn checkbox - wire sau DOMContentLoaded
+document.addEventListener('DOMContentLoaded', function(){
+  function showCheckLimit(name, max){
+    var id='chk-limit-'+name;
+    var el=document.getElementById(id);
+    if(!el){
+      el=document.createElement('div');
+      el.id=id;
+      el.style.cssText='color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;';
+      var grp=document.querySelector('input[name="'+name+'"]');
+      if(grp&&grp.parentNode) grp.parentNode.appendChild(el);
+    }
+    el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';
+    clearTimeout(el._t);
+    el._t=setTimeout(function(){el.textContent='';},2500);
+  }
+  ['q11_13','q14_16'].forEach(function(name){
+    var max=3;
+    document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+      inp.addEventListener('change',function(){
+        if(inp.checked){
+          var n=document.querySelectorAll('input[name="'+name+'"]:checked').length;
+          if(n>max){inp.checked=false;showCheckLimit(name,max);}
+        }
+      });
+    });
+  });
+});
 })();
 </script>
 </body>
