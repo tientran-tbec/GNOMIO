@@ -664,27 +664,7 @@ document.addEventListener('drop',     function(e){ e.preventDefault(); });
    ============================================================ */
 var devOverlay=document.getElementById('devtools-overlay');
 var devDetected=false;
-setInterval(function(){
-  if(submitted) return;
-  var w=window.outerWidth-window.innerWidth;
-  var h=window.outerHeight-window.innerHeight;
-  if(w>160||h>160){
-    if(!devDetected){
-      devDetected=true;
-      logViol('DevTools phát hiện');
-      devOverlay.style.display='flex';
-      document.querySelectorAll('header,#audio-section,.main-content,#submit-btn,#score-section,#timer-box')
-        .forEach(function(el){ el.style.visibility='hidden'; });
-    }
-  } else {
-    if(devDetected){
-      devDetected=false;
-      devOverlay.style.display='none';
-      document.querySelectorAll('header,#audio-section,.main-content,#submit-btn,#score-section,#timer-box')
-        .forEach(function(el){ el.style.visibility=''; });
-    }
-  }
-},1000);
+
 
 /* ============================================================
    START EXAM (gọi từ popup)
