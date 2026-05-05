@@ -549,14 +549,7 @@ document.addEventListener('drop',function(e){e.preventDefault();});
 
 /* ===== DEVTOOLS ===== */
 var devOv=document.getElementById('devtools-overlay'),devDet=false;
-setInterval(function(){
-  if(submitted)return;
-  var open=(window.outerWidth-window.innerWidth>160)||(window.outerHeight-window.innerHeight>160);
-  if(open&&!devDet){devDet=true;logV('DevTools phát hiện');devOv.style.display='flex';
-    document.querySelectorAll('header,#audio-section,.main-content,#submit-btn,#score-section,#timer-box').forEach(function(el){el.style.visibility='hidden';});}
-  else if(!open&&devDet){devDet=false;devOv.style.display='none';
-    document.querySelectorAll('header,#audio-section,.main-content,#submit-btn,#score-section,#timer-box').forEach(function(el){el.style.visibility='';});}
-},1000);
+
 
 /* ===== START ===== */
 window.startExam=function(){
