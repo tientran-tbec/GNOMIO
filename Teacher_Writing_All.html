@@ -403,37 +403,38 @@
     var parts = (row.student||'').split('—');
     document.getElementById('detailTitle').textContent =
       'Bài của: '+(parts[0]||'').trim()+' | '+(parts[1]||'').trim()+' | '+((row.timestamp||'').slice(0,10));
-    document.getElementById('dp_t1_prompt').textContent = row.task1_prompt || '';
-    document.getElementById('dp_t1_essay').textContent  = row.task1_essay  || '(trống)';
-    document.getElementById('dp_t1_meta').textContent   = 'Số từ: '+(row.task1_words||0)+' | Thời gian: '+(row.timeTaken||'');
-    document.getElementById('dp_t2_prompt').textContent = row.task2_prompt || '';
-    document.getElementById('dp_t2_essay').textContent  = row.task2_essay  || '(trống)';
-    document.getElementById('dp_t2_meta').textContent   = 'Số từ: '+(row.task2_words||0);
+    document.getElementById('dp_t1_prompt').textContent = '';
+    document.getElementById('dp_t1_essay').textContent  = row.t1Essay || '(trống)';
+    document.getElementById('dp_t1_meta').textContent   = 'Thời gian: '+(row.timeTaken||'');
+    document.getElementById('dp_t2_prompt').textContent = '';
+    document.getElementById('dp_t2_essay').textContent  = row.t2Essay || '(trống)';
+    document.getElementById('dp_t2_meta').textContent   = '';
     document.getElementById('dp_viols').textContent     =
-      'Vi phạm: Tab='+( row.tabViol||0)+', Focus='+(row.focusViol||0)+', FS='+(row.fsViol||0)+', Paste='+(row.pasteViol||0);
+      'Vi phạm: Tab='+(row.tabViol||0);
 
-    // AI reference scores
-    var aif = {};
-    try { aif = JSON.parse(row.ai_feedback||'{}'); } catch(e){}
-    setAiRef('ai_t1_ta',  aif.task1 && aif.task1.scores ? aif.task1.scores.TA  : '');
-    setAiRef('ai_t1_cc',  aif.task1 && aif.task1.scores ? aif.task1.scores.CC  : '');
-    setAiRef('ai_t1_lr',  aif.task1 && aif.task1.scores ? aif.task1.scores.LR  : '');
-    setAiRef('ai_t1_gra', aif.task1 && aif.task1.scores ? aif.task1.scores.GRA : '');
-    setAiRef('ai_t2_tr',  aif.task2 && aif.task2.scores ? aif.task2.scores.TR  : '');
-    setAiRef('ai_t2_cc',  aif.task2 && aif.task2.scores ? aif.task2.scores.CC  : '');
-    setAiRef('ai_t2_lr',  aif.task2 && aif.task2.scores ? aif.task2.scores.LR  : '');
-    setAiRef('ai_t2_gra', aif.task2 && aif.task2.scores ? aif.task2.scores.GRA : '');
+    // AI reference scores — parse từ t1Feedback / t2Feedback
+    var t1f = {}, t2f = {};
+    try { t1f = JSON.parse(row.t1Feedback||'{}'); } catch(e){}
+    try { t2f = JSON.parse(row.t2Feedback||'{}'); } catch(e){}
+    setAiRef('ai_t1_ta',  t1f.ta  || t1f.band || '');
+    setAiRef('ai_t1_cc',  t1f.cc  || '');
+    setAiRef('ai_t1_lr',  t1f.lr  || '');
+    setAiRef('ai_t1_gra', t1f.gra || '');
+    setAiRef('ai_t2_tr',  t2f.tr  || t2f.band || '');
+    setAiRef('ai_t2_cc',  t2f.cc  || '');
+    setAiRef('ai_t2_lr',  t2f.lr  || '');
+    setAiRef('ai_t2_gra', t2f.gra || '');
 
     // Pre-fill teacher scores if already graded
-    setInput('g_t1_ta',  row.g_t1_ta  || '');
-    setInput('g_t1_cc',  row.g_t1_cc  || '');
-    setInput('g_t1_lr',  row.g_t1_lr  || '');
-    setInput('g_t1_gra', row.g_t1_gra || '');
-    setInput('g_t2_tr',  row.g_t2_tr  || '');
-    setInput('g_t2_cc',  row.g_t2_cc  || '');
-    setInput('g_t2_lr',  row.g_t2_lr  || '');
-    setInput('g_t2_gra', row.g_t2_gra || '');
-    document.getElementById('teacherNotes').value = row.teacher_notes || '';
+    setInput('g_t1_ta',  row.t1Band || '');
+    setInput('g_t1_cc',  '');
+    setInput('g_t1_lr',  '');
+    setInput('g_t1_gra', '');
+    setInput('g_t2_tr',  row.t2Band || '');
+    setInput('g_t2_cc',  '');
+    setInput('g_t2_lr',  '');
+    setInput('g_t2_gra', '');
+    document.getElementById('teacherNotes').value = row.teacherNote || '';
     document.getElementById('saveStatus').textContent = '';
     recalc();
     document.getElementById('detailModal').classList.add('show');
