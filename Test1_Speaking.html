@@ -632,7 +632,7 @@
       <div class="waveform-wrap">
         <canvas id="waveform" height="40"></canvas>
       </div>
-      <button class="btn btn-danger" onclick="stopPart1Recording()">⏹ Dừng & Câu tiếp theo</button>
+      <button class="btn btn-danger" id="btnStopP1" onclick="stopPart1Recording()">⏹ Dừng & Câu tiếp theo</button>
     </div>
 
     <!-- After recording -->
@@ -698,7 +698,7 @@
       <div class="waveform-wrap">
         <canvas id="waveform2" height="40"></canvas>
       </div>
-      <button class="btn btn-danger btn-sm" style="width:auto;margin:0 auto;display:block;" onclick="stopPart2Early()">⏹ Dừng sớm</button>
+      <button class="btn btn-danger btn-sm" id="btnStopP2Early" onclick="stopPart2Early()" style="width:auto;margin:0 auto;display:block;">⏹ Dừng sớm</button>
     </div>
 
     <!-- After part 2 -->
@@ -748,7 +748,7 @@
       <div class="waveform-wrap">
         <canvas id="waveform3" height="40"></canvas>
       </div>
-      <button class="btn btn-danger" onclick="stopPart3Recording()">⏹ Dừng & Câu tiếp theo</button>
+      <button class="btn btn-danger" id="btnStopP3" onclick="stopPart3Recording()">⏹ Dừng & Câu tiếp theo</button>
     </div>
 
     <div id="p3AfterRec" style="display:none">
@@ -764,7 +764,7 @@
     <div class="finish-title">Hoàn thành bài thi!</div>
     <div class="finish-sub" id="finishSub"></div>
     <div class="finish-stats" id="finishStats"></div>
-    <button class="btn btn-green" onclick="downloadAll()" style="margin-bottom:12px">
+    <button class="btn btn-green" id="btnDownloadAll" onclick="downloadAll()" style="margin-bottom:12px">
       📥 Tải file ghi âm tổng hợp
     </button>
     <div class="warn-banner" style="justify-content:center;text-align:center">
@@ -1542,4 +1542,32 @@ function showFinish() {
     <div class="finish-stat-row"><span>⏱ Tổng thời gian</span><span class="val">${formatTime(totalSec)}</span></div>
     <div class="finish-stat-row"><span>🎤 Part 1</span><span class="val">${p1Blobs.length} câu ✅</span></div>
     <div class="finish-stat-row"><span>📋 Part 2</span><span class="val">1 câu ✅</span></div>
-    <div class="finish-stat-row"><span>💬 Part 3</span><
+    <div class="finish-stat-row"><span>💬 Part 3</span><span class="val">${p3Blobs.length} câu ✅</span></div>
+  `;
+  show('screenFinish');
+}
+
+// ============================================================
+// DOWNLOAD ALL
+// ============================================================
+async function downloadAll() {
+  if (allRecordings.length === 0) { showToast('Không có file nào để tải!'); return; }
+  const safeName = removeAccents(studentName);
+  const dateStr = new Date().toLocaleDateString('vi-VN').replace(/\//g,'');
+  // Download each file individually (no ZIP needed)
+  for (const rec of allRecordings) {
+    const ext = getExtension(rec.blob.type);
+    const url = URL.createObjectURL(rec.blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${safeName}_TEST1_${rec.label}_${dateStr}.${ext}`;
+    a.click();
+    await new Promise(r => setTimeout(r, 400));
+    URL.revokeObjectURL(url);
+  }
+  showToast('✅ Đã tải tất cả file! Hãy nộp cho giáo viên.', 4000);
+}
+
+</script>
+</body>
+</html>
