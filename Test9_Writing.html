@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Writing Test 9</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; font-family: 'Segoe UI', Arial, sans-serif; background: #f0f2f5; overflow: hidden; }
+  body { user-select: none; -webkit-user-select: none; }
+  @media print { body { display: none !important; } }
+  #popupOverlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+  #popupBox { background: #fff; border-radius: 12px; padding: 36px 40px; width: min(480px,92vw); box-shadow: 0 8px 32px rgba(0,0,0,0.3); text-align: center; }
+  #popupBox h2 { font-size: 1.4rem; color: #1a237e; margin-bottom: 6px; }
+  #popupBox .subtitle { font-size: 0.9rem; color: #666; margin-bottom: 24px; }
+  #popupBox label { display: block; text-align: left; font-size: 0.85rem; color: #333; margin-bottom: 4px; font-weight: 600; }
+  #popupBox input { width: 100%; padding: 10px 14px; border: 1.5px solid #c5cae9; border-radius: 8px; font-size: 1rem; margin-bottom: 14px; outline: none; user-select: text; -webkit-user-select: text; transition: border-color .2s; }
+  #popupBox input:focus { border-color: #3f51b5; }
+  #popupError { color: #e53935; font-size: 0.85rem; min-height: 20px; margin-bottom: 8px; }
+  #btnStart { width: 100%; padding: 12px; background: #3f51b5; color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background .2s; }
+  #btnStart:hover { background: #283593; }
+  #fsOverlay { display: none; position: fixed; inset: 0; background: rgba(20,20,20,0.95); z-index: 8888; align-items: center; justify-content: center; flex-direction: column; color: #fff; text-align: center; padding: 24px; }
+  #fsOverlay.show { display: flex; }
+  #fsOverlay h3 { font-size: 1.4rem; margin-bottom: 12px; color: #ffb300; }
+  #fsOverlay p { font-size: 1rem; color: #ccc; margin-bottom: 24px; }
+  #btnFs { padding: 12px 32px; background: #f44336; color: #fff; border: none; border-radius: 8px; font-size: 1rem; cursor: pointer; font-weight: 600; }
+  #violBanner { display: none; position: fixed; top: 0; left: 0; right: 0; background: #d32f2f; color: #fff; text-align: center; padding: 10px 16px; font-weight: 600; z-index: 7777; font-size: 0.95rem; }
+  #mainApp { display: none; width: 100vw; height: 100vh; flex-direction: column; }
+  #mainApp.show { display: flex; }
+  #topBar { display: flex; align-items: center; gap: 10px; flex-shrink: 0; background: #1a237e; color: #fff; padding: 8px 16px; flex-wrap: wrap; }
+  #topBar .title { font-weight: 700; font-size: 1rem; margin-right: auto; }
+  .tab-btn { padding: 6px 20px; border: 2px solid rgba(255,255,255,0.4); background: transparent; color: #fff; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all .2s; }
+  .tab-btn.active { background: #fff; color: #1a237e; border-color: #fff; }
+  #timerBox { background: rgba(0,0,0,0.3); padding: 4px 14px; border-radius: 16px; font-size: 0.95rem; font-weight: 700; min-width: 90px; text-align: center; }
+  #timerBox.warn { background: #e65100; animation: blink1 1.2s infinite; }
+  #timerBox.danger { background: #c62828; animation: blink2 0.5s infinite; }
+  #timerHint { font-size: 0.72rem; color: rgba(255,255,255,0.75); }
+  @keyframes blink1 { 0%,100%{opacity:1} 50%{opacity:.6} }
+  @keyframes blink2 { 0%,100%{opacity:1} 50%{opacity:.3} }
+  #contentWrapper { flex: 1; min-height: 0; position: relative; }
+  .task-panel { display: none; position: absolute; inset: 0; }
+  .task-panel.active { display: flex; }
+  .split-wrap { display: flex; width: 100%; height: 100%; }
+  .left-pane { width: 45%; min-width: 20%; max-width: 80%; overflow-y: auto; padding: 16px 18px; background: #fff; border-right: 3px solid #e8eaf6; }
+  .divider { width: 6px; background: #c5cae9; cursor: col-resize; flex-shrink: 0; transition: background .15s; }
+  .divider:hover { background: #3f51b5; }
+  .right-pane { flex: 1; min-width: 20%; display: flex; flex-direction: column; background: #fafafa; padding: 12px 16px; overflow: hidden; }
+  .prompt-title { font-size: 1rem; font-weight: 700; color: #1a237e; margin-bottom: 10px; }
+  .prompt-instruction { font-size: 0.85rem; color: #555; margin-bottom: 8px; font-style: italic; }
+  .prompt-text { font-size: 0.92rem; color: #222; line-height: 1.65; margin-bottom: 14px; }
+  .chart-container { width: 100%; max-width: 540px; margin: 10px auto; }
+  .dual-pie { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+  .dual-pie .chart-container { max-width: 260px; flex: 1; min-width: 220px; }
+  .essay-area { flex: 1; width: 100%; resize: none; padding: 14px 16px; font-family: Georgia,'Times New Roman',serif; font-size: 1rem; line-height: 1.7; border: 1.5px solid #c5cae9; border-radius: 8px; outline: none; background: #fff; color: #212121; user-select: text !important; -webkit-user-select: text !important; transition: border-color .2s; }
+  .essay-area:focus { border-color: #3f51b5; box-shadow: 0 0 0 2px rgba(63,81,181,0.12); }
+  .essay-area[readonly] { background: #f5f5f5; color: #777; cursor: not-allowed; }
+  .word-count { padding: 6px 2px; font-size: 0.85rem; font-weight: 600; flex-shrink: 0; }
+  .wc-red { color: #e53935; } .wc-green { color: #2e7d32; } .wc-orange { color: #e65100; }
+  #resultArea { display: none; position: absolute; inset: 0; overflow-y: auto; padding: 20px; background: #f0f2f5; }
+  #btnSubmit { position: fixed; bottom: 24px; right: 24px; background: #3f51b5; color: #fff; padding: 13px 26px; border: none; border-radius: 28px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(63,81,181,0.4); z-index: 500; transition: all .2s; }
+  #btnSubmit:hover { background: #283593; transform: translateY(-1px); }
+  #btnSubmit.hide { display: none; }
+  #confirmOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 6000; align-items: center; justify-content: center; }
+  #confirmOverlay.show { display: flex; }
+  #confirmBox { background: #fff; border-radius: 12px; padding: 30px 36px; max-width: 420px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
+  #confirmBox h3 { color: #c62828; margin-bottom: 10px; font-size: 1.1rem; }
+  #confirmBox p { color: #444; font-size: 0.92rem; margin-bottom: 22px; line-height: 1.5; }
+  .confirm-btns { display: flex; gap: 12px; justify-content: center; }
+  .confirm-btns button { padding: 10px 24px; border-radius: 8px; border: none; font-size: 0.95rem; font-weight: 600; cursor: pointer; }
+  #btnConfirmSubmit { background: #c62828; color: #fff; }
+  #btnCancelSubmit { background: #e8eaf6; color: #333; }
+  #timeupOverlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 6500; align-items: center; justify-content: center; }
+  #timeupOverlay.show { display: flex; }
+  #timeupBox { background: #fff; border-radius: 12px; padding: 30px 36px; max-width: 420px; text-align: center; box-shadow: 0 8px 40px rgba(0,0,0,0.35); }
+  #timeupBox h3 { color: #e53935; font-size: 1.2rem; margin-bottom: 10px; }
+  #timeupBox p { color: #444; font-size: 0.9rem; margin-bottom: 20px; }
+  #btnTimeupSubmit { padding: 11px 28px; background: #e53935; color: #fff; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; }
+  .result-card { background: #fff; border-radius: 10px; padding: 20px 24px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); max-width: 860px; margin-left: auto; margin-right: auto; }
+  .result-card h3 { color: #1a237e; font-size: 1.05rem; margin-bottom: 14px; border-bottom: 2px solid #e8eaf6; padding-bottom: 8px; }
+  .criterion-row { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 12px; }
+  .crit-label { font-weight: 700; min-width: 50px; color: #3f51b5; font-size: 0.9rem; }
+  .crit-score { font-weight: 700; min-width: 55px; color: #1a237e; font-size: 0.95rem; }
+  .crit-feedback { font-size: 0.85rem; color: #444; line-height: 1.55; flex: 1; }
+  .band-row { background: #e8eaf6; border-radius: 8px; padding: 10px 14px; margin-top: 10px; font-weight: 700; color: #1a237e; max-width: 860px; margin-left: auto; margin-right: auto; }
+  .overall-band { background: #1a237e; color: #fff; border-radius: 10px; padding: 16px 24px; text-align: center; font-size: 1.2rem; font-weight: 700; margin-bottom: 16px; max-width: 860px; margin-left: auto; margin-right: auto; }
+  .ai-disclaimer { background: #fff8e1; border-left: 4px solid #f9a825; padding: 10px 16px; border-radius: 6px; font-size: 0.85rem; color: #5d4037; max-width: 860px; margin: 0 auto 16px; }
+  .spinner-wrap { text-align: center; padding: 60px 20px; color: #3f51b5; font-size: 1rem; }
+  .spinner { display: inline-block; width: 32px; height: 32px; border: 4px solid #c5cae9; border-top-color: #3f51b5; border-radius: 50%; animation: spin .8s linear infinite; vertical-align: middle; margin-right: 10px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (max-width: 768px) {
+    .split-wrap { flex-direction: column; }
+    .left-pane { width: 100% !important; max-width: 100%; height: 45%; border-right: none; border-bottom: 3px solid #e8eaf6; }
+    .divider { display: none; }
+    .right-pane { flex: 1; }
+    .tab-btn { padding: 5px 12px; font-size: 0.8rem; }
+    .dual-pie { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<div id="popupOverlay"><div id="popupBox">
+  <h2>🎓 IELTS Writing Test 9</h2>
+  <p class="subtitle">Vui lòng điền thông tin trước khi bắt đầu</p>
+  <label for="inputName">Họ và tên</label>
+  <input type="text" id="inputName" placeholder="Nguyễn Văn A" autocomplete="off">
+  <label for="inputClass">Lớp</label>
+  <input type="text" id="inputClass" placeholder="IELTS Advanced" autocomplete="off">
+  <div id="popupError"></div>
+  <button id="btnStart" onclick="startExam()">Bắt đầu làm bài ▶</button>
+</div></div>
+<div id="fsOverlay"><h3>⚠ Toàn màn hình bị tắt!</h3><p>Bài thi yêu cầu chế độ toàn màn hình.<br>Hành vi này đã được ghi lại.</p><button id="btnFs" onclick="window.enterFullscreen()">Vào toàn màn hình</button></div>
+<div id="violBanner"></div>
+<div id="mainApp">
+  <div id="topBar">
+    <span class="title">✍ IELTS Writing Test 9</span>
+    <button class="tab-btn active" id="tabBtn1" onclick="switchTab(1)">Task 1</button>
+    <button class="tab-btn" id="tabBtn2" onclick="switchTab(2)">Task 2</button>
+    <div><div id="timerBox">70:00</div><div id="timerHint">T1≤25min | T2≤45min</div></div>
+  </div>
+  <div id="contentWrapper">
+    <div class="task-panel active" id="panel1">
+      <div class="split-wrap" id="split1">
+        <div class="left-pane" id="left1">
+          <div class="prompt-title">TASK 1</div>
+          <div class="prompt-instruction">You should spend about 20 minutes on this task.</div>
+          
+<div class="prompt-text">The chart below shows the percentage change in the share of international students among university graduates in different Canadian provinces between 2001 and 2006. Summarise the information making comparisons where relevant.</div>
+<div class="chart-container" style="max-width:560px;">
+  <canvas id="chart1" height="320"></canvas>
+</div>
+          <div class="prompt-instruction" style="margin-top:14px;">You should write at least <strong>150 words</strong>.</div>
+        </div>
+        <div class="divider" id="div1"></div>
+        <div class="right-pane">
+          <textarea class="essay-area" id="essay1" placeholder="Write at least 150 words..." oninput="updateWC(1)"></textarea>
+          <div class="word-count wc-red" id="wc1">Words: 0 / 150</div>
+        </div>
+      </div>
+    </div>
+    <div class="task-panel" id="panel2">
+      <div class="split-wrap" id="split2">
+        <div class="left-pane" id="left2">
+          <div class="prompt-title">TASK 2</div>
+          <div class="prompt-instruction">You should spend about 40 minutes on this task.</div>
+          <div class="prompt-instruction">Write about the following topic:</div>
+          <div class="prompt-text">Some people believe that a great difference in age between parents and children is more beneficial. Do you think the advantages of a greater difference in age between them outweigh the disadvantages?</div>
+          <div class="prompt-text">Give reasons for your answer and include any relevant examples from your own knowledge or experience.</div>
+          <div class="prompt-instruction">Write at least <strong>250 words</strong>.</div>
+        </div>
+        <div class="divider" id="div2"></div>
+        <div class="right-pane">
+          <textarea class="essay-area" id="essay2" placeholder="Write at least 250 words..." oninput="updateWC(2)"></textarea>
+          <div class="word-count wc-red" id="wc2">Words: 0 / 250</div>
+        </div>
+      </div>
+    </div>
+    <div id="resultArea"></div>
+  </div>
+  <button id="btnSubmit" onclick="confirmSubmit()">Nộp bài</button>
+</div>
+<div id="confirmOverlay"><div id="confirmBox">
+  <h3>⚠ Xác nhận nộp bài?</h3>
+  <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ <strong>không thể sửa lại</strong>.</p>
+  <div class="confirm-btns">
+    <button id="btnConfirmSubmit" onclick="submitWriting()">Xác nhận nộp</button>
+    <button id="btnCancelSubmit" onclick="closeConfirm()">Quay lại làm bài</button>
+  </div>
+</div></div>
+<div id="timeupOverlay"><div id="timeupBox">
+  <h3>⏰ Hết giờ!</h3>
+  <p>Bài thi đã kết thúc. Bài sẽ được tự động nộp sau <span id="extraCount">10</span> giây.</p>
+  <button id="btnTimeupSubmit" onclick="submitWriting()">Nộp bài ngay</button>
+</div></div>
+<script>
+(function() {
+  'use strict';
+  
+  var PIE_LABEL_PLUGIN={id:'pieLabels',afterDatasetDraw:function(chart){var ctx2=chart.ctx,dataset=chart.data.datasets[0],meta=chart.getDatasetMeta(0);meta.data.forEach(function(arc,i){var mid=(arc.startAngle+arc.endAngle)/2,r=(arc.innerRadius+arc.outerRadius)/2*0.72;var x=arc.x+Math.cos(mid)*r,y=arc.y+Math.sin(mid)*r;ctx2.save();ctx2.fillStyle='#fff';ctx2.font='bold 12px Segoe UI,Arial,sans-serif';ctx2.textAlign='center';ctx2.textBaseline='middle';ctx2.shadowColor='rgba(0,0,0,0.3)';ctx2.shadowBlur=3;ctx2.fillText(Math.round(dataset.data[i]*100)+'%',x,y);ctx2.restore();});}};
+
+  
+  window.addEventListener('DOMContentLoaded', function() {
+    var ctx=document.getElementById('chart1'); if(!ctx) return;
+    new Chart(ctx,{
+      type:'bar',
+      data:{
+        labels:['New Brunswick','Nova Scotia','Quebec','Alberta','British Columbia','Manitoba','Newfoundland & Labrador','Ontario'],
+        datasets:[
+          {label:'2001',data:[7,6.5,6,4.9,4.8,4.2,4.2,4],backgroundColor:'rgba(63,81,181,0.82)',borderColor:'rgba(63,81,181,1)',borderWidth:1},
+          {label:'2006',data:[12,10.5,9,7.5,11,7,7,6],backgroundColor:'rgba(233,30,99,0.82)',borderColor:'rgba(233,30,99,1)',borderWidth:1}
+        ]
+      },
+      options:{
+        responsive:true,
+        plugins:{
+          title:{display:true,text:'International graduates, Canadian universities, 2001 and 2006',font:{size:12},color:'#333'},
+          legend:{position:'top'}
+        },
+        scales:{
+          y:{title:{display:true,text:'Percentage (%)'},min:0,max:14,ticks:{stepSize:2}},
+          x:{ticks:{font:{size:10}}}
+        }
+      }
+    });
+  });
+
+  
+  var tabViolations=0,focusViolations=0,fsViolations=0,pasteViolations=0;
+  var timerStopped=false,startTime=null;
+
+  window.switchTab=function(n){[1,2].forEach(function(i){document.getElementById('panel'+i).classList.toggle('active',i===n);document.getElementById('tabBtn'+i).classList.toggle('active',i===n);});};
+
+  window.updateWC=function(n){var ta=document.getElementById('essay'+n),wc=document.getElementById('wc'+n);var limit=n===1?150:250,over=n===1?180:300;var words=ta.value.trim()?ta.value.trim().split(/\s+/).filter(function(w){return w.length>0;}).length:0;wc.textContent='Words: '+words+' / '+limit;wc.className='word-count '+(words<limit?'wc-red':words>over?'wc-orange':'wc-green');};
+
+  var TOTAL_SECS=70*60;
+  (function tick(){if(timerStopped)return;if(!startTime){if(!window._testStartTime){setTimeout(tick,500);return;}startTime=window._testStartTime;}var elapsed=Math.floor((Date.now()-startTime)/1000),remain=TOTAL_SECS-elapsed;var box=document.getElementById('timerBox');if(remain<=0){box.textContent='00:00';showTimeup();return;}var m=Math.floor(remain/60),s=remain%60;box.textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');box.className=remain<=300?'danger':remain<=900?'warn':'';setTimeout(tick,500);})();
+
+  function showTimeup(){document.getElementById('timeupOverlay').classList.add('show');var n=10,iv=setInterval(function(){n--;var el=document.getElementById('extraCount');if(el)el.textContent=n;if(n<=0){clearInterval(iv);submitWriting();}},1000);}
+
+  window.enterFullscreen=function(){var el=document.documentElement;var fn=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;if(fn)fn.call(el).catch(function(){});};
+  function onFsChange(){var isFs=!!(document.fullscreenElement||document.webkitFullscreenElement);if(!isFs&&window._testStartTime){fsViolations++;document.getElementById('fsOverlay').classList.add('show');}else{document.getElementById('fsOverlay').classList.remove('show');}}
+  document.addEventListener('fullscreenchange',onFsChange);
+  document.addEventListener('webkitfullscreenchange',onFsChange);
+
+  window.startExam=function(){var name=document.getElementById('inputName').value.trim(),cls=document.getElementById('inputClass').value.trim(),err=document.getElementById('popupError');if(!name||!cls){err.textContent='Vui lòng điền đầy đủ Họ tên và Lớp!';return;}err.textContent='';window._studentName=name;window._studentClass=cls;window._testStartTime=Date.now();document.getElementById('popupOverlay').style.display='none';document.getElementById('mainApp').classList.add('show');window.enterFullscreen();};
+
+  function showBanner(msg){var b=document.getElementById('violBanner');b.textContent=msg;b.style.display='block';clearTimeout(b._t);b._t=setTimeout(function(){b.style.display='none';},4000);}
+
+  document.addEventListener('visibilitychange',function(){if(document.hidden&&window._testStartTime){tabViolations++;showBanner('⚠ Phát hiện chuyển tab! Lần: '+tabViolations);}});
+  window.addEventListener('blur',function(){if(window._testStartTime){focusViolations++;showBanner('⚠ Phát hiện mất focus! Lần: '+focusViolations);}});
+  document.addEventListener('contextmenu',function(e){e.preventDefault();});
+  document.addEventListener('keydown',function(e){var ctrl=e.ctrlKey||e.metaKey,k=e.key;if(k==='F12'||k==='Escape'){e.preventDefault();return;}if(ctrl&&e.shiftKey&&['I','J','C','K'].indexOf(k.toUpperCase())>=0){e.preventDefault();return;}if(ctrl&&['c','C','a','A','s','S','u','U','p','P'].indexOf(k)>=0){e.preventDefault();return;}});
+  document.addEventListener('copy',function(e){e.preventDefault();});
+  document.addEventListener('cut',function(e){e.preventDefault();});
+  document.addEventListener('paste',function(e){e.preventDefault();pasteViolations++;showBanner('⚠ Paste bị chặn! Lần: '+pasteViolations);});
+  document.addEventListener('dragstart',function(e){e.preventDefault();});
+  document.addEventListener('drop',function(e){e.preventDefault();});
+
+  window.stopTimer=function(){timerStopped=true;};
+  window.getViolationLog=function(){return{tabViolations:tabViolations,focusViolations:focusViolations,fsViolations:fsViolations,pasteViolations:pasteViolations};};
+
+  function makeSplitter(splitId,leftId,divId){var wrap=document.getElementById(splitId),left=document.getElementById(leftId),div=document.getElementById(divId);var dragging=false,startX,startW;function onDown(e){dragging=true;startX=e.clientX||(e.touches&&e.touches[0].clientX);startW=left.offsetWidth;document.body.style.cursor='col-resize';document.body.style.userSelect='none';}function onMove(e){if(!dragging)return;var x=e.clientX||(e.touches&&e.touches[0].clientX);var newW=Math.max(wrap.offsetWidth*0.2,Math.min(wrap.offsetWidth*0.8,startW+(x-startX)));left.style.width=newW+'px';}function onUp(){dragging=false;document.body.style.cursor='';document.body.style.userSelect='';}div.addEventListener('mousedown',onDown);div.addEventListener('touchstart',onDown,{passive:true});document.addEventListener('mousemove',onMove);document.addEventListener('touchmove',onMove,{passive:true});document.addEventListener('mouseup',onUp);document.addEventListener('touchend',onUp);}
+  makeSplitter('split1','left1','div1');makeSplitter('split2','left2','div2');
+
+  window.confirmSubmit=function(){document.getElementById('confirmOverlay').classList.add('show');};
+  window.closeConfirm=function(){document.getElementById('confirmOverlay').classList.remove('show');};
+
+  
+  window.submitWriting=function(){
+    if(window._submitted)return;window._submitted=true;
+    document.getElementById('confirmOverlay').classList.remove('show');
+    document.getElementById('timeupOverlay').classList.remove('show');
+    window.stopTimer();
+    document.getElementById('essay1').setAttribute('readonly',true);
+    document.getElementById('essay2').setAttribute('readonly',true);
+    document.getElementById('btnSubmit').classList.add('hide');
+    var essay1=document.getElementById('essay1').value,essay2=document.getElementById('essay2').value;
+    var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;
+    var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+    var viols=window.getViolationLog();
+    var task1Prompt='The chart below shows the percentage change in the share of international students among university graduates in different Canadian provinces between 2001 and 2006. Summarise the information making comparisons where relevant.';
+    var task2Prompt='Some people believe that a great difference in age between parents and children is more beneficial. Do you think the advantages of a greater difference in age between them outweigh the disadvantages? Give reasons for your answer and include any relevant examples from your own knowledge or experience.';
+    document.getElementById('panel1').classList.remove('active');
+    document.getElementById('panel2').classList.remove('active');
+    document.getElementById('tabBtn1').style.display='none';
+    document.getElementById('tabBtn2').style.display='none';
+    var ra=document.getElementById('resultArea');
+    ra.style.display='block';
+    ra.innerHTML='<div class="spinner-wrap"><span class="spinner"></span> Đang chấm bài... vui lòng đợi (30-60 giây)</div>';
+    var payload={action:'grade_writing',student:(window._studentName||'')+' — '+(window._studentClass||''),test:'Writing Test 9',task1_prompt:task1Prompt,task1_essay:essay1,task2_prompt:task2Prompt,task2_essay:essay2,timeTaken:timeTaken,tabViol:viols.tabViolations,focusViol:viols.focusViolations,fsViol:viols.fsViolations};
+    var gradeTimeout=setTimeout(function(){saveFallback(essay1,essay2,timeTaken,viols,task1Prompt,task2Prompt);ra.innerHTML='<div class="result-card"><p style="color:#e53935;font-weight:600;">⚠ Hết thời gian chờ. Bài viết đã lưu — giáo viên chấm sau.</p></div>';},65000);
+    fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)})
+    .then(function(r){return r.text();}).then(function(text){clearTimeout(gradeTimeout);var result;try{result=JSON.parse(text);}catch(e){ra.innerHTML='<div class="result-card"><p style="color:#e53935;font-weight:600;">⚠ Lỗi phản hồi. Bài đã lưu — giáo viên chấm sau.</p></div>';return;}if(result&&result.status==='ok'&&result.grading){renderResult(result.grading,ra);}else{var msg=(result&&result.msg)?result.msg:'Lỗi không xác định';ra.innerHTML='<div class="result-card"><p style="color:#e53935;font-weight:600;">⚠ '+msg+'</p></div>';}})
+    .catch(function(){clearTimeout(gradeTimeout);saveFallback(essay1,essay2,timeTaken,viols,task1Prompt,task2Prompt);ra.innerHTML='<div class="result-card"><p style="color:#e53935;font-weight:600;">⚠ Không kết nối được. Bài đã lưu — giáo viên chấm sau.</p></div>';});
+  };
+  function saveFallback(e1,e2,tt,viols,t1p,t2p){fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',body:JSON.stringify({action:'save_writing',student:(window._studentName||'')+' — '+(window._studentClass||''),test:'Writing Test 9',task1_prompt:t1p,task1_essay:e1,task2_prompt:t2p,task2_essay:e2,timeTaken:tt,tabViol:viols.tabViolations})}).catch(function(){});};
+  function renderResult(grading,ra){var t1=grading.t1||{},t2=grading.t2||{},overall=grading.overall||'—';function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}function critBlock(code,score,fb_en,fb_vi){return'<div class="criterion-row"><span class="crit-label">'+code+'</span><span class="crit-score">'+(score||'—')+' / 9</span><span class="crit-feedback"><strong>'+esc(fb_en)+'</strong>'+(fb_vi?'<br><em style="color:#555;">'+esc(fb_vi)+'</em>':'')+'</span></div>';}function tipsBlock(te,tv){if(!te||!te.length)return'';var h='<div class="band-row" style="margin-top:10px;">💡 Gợi ý cải thiện:<ul style="margin:6px 0 0 18px;font-weight:normal;">';for(var i=0;i<te.length;i++){h+='<li>'+esc(te[i]);if(tv&&tv[i])h+='<br><em style="color:#777;font-size:0.85em;">'+esc(tv[i])+'</em>';h+='</li>';}return h+'</ul></div>';}var html='';html+='<div class="overall-band">OVERALL BAND: '+overall+' &nbsp;|&nbsp; Task 1: '+(t1.band||'—')+' &nbsp;|&nbsp; Task 2: '+(t2.band||'—')+'</div>';html+='<div class="result-card"><h3>TASK 1 — Chi tiết điểm</h3>'+critBlock('TA',t1.ta,t1.ta_en,t1.ta_vi)+critBlock('CC',t1.cc,t1.cc_en,t1.cc_vi)+critBlock('LR',t1.lr,t1.lr_en,t1.lr_vi)+critBlock('GRA',t1.gra,t1.gra_en,t1.gra_vi)+tipsBlock(t1.tips_en,t1.tips_vi)+'</div>';html+='<div class="result-card"><h3>TASK 2 — Chi tiết điểm</h3>'+critBlock('TR',t2.tr,t2.tr_en,t2.tr_vi)+critBlock('CC',t2.cc,t2.cc_en,t2.cc_vi)+critBlock('LR',t2.lr,t2.lr_en,t2.lr_vi)+critBlock('GRA',t2.gra,t2.gra_en,t2.gra_vi)+tipsBlock(t2.tips_en,t2.tips_vi)+'</div>';html+='<div class="ai-disclaimer">⚠ Đây là điểm AI sơ bộ — giáo viên sẽ xem lại và xác nhận điểm chính thức.</div>';ra.innerHTML=html;}
+
+})();
+</script>
+</body>
+</html>
