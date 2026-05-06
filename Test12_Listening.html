@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Listening Test 12</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f4f6f9; color: #222; user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }
+  .container { max-width: 860px; margin: 30px auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); padding: 36px 40px 50px; }
+  h1 { text-align: center; font-size: 1.6em; letter-spacing: 2px; color: #1a3a5c; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #666; font-size: 0.95em; margin-bottom: 28px; }
+  .audio-section { background: #eaf3fb; border: 1px solid #b3d4ef; border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; text-align: center; }
+  .audio-section p { font-weight: bold; color: #1a3a5c; margin-bottom: 10px; }
+  audio { width: 100%; }
+  .part { margin-bottom: 36px; }
+  .part-title { background: #1a3a5c; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 1.05em; font-weight: bold; margin-bottom: 14px; }
+  .question-block { margin-bottom: 18px; }
+  .instruction { font-style: italic; color: #555; margin-bottom: 12px; font-size: 0.93em; }
+  .notes-box { border: 1px solid #ccc; border-radius: 8px; padding: 18px 22px; background: #fafafa; margin-bottom: 12px; }
+  .notes-box h3 { text-align: center; font-size: 1em; color: #1a3a5c; margin-bottom: 12px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+  .note-row { display: flex; align-items: flex-start; padding: 7px 0; border-bottom: 1px dotted #e0e0e0; flex-wrap: wrap; gap: 6px; }
+  .note-row:last-child { border-bottom: none; }
+  .note-label { min-width: 200px; font-weight: bold; color: #333; }
+  .note-value { color: #444; flex: 1; line-height: 1.8; }
+  .qid-tag { font-size: 0.72em; color: #aaa; margin-right: 3px; }
+  input[type="text"] { border: none; border-bottom: 2px solid #1a3a5c; background: transparent; font-size: 0.95em; padding: 2px 6px; width: 150px; color: #1a3a5c; outline: none; user-select: text; -webkit-user-select: text; }
+  input[type="text"]:focus { border-bottom-color: #f39c12; }
+  input[type="text"].correct { border-bottom-color: #27ae60; background: #eafaf1; }
+  input[type="text"].wrong   { border-bottom-color: #e74c3c; background: #fdf0ef; }
+  .mcq-question { margin-bottom: 20px; }
+  .mcq-question p { font-weight: bold; margin-bottom: 8px; color: #222; }
+  .mcq-options { display: flex; flex-direction: column; gap: 6px; margin-left: 16px; }
+  .mcq-options label { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-size: 0.95em; }
+  .mcq-options label.correct-label { color: #27ae60; font-weight: bold; }
+  .mcq-options label.wrong-label   { color: #e74c3c; }
+  .matching-key { background: #eaf3fb; border-radius: 6px; padding: 10px 16px; margin-bottom: 12px; font-size: 0.9em; }
+  .matching-key p { margin-bottom: 3px; }
+  .matching-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .matching-row span { font-weight: bold; min-width: 180px; }
+  select { border: 1px solid #1a3a5c; border-radius: 4px; padding: 4px 8px; font-size: 0.93em; color: #1a3a5c; background: #fff; cursor: pointer; user-select: text; -webkit-user-select: text; }
+  select.correct { border-color: #27ae60; background: #eafaf1; color: #27ae60; }
+  select.wrong   { border-color: #e74c3c; background: #fdf0ef; color: #e74c3c; }
+  .answer-reveal { font-size: 0.82em; margin-top: 3px; display: none; }
+  .answer-reveal.show { display: inline; }
+  .submit-section { text-align: center; margin-top: 36px; }
+  #submitBtn { background: #1a3a5c; color: #fff; border: none; padding: 13px 50px; font-size: 1.05em; border-radius: 8px; cursor: pointer; letter-spacing: 1px; }
+  #submitBtn:hover { background: #f39c12; }
+  #scoreBoard { display: none; margin-top: 28px; border: 2px solid #1a3a5c; border-radius: 10px; padding: 24px 30px; text-align: center; background: #eaf3fb; }
+  #scoreBoard h2 { color: #1a3a5c; font-size: 1.4em; margin-bottom: 8px; }
+  .score-num { font-size: 2em; font-weight: bold; color: #f39c12; }
+  /* CONFIRM */
+  #confirmOverlay { display:none; position:fixed; inset:0; z-index:999998; background:rgba(0,0,0,0.6); justify-content:center; align-items:center; }
+  #confirmOverlay.show { display:flex; }
+  #confirmBox { background:#fff; border-radius:14px; padding:32px 36px; max-width:380px; text-align:center; box-shadow:0 6px 30px rgba(0,0,0,0.3); }
+  #confirmBox h3 { color:#1a3a5c; margin-bottom:12px; }
+  #confirmBox p  { color:#555; margin-bottom:20px; font-size:0.95em; line-height:1.5; }
+  #confirmBox .btn-row { display:flex; gap:12px; justify-content:center; }
+  #confirmBox button { padding:10px 24px; border:none; border-radius:8px; font-size:1em; cursor:pointer; }
+  .btn-confirm { background:#1a3a5c; color:#fff; }
+  .btn-cancel  { background:#ccc; color:#333; }
+  /* TIMER */
+  #timerBox { position:fixed; top:18px; right:22px; z-index:999; background:#1a3a5c; color:#fff; padding:10px 18px; border-radius:10px; font-size:1.05em; font-weight:bold; box-shadow:0 3px 12px rgba(0,0,0,0.25); display:flex; flex-direction:column; align-items:center; gap:2px; min-width:120px; text-align:center; }
+  #timerBox .timer-label { font-size:0.72em; letter-spacing:1px; opacity:0.8; }
+  #timerBox .timer-time  { font-size:1.4em; letter-spacing:2px; }
+  #timerBox.warning { background:#e67e22; animation:pulse 1s infinite; }
+  #timerBox.danger  { background:#e74c3c; animation:pulse 0.5s infinite; }
+  @keyframes pulse { 0%{box-shadow:0 0 0 0 rgba(231,76,60,0.6);}70%{box-shadow:0 0 0 10px rgba(231,76,60,0);}100%{box-shadow:0 0 0 0 rgba(231,76,60,0);} }
+  #warningOverlay { display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.55); justify-content:center; align-items:center; }
+  #warningOverlay.show { display:flex; }
+  #warningBox { background:#fff; border-radius:14px; padding:36px 40px; text-align:center; max-width:380px; box-shadow:0 6px 30px rgba(0,0,0,0.3); }
+  #warningBox h2 { color:#e74c3c; font-size:1.4em; margin-bottom:12px; }
+  #warningBox p  { color:#444; margin-bottom:18px; font-size:0.97em; line-height:1.5; }
+  .countdown-big { font-size:2.4em; font-weight:bold; color:#e74c3c; margin-bottom:16px; }
+  #warningBox button { background:#1a3a5c; color:#fff; border:none; padding:10px 30px; border-radius:8px; font-size:1em; cursor:pointer; }
+  #tabWarning { display:none; position:fixed; top:0; left:0; right:0; z-index:99998; background:#e74c3c; color:#fff; text-align:center; padding:10px; font-size:0.95em; font-weight:bold; }
+  #tabWarning.show { display:block; }
+  #fsWarning { display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.92); justify-content:center; align-items:center; flex-direction:column; gap:16px; }
+  #fsWarning.show { display:flex !important; }
+  #logPanel { display:none; position:fixed; bottom:18px; left:18px; z-index:9997; background:rgba(26,58,92,0.92); color:#fff; border-radius:8px; padding:10px 16px; font-size:0.78em; max-width:260px; line-height:1.6; }
+  @media print { body { display:none !important; } }
+  @media (max-width:600px) { .container{padding:20px 14px;} #timerBox{top:10px;right:10px;padding:7px 12px;min-width:95px;} }
+</style>
+</head>
+<body>
+
+<!-- TIMER -->
+<div id="timerBox">
+  <span class="timer-label">⏱ THỜI GIAN</span>
+  <span class="timer-time" id="timerDisplay">40:00</span>
+</div>
+
+<!-- WARNING OVERLAY -->
+<div id="warningOverlay">
+  <div id="warningBox">
+    <h2>⏰ Hết giờ làm bài!</h2>
+    <p>Bạn đã dùng hết <strong>40 phút</strong>.<br>Bài sẽ tự động nộp sau:</p>
+    <div class="countdown-big" id="extraCountdown">5:00</div>
+    <p style="font-size:0.88em;color:#888;">Hoặc bấm nộp bài ngay bây giờ.</p>
+    <button onclick="window.forceSubmit()">✅ Nộp bài ngay</button>
+  </div>
+</div>
+
+<!-- CONFIRM POPUP -->
+<div id="confirmOverlay">
+  <div id="confirmBox">
+    <h3>📋 Xác nhận nộp bài</h3>
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <div class="btn-row">
+      <button class="btn-confirm" onclick="window.doSubmit()">✅ Xác nhận nộp</button>
+      <button class="btn-cancel"  onclick="document.getElementById('confirmOverlay').classList.remove('show')">↩ Quay lại làm bài</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;">🎧 IELTS Listening Test 12</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="window.startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+
+<div id="tabWarning"></div>
+<div id="fsWarning">
+  <h2 style="color:#f39c12;">⚠️ Vui lòng quay lại chế độ toàn màn hình!</h2>
+  <p style="color:#fff;text-align:center;">Bài thi yêu cầu toàn màn hình.<br>Hành vi thoát fullscreen đã được ghi lại.</p>
+  <button onclick="window.enterFullscreen()" style="background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;">🔲 Vào toàn màn hình</button>
+</div>
+<div id="logPanel"></div>
+
+<div class="container">
+  <h1>IELTS LISTENING — TEST 12</h1>
+  <p class="subtitle">Điền vào chỗ trống hoặc chọn đáp án đúng. Bấm <strong>Nộp bài</strong> để xem kết quả.</p>
+
+  <!-- AUDIO -->
+  <div class="audio-section">
+    <p>🎧 Audio — Listening Test 12</p>
+    <audio id="mainAudio" controls>
+      <source src="Audio test 12.mp3" type="audio/mpeg">
+      Trình duyệt của bạn không hỗ trợ audio.
+    </audio>
+  </div>
+
+  <!-- ==================== PART 1 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 1 &nbsp;|&nbsp; Questions 1–10</div>
+    <div class="question-block">
+      <p class="instruction">Complete the notes below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
+      <div class="notes-box">
+        <h3>Accommodation for Countryside Holiday</h3>
+
+        <div style="font-weight:bold;color:#1a3a5c;margin-bottom:8px;">Holiday Details</div>
+        <div class="note-row">
+          <span class="note-value">• Preferred location: <span class="qid-tag">Q.01.TEST012</span><input type="text" id="q1" placeholder="answer..."> <span class="answer-reveal" id="r1"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• Try to avoid: <span class="qid-tag">Q.02.TEST012</span><input type="text" id="q2" placeholder="answer..."> <span class="answer-reveal" id="r2"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• Length of stay: a <span class="qid-tag">Q.03.TEST012</span><input type="text" id="q3" placeholder="answer..."> <span class="answer-reveal" id="r3"></span></span>
+        </div>
+
+        <div style="font-weight:bold;color:#1a3a5c;margin:12px 0 8px;">Special Requirements</div>
+        <div class="note-row">
+          <span class="note-value">• Must be <span class="qid-tag">Q.04.TEST012</span><input type="text" id="q4" placeholder="answer..."> <span class="answer-reveal" id="r4"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• A good <span class="qid-tag">Q.05.TEST012</span><input type="text" id="q5" placeholder="answer..."> for children <span class="answer-reveal" id="r5"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• A <span class="qid-tag">Q.06.TEST012</span><input type="text" id="q6" placeholder="answer..."> nearby <span class="answer-reveal" id="r6"></span></span>
+        </div>
+
+        <div style="font-weight:bold;color:#1a3a5c;margin:12px 0 8px;">Additional Requirements</div>
+        <div class="note-row"><span class="note-value">• No stairs</span></div>
+        <div class="note-row">
+          <span class="note-value">• Prefer a <span class="qid-tag">Q.07.TEST012</span><input type="text" id="q7" placeholder="answer..."> instead of a balcony <span class="answer-reveal" id="r7"></span></span>
+        </div>
+
+        <div style="font-weight:bold;color:#1a3a5c;margin:12px 0 8px;">Personal Details</div>
+        <div class="note-row">
+          <span class="note-value">• Name: Mrs <span class="qid-tag">Q.08.TEST012</span><input type="text" id="q8" placeholder="answer..."> <span class="answer-reveal" id="r8"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• Contact number: <span class="qid-tag">Q.09.TEST012</span><input type="text" id="q9" placeholder="answer..."> <span class="answer-reveal" id="r9"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• Source of information: the ads from the Magazine of <span class="qid-tag">Q.10.TEST012</span><input type="text" id="q10" placeholder="answer..."> <span class="answer-reveal" id="r10"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 2 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 2 &nbsp;|&nbsp; Questions 11–20</div>
+
+    <!-- Q11-15: MCQ -->
+    <div class="question-block">
+      <p class="instruction">Questions 11–15: Choose the correct answer, A, B or C.</p>
+      <p style="text-align:center;font-weight:bold;color:#1a3a5c;margin-bottom:14px;">An Electronic Toy Company</p>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.11.TEST012</span> 11. What point is made about the history of the company?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q11" value="A"> A &nbsp; It was quickly established.</label>
+          <label><input type="radio" name="q11" value="B"> B &nbsp; It took a long time to establish.</label>
+          <label><input type="radio" name="q11" value="C"> C &nbsp; It was set up by a relative.</label>
+        </div>
+        <span class="answer-reveal" id="r11"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.12.TEST012</span> 12. Why should the company recruit more temporary staff?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q12" value="A"> A &nbsp; It plans to develop new products.</label>
+          <label><input type="radio" name="q12" value="B"> B &nbsp; The old staff are having an illness.</label>
+          <label><input type="radio" name="q12" value="C"> C &nbsp; It aims to meet the new demands of customers.</label>
+        </div>
+        <span class="answer-reveal" id="r12"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.13.TEST012</span> 13. How long will the employees work in the company?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q13" value="A"> A &nbsp; a few weeks</label>
+          <label><input type="radio" name="q13" value="B"> B &nbsp; half a year</label>
+          <label><input type="radio" name="q13" value="C"> C &nbsp; indefinitely</label>
+        </div>
+        <span class="answer-reveal" id="r13"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.14.TEST012</span> 14. The largest number of positions are in the department of</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q14" value="A"> A &nbsp; administration.</label>
+          <label><input type="radio" name="q14" value="B"> B &nbsp; production.</label>
+          <label><input type="radio" name="q14" value="C"> C &nbsp; package delivery.</label>
+        </div>
+        <span class="answer-reveal" id="r14"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.15.TEST012</span> 15. What's the current problem with the company?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q15" value="A"> A &nbsp; outdated machines</label>
+          <label><input type="radio" name="q15" value="B"> B &nbsp; inadequate skills</label>
+          <label><input type="radio" name="q15" value="C"> C &nbsp; late payment</label>
+        </div>
+        <span class="answer-reveal" id="r15"></span>
+      </div>
+    </div>
+
+    <!-- Q16-20: Matching -->
+    <div class="question-block">
+      <p class="instruction">Questions 16–20: What's the responsibility of each temporary staff member? Choose FIVE answers from the box and write the correct letter, A–F, next to Questions 16–20.</p>
+      <div class="matching-key">
+        <p><strong>Responsibilities</strong></p>
+        <p><strong>A</strong> — computer</p>
+        <p><strong>B</strong> — wage</p>
+        <p><strong>C</strong> — production</p>
+        <p><strong>D</strong> — maintenance</p>
+        <p><strong>E</strong> — research and development</p>
+        <p><strong>F</strong> — maintaining customer relationship</p>
+      </div>
+
+      <div style="font-weight:bold;color:#1a3a5c;margin-bottom:10px;">Staff</div>
+
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.16.TEST012</span> 16. 1st person</span>
+        <select id="q16">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r16"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.17.TEST012</span> 17. 2nd person</span>
+        <select id="q17">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r17"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.18.TEST012</span> 18. 3rd person</span>
+        <select id="q18">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r18"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.19.TEST012</span> 19. 4th person</span>
+        <select id="q19">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r19"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.20.TEST012</span> 20. 5th person</span>
+        <select id="q20">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r20"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 3 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 3 &nbsp;|&nbsp; Questions 21–30</div>
+
+    <!-- Q21-26: MCQ -->
+    <div class="question-block">
+      <p class="instruction">Questions 21–26: Choose the correct answer, A, B or C.</p>
+      <p style="text-align:center;font-weight:bold;color:#1a3a5c;margin-bottom:14px;">Project on Sports Shoes</p>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.21.TEST012</span> 21. What did the students get from the website?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q21" value="A"> A &nbsp; advice from others</label>
+          <label><input type="radio" name="q21" value="B"> B &nbsp; ideas to fulfil the project requirements</label>
+          <label><input type="radio" name="q21" value="C"> C &nbsp; relevant information about the case</label>
+        </div>
+        <span class="answer-reveal" id="r21"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.22.TEST012</span> 22. What did Martin use as an example of the research?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q22" value="A"> A &nbsp; He downloaded a diagram from the internet.</label>
+          <label><input type="radio" name="q22" value="B"> B &nbsp; He took apart his old shoes.</label>
+          <label><input type="radio" name="q22" value="C"> C &nbsp; He borrowed a sample from the tutor.</label>
+        </div>
+        <span class="answer-reveal" id="r22"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.23.TEST012</span> 23. According to Martin, what other factors should be considered while designing shoes?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q23" value="A"> A &nbsp; foot shape</label>
+          <label><input type="radio" name="q23" value="B"> B &nbsp; foot movement</label>
+          <label><input type="radio" name="q23" value="C"> C &nbsp; raw materials</label>
+        </div>
+        <span class="answer-reveal" id="r23"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.24.TEST012</span> 24. What proportion of the essay does Martin suggest Rosie do?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q24" value="A"> A &nbsp; half</label>
+          <label><input type="radio" name="q24" value="B"> B &nbsp; almost all</label>
+          <label><input type="radio" name="q24" value="C"> C &nbsp; every part</label>
+        </div>
+        <span class="answer-reveal" id="r24"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.25.TEST012</span> 25. What will Martin and Rosie do this weekend?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q25" value="A"> A &nbsp; carry out a plan</label>
+          <label><input type="radio" name="q25" value="B"> B &nbsp; do some face-to-face interviews</label>
+          <label><input type="radio" name="q25" value="C"> C &nbsp; answer the questions</label>
+        </div>
+        <span class="answer-reveal" id="r25"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.26.TEST012</span> 26. What help can the students get from the tutor?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q26" value="A"> A &nbsp; borrow equipment</label>
+          <label><input type="radio" name="q26" value="B"> B &nbsp; get some advice</label>
+          <label><input type="radio" name="q26" value="C"> C &nbsp; have a tutorial</label>
+        </div>
+        <span class="answer-reveal" id="r26"></span>
+      </div>
+    </div>
+
+    <!-- Q27-30: Matching -->
+    <div class="question-block">
+      <p class="instruction">Questions 27–30: What decision do the students make about each of the following parts of their essay? Choose FOUR answers from the box and write the correct letter, A–F, next to Questions 27–30.</p>
+      <div class="matching-key">
+        <p><strong>Decisions</strong></p>
+        <p><strong>A</strong> — change the layout</p>
+        <p><strong>B</strong> — write it longer</p>
+        <p><strong>C</strong> — give a detailed example</p>
+        <p><strong>D</strong> — change to another part</p>
+        <p><strong>E</strong> — use simple language</p>
+        <p><strong>F</strong> — write in the last part</p>
+      </div>
+
+      <div style="font-weight:bold;color:#1a3a5c;margin-bottom:10px;">Parts of the essay</div>
+
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.27.TEST012</span> 27. Summary</span>
+        <select id="q27">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r27"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.28.TEST012</span> 28. Result</span>
+        <select id="q28">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r28"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.29.TEST012</span> 29. Conclusion</span>
+        <select id="q29">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r29"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.30.TEST012</span> 30. Discussion</span>
+        <select id="q30">
+          <option value="">-- select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          <option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <span class="answer-reveal" id="r30"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 4 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 4 &nbsp;|&nbsp; Questions 31–40</div>
+    <div class="question-block">
+      <p class="instruction">Complete the notes below. Write ONE WORD ONLY for each answer.</p>
+      <div class="notes-box">
+        <h3>African Clawed Frog (Xenopus Laevis)</h3>
+
+        <div style="font-weight:bold;color:#1a3a5c;margin-bottom:8px;">Description</div>
+        <div class="note-row"><span class="note-value">• They have no tongue or external ears.</span></div>
+        <div class="note-row">
+          <span class="note-value">• Their skin is <span class="qid-tag">Q.31.TEST012</span><input type="text" id="q31" placeholder="..."> <span class="answer-reveal" id="r31"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• The mucus on their skin is for <span class="qid-tag">Q.32.TEST012</span><input type="text" id="q32" placeholder="..."> <span class="answer-reveal" id="r32"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• Male frogs are <span class="qid-tag">Q.33.TEST012</span><input type="text" id="q33" placeholder="..."> the size of female frogs. <span class="answer-reveal" id="r33"></span></span>
+        </div>
+
+        <div style="font-weight:bold;color:#1a3a5c;margin:12px 0 8px;">Habitats</div>
+        <div class="note-row">
+          <span class="note-value">• They prefer <span class="qid-tag">Q.34.TEST012</span><input type="text" id="q34" placeholder="..."> water. <span class="answer-reveal" id="r34"></span></span>
+        </div>
+        <div class="note-row"><span class="note-value">• They live in oases or glacier-covered lakes.</span></div>
+        <div class="note-row">
+          <span class="note-value">• They live in a condition with a high level of <span class="qid-tag">Q.35.TEST012</span><input type="text" id="q35" placeholder="..."> <span class="answer-reveal" id="r35"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• In the condition of drought, they can survive in <span class="qid-tag">Q.36.TEST012</span><input type="text" id="q36" placeholder="..."> for a long period of time. <span class="answer-reveal" id="r36"></span></span>
+        </div>
+
+        <div style="font-weight:bold;color:#1a3a5c;margin:12px 0 8px;">Diet</div>
+        <div class="note-row">
+          <span class="note-value">• They use the sense of <span class="qid-tag">Q.37.TEST012</span><input type="text" id="q37" placeholder="..."> to capture food. <span class="answer-reveal" id="r37"></span></span>
+        </div>
+        <div class="note-row"><span class="note-value">• They use their claws to tear apart ample food.</span></div>
+        <div class="note-row">
+          <span class="note-value">• They use their front feet and a unique <span class="qid-tag">Q.38.TEST012</span><input type="text" id="q38" placeholder="..."> system when feeding. <span class="answer-reveal" id="r38"></span></span>
+        </div>
+
+        <div style="font-weight:bold;color:#1a3a5c;margin:12px 0 8px;">Other information</div>
+        <div class="note-row">
+          <span class="note-value">• People in some states of the USA regard them as <span class="qid-tag">Q.39.TEST012</span><input type="text" id="q39" placeholder="..."> <span class="answer-reveal" id="r39"></span></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">• The mucus on their skin has <span class="qid-tag">Q.40.TEST012</span><input type="text" id="q40" placeholder="..."> properties. <span class="answer-reveal" id="r40"></span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <button id="submitBtn" onclick="window.submitTest()">✅ NỘP BÀI</button>
+  </div>
+  <div id="scoreBoard">
+    <h2>🎯 KẾT QUẢ</h2>
+    <p class="score-num" id="scoreNum"></p>
+    <p id="scoreMsg"></p>
+  </div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+var log = [], tabViolations = 0, focusViolations = 0, fsViolations = 0;
+var submitted = false, timerStopped = false, startTime = null;
+
+// ===== POPUP NHẬP TÊN =====
+window.startExam = function(){
+  var name = document.getElementById('studentName').value.trim();
+  var cls  = document.getElementById('studentClass').value.trim();
+  if (!name || !cls){ document.getElementById('popupError').style.display='block'; return; }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  setTimeout(function(){ window.enterFullscreen(); }, 300);
+};
+
+// ===== FULLSCREEN =====
+window.enterFullscreen = function(){
+  var el = document.documentElement;
+  try {
+    if (el.requestFullscreen) el.requestFullscreen().catch(function(){});
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  } catch(e){}
+  document.getElementById('fsWarning').classList.remove('show');
+};
+
+function addLog(msg){ log.push('[' + new Date().toTimeString().slice(0,8) + '] ' + msg); }
+addLog('Mở bài thi');
+
+var tabWarnEl = document.getElementById('tabWarning');
+function showBanner(msg){
+  if (submitted) return;
+  tabWarnEl.innerHTML = msg;
+  tabWarnEl.classList.add('show');
+  setTimeout(function(){ tabWarnEl.classList.remove('show'); }, 4000);
+}
+
+document.addEventListener('visibilitychange', function(){
+  if (document.hidden && !submitted){ tabViolations++; addLog('Chuyển tab #'+tabViolations); showBanner('⚠️ CẢNH BÁO: Bạn vừa chuyển tab! Hành vi đã được ghi lại. (Vi phạm: '+tabViolations+' lần)'); }
+});
+window.addEventListener('blur', function(){
+  if (submitted) return; focusViolations++; addLog('Mất focus #'+focusViolations); showBanner('⚠️ CẢNH BÁO: Bạn vừa rời khỏi cửa sổ thi! (Vi phạm: '+focusViolations+' lần)');
+});
+function onFsChange(){
+  var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+  if (!isFs && !submitted){ fsViolations++; addLog('Thoát fullscreen #'+fsViolations); document.getElementById('fsWarning').classList.add('show'); }
+}
+document.addEventListener('fullscreenchange', onFsChange);
+document.addEventListener('webkitfullscreenchange', onFsChange);
+document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+document.addEventListener('keydown', function(e){
+  if (e.key==='F12'){ e.preventDefault(); return; }
+  if (e.ctrlKey && ['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){ e.preventDefault(); return; }
+  if (e.ctrlKey && e.shiftKey && ['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){ e.preventDefault(); return; }
+  if (e.key==='Escape'){ e.preventDefault(); return; }
+});
+document.addEventListener('copy',  function(e){ e.preventDefault(); });
+document.addEventListener('paste', function(e){ e.preventDefault(); });
+document.addEventListener('cut',   function(e){ e.preventDefault(); });
+document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+document.addEventListener('drop',      function(e){ e.preventDefault(); });
+
+// ===== TIMER =====
+var MAIN_MS=40*60*1000, EXTRA_MS=5*60*1000, inExtraTime=false, extraStart=null;
+var timerBox=document.getElementById('timerBox'), timerDisplay=document.getElementById('timerDisplay');
+var overlay=document.getElementById('warningOverlay'), extraDisplay=document.getElementById('extraCountdown');
+function fmt(ms){ var t=Math.max(0,Math.ceil(ms/1000)),m=Math.floor(t/60),s=t%60; return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0'); }
+function tick(){
+  if (timerStopped) return;
+  if (!startTime){ if (!window._testStartTime) return; startTime=window._testStartTime; }
+  var now=Date.now();
+  if (!inExtraTime){
+    var rem=MAIN_MS-(now-startTime);
+    timerDisplay.textContent=fmt(rem);
+    if (rem<=60000) timerBox.className='danger';
+    else if (rem<=300000) timerBox.className='warning';
+    else timerBox.className='';
+    if (rem<=0){ inExtraTime=true; extraStart=Date.now(); overlay.classList.add('show'); timerBox.style.display='none'; }
+  } else {
+    var xrem=EXTRA_MS-(now-extraStart);
+    extraDisplay.textContent=fmt(xrem);
+    if (xrem<=0) window.forceSubmit();
+  }
+}
+setInterval(tick, 500);
+window.stopTimer = function(){ timerStopped=true; };
+window.forceSubmit = function(){ timerStopped=true; overlay.classList.remove('show'); runSubmit(); };
+window.getViolationLog = function(){ submitted=true; return {tabViolations:tabViolations,focusViolations:focusViolations,fsViolations:fsViolations,log:log}; };
+
+// ===== ĐÁP ÁN =====
+var ANS = {
+  // PART 1 — Note completion (NO MORE THAN TWO WORDS AND/OR A NUMBER)
+  q1:  ['northeast','north east'],
+  q2:  ['peak season'],
+  q3:  ['weekend'],
+  q4:  ['quiet'],
+  q5:  ['beach'],
+  q6:  ['restaurant'],
+  q7:  ['garden'],
+  q8:  ['cheffins'],
+  q9:  ['0192477285'],
+  q10: ['countryside living'],
+  // PART 2 — MCQ + Matching
+  q11: ['a'],
+  q12: ['a'],
+  q13: ['b'],
+  q14: ['c'],
+  q15: ['c'],
+  q16: ['b'],
+  q17: ['c'],
+  q18: ['d'],
+  q19: ['a'],
+  q20: ['f'],
+  // PART 3 — MCQ + Matching
+  q21: ['c'],
+  q22: ['b'],
+  q23: ['b'],
+  q24: ['b'],
+  q25: ['c'],
+  q26: ['a'],
+  q27: ['f'],
+  q28: ['d'],
+  q29: ['e'],
+  q30: ['a'],
+  // PART 4 — ONE WORD ONLY
+  q31: ['smooth'],
+  q32: ['protection'],
+  q33: ['half'],
+  q34: ['still'],
+  q35: ['salt'],
+  q36: ['mud'],
+  q37: ['smell'],
+  q38: ['pump'],
+  q39: ['pest'],
+  q40: ['antibiotic']
+};
+
+function normalize(s){ return (s||'').toLowerCase().trim().replace(/\s+/g,' '); }
+function checkAns(key,val){ var v=normalize(val); return ANS[key].some(function(a){ return normalize(a)===v; }); }
+
+// ===== NỘP BÀI =====
+window.submitTest = function(){ if (submitted) return; document.getElementById('confirmOverlay').classList.add('show'); };
+window.doSubmit   = function(){ document.getElementById('confirmOverlay').classList.remove('show'); runSubmit(); };
+
+function runSubmit(){
+  if (submitted) return;
+  submitted = true;
+  var score=0, total=40, detailsArr=[];
+
+  // Text inputs: Q1-10, Q31-40
+  var textQs=[1,2,3,4,5,6,7,8,9,10,31,32,33,34,35,36,37,38,39,40];
+  textQs.forEach(function(n){
+    var el=document.getElementById('q'+n), re=document.getElementById('r'+n);
+    if (!el||el.tagName!=='INPUT') return;
+    var ok=checkAns('q'+n, el.value);
+    el.classList.add(ok?'correct':'wrong');
+    re.innerHTML=ok?'<span style="color:#27ae60">✔</span>':'<span style="color:#e74c3c">✘ → <strong>'+ANS['q'+n][0]+'</strong></span>';
+    re.classList.add('show');
+    if (ok) score++;
+    detailsArr.push('Q'+String(n).padStart(2,'0')+':'+(ok?'✔':'✘')+'('+(el.value||'')+')');
+  });
+
+  // Selects: Q16-20, Q27-30
+  var selectQs=[16,17,18,19,20,27,28,29,30];
+  selectQs.forEach(function(n){
+    var el=document.getElementById('q'+n), re=document.getElementById('r'+n);
+    if (!el||el.tagName!=='SELECT') return;
+    var ok=checkAns('q'+n, el.value);
+    el.classList.add(ok?'correct':'wrong');
+    re.innerHTML=ok?'<span style="color:#27ae60">✔</span>':'<span style="color:#e74c3c">✘ → <strong>'+ANS['q'+n][0].toUpperCase()+'</strong></span>';
+    re.classList.add('show');
+    if (ok) score++;
+    detailsArr.push('Q'+String(n).padStart(2,'0')+':'+(ok?'✔':'✘')+'('+(el.value||'')+')');
+  });
+
+  // Radios: Q11-15, Q21-26
+  var radioQs=[11,12,13,14,15,21,22,23,24,25,26];
+  radioQs.forEach(function(n){
+    var radios=document.querySelectorAll('input[name="q'+n+'"]'), re=document.getElementById('r'+n);
+    var chosen='';
+    radios.forEach(function(r){ if(r.checked) chosen=r.value; });
+    var ok=checkAns('q'+n, chosen);
+    radios.forEach(function(r){
+      var lbl=r.parentElement; lbl.classList.remove('correct-label','wrong-label');
+      if (normalize(r.value)===normalize(ANS['q'+n][0])) lbl.classList.add('correct-label');
+      else if (r.checked&&!ok) lbl.classList.add('wrong-label');
+    });
+    re.innerHTML=ok?'<span style="color:#27ae60">✔ Correct!</span>':'<span style="color:#e74c3c">✘ Answer: <strong>'+ANS['q'+n][0].toUpperCase()+'</strong></span>';
+    re.classList.add('show');
+    if (ok) score++;
+    detailsArr.push('Q'+String(n).padStart(2,'0')+':'+(ok?'✔':'✘')+'('+chosen+')');
+  });
+
+  detailsArr.sort(function(a,b){ return parseInt(a.slice(1))-parseInt(b.slice(1)); });
+
+  // Khóa input
+  document.querySelectorAll('input[type="text"],input[type="radio"],select').forEach(function(el){ el.disabled=true; });
+  document.getElementById('submitBtn').disabled=true;
+  document.getElementById('submitBtn').textContent='✅ Đã nộp bài';
+
+  // Dừng timer & audio
+  window.stopTimer();
+  var tb=document.getElementById('timerBox'); if(tb) tb.style.display='none';
+  var au=document.getElementById('mainAudio'); if(au) au.pause();
+
+  // Band
+  var band='';
+  if      (score>=39) band='Band 9';
+  else if (score>=37) band='Band 8.5';
+  else if (score>=35) band='Band 8';
+  else if (score>=32) band='Band 7.5';
+  else if (score>=30) band='Band 7';
+  else if (score>=26) band='Band 6.5';
+  else if (score>=23) band='Band 6';
+  else if (score>=18) band='Band 5.5';
+  else if (score>=16) band='Band 5';
+  else if (score>=13) band='Band 4.5';
+  else if (score>=10) band='Band 4';
+  else                band='Dưới Band 4';
+
+  var board=document.getElementById('scoreBoard');
+  board.style.display='block';
+  document.getElementById('scoreNum').textContent=score+' / '+total;
+  document.getElementById('scoreMsg').textContent='🏆 Ước lượng: '+band;
+  board.scrollIntoView({behavior:'smooth'});
+
+  // Vi phạm
+  var v=window.getViolationLog?window.getViolationLog():null;
+  var totalV=0;
+  if (v){
+    totalV=v.tabViolations+v.focusViolations+v.fsViolations;
+    var lp=document.getElementById('logPanel');
+    lp.style.display='block';
+    lp.innerHTML='<strong>📋 Báo cáo hành vi</strong><br>• Chuyển tab: <b>'+v.tabViolations+'</b> lần<br>• Mất focus: <b>'+v.focusViolations+'</b> lần<br>• Thoát fullscreen: <b>'+v.fsViolations+'</b> lần<br>'+(totalV>0?'<span style="color:#f39c12">⚠️ Tổng: '+totalV+' vi phạm</span>':'<span style="color:#2ecc71">✅ Không có vi phạm</span>');
+    document.getElementById('scoreMsg').innerHTML+=(totalV>0?'<br><small style="color:#e74c3c">⚠️ Ghi nhận '+totalV+' hành vi đáng ngờ</small>':'<br><small style="color:#27ae60">✅ Không phát hiện gian lận</small>');
+  }
+
+  // Gửi Google Sheets
+  (function(){
+    var SHEET_URL='https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+    var et=Date.now(), st=window._testStartTime||et, el=Math.floor((et-st)/1000);
+    var payload={
+      action:'save_result',
+      student:(window._studentName||'Ẩn danh')+' — '+(window._studentClass||''),
+      test:'Listening Test 12', score:score, total:total, band:band,
+      timeTaken:Math.floor(el/60)+' phút '+(el%60)+' giây',
+      tabViol:v?v.tabViolations:0, focusViol:v?v.focusViolations:0, fsViol:v?v.fsViolations:0,
+      details:detailsArr.join(' | ')
+    };
+    fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+  })();
+}
+
+})(); // ← đóng IIFE
+</script>
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Listening Test 13</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,sans-serif;background:#f4f6f9;color:#222;user-select:none;-webkit-user-select:none;}
+  .container{max-width:860px;margin:30px auto;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.1);padding:36px 40px 50px;}
+  h1{text-align:center;font-size:1.6em;letter-spacing:2px;color:#1a3a5c;margin-bottom:6px;}
+  .subtitle{text-align:center;color:#666;font-size:0.95em;margin-bottom:28px;}
+  .audio-section{background:#eaf3fb;border:1px solid #b3d4ef;border-radius:8px;padding:16px 20px;margin-bottom:28px;text-align:center;}
+  .audio-section p{font-weight:bold;color:#1a3a5c;margin-bottom:10px;}
+  audio{width:100%;}
+  .part{margin-bottom:36px;}
+  .part-title{background:#1a3a5c;color:#fff;padding:8px 16px;border-radius:6px;font-size:1.05em;font-weight:bold;margin-bottom:14px;}
+  .question-block{margin-bottom:18px;}
+  .instruction{font-style:italic;color:#555;margin-bottom:12px;font-size:0.93em;}
+  .notes-box{border:1px solid #ccc;border-radius:8px;padding:18px 22px;background:#fafafa;margin-bottom:12px;}
+  .notes-box h3{text-align:center;font-size:1em;color:#1a3a5c;margin-bottom:12px;border-bottom:1px solid #ddd;padding-bottom:6px;}
+  .note-row{display:flex;align-items:flex-start;padding:7px 0;border-bottom:1px dotted #e0e0e0;flex-wrap:wrap;gap:6px;}
+  .note-row:last-child{border-bottom:none;}
+  .note-value{color:#444;flex:1;line-height:1.8;}
+  .qid-tag{font-size:0.72em;color:#aaa;margin-right:3px;}
+  input[type="text"]{border:none;border-bottom:2px solid #1a3a5c;background:transparent;font-size:0.95em;padding:2px 6px;width:150px;color:#1a3a5c;outline:none;user-select:text;-webkit-user-select:text;}
+  input[type="text"]:focus{border-bottom-color:#f39c12;}
+  input[type="text"].correct{border-bottom-color:#27ae60;background:#eafaf1;}
+  input[type="text"].wrong{border-bottom-color:#e74c3c;background:#fdf0ef;}
+  table{width:100%;border-collapse:collapse;margin-top:8px;}
+  th{background:#1a3a5c;color:#fff;padding:8px 10px;text-align:left;font-size:0.9em;}
+  td{border:1px solid #ccc;padding:8px 10px;font-size:0.9em;vertical-align:middle;}
+  tr:nth-child(even) td{background:#f7f7f7;}
+  .mcq-question{margin-bottom:20px;}
+  .mcq-question p{font-weight:bold;margin-bottom:8px;color:#222;}
+  .mcq-options{display:flex;flex-direction:column;gap:6px;margin-left:16px;}
+  .mcq-options label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:0.95em;}
+  .mcq-options label.correct-label{color:#27ae60;font-weight:bold;}
+  .mcq-options label.wrong-label{color:#e74c3c;}
+  .matching-key{background:#eaf3fb;border-radius:6px;padding:10px 16px;margin-bottom:12px;font-size:0.9em;}
+  .matching-key p{margin-bottom:3px;}
+  .matching-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .matching-row span{font-weight:bold;min-width:220px;}
+  select{border:1px solid #1a3a5c;border-radius:4px;padding:4px 8px;font-size:0.93em;color:#1a3a5c;background:#fff;cursor:pointer;user-select:text;-webkit-user-select:text;}
+  select.correct{border-color:#27ae60;background:#eafaf1;color:#27ae60;}
+  select.wrong{border-color:#e74c3c;background:#fdf0ef;color:#e74c3c;}
+  /* Checkbox groups */
+  .chk-group{display:flex;flex-direction:column;gap:6px;margin-left:16px;}
+  .chk-group label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:0.95em;}
+  .chk-group label.correct-label{color:#27ae60;font-weight:bold;}
+  .chk-group label.wrong-label{color:#e74c3c;}
+  .answer-reveal{font-size:0.82em;margin-top:3px;display:none;}
+  .answer-reveal.show{display:inline;}
+  .submit-section{text-align:center;margin-top:36px;}
+  #submitBtn{background:#1a3a5c;color:#fff;border:none;padding:13px 50px;font-size:1.05em;border-radius:8px;cursor:pointer;letter-spacing:1px;}
+  #submitBtn:hover{background:#f39c12;}
+  #scoreBoard{display:none;margin-top:28px;border:2px solid #1a3a5c;border-radius:10px;padding:24px 30px;text-align:center;background:#eaf3fb;}
+  #scoreBoard h2{color:#1a3a5c;font-size:1.4em;margin-bottom:8px;}
+  .score-num{font-size:2em;font-weight:bold;color:#f39c12;}
+  #confirmOverlay{display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;}
+  #confirmOverlay.show{display:flex;}
+  #confirmBox{background:#fff;border-radius:14px;padding:32px 36px;max-width:380px;text-align:center;box-shadow:0 6px 30px rgba(0,0,0,0.3);}
+  #confirmBox h3{color:#1a3a5c;margin-bottom:12px;}
+  #confirmBox p{color:#555;margin-bottom:20px;font-size:0.95em;line-height:1.5;}
+  #confirmBox .btn-row{display:flex;gap:12px;justify-content:center;}
+  #confirmBox button{padding:10px 24px;border:none;border-radius:8px;font-size:1em;cursor:pointer;}
+  .btn-confirm{background:#1a3a5c;color:#fff;}
+  .btn-cancel{background:#ccc;color:#333;}
+  #timerBox{position:fixed;top:18px;right:22px;z-index:999;background:#1a3a5c;color:#fff;padding:10px 18px;border-radius:10px;font-size:1.05em;font-weight:bold;box-shadow:0 3px 12px rgba(0,0,0,0.25);display:flex;flex-direction:column;align-items:center;gap:2px;min-width:120px;text-align:center;}
+  #timerBox .timer-label{font-size:0.72em;letter-spacing:1px;opacity:0.8;}
+  #timerBox .timer-time{font-size:1.4em;letter-spacing:2px;}
+  #timerBox.warning{background:#e67e22;animation:pulse 1s infinite;}
+  #timerBox.danger{background:#e74c3c;animation:pulse 0.5s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(231,76,60,0.6);}70%{box-shadow:0 0 0 10px rgba(231,76,60,0);}100%{box-shadow:0 0 0 0 rgba(231,76,60,0);}}
+  #warningOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);justify-content:center;align-items:center;}
+  #warningOverlay.show{display:flex;}
+  #warningBox{background:#fff;border-radius:14px;padding:36px 40px;text-align:center;max-width:380px;box-shadow:0 6px 30px rgba(0,0,0,0.3);}
+  #warningBox h2{color:#e74c3c;font-size:1.4em;margin-bottom:12px;}
+  #warningBox p{color:#444;margin-bottom:18px;font-size:0.97em;line-height:1.5;}
+  .countdown-big{font-size:2.4em;font-weight:bold;color:#e74c3c;margin-bottom:16px;}
+  #warningBox button{background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;}
+  #tabWarning{display:none;position:fixed;top:0;left:0;right:0;z-index:99998;background:#e74c3c;color:#fff;text-align:center;padding:10px;font-size:0.95em;font-weight:bold;}
+  #tabWarning.show{display:block;}
+  #fsWarning{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);justify-content:center;align-items:center;flex-direction:column;gap:16px;}
+  #fsWarning.show{display:flex!important;}
+  #logPanel{display:none;position:fixed;bottom:18px;left:18px;z-index:9997;background:rgba(26,58,92,0.92);color:#fff;border-radius:8px;padding:10px 16px;font-size:0.78em;max-width:260px;line-height:1.6;}
+  @media print{body{display:none!important;}}
+  @media(max-width:600px){.container{padding:20px 14px;}#timerBox{top:10px;right:10px;padding:7px 12px;min-width:95px;}}
+</style>
+</head>
+<body>
+<div id="timerBox"><span class="timer-label">⏱ THỜI GIAN</span><span class="timer-time" id="timerDisplay">40:00</span></div>
+<div id="warningOverlay"><div id="warningBox"><h2>⏰ Hết giờ làm bài!</h2><p>Bạn đã dùng hết <strong>40 phút</strong>.<br>Bài sẽ tự động nộp sau:</p><div class="countdown-big" id="extraCountdown">5:00</div><p style="font-size:0.88em;color:#888;">Hoặc bấm nộp bài ngay bây giờ.</p><button onclick="window.forceSubmit()">✅ Nộp bài ngay</button></div></div>
+<div id="confirmOverlay"><div id="confirmBox"><h3>📋 Xác nhận nộp bài</h3><p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p><div class="btn-row"><button class="btn-confirm" onclick="window.doSubmit()">✅ Xác nhận nộp</button><button class="btn-cancel" onclick="document.getElementById('confirmOverlay').classList.remove('show')">↩ Quay lại làm bài</button></div></div></div>
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;">🎧 IELTS Listening Test 13</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;"><label style="font-size:0.9em;font-weight:bold;color:#333;">Họ và tên:</label><input type="text" id="studentName" placeholder="Nguyễn Văn A..." style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;"></div>
+    <div style="text-align:left;margin-bottom:24px;"><label style="font-size:0.9em;font-weight:bold;color:#333;">Lớp:</label><input type="text" id="studentClass" placeholder="Ví dụ: 12A1..." style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;"></div>
+    <button onclick="window.startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;width:100%;">✅ Bắt đầu làm bài</button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="tabWarning"></div>
+<div id="fsWarning"><h2 style="color:#f39c12;">⚠️ Vui lòng quay lại chế độ toàn màn hình!</h2><p style="color:#fff;text-align:center;">Bài thi yêu cầu toàn màn hình.<br>Hành vi thoát fullscreen đã được ghi lại.</p><button onclick="window.enterFullscreen()" style="background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;">🔲 Vào toàn màn hình</button></div>
+<div id="logPanel"></div>
+
+<div class="container">
+  <h1>IELTS LISTENING — TEST 13</h1>
+  <p class="subtitle">Điền vào chỗ trống hoặc chọn đáp án đúng. Bấm <strong>Nộp bài</strong> để xem kết quả.</p>
+  <div class="audio-section"><p>🎧 Audio — Listening Test 13</p><audio id="mainAudio" controls><source src="Audio test 13.mp3" type="audio/mpeg">Trình duyệt của bạn không hỗ trợ audio.</audio></div>
+
+  <!-- PART 1 -->
+  <div class="part">
+    <div class="part-title">PART 1 &nbsp;|&nbsp; Questions 1–10</div>
+    <div class="question-block">
+      <p class="instruction">Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.</p>
+      <div class="notes-box">
+        <h3>Enquiries on Hot Air Balloon Trip</h3>
+        <div class="note-row"><span class="note-value">The lowest price: 1 £ <span class="qid-tag">Q.01.TEST013</span><input type="text" id="q1" placeholder="..."> per person. <span class="answer-reveal" id="r1"></span></span></div>
+        <div class="note-row"><span class="note-value">Each participant will be given a free <span class="qid-tag">Q.02.TEST013</span><input type="text" id="q2" placeholder="..."> <span class="answer-reveal" id="r2"></span></span></div>
+        <div class="note-row"><span class="note-value">The exact date can only be booked <span class="qid-tag">Q.03.TEST013</span><input type="text" id="q3" placeholder="..."> at the end of the flight. <span class="answer-reveal" id="r3"></span></span></div>
+        <div class="note-row"><span class="note-value">The balloon can fly a maximum height of <span class="qid-tag">Q.04.TEST013</span><input type="text" id="q4" placeholder="..."> metres. <span class="answer-reveal" id="r4"></span></span></div>
+        <div class="note-row"><span class="note-value">There are no flights at <span class="qid-tag">Q.05.TEST013</span><input type="text" id="q5" placeholder="..."> <span class="answer-reveal" id="r5"></span></span></div>
+        <div class="note-row"><span class="note-value">The best time of year to go is in <span class="qid-tag">Q.06.TEST013</span><input type="text" id="q6" placeholder="..."> <span class="answer-reveal" id="r6"></span></span></div>
+        <div class="note-row"><span class="note-value">Flights may be cancelled because of bad weather, e.g., <span class="qid-tag">Q.07.TEST013</span><input type="text" id="q7" placeholder="..."> <span class="answer-reveal" id="r7"></span></span></div>
+        <div class="note-row"><span class="note-value">It is advised to wear a jacket and a <span class="qid-tag">Q.08.TEST013</span><input type="text" id="q8" placeholder="..."> <span class="answer-reveal" id="r8"></span></span></div>
+        <div class="note-row"><span class="note-value">There is no <span class="qid-tag">Q.09.TEST013</span><input type="text" id="q9" placeholder="..."> restriction for adults. <span class="answer-reveal" id="r9"></span></span></div>
+        <div class="note-row"><span class="note-value">Participants must be able to <span class="qid-tag">Q.10.TEST013</span><input type="text" id="q10" placeholder="..."> throughout the flight. <span class="answer-reveal" id="r10"></span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 2 -->
+  <div class="part">
+    <div class="part-title">PART 2 &nbsp;|&nbsp; Questions 11–20</div>
+    <div class="question-block">
+      <p class="instruction">Questions 11–18: Complete the table below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
+      <p style="text-align:center;font-weight:bold;color:#1a3a5c;margin-bottom:12px;">Spring Festival</p>
+      <div class="notes-box">
+        <table>
+          <thead><tr><th>Event</th><th>Location</th><th>Date and Time</th><th>Other Information</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Firework display</td>
+              <td>Near the <span class="qid-tag">Q.11.TEST013</span><input type="text" id="q11" placeholder="..." style="width:80px;"> <span class="answer-reveal" id="r11"></span></td>
+              <td>4 September 9 p.m.</td>
+              <td>Pack a <span class="qid-tag">Q.12.TEST013</span><input type="text" id="q12" placeholder="..." style="width:80px;"> and blanket <span class="answer-reveal" id="r12"></span></td>
+            </tr>
+            <tr>
+              <td>Display of <span class="qid-tag">Q.13.TEST013</span><input type="text" id="q13" placeholder="..." style="width:80px;"> <span class="answer-reveal" id="r13"></span></td>
+              <td>Central Park</td>
+              <td>daily</td>
+              <td>Buses run from the town centre every <span class="qid-tag">Q.14.TEST013</span><input type="text" id="q14" placeholder="..." style="width:50px;"> minutes <span class="answer-reveal" id="r14"></span></td>
+            </tr>
+            <tr>
+              <td>The <span class="qid-tag">Q.15.TEST013</span><input type="text" id="q15" placeholder="..." style="width:80px;"> Show <span class="answer-reveal" id="r15"></span></td>
+              <td>Exhibition Centre</td>
+              <td>10-15 September 9 a.m.-10 p.m.</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>'Grow Your Imagination'</td>
+              <td>in the <span class="qid-tag">Q.16.TEST013</span><input type="text" id="q16" placeholder="..." style="width:90px;"> <span class="answer-reveal" id="r16"></span></td>
+              <td>11-19 September</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>'Swing in Spring'</td>
+              <td>in the <span class="qid-tag">Q.17.TEST013</span><input type="text" id="q17" placeholder="..." style="width:90px;"> <span class="answer-reveal" id="r17"></span></td>
+              <td>17&amp;18 September</td>
+              <td>Saturday matinee performance at <span class="qid-tag">Q.18.TEST013</span><input type="text" id="q18" placeholder="..." style="width:60px;"> <span class="answer-reveal" id="r18"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="question-block">
+      <p class="instruction">Questions 19–20: Choose the correct letter, A, B or C.</p>
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.19.TEST013</span> 19. In the Spring Festival competition, you can win</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q19" value="A"> A &nbsp; a family pass to 'Balloons Down Under'.</label>
+          <label><input type="radio" name="q19" value="B"> B &nbsp; a cheque for $200.</label>
+          <label><input type="radio" name="q19" value="C"> C &nbsp; a flight in a hot air balloon.</label>
+        </div>
+        <span class="answer-reveal" id="r19"></span>
+      </div>
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.20.TEST013</span> 20. You can get an entry form for the competition from</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q20" value="A"> A &nbsp; the radio station.</label>
+          <label><input type="radio" name="q20" value="B"> B &nbsp; the newspaper.</label>
+          <label><input type="radio" name="q20" value="C"> C &nbsp; the festival's website.</label>
+        </div>
+        <span class="answer-reveal" id="r20"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 3 -->
+  <div class="part">
+    <div class="part-title">PART 3 &nbsp;|&nbsp; Questions 21–30</div>
+
+    <!-- Q21-22 Choose TWO -->
+    <div class="question-block">
+      <p class="instruction">Questions 21–22: Choose TWO letters, A–E.<br>Which TWO points do the students most frequently make about their music background before entering music schools?</p>
+      <div class="chk-group" id="grp2122">
+        <label><input type="checkbox" name="q2122" value="A"> A &nbsp; they had composed songs</label>
+        <label><input type="checkbox" name="q2122" value="B"> B &nbsp; they had relevant music qualifications</label>
+        <label><input type="checkbox" name="q2122" value="C"> C &nbsp; they played more than one instrument</label>
+        <label><input type="checkbox" name="q2122" value="D"> D &nbsp; they had played in public</label>
+        <label><input type="checkbox" name="q2122" value="E"> E &nbsp; they had piano lessons</label>
+      </div>
+      <div id="chk-limit-q2122" style="color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;"></div>
+      <span class="answer-reveal" id="r2122"></span>
+    </div>
+
+    <!-- Q23-24 Choose TWO -->
+    <div class="question-block">
+      <p class="instruction">Questions 23–24: Choose TWO letters, A–E.<br>Which TWO points do the students most frequently make about their music practice?</p>
+      <div class="chk-group" id="grp2324">
+        <label><input type="checkbox" name="q2324" value="A"> A &nbsp; they practised alone</label>
+        <label><input type="checkbox" name="q2324" value="B"> B &nbsp; they practised every day</label>
+        <label><input type="checkbox" name="q2324" value="C"> C &nbsp; they were motivated by fear</label>
+        <label><input type="checkbox" name="q2324" value="D"> D &nbsp; they did not have enough practice</label>
+        <label><input type="checkbox" name="q2324" value="E"> E &nbsp; they enjoyed the challenge of playing complex pieces</label>
+      </div>
+      <div id="chk-limit-q2324" style="color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;"></div>
+      <span class="answer-reveal" id="r2324"></span>
+    </div>
+
+    <!-- Q25-26 Choose TWO -->
+    <div class="question-block">
+      <p class="instruction">Questions 25–26: Choose TWO letters, A–E.<br>Which TWO points do the students most frequently make about playing pieces that would be assessed?</p>
+      <div class="chk-group" id="grp2526">
+        <label><input type="checkbox" name="q2526" value="A"> A &nbsp; they liked to hear others playing the same piece</label>
+        <label><input type="checkbox" name="q2526" value="B"> B &nbsp; they wanted to play unknown pieces</label>
+        <label><input type="checkbox" name="q2526" value="C"> C &nbsp; they played a piece by memory</label>
+        <label><input type="checkbox" name="q2526" value="D"> D &nbsp; they played a piece selected by the tutor</label>
+        <label><input type="checkbox" name="q2526" value="E"> E &nbsp; they played technical pieces</label>
+      </div>
+      <div id="chk-limit-q2526" style="color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;"></div>
+      <span class="answer-reveal" id="r2526"></span>
+    </div>
+
+    <!-- Q27-30 Matching -->
+    <div class="question-block">
+      <p class="instruction">Questions 27–30: What comment do the students make about the following practice? Choose FOUR answers from the box and write the correct letter, A–G, next to Questions 27–30.</p>
+      <div class="matching-key">
+        <p><strong>Comments</strong></p>
+        <p><strong>A</strong> — it is beneficial</p>
+        <p><strong>B</strong> — it is challenging but also enjoyable</p>
+        <p><strong>C</strong> — it helps to boost confidence</p>
+        <p><strong>D</strong> — it is pleasant to hear</p>
+        <p><strong>E</strong> — it is time-consuming</p>
+        <p><strong>F</strong> — need to work effectively with others</p>
+        <p><strong>G</strong> — it happens infrequently</p>
+      </div>
+      <div style="font-weight:bold;color:#1a3a5c;margin-bottom:10px;">Practice</div>
+      <div class="matching-row"><span><span class="qid-tag">Q.27.TEST013</span> 27. Play solo</span><select id="q27"><option value="">-- select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select><span class="answer-reveal" id="r27"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.28.TEST013</span> 28. Choose a piece to play</span><select id="q28"><option value="">-- select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select><span class="answer-reveal" id="r28"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.29.TEST013</span> 29. Play different pieces</span><select id="q29"><option value="">-- select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select><span class="answer-reveal" id="r29"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.30.TEST013</span> 30. Play with others</span><select id="q30"><option value="">-- select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select><span class="answer-reveal" id="r30"></span></div>
+    </div>
+  </div>
+
+  <!-- PART 4 -->
+  <div class="part">
+    <div class="part-title">PART 4 &nbsp;|&nbsp; Questions 31–40</div>
+    <div class="question-block">
+      <p class="instruction">Questions 31–34: Choose the correct letter, A, B or C.</p>
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.31.TEST013</span> 31. The speaker initially chose to do her research project on Dodds because she had</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q31" value="A"> A &nbsp; wondered why interest in him was reviving.</label>
+          <label><input type="radio" name="q31" value="B"> B &nbsp; been intrigued by a local building.</label>
+          <label><input type="radio" name="q31" value="C"> C &nbsp; found his life extremely interesting.</label>
+        </div>
+        <span class="answer-reveal" id="r31"></span>
+      </div>
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.32.TEST013</span> 32. Dodds became an architect because</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q32" value="A"> A &nbsp; he wanted to follow his father's profession.</label>
+          <label><input type="radio" name="q32" value="B"> B &nbsp; he wanted to depart from tradition.</label>
+          <label><input type="radio" name="q32" value="C"> C &nbsp; he failed in his first choice of work.</label>
+        </div>
+        <span class="answer-reveal" id="r32"></span>
+      </div>
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.33.TEST013</span> 33. The reason for Dodds returning to northeast England was that</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q33" value="A"> A &nbsp; he wanted to introduce a new style there.</label>
+          <label><input type="radio" name="q33" value="B"> B &nbsp; there were more business opportunities there.</label>
+          <label><input type="radio" name="q33" value="C"> C &nbsp; architects had a higher status there.</label>
+        </div>
+        <span class="answer-reveal" id="r33"></span>
+      </div>
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.34.TEST013</span> 34. Dodds became well-known nationally when he</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q34" value="A"> A &nbsp; won an important architectural award.</label>
+          <label><input type="radio" name="q34" value="B"> B &nbsp; was commissioned by the royal family.</label>
+          <label><input type="radio" name="q34" value="C"> C &nbsp; became head of a professional association.</label>
+        </div>
+        <span class="answer-reveal" id="r34"></span>
+      </div>
+    </div>
+    <div class="question-block">
+      <p class="instruction">Questions 35–40: Complete the table below. Write NO MORE THAN TWO WORDS for each answer.</p>
+      <div class="notes-box">
+        <table>
+          <thead><tr><th>Building and date</th><th>Description</th><th>Problem with design</th><th>Present use of the site</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>Mitten Hall<br>1824–1826</td>
+              <td>Had a dome made of glass</td>
+              <td>Windows tended to <span class="qid-tag">Q.35.TEST013</span><input type="text" id="q35" placeholder="..." style="width:90px;"> <span class="answer-reveal" id="r35"></span></td>
+              <td>as a <span class="qid-tag">Q.36.TEST013</span><input type="text" id="q36" placeholder="..." style="width:110px;"> <span class="answer-reveal" id="r36"></span></td>
+            </tr>
+            <tr>
+              <td>Royal Arcade<br>1832</td>
+              <td>Shopping centre acclaimed for its large <span class="qid-tag">Q.37.TEST013</span><input type="text" id="q37" placeholder="..." style="width:80px;"> <span class="answer-reveal" id="r37"></span></td>
+              <td>Difficult to make deliveries</td>
+              <td>as a <span class="qid-tag">Q.38.TEST013</span><input type="text" id="q38" placeholder="..." style="width:80px;"> (for modern stores) <span class="answer-reveal" id="r38"></span></td>
+            </tr>
+            <tr>
+              <td>Morton Gaol<br>1839</td>
+              <td>Had towers based on medieval castle design</td>
+              <td>No room for prisoners to do <span class="qid-tag">Q.39.TEST013</span><input type="text" id="q39" placeholder="..." style="width:80px;"> <span class="answer-reveal" id="r39"></span></td>
+              <td>as a <span class="qid-tag">Q.40.TEST013</span><input type="text" id="q40" placeholder="..." style="width:110px;"> <span class="answer-reveal" id="r40"></span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="submit-section"><button id="submitBtn" onclick="window.submitTest()">✅ NỘP BÀI</button></div>
+  <div id="scoreBoard"><h2>🎯 KẾT QUẢ</h2><p class="score-num" id="scoreNum"></p><p id="scoreMsg"></p></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var log=[],tabViolations=0,focusViolations=0,fsViolations=0,submitted=false,timerStopped=false,startTime=null;
+
+window.startExam=function(){
+  var name=document.getElementById('studentName').value.trim(),cls=document.getElementById('studentClass').value.trim();
+  if(!name||!cls){document.getElementById('popupError').style.display='block';return;}
+  window._studentName=name;window._studentClass=cls;window._testStartTime=Date.now();
+  document.getElementById('studentPopup').style.display='none';
+  setTimeout(function(){window.enterFullscreen();},300);
+};
+window.enterFullscreen=function(){
+  var el=document.documentElement;
+  try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}
+  document.getElementById('fsWarning').classList.remove('show');
+};
+function addLog(msg){log.push('['+new Date().toTimeString().slice(0,8)+'] '+msg);}
+addLog('Mở bài thi');
+var tabWarnEl=document.getElementById('tabWarning');
+function showBanner(msg){if(submitted)return;tabWarnEl.innerHTML=msg;tabWarnEl.classList.add('show');setTimeout(function(){tabWarnEl.classList.remove('show');},4000);}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&!submitted){tabViolations++;addLog('Chuyển tab #'+tabViolations);showBanner('⚠️ CẢNH BÁO: Bạn vừa chuyển tab! Vi phạm: '+tabViolations+' lần');}});
+window.addEventListener('blur',function(){if(submitted)return;focusViolations++;addLog('Mất focus #'+focusViolations);showBanner('⚠️ CẢNH BÁO: Bạn vừa rời cửa sổ thi! Vi phạm: '+focusViolations+' lần');});
+function onFsChange(){var isFs=!!(document.fullscreenElement||document.webkitFullscreenElement);if(!isFs&&!submitted){fsViolations++;addLog('Thoát fullscreen #'+fsViolations);document.getElementById('fsWarning').classList.add('show');}}
+document.addEventListener('fullscreenchange',onFsChange);document.addEventListener('webkitfullscreenchange',onFsChange);
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){if(e.key==='F12'){e.preventDefault();return;}if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}if(e.key==='Escape'){e.preventDefault();return;}});
+document.addEventListener('copy',function(e){e.preventDefault();});document.addEventListener('paste',function(e){e.preventDefault();});document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});document.addEventListener('drop',function(e){e.preventDefault();});
+
+// Checkbox limit
+document.addEventListener('DOMContentLoaded',function(){
+  [['q2122',2],['q2324',2],['q2526',2]].forEach(function(pair){
+    var name=pair[0],max=pair[1];
+    document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+      inp.addEventListener('change',function(){
+        if(inp.checked){
+          var n=document.querySelectorAll('input[name="'+name+'"]:checked').length;
+          if(n>max){inp.checked=false;var el=document.getElementById('chk-limit-'+name);el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';clearTimeout(el._t);el._t=setTimeout(function(){el.textContent='';},2500);}
+        }
+      });
+    });
+  });
+});
+
+var MAIN_MS=40*60*1000,EXTRA_MS=5*60*1000,inExtraTime=false,extraStart=null;
+var timerBox=document.getElementById('timerBox'),timerDisplay=document.getElementById('timerDisplay');
+var overlay=document.getElementById('warningOverlay'),extraDisplay=document.getElementById('extraCountdown');
+function fmt(ms){var t=Math.max(0,Math.ceil(ms/1000)),m=Math.floor(t/60),s=t%60;return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
+function tick(){
+  if(timerStopped)return;if(!startTime){if(!window._testStartTime)return;startTime=window._testStartTime;}
+  var now=Date.now();
+  if(!inExtraTime){var rem=MAIN_MS-(now-startTime);timerDisplay.textContent=fmt(rem);if(rem<=60000)timerBox.className='danger';else if(rem<=300000)timerBox.className='warning';else timerBox.className='';if(rem<=0){inExtraTime=true;extraStart=Date.now();overlay.classList.add('show');timerBox.style.display='none';}}
+  else{var xrem=EXTRA_MS-(now-extraStart);extraDisplay.textContent=fmt(xrem);if(xrem<=0)window.forceSubmit();}
+}
+setInterval(tick,500);
+window.stopTimer=function(){timerStopped=true;};
+window.forceSubmit=function(){timerStopped=true;overlay.classList.remove('show');runSubmit();};
+window.getViolationLog=function(){submitted=true;return{tabViolations:tabViolations,focusViolations:focusViolations,fsViolations:fsViolations,log:log};};
+
+var ANS={
+  q1:['125'],q2:['certificate'],q3:['online'],q4:['1800'],q5:['night'],
+  q6:['autumn'],q7:['thunderstorm'],q8:['helmet'],q9:['age'],q10:['stand'],
+  q11:['lake'],q12:['picnic'],q13:['flowers'],q14:['20','twenty'],q15:['motor'],
+  q16:['art gallery'],q17:['concert hall'],q18:['2.30','2:30','2.30 pm','2:30 pm'],
+  q19:['c'],q20:['b'],
+  q2122:{correct:['c','d']},
+  q2324:{correct:['c','e']},
+  q2526:{correct:['a','c']},
+  q27:['b'],q28:['e'],q29:['g'],q30:['a'],
+  q31:['b'],q32:['b'],q33:['b'],q34:['c'],
+  q35:['leak'],q36:['conference centre','conference center'],q37:['balcony'],q38:['car park'],
+  q39:['exercise'],q40:['transport museum']
+};
+
+function normalize(s){return(s||'').toLowerCase().trim().replace(/\s+/g,' ');}
+function checkAns(key,val){var v=normalize(val);return ANS[key].some(function(a){return normalize(a)===v;});}
+
+window.submitTest=function(){if(submitted)return;document.getElementById('confirmOverlay').classList.add('show');};
+window.doSubmit=function(){document.getElementById('confirmOverlay').classList.remove('show');runSubmit();};
+
+function runSubmit(){
+  if(submitted)return;submitted=true;
+  var score=0,total=40,detailsArr=[];
+
+  // Text Q1-18, Q35-40
+  [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,35,36,37,38,39,40].forEach(function(n){
+    var el=document.getElementById('q'+n),re=document.getElementById('r'+n);
+    if(!el||el.tagName!=='INPUT')return;
+    var ok=checkAns('q'+n,el.value);
+    el.classList.add(ok?'correct':'wrong');
+    re.innerHTML=ok?'<span style="color:#27ae60">✔</span>':'<span style="color:#e74c3c">✘ → <strong>'+ANS['q'+n][0]+'</strong></span>';
+    re.classList.add('show');if(ok)score++;
+    detailsArr.push('Q'+String(n).padStart(2,'0')+':'+(ok?'✔':'✘')+'('+(el.value||'')+')');
+  });
+
+  // Selects Q27-30
+  [27,28,29,30].forEach(function(n){
+    var el=document.getElementById('q'+n),re=document.getElementById('r'+n);
+    if(!el||el.tagName!=='SELECT')return;
+    var ok=checkAns('q'+n,el.value);
+    el.classList.add(ok?'correct':'wrong');
+    re.innerHTML=ok?'<span style="color:#27ae60">✔</span>':'<span style="color:#e74c3c">✘ → <strong>'+ANS['q'+n][0].toUpperCase()+'</strong></span>';
+    re.classList.add('show');if(ok)score++;
+    detailsArr.push('Q'+String(n).padStart(2,'0')+':'+(ok?'✔':'✘')+'('+(el.value||'')+')');
+  });
+
+  // Radios Q19-20, Q31-34
+  [19,20,31,32,33,34].forEach(function(n){
+    var radios=document.querySelectorAll('input[name="q'+n+'"]'),re=document.getElementById('r'+n);
+    var chosen='';radios.forEach(function(r){if(r.checked)chosen=r.value;});
+    var ok=checkAns('q'+n,chosen);
+    radios.forEach(function(r){var lbl=r.parentElement;lbl.classList.remove('correct-label','wrong-label');if(normalize(r.value)===normalize(ANS['q'+n][0]))lbl.classList.add('correct-label');else if(r.checked&&!ok)lbl.classList.add('wrong-label');});
+    re.innerHTML=ok?'<span style="color:#27ae60">✔ Correct!</span>':'<span style="color:#e74c3c">✘ Answer: <strong>'+ANS['q'+n][0].toUpperCase()+'</strong></span>';
+    re.classList.add('show');if(ok)score++;
+    detailsArr.push('Q'+String(n).padStart(2,'0')+':'+(ok?'✔':'✘')+'('+chosen+')');
+  });
+
+  // Checkboxes Q21-22, Q23-24, Q25-26
+  [['q2122','21-22',2],['q2324','23-24',2],['q2526','25-26',2]].forEach(function(grp){
+    var name=grp[0],label=grp[1],max=grp[2];
+    var correct=ANS[name].correct;
+    var chosen=Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(function(x){return x.value.toLowerCase();});
+    var allCorrect=chosen.length===correct.length&&correct.every(function(c){return chosen.indexOf(c)>=0;});
+    if(allCorrect)score+=2;else if(correct.some(function(c){return chosen.indexOf(c)>=0;}))score+=1;
+    document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+      var lbl=inp.parentElement;lbl.classList.remove('correct-label','wrong-label');
+      if(correct.indexOf(inp.value.toLowerCase())>=0)lbl.classList.add('correct-label');
+      else if(inp.checked)lbl.classList.add('wrong-label');
+    });
+    var re=document.getElementById('r'+name);
+    re.innerHTML='<span style="color:#555;">Đáp án đúng: <strong>'+correct.map(function(c){return c.toUpperCase();}).join(', ')+'</strong></span>';
+    re.classList.add('show');
+    detailsArr.push('Q'+label+':['+chosen.map(function(v){return v.toUpperCase()+(correct.indexOf(v)>=0?'✔':'✘');}).join(' ')+']');
+  });
+
+  detailsArr.sort(function(a,b){return parseInt(a.slice(1))-parseInt(b.slice(1));});
+
+  document.querySelectorAll('input[type="text"],input[type="radio"],input[type="checkbox"],select').forEach(function(el){el.disabled=true;});
+  document.getElementById('submitBtn').disabled=true;document.getElementById('submitBtn').textContent='✅ Đã nộp bài';
+  window.stopTimer();var tb=document.getElementById('timerBox');if(tb)tb.style.display='none';
+  var au=document.getElementById('mainAudio');if(au)au.pause();
+
+  var band='';
+  if(score>=39)band='Band 9';else if(score>=37)band='Band 8.5';else if(score>=35)band='Band 8';
+  else if(score>=32)band='Band 7.5';else if(score>=30)band='Band 7';else if(score>=26)band='Band 6.5';
+  else if(score>=23)band='Band 6';else if(score>=18)band='Band 5.5';else if(score>=16)band='Band 5';
+  else if(score>=13)band='Band 4.5';else if(score>=10)band='Band 4';else band='Dưới Band 4';
+
+  var board=document.getElementById('scoreBoard');board.style.display='block';
+  document.getElementById('scoreNum').textContent=score+' / '+total;
+  document.getElementById('scoreMsg').textContent='🏆 Ước lượng: '+band;
+  board.scrollIntoView({behavior:'smooth'});
+
+  var v=window.getViolationLog?window.getViolationLog():null,totalV=0;
+  if(v){totalV=v.tabViolations+v.focusViolations+v.fsViolations;var lp=document.getElementById('logPanel');lp.style.display='block';lp.innerHTML='<strong>📋 Báo cáo hành vi</strong><br>• Chuyển tab: <b>'+v.tabViolations+'</b> lần<br>• Mất focus: <b>'+v.focusViolations+'</b> lần<br>• Thoát fullscreen: <b>'+v.fsViolations+'</b> lần<br>'+(totalV>0?'<span style="color:#f39c12">⚠️ Tổng: '+totalV+' vi phạm</span>':'<span style="color:#2ecc71">✅ Không có vi phạm</span>');document.getElementById('scoreMsg').innerHTML+=(totalV>0?'<br><small style="color:#e74c3c">⚠️ Ghi nhận '+totalV+' hành vi đáng ngờ</small>':'<br><small style="color:#27ae60">✅ Không phát hiện gian lận</small>');}
+
+  (function(){
+    var SHEET_URL='https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+    var et=Date.now(),st=window._testStartTime||et,el=Math.floor((et-st)/1000);
+    fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'Ẩn danh')+' — '+(window._studentClass||''),test:'Listening Test 13',score:score,total:total,band:band,timeTaken:Math.floor(el/60)+' phút '+(el%60)+' giây',tabViol:v?v.tabViolations:0,focusViol:v?v.focusViolations:0,fsViol:v?v.fsViolations:0,details:detailsArr.join(' | ')})}).catch(function(){});
+  })();
+}
+})();
+</script>
+</body>
+</html>
