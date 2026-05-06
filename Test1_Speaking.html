@@ -632,7 +632,10 @@
       <div class="waveform-wrap">
         <canvas id="waveform" height="40"></canvas>
       </div>
-      <button class="btn btn-danger" id="btnStopP1" onclick="stopPart1Recording()">⏹ Dừng & Câu tiếp theo</button>
+      <div style="display:flex;gap:10px;margin-bottom:0;">
+        <button class="btn btn-secondary" id="btnReplayP1" onclick="replayP1Question()" style="flex:1">🔁 Nghe lại câu hỏi</button>
+        <button class="btn btn-danger" id="btnStopP1" onclick="stopPart1Recording()" style="flex:2">⏹ Dừng & Câu tiếp theo</button>
+      </div>
     </div>
 
     <!-- After recording -->
@@ -748,7 +751,10 @@
       <div class="waveform-wrap">
         <canvas id="waveform3" height="40"></canvas>
       </div>
-      <button class="btn btn-danger" id="btnStopP3" onclick="stopPart3Recording()">⏹ Dừng & Câu tiếp theo</button>
+      <div style="display:flex;gap:10px;margin-bottom:0;">
+        <button class="btn btn-secondary" id="btnReplayP3" onclick="replayP3Question()" style="flex:1">🔁 Nghe lại câu hỏi</button>
+        <button class="btn btn-danger" id="btnStopP3" onclick="stopPart3Recording()" style="flex:2">⏹ Dừng & Câu tiếp theo</button>
+      </div>
     </div>
 
     <div id="p3AfterRec" style="display:none">
@@ -828,6 +834,7 @@ let examStartTime = null;
 let totalTimerInterval = null;
 
 // Part 1
+let p1CurrentQuestion = '';
 let p1Questions = [];
 let p1CurrentIdx = 0;
 let p1Recorder = null;
@@ -851,6 +858,7 @@ let p2Analyser = null;
 let p2WaveAnim = null;
 
 // Part 3
+let p3CurrentQuestion = '';
 let p3Questions = [];
 let p3CurrentIdx = 0;
 let p3Recorder = null;
@@ -1055,7 +1063,7 @@ function speak(text, onEnd) {
   function _doSpeak() {
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = 'en-GB';
-    utter.rate = 0.90;
+    utter.rate = 0.78;
     utter.pitch = 1.0;
     const voices = window.speechSynthesis.getVoices();
     const ukVoice = voices.find(v => v.lang === 'en-GB') ||
@@ -1201,12 +1209,24 @@ function askPart1Question() {
     return;
   }
   const q = p1Questions[p1CurrentIdx];
+  p1CurrentQuestion = q.text;
   document.getElementById('p1Counter').textContent = `Câu ${p1CurrentIdx + 1} / ${p1Questions.length}`;
   showP1AudioPlaying(`Câu ${p1CurrentIdx + 1}: Examiner đang hỏi...`);
   document.getElementById('p1RecSection').style.display = 'none';
   speak(q.text, () => {
     hideP1AudioPlaying();
     setTimeout(() => startPart1Recording(), 1200);
+  });
+}
+
+function replayP1Question() {
+  if (!p1CurrentQuestion) return;
+  const btn = document.getElementById('btnReplayP1');
+  btn.disabled = true;
+  btn.textContent = '🔊 Đang phát...';
+  speak(p1CurrentQuestion, () => {
+    btn.disabled = false;
+    btn.textContent = '🔁 Nghe lại câu hỏi';
   });
 }
 
@@ -1428,11 +1448,23 @@ function askPart3Question() {
     return;
   }
   const q = p3Questions[p3CurrentIdx];
+  p3CurrentQuestion = q.text;
   document.getElementById('p3Counter').textContent = `Câu ${p3CurrentIdx + 1} / ${p3Questions.length}`;
   showP3AudioPlaying(`Câu ${p3CurrentIdx + 1}: Examiner đang hỏi...`);
   speak(q.text, () => {
     hideP3AudioPlaying();
     setTimeout(() => startPart3Recording(), 1200);
+  });
+}
+
+function replayP3Question() {
+  if (!p3CurrentQuestion) return;
+  const btn = document.getElementById('btnReplayP3');
+  btn.disabled = true;
+  btn.textContent = '🔊 Đang phát...';
+  speak(p3CurrentQuestion, () => {
+    btn.disabled = false;
+    btn.textContent = '🔁 Nghe lại câu hỏi';
   });
 }
 
