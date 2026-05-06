@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher — IELTS Speaking</title>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<style>
+  :root {
+    --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a;
+    --border: #2e3350; --accent: #4f8ef7; --accent2: #6c63ff;
+    --green: #22c55e; --yellow: #f59e0b; --red: #ef4444;
+    --text: #e8eaf0; --text2: #9099b5; --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', Arial, sans-serif; min-height: 100vh; }
+
+  /* HEADER */
+  .header {
+    background: var(--surface); border-bottom: 1px solid var(--border);
+    padding: 14px 24px; display: flex; align-items: center;
+    justify-content: space-between; position: sticky; top: 0; z-index: 100;
+  }
+  .header-title { font-size: 18px; font-weight: 800; background: linear-gradient(135deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .header-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .teacher-badge { font-size: 13px; color: var(--text2); }
+  .teacher-badge span { color: var(--accent); font-weight: 600; }
+
+  /* LAYOUT */
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px; }
+
+  /* LOGIN */
+  #screenLogin { display: flex; align-items: center; justify-content: center; min-height: 80vh; }
+  .login-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px 36px; max-width: 400px; width: 100%; text-align: center; }
+  .login-icon { font-size: 52px; display: block; margin-bottom: 12px; }
+  .login-title { font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .login-sub { font-size: 14px; color: var(--text2); margin-bottom: 28px; }
+
+  /* FILTERS */
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; align-items: center; }
+  .filter-input {
+    background: var(--surface2); border: 1.5px solid var(--border);
+    border-radius: 8px; color: var(--text); font-size: 14px;
+    padding: 8px 12px; outline: none; transition: border-color 0.2s;
+  }
+  .filter-input:focus { border-color: var(--accent); }
+  .btn-refresh {
+    background: var(--surface2); border: 1.5px solid var(--border);
+    border-radius: 8px; color: var(--text2); font-size: 13px;
+    padding: 8px 14px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-refresh:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* STATS BAR */
+  .stats-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .stat-chip {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 8px 14px; font-size: 13px; color: var(--text2);
+  }
+  .stat-chip strong { color: var(--accent); }
+
+  /* TABLE */
+  .table-wrap { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--surface2); color: var(--text2); font-weight: 600;
+       padding: 10px 12px; text-align: left; border-bottom: 2px solid var(--border);
+       white-space: nowrap; }
+  td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:hover td { background: rgba(79,142,247,0.04); }
+
+  /* STATUS BADGE */
+  .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+  .badge-complete { background: rgba(34,197,94,0.15); color: var(--green); }
+  .badge-uploading { background: rgba(245,158,11,0.15); color: var(--yellow); }
+  .badge-graded { background: rgba(79,142,247,0.15); color: var(--accent); }
+
+  /* AUDIO PLAYER */
+  .audio-list { display: flex; flex-direction: column; gap: 4px; min-width: 200px; }
+  .audio-item { display: flex; align-items: center; gap: 6px; }
+  .audio-label-sm { font-size: 11px; color: var(--text2); white-space: nowrap; width: 70px; flex-shrink: 0; }
+  .btn-play {
+    background: rgba(79,142,247,0.15); border: 1px solid rgba(79,142,247,0.3);
+    border-radius: 6px; color: var(--accent); font-size: 12px;
+    padding: 3px 10px; cursor: pointer; white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .btn-play:hover { background: var(--accent); color: #fff; }
+  .btn-play.playing { background: var(--red); border-color: var(--red); color: #fff; }
+
+  /* GRADING */
+  .grade-form { min-width: 180px; }
+  .grade-row { display: flex; align-items: center; gap:6px; margin-bottom: 5px; }
+  .grade-label { font-size: 11px; color: var(--text2); width: 90px; flex-shrink: 0; }
+  .grade-input {
+    width: 52px; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 5px; color: var(--text); font-size: 13px; font-weight: 700;
+    padding: 3px 6px; outline: none; text-align: center;
+    transition: border-color 0.2s;
+  }
+  .grade-input:focus { border-color: var(--accent); }
+  .note-input {
+    width: 100%; background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 5px; color: var(--text); font-size: 12px;
+    padding: 5px 8px; outline: none; resize: none; font-family: inherit;
+    margin-top: 5px; transition: border-color 0.2s;
+  }
+  .note-input:focus { border-color: var(--accent); }
+  .btn-save {
+    width: 100%; margin-top: 8px; padding: 7px; border: none;
+    border-radius: 7px; font-size: 13px; font-weight: 700;
+    cursor: pointer; transition: all 0.2s;
+    background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff;
+  }
+  .btn-save:hover { opacity: 0.88; }
+  .btn-save:disabled { opacity: 0.4; cursor: not-allowed; }
+  .save-status { font-size: 11px; text-align: center; margin-top: 4px; height: 14px; }
+
+  /* AUDIO MODAL */
+  #audioModal {
+    display: none; position: fixed; inset: 0;
+    background: rgba(10,12,20,0.85); z-index: 999;
+    align-items: center; justify-content: center;
+  }
+  #audioModal.open { display: flex; }
+  .audio-modal-box {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 24px 28px; max-width: 480px; width: 90%;
+  }
+  .audio-modal-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+  .audio-modal-sub { font-size: 12px; color: var(--text2); margin-bottom: 16px; }
+  #modalAudio { width: 100%; margin-bottom: 14px; }
+  .btn-close-modal {
+    width: 100%; padding: 9px; background: var(--surface2);
+    border: 1.5px solid var(--border); border-radius: 8px;
+    color: var(--text2); font-size: 13px; cursor: pointer;
+  }
+  .btn-close-modal:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* EMPTY STATE */
+  .empty-state { text-align: center; padding: 60px 20px; color: var(--text2); }
+  .empty-state .icon { font-size: 48px; display: block; margin-bottom: 12px; }
+
+  /* LOADING */
+  .loading { text-align: center; padding: 40px; color: var(--text2); }
+  .spinner { display: inline-block; width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 12px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 600px) {
+    th, td { padding: 8px 8px; font-size: 12px; }
+    .grade-form { min-width: 140px; }
+    .audio-list { min-width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- AUDIO MODAL -->
+<div id="audioModal">
+  <div class="audio-modal-box">
+    <div class="audio-modal-title" id="modalTitle">Đang phát...</div>
+    <div class="audio-modal-sub" id="modalSub"></div>
+    <audio id="modalAudio" controls></audio>
+    <button class="btn-close-modal" onclick="closeModal()">✕ Đóng</button>
+  </div>
+</div>
+
+<!-- LOGIN SCREEN -->
+<div id="screenLogin">
+  <div class="login-card">
+    <span class="login-icon">🎤</span>
+    <div class="login-title">Teacher Portal</div>
+    <div class="login-sub">IELTS Speaking — Chấm bài học viên</div>
+    <div id="g_id_onload"
+      data-client_id="335036960844-jigq363jlvqrdako1p1v4lkf5ict9hjk.apps.googleusercontent.com"
+      data-callback="onGoogleLogin"
+      data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="filled_blue"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left">
+    </div>
+    <div id="loginError" style="margin-top:14px;font-size:13px;color:var(--red);display:none"></div>
+  </div>
+</div>
+
+<!-- MAIN SCREEN -->
+<div id="screenMain" style="display:none">
+  <div class="header">
+    <div>
+      <div class="header-title">🎤 IELTS Speaking — Teacher Portal</div>
+      <div class="header-sub">Chấm bài Speaking</div>
+    </div>
+    <div class="header-right">
+      <div class="teacher-badge">Xin chào, <span id="teacherName">...</span></div>
+      <button class="btn-refresh" onclick="loadSubmissions()">🔄 Tải lại</button>
+    </div>
+  </div>
+
+  <div class="container">
+    <!-- STATS -->
+    <div class="stats-bar" id="statsBar">
+      <div class="stat-chip">Tổng: <strong id="statTotal">0</strong></div>
+      <div class="stat-chip">Chờ chấm: <strong id="statPending">0</strong></div>
+      <div class="stat-chip">Đã chấm: <strong id="statGraded">0</strong></div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <input class="filter-input" id="filterName" placeholder="🔍 Tìm tên học viên..." oninput="renderTable()" style="flex:1;min-width:180px">
+      <select class="filter-input" id="filterTest" onchange="renderTable()">
+        <option value="">Tất cả Test</option>
+        <option value="Speaking Test 1">Test 1</option>
+        <option value="Speaking Test 2">Test 2</option>
+        <option value="Speaking Test 3">Test 3</option>
+        <option value="Speaking Test 4">Test 4</option>
+        <option value="Speaking Test 5">Test 5</option>
+        <option value="Speaking Test 6">Test 6</option>
+        <option value="Speaking Test 7">Test 7</option>
+        <option value="Speaking Test 8">Test 8</option>
+        <option value="Speaking Test 9">Test 9</option>
+        <option value="Speaking Test 10">Test 10</option>
+      </select>
+      <select class="filter-input" id="filterStatus" onchange="renderTable()">
+        <option value="">Tất cả trạng thái</option>
+        <option value="pending">Chưa chấm</option>
+        <option value="graded">Đã chấm</option>
+      </select>
+    </div>
+
+    <!-- TABLE -->
+    <div id="mainContent">
+      <div class="loading"><div class="spinner"></div><br>Đang tải dữ liệu...</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+
+let _token = '';
+let _allData = [];
+let _currentAudio = null;
+
+// ── GOOGLE LOGIN ──────────────────────────────────────────────────
+function onGoogleLogin(response) {
+  _token = response.credential;
+  // Verify với Apps Script
+  fetch(APPS_SCRIPT_URL + '?action=verify_teacher&token=' + encodeURIComponent(_token))
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'ok') {
+        // Decode JWT để lấy tên
+        const payload = JSON.parse(atob(_token.split('.')[1]));
+        document.getElementById('teacherName').textContent = payload.name || payload.email;
+        document.getElementById('screenLogin').style.display = 'none';
+        document.getElementById('screenMain').style.display = 'block';
+        loadSubmissions();
+      } else {
+        showLoginError('Tài khoản không có quyền truy cập.');
+      }
+    })
+    .catch(() => showLoginError('Lỗi kết nối. Vui lòng thử lại.'));
+}
+
+function showLoginError(msg) {
+  const el = document.getElementById('loginError');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+// ── LOAD DATA ─────────────────────────────────────────────────────
+function loadSubmissions() {
+  document.getElementById('mainContent').innerHTML =
+    '<div class="loading"><div class="spinner"></div><br>Đang tải dữ liệu...</div>';
+
+  fetch(APPS_SCRIPT_URL + '?action=get_speaking_submissions&token=' + encodeURIComponent(_token))
+    .then(r => r.json())
+    .then(data => {
+      if (data.status === 'ok') {
+        _allData = (data.data || []).reverse(); // mới nhất lên đầu
+        updateStats();
+        renderTable();
+      } else {
+        document.getElementById('mainContent').innerHTML =
+          '<div class="empty-state"><span class="icon">⚠️</span>Lỗi tải dữ liệu: ' + (data.msg||'') + '</div>';
+      }
+    })
+    .catch(err => {
+      document.getElementById('mainContent').innerHTML =
+        '<div class="empty-state"><span class="icon">⚠️</span>Lỗi kết nối: ' + err.message + '</div>';
+    });
+}
+
+// ── STATS ─────────────────────────────────────────────────────────
+function updateStats() {
+  const total   = _allData.length;
+  const graded  = _allData.filter(r => r.overall).length;
+  const pending = total - graded;
+  document.getElementById('statTotal').textContent   = total;
+  document.getElementById('statPending').textContent = pending;
+  document.getElementById('statGraded').textContent  = graded;
+}
+
+// ── RENDER TABLE ──────────────────────────────────────────────────
+function renderTable() {
+  const nameFilter   = (document.getElementById('filterName').value || '').toLowerCase();
+  const testFilter   = document.getElementById('filterTest').value;
+  const statusFilter = document.getElementById('filterStatus').value;
+
+  let rows = _allData.filter(r => {
+    if (nameFilter && !(r.student||'').toLowerCase().includes(nameFilter)) return false;
+    if (testFilter && r.test !== testFilter) return false;
+    if (statusFilter === 'pending' && r.overall) return false;
+    if (statusFilter === 'graded'  && !r.overall) return false;
+    return true;
+  });
+
+  if (rows.length === 0) {
+    document.getElementById('mainContent').innerHTML =
+      '<div class="empty-state"><span class="icon">📭</span>Không có bài nào</div>';
+    return;
+  }
+
+  let html = `<div class="table-wrap"><table>
+    <thead><tr>
+      <th>#</th>
+      <th>Thời gian</th>
+      <th>Học viên</th>
+      <th>Bài thi</th>
+      <th>Trạng thái</th>
+      <th>File ghi âm</th>
+      <th>Chấm điểm</th>
+    </tr></thead><tbody>`;
+
+  rows.forEach((r, idx) => {
+    const isGraded = !!r.overall;
+    const statusBadge = isGraded
+      ? '<span class="badge badge-graded">✅ Đã chấm</span>'
+      : r.status === 'complete'
+        ? '<span class="badge badge-complete">🎤 Sẵn sàng</span>'
+        : '<span class="badge badge-uploading">⏳ Đang tải</span>';
+
+    // Files
+    const files = r.files || [];
+    let filesHtml = '<div class="audio-list">';
+    if (files.length === 0) {
+      filesHtml += '<span style="color:var(--text2);font-size:12px">Chưa có file</span>';
+    } else {
+      files.forEach(f => {
+        filesHtml += `<div class="audio-item">
+          <span class="audio-label-sm">${f.label}</span>
+          <button class="btn-play" onclick="playAudio('${f.fileId}','${f.label}','${r.student}','${r.test}')">▶ Nghe</button>
+        </div>`;
+      });
+    }
+    filesHtml += '</div>';
+
+    // Grade form
+    const rowId = 'row_' + r.row;
+    const gradeHtml = `<div class="grade-form" id="${rowId}">
+      <div class="grade-row"><span class="grade-label">Fluency & Coh.</span>
+        <input class="grade-input" id="${rowId}_flu" type="number" min="0" max="9" step="0.5" value="${r.fluency||''}" placeholder="–"></div>
+      <div class="grade-row"><span class="grade-label">Lexical Res.</span>
+        <input class="grade-input" id="${rowId}_lex" type="number" min="0" max="9" step="0.5" value="${r.lexical||''}" placeholder="–"></div>
+      <div class="grade-row"><span class="grade-label">Grammar</span>
+        <input class="grade-input" id="${rowId}_grm" type="number" min="0" max="9" step="0.5" value="${r.grammar||''}" placeholder="–"></div>
+      <div class="grade-row"><span class="grade-label">Pronunciation</span>
+        <input class="grade-input" id="${rowId}_pro" type="number" min="0" max="9" step="0.5" value="${r.pronunciation||''}" placeholder="–"></div>
+      <div class="grade-row"><span class="grade-label" style="color:var(--accent);font-weight:700">Overall Band</span>
+        <input class="grade-input" id="${rowId}_ovr" type="number" min="0" max="9" step="0.5" value="${r.overall||''}" placeholder="–" style="border-color:var(--accent)"></div>
+      <textarea class="note-input" id="${rowId}_note" rows="2" placeholder="Nhận xét...">${r.teacherNote||''}</textarea>
+      <button class="btn-save" onclick="saveGrade('${rowId}','${r.student}','${r.test}')">💾 Lưu điểm</button>
+      <div class="save-status" id="${rowId}_status">${isGraded ? '<span style="color:var(--green)">✅ Đã lưu</span>' : ''}</div>
+    </div>`;
+
+    html += `<tr>
+      <td style="color:var(--text2)">${idx+1}</td>
+      <td style="white-space:nowrap;color:var(--text2);font-size:12px">${r.timestamp||''}</td>
+      <td style="font-weight:600">${r.student||''}</td>
+      <td style="color:var(--text2)">${r.test||''}</td>
+      <td>${statusBadge}<br><span style="font-size:11px;color:var(--text2);margin-top:4px;display:block">${r.totalTime ? '⏱ '+r.totalTime : ''}</span></td>
+      <td>${filesHtml}</td>
+      <td>${gradeHtml}</td>
+    </tr>`;
+  });
+
+  html += '</tbody></table></div>';
+  document.getElementById('mainContent').innerHTML = html;
+}
+
+// ── PLAY AUDIO ────────────────────────────────────────────────────
+function playAudio(fileId, label, student, test) {
+  // Stream trực tiếp từ Google Drive
+  const streamUrl = 'https://drive.google.com/uc?export=download&id=' + fileId;
+  document.getElementById('modalTitle').textContent = label + ' — ' + student;
+  document.getElementById('modalSub').textContent   = test;
+  const audio = document.getElementById('modalAudio');
+  audio.src = streamUrl;
+  audio.load();
+  audio.play().catch(() => {
+    // Nếu không autoplay được, user tự nhấn play
+  });
+  _currentAudio = audio;
+  document.getElementById('audioModal').classList.add('open');
+}
+
+function closeModal() {
+  const audio = document.getElementById('modalAudio');
+  audio.pause();
+  audio.src = '';
+  document.getElementById('audioModal').classList.remove('open');
+  _currentAudio = null;
+}
+
+// Đóng modal khi click ngoài
+document.getElementById('audioModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+
+// ── SAVE GRADE ────────────────────────────────────────────────────
+function saveGrade(rowId, student, test) {
+  const flu = document.getElementById(rowId + '_flu').value;
+  const lex = document.getElementById(rowId + '_lex').value;
+  const grm = document.getElementById(rowId + '_grm').value;
+  const pro = document.getElementById(rowId + '_pro').value;
+  const ovr = document.getElementById(rowId + '_ovr').value;
+  const note= document.getElementById(rowId + '_note').value;
+  const statusEl = document.getElementById(rowId + '_status');
+
+  if (!ovr) {
+    statusEl.innerHTML = '<span style="color:var(--red)">⚠️ Cần nhập Overall Band</span>';
+    return;
+  }
+
+  const btn = document.querySelector('#' + rowId + ' .btn-save');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang lưu...';
+  statusEl.innerHTML = '';
+
+  const payload = {
+    action:       'save_speaking_grade',
+    token:        _token,
+    student:      student,
+    test:         test,
+    fluency:      parseFloat(flu) || '',
+    lexical:      parseFloat(lex) || '',
+    grammar:      parseFloat(grm) || '',
+    pronunciation:parseFloat(pro) || '',
+    overall:      parseFloat(ovr) || '',
+    teacherNote:  note
+  };
+
+  fetch(APPS_SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(data => {
+    btn.disabled = false;
+    btn.textContent = '💾 Lưu điểm';
+    if (data.status === 'ok') {
+      statusEl.innerHTML = '<span style="color:var(--green)">✅ Đã lưu!</span>';
+      // Cập nhật local data
+      const row = _allData.find(r => r.student === student && r.test === test);
+      if (row) {
+        row.fluency = flu; row.lexical = lex;
+        row.grammar = grm; row.pronunciation = pro;
+        row.overall = ovr; row.teacherNote = note;
+      }
+      updateStats();
+    } else {
+      statusEl.innerHTML = '<span style="color:var(--red)">❌ ' + (data.msg||'Lỗi') + '</span>';
+    }
+  })
+  .catch(err => {
+    btn.disabled = false;
+    btn.textContent = '💾 Lưu điểm';
+    statusEl.innerHTML = '<span style="color:var(--red)">❌ Lỗi kết nối</span>';
+  });
+}
+</script>
+</body>
+</html>
