@@ -770,12 +770,28 @@
     <div class="finish-title">Hoàn thành bài thi!</div>
     <div class="finish-sub" id="finishSub"></div>
     <div class="finish-stats" id="finishStats"></div>
-    <button class="btn btn-green" id="btnDownloadAll" onclick="downloadAll()" style="margin-bottom:12px">
-      📥 Tải file ghi âm tổng hợp
+
+    <!-- Nút nộp bài -->
+    <button class="btn btn-green" id="btnSubmit" onclick="doSubmitAll()" style="margin-bottom:10px;width:100%;font-size:1.05rem">
+      📤 Nộp bài cho giáo viên
     </button>
-    <div class="warn-banner" style="justify-content:center;text-align:center">
-      ✅ Tải file thành công — hãy nộp file cho giáo viên
+
+    <!-- Progress nộp bài -->
+    <div id="submitProgress" style="display:none;margin-bottom:14px">
+      <div style="font-size:0.9rem;color:var(--text-muted);margin-bottom:6px" id="submitStatusText">Đang nộp bài...</div>
+      <div style="background:var(--border);border-radius:8px;height:10px;overflow:hidden">
+        <div id="submitBar" style="height:100%;width:0%;background:var(--green);border-radius:8px;transition:width 0.3s"></div>
+      </div>
+      <div id="submitFileList" style="margin-top:10px;font-size:0.82rem;color:var(--text-muted);line-height:1.7"></div>
     </div>
+
+    <!-- Kết quả -->
+    <div id="submitResult" style="display:none;margin-bottom:14px;padding:12px 14px;border-radius:10px;font-size:0.9rem;text-align:center"></div>
+
+    <!-- Tải về (dự phòng) -->
+    <button class="btn btn-secondary" id="btnDownloadAll" onclick="downloadAll()" style="width:100%;font-size:0.9rem">
+      📥 Tải file về máy (dự phòng)
+    </button>
   </div>
 </div>
 
@@ -1580,13 +1596,105 @@ function showFinish() {
 }
 
 // ============================================================
+// APPS SCRIPT URL
+// ============================================================
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+
+// ============================================================
+// NỘP BÀI LÊN SERVER
+// ============================================================
+async function doSubmitAll() {
+  if (allRecordings.length === 0) {
+    showToast('Không có file ghi âm nào!', 3000); return;
+  }
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang nộp bài...';
+
+  document.getElementById('submitProgress').style.display = 'block';
+  document.getElementById('submitResult').style.display = 'none';
+
+  const total = allRecordings.length;
+  const totalSec = getTotalElapsed();
+  let successCount = 0;
+  const fileListEl = document.getElementById('submitFileList');
+  fileListEl.innerHTML = '';
+
+  for (let i = 0; i < total; i++) {
+    const rec = allRecordings[i];
+    const isLast = (i === total - 1);
+    const pct = Math.round(((i) / total) * 100);
+    document.getElementById('submitBar').style.width = pct + '%';
+    document.getElementById('submitStatusText').textContent =
+      `Đang tải file ${i + 1}/${total}: ${rec.label}...`;
+
+    // Convert blob → base64
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(rec.blob);
+    });
+
+    const payload = {
+      action:    'save_speaking',
+      student:   studentName,
+      test:      'Test1',
+      label:     rec.label,
+      mimeType:  rec.blob.type || 'audio/webm',
+      audioB64:  base64,
+      totalTime: isLast ? String(totalSec) : '',
+      isLast:    isLast
+    };
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      successCount++;
+      const li = document.createElement('div');
+      li.textContent = '✅ ' + rec.label;
+      fileListEl.appendChild(li);
+    } catch (err) {
+      const li = document.createElement('div');
+      li.style.color = '#e55';
+      li.textContent = '❌ ' + rec.label + ' — ' + err.message;
+      fileListEl.appendChild(li);
+    }
+
+    await new Promise(r => setTimeout(r, 300));
+  }
+
+  // Hoàn thành
+  document.getElementById('submitBar').style.width = '100%';
+  document.getElementById('submitStatusText').textContent = 'Hoàn tất!';
+
+  const resultEl = document.getElementById('submitResult');
+  resultEl.style.display = 'block';
+  if (successCount === total) {
+    resultEl.style.background = 'rgba(39,174,96,0.15)';
+    resultEl.style.color = '#27ae60';
+    resultEl.innerHTML = '🎉 Nộp bài thành công! Giáo viên sẽ chấm và phản hồi sớm.';
+    btn.textContent = '✅ Đã nộp bài';
+  } else {
+    resultEl.style.background = 'rgba(231,76,60,0.12)';
+    resultEl.style.color = '#e74c3c';
+    resultEl.innerHTML = `⚠️ ${successCount}/${total} file đã nộp. Vui lòng tải về và gửi cho giáo viên.`;
+    btn.disabled = false;
+    btn.textContent = '🔄 Thử nộp lại';
+  }
+}
+
+// ============================================================
 // DOWNLOAD ALL
 // ============================================================
 async function downloadAll() {
   if (allRecordings.length === 0) { showToast('Không có file nào để tải!'); return; }
   const safeName = removeAccents(studentName);
   const dateStr = new Date().toLocaleDateString('vi-VN').replace(/\//g,'');
-  // Download each file individually (no ZIP needed)
   for (const rec of allRecordings) {
     const ext = getExtension(rec.blob.type);
     const url = URL.createObjectURL(rec.blob);
@@ -1597,7 +1705,7 @@ async function downloadAll() {
     await new Promise(r => setTimeout(r, 400));
     URL.revokeObjectURL(url);
   }
-  showToast('✅ Đã tải tất cả file! Hãy nộp cho giáo viên.', 4000);
+  showToast('✅ Đã tải tất cả file!', 4000);
 }
 
 </script>
