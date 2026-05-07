@@ -396,11 +396,21 @@ function renderTable() {
 // ── PLAY AUDIO ────────────────────────────────────────────────────
 function playAudio(fileId, label, student, test) {
   // Stream trực tiếp từ Google Drive
-  const streamUrl = 'https://drive.google.com/uc?export=download&id=' + fileId;
+  const streamUrl = 'https://drive.google.com/file/d/' + fileId + '/preview';
   document.getElementById('modalTitle').textContent = label + ' — ' + student;
   document.getElementById('modalSub').textContent   = test;
   const audio = document.getElementById('modalAudio');
-  audio.src = streamUrl;
+  audio.src = '';
+  // Dùng iframe để stream Drive audio
+  let iframe = document.getElementById('modalIframe');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.id = 'modalIframe';
+    iframe.style.cssText = 'width:100%;height:80px;border:none;margin-bottom:14px;border-radius:8px;';
+    audio.parentNode.insertBefore(iframe, audio);
+    audio.style.display = 'none';
+  }
+  iframe.src = streamUrl;
   audio.load();
   audio.play().catch(() => {
     // Nếu không autoplay được, user tự nhấn play
@@ -413,6 +423,8 @@ function closeModal() {
   const audio = document.getElementById('modalAudio');
   audio.pause();
   audio.src = '';
+  const iframe = document.getElementById('modalIframe');
+  if (iframe) iframe.src = '';
   document.getElementById('audioModal').classList.remove('open');
   _currentAudio = null;
 }
