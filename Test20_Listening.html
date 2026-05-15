@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Listening Test 20</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,sans-serif;background:#f4f6f9;color:#222;user-select:none;-webkit-user-select:none;}
+  .container{max-width:860px;margin:30px auto;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.1);padding:36px 40px 50px;}
+  h1{text-align:center;font-size:1.6em;letter-spacing:2px;color:#1a3a5c;margin-bottom:6px;}
+  .subtitle{text-align:center;color:#666;font-size:0.95em;margin-bottom:28px;}
+  .audio-section{background:#eaf3fb;border:1px solid #b3d4ef;border-radius:8px;padding:16px 20px;margin-bottom:28px;text-align:center;}
+  .audio-section p{font-weight:bold;color:#1a3a5c;margin-bottom:10px;}
+  audio{width:100%;}
+  .part{margin-bottom:36px;}
+  .part-title{background:#1a3a5c;color:#fff;padding:8px 16px;border-radius:6px;font-size:1.05em;font-weight:bold;margin-bottom:14px;}
+  .question-block{margin-bottom:18px;}
+  .instruction{font-style:italic;color:#555;margin-bottom:12px;font-size:0.93em;}
+  .notes-box{border:1px solid #ccc;border-radius:8px;padding:18px 22px;background:#fafafa;margin-bottom:12px;}
+  .notes-box h3{text-align:center;font-size:1em;color:#1a3a5c;margin-bottom:12px;border-bottom:1px solid #ddd;padding-bottom:6px;}
+  .note-row{display:flex;align-items:flex-start;padding:7px 0;border-bottom:1px dotted #e0e0e0;flex-wrap:wrap;gap:6px;}
+  .note-row:last-child{border-bottom:none;}
+  .note-label{font-weight:bold;color:#1a3a5c;min-width:200px;}
+  .note-value{color:#444;flex:1;line-height:1.8;}
+  .qid-tag{font-size:0.72em;color:#aaa;margin-right:3px;}
+  input[type="text"]{border:none;border-bottom:2px solid #1a3a5c;background:transparent;font-size:0.95em;padding:2px 6px;width:150px;color:#1a3a5c;outline:none;user-select:text;-webkit-user-select:text;}
+  input[type="text"]:focus{border-bottom-color:#f39c12;}
+  input[type="text"].correct{border-bottom-color:#27ae60;background:#eafaf1;}
+  input[type="text"].wrong{border-bottom-color:#e74c3c;background:#fdf0ef;}
+  table{width:100%;border-collapse:collapse;margin-top:8px;}
+  th{background:#1a3a5c;color:#fff;padding:8px 10px;text-align:left;font-size:0.9em;}
+  td{border:1px solid #ccc;padding:8px 10px;font-size:0.9em;vertical-align:middle;}
+  tr:nth-child(even) td{background:#f7f7f7;}
+  .mcq-question{margin-bottom:20px;}
+  .mcq-question p{font-weight:bold;margin-bottom:8px;color:#222;}
+  .mcq-options{display:flex;flex-direction:column;gap:6px;margin-left:16px;}
+  .mcq-options label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:0.95em;}
+  .mcq-options label.correct-label{color:#27ae60;font-weight:bold;}
+  .mcq-options label.wrong-label{color:#e74c3c;}
+  .matching-key{background:#eaf3fb;border-radius:6px;padding:10px 16px;margin-bottom:12px;font-size:0.9em;}
+  .matching-key p{margin-bottom:3px;}
+  .matching-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .matching-row span{font-weight:bold;min-width:240px;}
+  select{border:1px solid #1a3a5c;border-radius:4px;padding:4px 8px;font-size:0.93em;color:#1a3a5c;background:#fff;cursor:pointer;user-select:text;-webkit-user-select:text;}
+  select.correct{border-color:#27ae60;background:#eafaf1;color:#27ae60;}
+  select.wrong{border-color:#e74c3c;background:#fdf0ef;color:#e74c3c;}
+  .answer-reveal{font-size:0.82em;margin-top:3px;display:none;}
+  .answer-reveal.show{display:inline;}
+  .chk-group{margin-bottom:16px;}
+  .chk-group label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:0.95em;margin-bottom:6px;margin-left:16px;}
+  .chk-group label.correct-label{color:#27ae60;font-weight:bold;}
+  .chk-group label.wrong-label{color:#e74c3c;}
+  .chk-limit-warn{color:#e67e22;font-size:0.82em;margin-left:16px;min-height:1.2em;}
+  .submit-section{text-align:center;margin-top:36px;}
+  #submitBtn{background:#1a3a5c;color:#fff;border:none;padding:13px 50px;font-size:1.05em;border-radius:8px;cursor:pointer;letter-spacing:1px;}
+  #submitBtn:hover{background:#f39c12;}
+  #scoreBoard{display:none;margin-top:28px;border:2px solid #1a3a5c;border-radius:10px;padding:24px 30px;text-align:center;background:#eaf3fb;}
+  #scoreBoard h2{color:#1a3a5c;font-size:1.4em;margin-bottom:8px;}
+  .score-num{font-size:2em;font-weight:bold;color:#f39c12;}
+  #confirmOverlay{display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;}
+  #confirmOverlay.show{display:flex;}
+  #confirmBox{background:#fff;border-radius:14px;padding:32px 36px;max-width:380px;text-align:center;box-shadow:0 6px 30px rgba(0,0,0,0.3);}
+  #confirmBox h3{color:#1a3a5c;margin-bottom:12px;}
+  #confirmBox p{color:#555;margin-bottom:20px;font-size:0.95em;line-height:1.5;}
+  #confirmBox .btn-row{display:flex;gap:12px;justify-content:center;}
+  #confirmBox button{padding:10px 24px;border:none;border-radius:8px;font-size:1em;cursor:pointer;}
+  .btn-confirm{background:#1a3a5c;color:#fff;}.btn-cancel{background:#ccc;color:#333;}
+  #timerBox{position:fixed;top:18px;right:22px;z-index:999;background:#1a3a5c;color:#fff;padding:10px 18px;border-radius:10px;font-size:1.05em;font-weight:bold;box-shadow:0 3px 12px rgba(0,0,0,0.25);display:flex;flex-direction:column;align-items:center;gap:2px;min-width:120px;text-align:center;}
+  #timerBox .timer-label{font-size:0.72em;letter-spacing:1px;opacity:0.8;}
+  #timerBox .timer-time{font-size:1.4em;letter-spacing:2px;}
+  #timerBox.warning{background:#e67e22;animation:pulse 1s infinite;}
+  #timerBox.danger{background:#e74c3c;animation:pulse 0.5s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(231,76,60,0.6);}70%{box-shadow:0 0 0 10px rgba(231,76,60,0);}100%{box-shadow:0 0 0 0 rgba(231,76,60,0);}}
+  #warningOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);justify-content:center;align-items:center;}
+  #warningOverlay.show{display:flex;}
+  #warningBox{background:#fff;border-radius:14px;padding:36px 40px;text-align:center;max-width:380px;box-shadow:0 6px 30px rgba(0,0,0,0.3);}
+  #warningBox h2{color:#e74c3c;font-size:1.4em;margin-bottom:12px;}
+  #warningBox p{color:#444;margin-bottom:18px;font-size:0.97em;line-height:1.5;}
+  .countdown-big{font-size:2.4em;font-weight:bold;color:#e74c3c;margin-bottom:16px;}
+  #warningBox button{background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;}
+  #tabWarning{display:none;position:fixed;top:0;left:0;right:0;z-index:99998;background:#e74c3c;color:#fff;text-align:center;padding:10px;font-size:0.95em;font-weight:bold;}
+  #tabWarning.show{display:block;}
+  #fsWarning{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);justify-content:center;align-items:center;flex-direction:column;gap:16px;}
+  #fsWarning.show{display:flex!important;}
+  #logPanel{display:none;position:fixed;bottom:18px;left:18px;z-index:9997;background:rgba(26,58,92,0.92);color:#fff;border-radius:8px;padding:10px 16px;font-size:0.78em;max-width:260px;line-height:1.6;}
+  @media print{body{display:none!important;}}
+  @media(max-width:600px){.container{padding:20px 14px;}#timerBox{top:10px;right:10px;padding:7px 12px;min-width:95px;}}
+</style>
+</head>
+<body>
+<div id="timerBox"><span class="timer-label">⏱ THỜI GIAN</span><span class="timer-time" id="timerDisplay">40:00</span></div>
+<div id="warningOverlay"><div id="warningBox"><h2>⏰ Hết giờ làm bài!</h2><p>Bạn đã dùng hết <strong>40 phút</strong>.<br>Bài sẽ tự động nộp sau:</p><div class="countdown-big" id="extraCountdown">5:00</div><p style="font-size:0.88em;color:#888;">Hoặc bấm nộp bài ngay bây giờ.</p><button onclick="window.forceSubmit()">✅ Nộp bài ngay</button></div></div>
+<div id="confirmOverlay"><div id="confirmBox"><h3>📋 Xác nhận nộp bài</h3><p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p><div class="btn-row"><button class="btn-confirm" onclick="window.doSubmit()">✅ Xác nhận nộp</button><button class="btn-cancel" onclick="document.getElementById('confirmOverlay').classList.remove('show')">↩ Quay lại làm bài</button></div></div></div>
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;">🎧 IELTS Listening Test 20</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;"><label style="font-size:0.9em;font-weight:bold;color:#333;">Họ và tên:</label><input type="text" id="studentName" placeholder="Nguyễn Văn A..." style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;"></div>
+    <div style="text-align:left;margin-bottom:24px;"><label style="font-size:0.9em;font-weight:bold;color:#333;">Lớp:</label><input type="text" id="studentClass" placeholder="Ví dụ: 12A1..." style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;"></div>
+    <button onclick="window.startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;width:100%;">✅ Bắt đầu làm bài</button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="tabWarning"></div>
+<div id="fsWarning"><h2 style="color:#f39c12;">⚠️ Vui lòng quay lại chế độ toàn màn hình!</h2><p style="color:#fff;text-align:center;">Bài thi yêu cầu toàn màn hình.<br>Hành vi thoát fullscreen đã được ghi lại.</p><button onclick="window.enterFullscreen()" style="background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;">🔲 Vào toàn màn hình</button></div>
+<div id="logPanel"></div>
+
+<div class="container">
+  <h1>IELTS LISTENING — TEST 20</h1>
+  <p class="subtitle">Điền vào chỗ trống hoặc chọn đáp án đúng. Bấm <strong>Nộp bài</strong> để xem kết quả.</p>
+  <div class="audio-section"><p>🎧 Audio — Listening Test 20</p><audio id="mainAudio" controls><source src="Audio test 20.mp3" type="audio/mpeg">Trình duyệt của bạn không hỗ trợ audio.</audio></div>
+
+  <!-- PART 1 -->
+  <div class="part">
+    <div class="part-title">PART 1 &nbsp;|&nbsp; Questions 1–10</div>
+    <div class="question-block">
+      <p class="instruction">Questions 1–10: Complete the form below. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+      <div class="notes-box">
+        <h3>MINTONS CAR MART — Customer Enquiry</h3>
+        <p style="font-weight:bold;color:#1a3a5c;margin-bottom:8px;">Vehicle Details</p>
+        <div class="note-row"><span class="note-label">Make:</span><span class="note-value">Lida</span></div>
+        <div class="note-row"><span class="note-label">Engine size:</span><span class="note-value"><span class="qid-tag">Q.01.TEST020</span><input type="text" id="q1" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r1"></span></span></div>
+        <div class="note-row"><span class="note-label">Model:</span><span class="note-value">Max</span></div>
+        <div class="note-row"><span class="note-label">Type of gears:</span><span class="note-value"><span class="qid-tag">Q.02.TEST020</span><input type="text" id="q2" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r2"></span></span></div>
+        <div class="note-row"><span class="note-label">Preferred colour:</span><span class="note-value"><span class="qid-tag">Q.03.TEST020</span><input type="text" id="q3" placeholder="..." style="width:80px;"> blue <span class="answer-reveal" id="r3"></span></span></div>
+        <p style="font-weight:bold;color:#1a3a5c;margin:8px 0 4px;">Finance</p>
+        <div class="note-row"><span class="note-label">Customer wishes to arrange:</span><span class="note-value"><span class="qid-tag">Q.04.TEST020</span><input type="text" id="q4" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r4"></span></span></div>
+        <div class="note-row"><span class="note-label">Part exchange:</span><span class="note-value">Yes</span></div>
+        <p style="font-weight:bold;color:#1a3a5c;margin:8px 0 4px;">Personal Details</p>
+        <div class="note-row"><span class="note-label">Name: Wendy</span><span class="note-value"><span class="qid-tag">Q.05.TEST020</span><input type="text" id="q5" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r5"></span></span></div>
+        <div class="note-row"><span class="note-label">Title:</span><span class="note-value"><span class="qid-tag">Q.06.TEST020</span><input type="text" id="q6" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r6"></span></span></div>
+        <div class="note-row"><span class="note-label">Address:</span><span class="note-value"><span class="qid-tag">Q.07.TEST020</span><input type="text" id="q7" placeholder="..." style="width:100px;"> Hampshire GU8 9EW <span class="answer-reveal" id="r7"></span></span></div>
+        <div class="note-row"><span class="note-label">Contact number (for</span><span class="note-value"><span class="qid-tag">Q.08.TEST020</span><input type="text" id="q8" placeholder="..." style="width:100px;"> only): 0798257643 <span class="answer-reveal" id="r8"></span></span></div>
+        <p style="font-weight:bold;color:#1a3a5c;margin:8px 0 4px;">Current Car</p>
+        <div class="note-row"><span class="note-label">Make: Conti &nbsp; Model:</span><span class="note-value"><span class="qid-tag">Q.09.TEST020</span><input type="text" id="q9" placeholder="..." style="width:80px;"> <span class="answer-reveal" id="r9"></span></span></div>
+        <div class="note-row"><span class="note-label">Year: 1994 &nbsp; Mileage: max 70,000 &nbsp; Colour: metallic grey &nbsp; Condition:</span><span class="note-value"><span class="qid-tag">Q.10.TEST020</span><input type="text" id="q10" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r10"></span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 2 -->
+  <div class="part">
+    <div class="part-title">PART 2 &nbsp;|&nbsp; Questions 11–20</div>
+    <div class="question-block">
+      <p class="instruction">Questions 11–12: Choose TWO letters from A–E. What TWO advantages does the speaker say Rexford University has?</p>
+      <div class="matching-key">
+        <p>A &nbsp; higher than average results in examinations</p>
+        <p>B &nbsp; good transport links with central London</p>
+        <p>C &nbsp; near London Airport</p>
+        <p>D &nbsp; special government funding</p>
+        <p>E &nbsp; good links with local industry</p>
+      </div>
+      <p class="instruction">Select TWO answers (Q11 and Q12):</p>
+      <div class="chk-group" id="chk-q1112">
+        <label><input type="checkbox" name="q1112" value="A"> A &nbsp; higher than average results in examinations</label>
+        <label><input type="checkbox" name="q1112" value="B"> B &nbsp; good transport links with central London</label>
+        <label><input type="checkbox" name="q1112" value="C"> C &nbsp; near London Airport</label>
+        <label><input type="checkbox" name="q1112" value="D"> D &nbsp; special government funding</label>
+        <label><input type="checkbox" name="q1112" value="E"> E &nbsp; good links with local industry</label>
+      </div>
+      <div class="chk-limit-warn" id="chk-limit-q1112"></div>
+      <span class="answer-reveal" id="r1112"></span>
+    </div>
+    <div class="question-block">
+      <p class="instruction">Questions 13–15: Complete the table below. Write NO MORE THAN ONE WORD for each answer.</p>
+      <table>
+        <thead><tr><th>Issue</th><th>Details</th></tr></thead>
+        <tbody>
+          <tr><td>Application processing may be slowed down by:</td><td>– postal problems<br>– delays in sending <span class="qid-tag">Q.13.TEST020</span><input type="text" id="q13" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r13"></span></td></tr>
+          <tr><td>University tries to put international students in touch with a student from the same:</td><td><span class="qid-tag">Q.14.TEST020</span><input type="text" id="q14" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r14"></span></td></tr>
+          <tr><td>Who can give advice on: academic atmosphere, leisure, English and food, what to pack, and:</td><td><span class="qid-tag">Q.15.TEST020</span><input type="text" id="q15" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r15"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="question-block">
+      <p class="instruction">Questions 16–20: Choose the correct letter, A, B or C.</p>
+      <div class="mcq-question"><p><span class="qid-tag">Q.16.TEST020</span> 16. The speaker says international students at UK universities will be</p><div class="mcq-options"><label><input type="radio" name="q16" value="A"> A &nbsp; offered accommodation with local families.</label><label><input type="radio" name="q16" value="B"> B &nbsp; given special help by their lecturers.</label><label><input type="radio" name="q16" value="C"> C &nbsp; expected to work independently.</label></div><span class="answer-reveal" id="r16"></span></div>
+      <div class="mcq-question"><p><span class="qid-tag">Q.17.TEST020</span> 17. What does the speaker say about university accommodation on campus?</p><div class="mcq-options"><label><input type="radio" name="q17" value="A"> A &nbsp; Most places are given to undergraduates.</label><label><input type="radio" name="q17" value="B"> B &nbsp; No places are available for postgraduates with families.</label><label><input type="radio" name="q17" value="C"> C &nbsp; A limited number of places are available for new postgraduates.</label></div><span class="answer-reveal" id="r17"></span></div>
+      <div class="mcq-question"><p><span class="qid-tag">Q.18.TEST020</span> 18. Students wishing to live off-campus should apply</p><div class="mcq-options"><label><input type="radio" name="q18" value="A"> A &nbsp; several months in advance.</label><label><input type="radio" name="q18" value="B"> B &nbsp; two or three weeks in advance.</label><label><input type="radio" name="q18" value="C"> C &nbsp; at the beginning of term.</label></div><span class="answer-reveal" id="r18"></span></div>
+      <div class="mcq-question"><p><span class="qid-tag">Q.19.TEST020</span> 19. The university accommodation officer will</p><div class="mcq-options"><label><input type="radio" name="q19" value="A"> A &nbsp; send a list of agents for students to contact.</label><label><input type="radio" name="q19" value="B"> B &nbsp; contact accommodation agencies for students.</label><label><input type="radio" name="q19" value="C"> C &nbsp; ensure that students have suitable accommodation.</label></div><span class="answer-reveal" id="r19"></span></div>
+      <div class="mcq-question"><p><span class="qid-tag">Q.20.TEST020</span> 20. With regard to their English, the speaker advises the students to</p><div class="mcq-options"><label><input type="radio" name="q20" value="A"> A &nbsp; tell their lecturers if they have problems understanding.</label><label><input type="radio" name="q20" value="B"> B &nbsp; have private English lessons when they arrive.</label><label><input type="radio" name="q20" value="C"> C &nbsp; practise their spoken English before they arrive.</label></div><span class="answer-reveal" id="r20"></span></div>
+    </div>
+  </div>
+
+  <!-- PART 3 -->
+  <div class="part">
+    <div class="part-title">PART 3 &nbsp;|&nbsp; Questions 21–30</div>
+    <div class="question-block">
+      <p class="instruction">Questions 21–30: Complete the feedback form table. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+      <div class="notes-box">
+        <h3>Feedback Form — Communication in Business (CB162)</h3>
+        <div class="note-row">
+          <span class="note-label">Dates: From</span>
+          <span class="note-value"><span class="qid-tag">Q.21.TEST020</span><input type="text" id="q21" placeholder="..." style="width:100px;"> to <span class="qid-tag">Q.22.TEST020</span><input type="text" id="q22" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r21"></span> <span class="answer-reveal" id="r22"></span></span>
+        </div>
+      </div>
+      <table>
+        <thead><tr><th>Aspect</th><th>Good Points</th><th>Suggestions for improvement</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Course organisation</td>
+            <td><span class="qid-tag">Q.23.TEST020</span><input type="text" id="q23" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r23"></span></td>
+            <td>– useful to have <span class="qid-tag">Q.24.TEST020</span><input type="text" id="q24" placeholder="..." style="width:120px;"> at beginning <span class="answer-reveal" id="r24"></span><br>– too much work in <span class="qid-tag">Q.25.TEST020</span><input type="text" id="q25" placeholder="..." style="width:80px;"> of the course <span class="answer-reveal" id="r25"></span></td>
+          </tr>
+          <tr>
+            <td>Course delivery</td>
+            <td>good <span class="qid-tag">Q.26.TEST020</span><input type="text" id="q26" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r26"></span></td>
+            <td>some <span class="qid-tag">Q.27.TEST020</span><input type="text" id="q27" placeholder="..." style="width:130px;"> sessions went on too long <span class="answer-reveal" id="r27"></span></td>
+          </tr>
+          <tr>
+            <td>Materials and equipment</td>
+            <td>good <span class="qid-tag">Q.28.TEST020</span><input type="text" id="q28" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r28"></span></td>
+            <td>– not enough copies of key texts<br>– need more computers</td>
+          </tr>
+          <tr>
+            <td>Testing and evaluations</td>
+            <td>– quick feedback from oral presentations<br>– marking criteria known in advance</td>
+            <td>– too much <span class="qid-tag">Q.29.TEST020</span><input type="text" id="q29" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r29"></span><br>– can we know criteria for final exam?</td>
+          </tr>
+          <tr>
+            <td>Other comments</td>
+            <td>excellent <span class="qid-tag">Q.30.TEST020</span><input type="text" id="q30" placeholder="..." style="width:130px;"> <span class="answer-reveal" id="r30"></span></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PART 4 -->
+  <div class="part">
+    <div class="part-title">PART 4 &nbsp;|&nbsp; Questions 31–40</div>
+    <div class="question-block">
+      <p class="instruction">Questions 31–35: Complete the sentences below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer. (Household Waste Recycling)</p>
+      <div class="notes-box">
+        <div class="note-row"><span class="note-value">31. By 2008, carbon dioxide emissions need to be <span class="qid-tag">Q.31.TEST020</span><input type="text" id="q31" placeholder="..." style="width:80px;"> lower than in 1990. <span class="answer-reveal" id="r31"></span></span></div>
+        <div class="note-row"><span class="note-value">32. Recycling saves energy and reduces emissions from landfill sites and <span class="qid-tag">Q.32.TEST020</span><input type="text" id="q32" placeholder="..." style="width:160px;"> <span class="answer-reveal" id="r32"></span></span></div>
+        <div class="note-row"><span class="note-value">33. People say that one problem is a lack of '<span class="qid-tag">Q.33.TEST020</span><input type="text" id="q33" placeholder="..." style="width:100px;">' sites for household waste. <span class="answer-reveal" id="r33"></span></span></div>
+        <div class="note-row"><span class="note-value">34. Glass designed to be used for <span class="qid-tag">Q.34.TEST020</span><input type="text" id="q34" placeholder="..." style="width:100px;"> cannot be recycled with other glass. <span class="answer-reveal" id="r34"></span></span></div>
+        <div class="note-row"><span class="note-value">35. In the UK, <span class="qid-tag">Q.35.TEST020</span><input type="text" id="q35" placeholder="..." style="width:100px;"> tons of glass is recycled each year. <span class="answer-reveal" id="r35"></span></span></div>
+      </div>
+    </div>
+    <div class="question-block">
+      <p class="instruction">Questions 36–40: Complete the table. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+      <table>
+        <thead><tr><th>Material</th><th>Company</th><th>Product manufactured</th></tr></thead>
+        <tbody>
+          <tr><td>Glass</td><td>CLA Aggregates</td><td>material used for making <span class="qid-tag">Q.36.TEST020</span><input type="text" id="q36" placeholder="..." style="width:80px;"> <span class="answer-reveal" id="r36"></span></td></tr>
+          <tr><td>Paper</td><td>Martin's office stationery</td><td rowspan="2">Paper<br>Papersave: <span class="qid-tag">Q.37.TEST020</span><input type="text" id="q37" placeholder="..." style="width:140px;"> for use on farms <span class="answer-reveal" id="r37"></span></td></tr>
+          <tr><td>Plastic</td><td>Pacrite</td><td><span class="qid-tag">Q.38.TEST020</span><input type="text" id="q38" placeholder="..." style="width:140px;"> for collecting waste <span class="answer-reveal" id="r38"></span></td></tr>
+          <tr><td>Plastic</td><td>Waterford</td><td><span class="qid-tag">Q.39.TEST020</span><input type="text" id="q39" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r39"></span></td></tr>
+          <tr><td>Plastic</td><td>Johnson &amp; Jones</td><td><span class="qid-tag">Q.40.TEST020</span><input type="text" id="q40" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r40"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="submit-section"><button id="submitBtn" onclick="window.submitTest()">📩 Nộp bài</button></div>
+  <div id="scoreBoard"><h2>🎯 Kết quả bài thi</h2><div class="score-num" id="scoreNum"></div><p id="scoreBand" style="font-size:1.1em;color:#1a3a5c;margin-top:6px;"></p><p id="scoreDetail" style="color:#666;font-size:0.9em;margin-top:8px;"></p></div>
+</div>
+
+<script>
+(function(){ 'use strict';
+// Q11&12 are "Choose TWO" — scored as a group (2pts if both correct, 1pt if one correct)
+var ANSWERS = {
+  q1:{type:'text',correct:['1.4 litres','1.4']},
+  q2:{type:'text',correct:['automatic']},
+  q3:{type:'text',correct:['light']},
+  q4:{type:'text',correct:['credit']},
+  q5:{type:'text',correct:['harries']},
+  q6:{type:'text',correct:['doctor']},
+  q7:{type:'text',correct:['alton']},
+  q8:{type:'text',correct:['messages']},
+  q9:{type:'text',correct:['lion']},
+  q10:{type:'text',correct:['reasonable']},
+  q13:{type:'text',correct:['references']},
+  q14:{type:'text',correct:['country']},
+  q15:{type:'text',correct:['weather']},
+  q16:{type:'radio',correct:'C'},
+  q17:{type:'radio',correct:'C'},
+  q18:{type:'radio',correct:'A'},
+  q19:{type:'radio',correct:'B'},
+  q20:{type:'radio',correct:'C'},
+  q21:{type:'text',correct:['5 may']},
+  q22:{type:'text',correct:['16 july']},
+  q23:{type:'text',correct:['was clear']},
+  q24:{type:'text',correct:['course outline']},
+  q25:{type:'text',correct:['2 half','second half']},
+  q26:{type:'text',correct:['teaching']},
+  q27:{type:'text',correct:['group discussion']},
+  q28:{type:'text',correct:['handouts']},
+  q29:{type:'text',correct:['written work']},
+  q30:{type:'text',correct:['student support']},
+  q31:{type:'text',correct:['12.5%']},
+  q32:{type:'text',correct:['incineration plants']},
+  q33:{type:'text',correct:['drop-off']},
+  q34:{type:'text',correct:['cooking']},
+  q35:{type:'text',correct:['500,000','500000']},
+  q36:{type:'text',correct:['roads']},
+  q37:{type:'text',correct:['soil conditioner']},
+  q38:{type:'text',correct:['containers']},
+  q39:{type:'text',correct:['pencils']},
+  q40:{type:'text',correct:['business cards']}
+};
+var CHK_CORRECT_1112 = ['C','E']; // Q11=C, Q12=E
+
+var GOOGLE_SHEET_URL='https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+var TEST_ID='TEST020';
+var _studentName='',_studentClass='',_timerInterval=null,_extraTimerInterval=null,_submitted=false,_violations=0,_tabSwitches=0,_fsExits=0,_antiCheatLog=[],_startTime=null;
+
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=20)return'Band 5.5';if(s>=16)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Band < 4';}
+function normalize(s){return String(s).toLowerCase().trim().replace(/\s+/g,' ');}
+function pad(n){return n<10?'0'+n:n;}
+
+// Checkbox limit enforcement
+document.addEventListener('DOMContentLoaded',function(){
+  document.querySelectorAll('input[name="q1112"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){
+        var n=document.querySelectorAll('input[name="q1112"]:checked').length;
+        if(n>2){inp.checked=false;var el=document.getElementById('chk-limit-q1112');el.textContent='⚠ Chỉ được chọn tối đa 2 đáp án!';clearTimeout(el._t);el._t=setTimeout(function(){el.textContent='';},2500);}
+      }
+    });
+  });
+});
+
+window.startExam=function(){var n=document.getElementById('studentName').value.trim(),c=document.getElementById('studentClass').value.trim();if(!n||!c){document.getElementById('popupError').style.display='block';return;}_studentName=n;_studentClass=c;document.getElementById('studentPopup').style.display='none';window._testStartTime=Date.now();_startTime=Date.now();window.enterFullscreen();startTimer();logEvent('Bắt đầu làm bài');};
+window.enterFullscreen=function(){try{var el=document.documentElement;if(el.requestFullscreen)el.requestFullscreen();else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();else if(el.mozRequestFullScreen)el.mozRequestFullScreen();}catch(e){}};
+function startTimer(){var totalSec=2400;_timerInterval=setInterval(function(){if(_submitted){clearInterval(_timerInterval);return;}var elapsed=Math.floor((Date.now()-_startTime)/1000),remaining=totalSec-elapsed;if(remaining<=0){clearInterval(_timerInterval);showTimeUp();return;}var m=Math.floor(remaining/60),s=remaining%60;document.getElementById('timerDisplay').textContent=pad(m)+':'+pad(s);var b=document.getElementById('timerBox');b.className='';if(remaining<=300)b.classList.add('danger');else if(remaining<=600)b.classList.add('warning');},500);}
+function showTimeUp(){document.getElementById('warningOverlay').classList.add('show');var sec=300;_extraTimerInterval=setInterval(function(){if(_submitted){clearInterval(_extraTimerInterval);return;}sec--;var m=Math.floor(sec/60),s=sec%60;document.getElementById('extraCountdown').textContent=pad(m)+':'+pad(s);if(sec<=0){clearInterval(_extraTimerInterval);window.forceSubmit();}},1000);}
+window.forceSubmit=function(){document.getElementById('warningOverlay').classList.remove('show');runSubmit();};
+window.submitTest=function(){if(_submitted)return;document.getElementById('confirmOverlay').classList.add('show');};
+window.doSubmit=function(){document.getElementById('confirmOverlay').classList.remove('show');runSubmit();};
+
+function runSubmit(){
+  if(_submitted)return;_submitted=true;clearInterval(_timerInterval);clearInterval(_extraTimerInterval);document.getElementById('warningOverlay').classList.remove('show');
+  var score=0,details=[];
+
+  // Score Q11&Q12 checkbox group
+  var checked1112 = Array.from(document.querySelectorAll('input[name="q1112"]:checked')).map(function(c){return c.value;});
+  document.querySelectorAll('input[name="q1112"]').forEach(function(inp){inp.disabled=true;});
+  var correct1112 = CHK_CORRECT_1112;
+  var hits = checked1112.filter(function(v){return correct1112.indexOf(v)>=0;}).length;
+  score += hits; // 1 pt per correct in group
+  var rel1112 = document.getElementById('r1112');
+  if(rel1112){
+    rel1112.textContent = (hits===2?'✔ Cả hai đúng':'✘ Đáp án đúng: '+correct1112.join(', ')+' (bạn chọn: '+(checked1112.length?checked1112.join(', '):'–')+')');
+    rel1112.style.color = hits===2?'#27ae60':'#e74c3c';
+    rel1112.classList.add('show');
+  }
+  // Mark checkbox labels
+  document.querySelectorAll('input[name="q1112"]').forEach(function(inp){
+    var lbl=inp.parentElement;
+    if(correct1112.indexOf(inp.value)>=0) lbl.classList.add('correct-label');
+    else if(checked1112.indexOf(inp.value)>=0) lbl.classList.add('wrong-label');
+  });
+  details.push({qid:'Q1112.'+TEST_ID,user:checked1112.join(','),correct:hits===2});
+
+  // Score remaining questions
+  Object.keys(ANSWERS).forEach(function(qid){
+    var info=ANSWERS[qid],userVal='',isCorrect=false;
+    if(info.type==='text'){var el=document.getElementById(qid);userVal=el?el.value:'';isCorrect=info.correct.some(function(c){return normalize(c)===normalize(userVal);});if(el){el.disabled=true;el.classList.add(isCorrect?'correct':'wrong');}var rel=document.getElementById('r'+qid.slice(1));if(rel){rel.textContent=isCorrect?'✔ ':'✘ Đáp án: '+info.correct[0];rel.style.color=isCorrect?'#27ae60':'#e74c3c';rel.classList.add('show');}}
+    else if(info.type==='radio'){var radios=document.querySelectorAll('input[name="'+qid+'"]');radios.forEach(function(r){r.disabled=true;});var checked=document.querySelector('input[name="'+qid+'"]:checked');userVal=checked?checked.value:'';isCorrect=(userVal===info.correct);radios.forEach(function(r){var lbl=r.parentElement;if(r.value===info.correct)lbl.classList.add('correct-label');else if(r.value===userVal&&!isCorrect)lbl.classList.add('wrong-label');});var rel2=document.getElementById('r'+qid.slice(1));if(rel2){rel2.textContent=isCorrect?'✔':'✘ Đáp án: '+info.correct;rel2.style.color=isCorrect?'#27ae60':'#e74c3c';rel2.classList.add('show');}}
+    if(isCorrect)score++;details.push({qid:qid.toUpperCase()+'.'+TEST_ID,user:userVal,correct:isCorrect});
+  });
+
+  var band=getBand(score);
+  document.getElementById('scoreNum').textContent=score+'/40';document.getElementById('scoreBand').textContent='🏆 Band IELTS ước tính: '+band;document.getElementById('scoreDetail').textContent='Vi phạm: '+_violations+' | Chuyển tab: '+_tabSwitches+' | Thoát fullscreen: '+_fsExits;document.getElementById('scoreBoard').style.display='block';document.getElementById('submitBtn').style.display='none';document.getElementById('scoreBoard').scrollIntoView({behavior:'smooth'});
+  var elapsed=Math.round((Date.now()-_startTime)/1000);
+  var payload={action:'save_result',testId:TEST_ID,studentName:_studentName,studentClass:_studentClass,score:score,band:band,timeUsed:elapsed,violations:_violations,tabSwitches:_tabSwitches,fsExits:_fsExits,details:JSON.stringify(details),log:JSON.stringify(_antiCheatLog)};
+  try{fetch(GOOGLE_SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}catch(e){}
+  try{document.exitFullscreen();}catch(e){}
+}
+function logEvent(msg){var t=new Date().toLocaleTimeString();_antiCheatLog.push('['+t+'] '+msg);var lp=document.getElementById('logPanel');if(lp)lp.innerHTML=_antiCheatLog.slice(-5).join('<br>');}
+document.addEventListener('visibilitychange',function(){if(!_startTime||_submitted)return;if(document.hidden){_tabSwitches++;_violations++;logEvent('Chuyển tab lần '+_tabSwitches);var tw=document.getElementById('tabWarning');tw.textContent='⚠️ Đã phát hiện chuyển tab! Lần '+_tabSwitches;tw.classList.add('show');setTimeout(function(){tw.classList.remove('show');},3000);}});
+window.addEventListener('blur',function(){if(!_startTime||_submitted)return;_violations++;logEvent('Rời khỏi cửa sổ');});
+document.addEventListener('fullscreenchange',function(){if(!_startTime||_submitted)return;if(!document.fullscreenElement){_fsExits++;_violations++;logEvent('Thoát fullscreen lần '+_fsExits);document.getElementById('fsWarning').classList.add('show');}else{document.getElementById('fsWarning').classList.remove('show');}});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='U')){e.preventDefault();_violations++;logEvent('Phím tắt DevTools bị chặn');}if(e.ctrlKey&&(e.key==='c'||e.key==='v'||e.key==='x'||e.key==='a')){var tag=document.activeElement?document.activeElement.tagName:'';if(tag!=='INPUT'&&tag!=='TEXTAREA')e.preventDefault();}});
+document.addEventListener('copy',function(e){if(!['INPUT','TEXTAREA'].includes(document.activeElement.tagName))e.preventDefault();});
+document.addEventListener('cut',function(e){if(!['INPUT','TEXTAREA'].includes(document.activeElement.tagName))e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+})();
+</script>
+</body>
+</html>

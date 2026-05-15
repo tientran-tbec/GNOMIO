@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Listening Test 18</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:Arial,sans-serif;background:#f4f6f9;color:#222;user-select:none;-webkit-user-select:none;}
+  .container{max-width:860px;margin:30px auto;background:#fff;border-radius:10px;box-shadow:0 2px 12px rgba(0,0,0,0.1);padding:36px 40px 50px;}
+  h1{text-align:center;font-size:1.6em;letter-spacing:2px;color:#1a3a5c;margin-bottom:6px;}
+  .subtitle{text-align:center;color:#666;font-size:0.95em;margin-bottom:28px;}
+  .audio-section{background:#eaf3fb;border:1px solid #b3d4ef;border-radius:8px;padding:16px 20px;margin-bottom:28px;text-align:center;}
+  .audio-section p{font-weight:bold;color:#1a3a5c;margin-bottom:10px;}
+  audio{width:100%;}
+  .part{margin-bottom:36px;}
+  .part-title{background:#1a3a5c;color:#fff;padding:8px 16px;border-radius:6px;font-size:1.05em;font-weight:bold;margin-bottom:14px;}
+  .question-block{margin-bottom:18px;}
+  .instruction{font-style:italic;color:#555;margin-bottom:12px;font-size:0.93em;}
+  .notes-box{border:1px solid #ccc;border-radius:8px;padding:18px 22px;background:#fafafa;margin-bottom:12px;}
+  .notes-box h3{text-align:center;font-size:1em;color:#1a3a5c;margin-bottom:12px;border-bottom:1px solid #ddd;padding-bottom:6px;}
+  .note-row{display:flex;align-items:flex-start;padding:7px 0;border-bottom:1px dotted #e0e0e0;flex-wrap:wrap;gap:6px;}
+  .note-row:last-child{border-bottom:none;}
+  .note-label{font-weight:bold;color:#1a3a5c;min-width:200px;}
+  .note-value{color:#444;flex:1;line-height:1.8;}
+  .qid-tag{font-size:0.72em;color:#aaa;margin-right:3px;}
+  input[type="text"]{border:none;border-bottom:2px solid #1a3a5c;background:transparent;font-size:0.95em;padding:2px 6px;width:150px;color:#1a3a5c;outline:none;user-select:text;-webkit-user-select:text;}
+  input[type="text"]:focus{border-bottom-color:#f39c12;}
+  input[type="text"].correct{border-bottom-color:#27ae60;background:#eafaf1;}
+  input[type="text"].wrong{border-bottom-color:#e74c3c;background:#fdf0ef;}
+  table{width:100%;border-collapse:collapse;margin-top:8px;}
+  th{background:#1a3a5c;color:#fff;padding:8px 10px;text-align:left;font-size:0.9em;}
+  td{border:1px solid #ccc;padding:8px 10px;font-size:0.9em;vertical-align:middle;}
+  tr:nth-child(even) td{background:#f7f7f7;}
+  .mcq-question{margin-bottom:20px;}
+  .mcq-question p{font-weight:bold;margin-bottom:8px;color:#222;}
+  .mcq-options{display:flex;flex-direction:column;gap:6px;margin-left:16px;}
+  .mcq-options label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;font-size:0.95em;}
+  .mcq-options label.correct-label{color:#27ae60;font-weight:bold;}
+  .mcq-options label.wrong-label{color:#e74c3c;}
+  .matching-key{background:#eaf3fb;border-radius:6px;padding:10px 16px;margin-bottom:12px;font-size:0.9em;}
+  .matching-key p{margin-bottom:3px;}
+  .matching-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .matching-row span{font-weight:bold;min-width:220px;}
+  select{border:1px solid #1a3a5c;border-radius:4px;padding:4px 8px;font-size:0.93em;color:#1a3a5c;background:#fff;cursor:pointer;user-select:text;-webkit-user-select:text;}
+  select.correct{border-color:#27ae60;background:#eafaf1;color:#27ae60;}
+  select.wrong{border-color:#e74c3c;background:#fdf0ef;color:#e74c3c;}
+  .answer-reveal{font-size:0.82em;margin-top:3px;display:none;}
+  .answer-reveal.show{display:inline;}
+  .submit-section{text-align:center;margin-top:36px;}
+  #submitBtn{background:#1a3a5c;color:#fff;border:none;padding:13px 50px;font-size:1.05em;border-radius:8px;cursor:pointer;letter-spacing:1px;}
+  #submitBtn:hover{background:#f39c12;}
+  #scoreBoard{display:none;margin-top:28px;border:2px solid #1a3a5c;border-radius:10px;padding:24px 30px;text-align:center;background:#eaf3fb;}
+  #scoreBoard h2{color:#1a3a5c;font-size:1.4em;margin-bottom:8px;}
+  .score-num{font-size:2em;font-weight:bold;color:#f39c12;}
+  #confirmOverlay{display:none;position:fixed;inset:0;z-index:999998;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;}
+  #confirmOverlay.show{display:flex;}
+  #confirmBox{background:#fff;border-radius:14px;padding:32px 36px;max-width:380px;text-align:center;box-shadow:0 6px 30px rgba(0,0,0,0.3);}
+  #confirmBox h3{color:#1a3a5c;margin-bottom:12px;}
+  #confirmBox p{color:#555;margin-bottom:20px;font-size:0.95em;line-height:1.5;}
+  #confirmBox .btn-row{display:flex;gap:12px;justify-content:center;}
+  #confirmBox button{padding:10px 24px;border:none;border-radius:8px;font-size:1em;cursor:pointer;}
+  .btn-confirm{background:#1a3a5c;color:#fff;}.btn-cancel{background:#ccc;color:#333;}
+  #timerBox{position:fixed;top:18px;right:22px;z-index:999;background:#1a3a5c;color:#fff;padding:10px 18px;border-radius:10px;font-size:1.05em;font-weight:bold;box-shadow:0 3px 12px rgba(0,0,0,0.25);display:flex;flex-direction:column;align-items:center;gap:2px;min-width:120px;text-align:center;}
+  #timerBox .timer-label{font-size:0.72em;letter-spacing:1px;opacity:0.8;}
+  #timerBox .timer-time{font-size:1.4em;letter-spacing:2px;}
+  #timerBox.warning{background:#e67e22;animation:pulse 1s infinite;}
+  #timerBox.danger{background:#e74c3c;animation:pulse 0.5s infinite;}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(231,76,60,0.6);}70%{box-shadow:0 0 0 10px rgba(231,76,60,0);}100%{box-shadow:0 0 0 0 rgba(231,76,60,0);}}
+  #warningOverlay{display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.55);justify-content:center;align-items:center;}
+  #warningOverlay.show{display:flex;}
+  #warningBox{background:#fff;border-radius:14px;padding:36px 40px;text-align:center;max-width:380px;box-shadow:0 6px 30px rgba(0,0,0,0.3);}
+  #warningBox h2{color:#e74c3c;font-size:1.4em;margin-bottom:12px;}
+  #warningBox p{color:#444;margin-bottom:18px;font-size:0.97em;line-height:1.5;}
+  .countdown-big{font-size:2.4em;font-weight:bold;color:#e74c3c;margin-bottom:16px;}
+  #warningBox button{background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;}
+  #tabWarning{display:none;position:fixed;top:0;left:0;right:0;z-index:99998;background:#e74c3c;color:#fff;text-align:center;padding:10px;font-size:0.95em;font-weight:bold;}
+  #tabWarning.show{display:block;}
+  #fsWarning{display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);justify-content:center;align-items:center;flex-direction:column;gap:16px;}
+  #fsWarning.show{display:flex!important;}
+  #logPanel{display:none;position:fixed;bottom:18px;left:18px;z-index:9997;background:rgba(26,58,92,0.92);color:#fff;border-radius:8px;padding:10px 16px;font-size:0.78em;max-width:260px;line-height:1.6;}
+  @media print{body{display:none!important;}}
+  @media(max-width:600px){.container{padding:20px 14px;}#timerBox{top:10px;right:10px;padding:7px 12px;min-width:95px;}}
+</style>
+</head>
+<body>
+<div id="timerBox"><span class="timer-label">⏱ THỜI GIAN</span><span class="timer-time" id="timerDisplay">40:00</span></div>
+<div id="warningOverlay"><div id="warningBox"><h2>⏰ Hết giờ làm bài!</h2><p>Bạn đã dùng hết <strong>40 phút</strong>.<br>Bài sẽ tự động nộp sau:</p><div class="countdown-big" id="extraCountdown">5:00</div><p style="font-size:0.88em;color:#888;">Hoặc bấm nộp bài ngay bây giờ.</p><button onclick="window.forceSubmit()">✅ Nộp bài ngay</button></div></div>
+<div id="confirmOverlay"><div id="confirmBox"><h3>📋 Xác nhận nộp bài</h3><p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p><div class="btn-row"><button class="btn-confirm" onclick="window.doSubmit()">✅ Xác nhận nộp</button><button class="btn-cancel" onclick="document.getElementById('confirmOverlay').classList.remove('show')">↩ Quay lại làm bài</button></div></div></div>
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;">🎧 IELTS Listening Test 18</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;"><label style="font-size:0.9em;font-weight:bold;color:#333;">Họ và tên:</label><input type="text" id="studentName" placeholder="Nguyễn Văn A..." style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;"></div>
+    <div style="text-align:left;margin-bottom:24px;"><label style="font-size:0.9em;font-weight:bold;color:#333;">Lớp:</label><input type="text" id="studentClass" placeholder="Ví dụ: 12A1..." style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;"></div>
+    <button onclick="window.startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;width:100%;">✅ Bắt đầu làm bài</button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="tabWarning"></div>
+<div id="fsWarning"><h2 style="color:#f39c12;">⚠️ Vui lòng quay lại chế độ toàn màn hình!</h2><p style="color:#fff;text-align:center;">Bài thi yêu cầu toàn màn hình.<br>Hành vi thoát fullscreen đã được ghi lại.</p><button onclick="window.enterFullscreen()" style="background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;">🔲 Vào toàn màn hình</button></div>
+<div id="logPanel"></div>
+
+<div class="container">
+  <h1>IELTS LISTENING — TEST 18</h1>
+  <p class="subtitle">Điền vào chỗ trống hoặc chọn đáp án đúng. Bấm <strong>Nộp bài</strong> để xem kết quả.</p>
+  <div class="audio-section"><p>🎧 Audio — Listening Test 18</p><audio id="mainAudio" controls><source src="Audio test 18.mp3" type="audio/mpeg">Trình duyệt của bạn không hỗ trợ audio.</audio></div>
+
+  <!-- PART 1 -->
+  <div class="part">
+    <div class="part-title">PART 1 &nbsp;|&nbsp; Questions 1–10</div>
+    <div class="question-block">
+      <p class="instruction">Questions 1–10: Complete the form below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
+      <div class="notes-box">
+        <h3>ClearPoint Telephone Company — Customer Order Form</h3>
+        <div class="note-row"><span class="note-label">Order taken by:</span><span class="note-value">Ms. Jones</span></div>
+        <div class="note-row"><span class="note-label">Name: Harold</span><span class="note-value"><span class="qid-tag">Q.01.TEST018</span><input type="text" id="q1" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r1"></span></span></div>
+        <div class="note-row"><span class="note-label">Address:</span><span class="note-value"><span class="qid-tag">Q.02.TEST018</span><input type="text" id="q2" placeholder="..." style="width:60px;"> Fulton Avenue apartment 12 <span class="answer-reveal" id="r2"></span></span></div>
+        <div class="note-row"><span class="note-label">Type of service:</span><span class="note-value"><span class="qid-tag">Q.03.TEST018</span><input type="text" id="q3" placeholder="..." style="width:140px;"> <span class="answer-reveal" id="r3"></span></span></div>
+        <div class="note-row"><span class="note-label">Employer:</span><span class="note-value">Wrightsville Medical Group</span></div>
+        <div class="note-row"><span class="note-label">Occupation:</span><span class="note-value"><span class="qid-tag">Q.04.TEST018</span><input type="text" id="q4" placeholder="..." style="width:140px;"> <span class="answer-reveal" id="r4"></span></span></div>
+        <div class="note-row"><span class="note-label">Work Phone:</span><span class="note-value"><span class="qid-tag">Q.05.TEST018</span><input type="text" id="q5" placeholder="..." style="width:160px;"> <span class="answer-reveal" id="r5"></span></span></div>
+        <div class="note-row"><span class="note-label">Time at current job:</span><span class="note-value"><span class="qid-tag">Q.06.TEST018</span><input type="text" id="q6" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r6"></span></span></div>
+        <div class="note-row"><span class="note-label">Special services:</span><span class="note-value"><span class="qid-tag">Q.07.TEST018</span><input type="text" id="q7" placeholder="..." style="width:130px;"> and <span class="qid-tag">Q.08.TEST018</span><input type="text" id="q8" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r7"></span> <span class="answer-reveal" id="r8"></span></span></div>
+        <div class="note-row"><span class="note-label">Installation: Day</span><span class="note-value"><span class="qid-tag">Q.09.TEST018</span><input type="text" id="q9" placeholder="..." style="width:100px;"> &nbsp; Time: <span class="qid-tag">Q.10.TEST018</span><input type="text" id="q10" placeholder="..." style="width:100px;"> <span class="answer-reveal" id="r9"></span> <span class="answer-reveal" id="r10"></span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PART 2 -->
+  <div class="part">
+    <div class="part-title">PART 2 &nbsp;|&nbsp; Questions 11–20</div>
+    <div class="question-block">
+      <p class="instruction">Questions 11–14: Choose the correct letter, A, B or C. &nbsp; Questions 15–20: Complete the table — ONE WORD for each answer.</p>
+      <div class="mcq-question"><p><span class="qid-tag">Q.11.TEST018</span> 11. The fair will take place at the</p><div class="mcq-options"><label><input type="radio" name="q11" value="A"> A &nbsp; Fairgrounds</label><label><input type="radio" name="q11" value="B"> B &nbsp; Park</label><label><input type="radio" name="q11" value="C"> C &nbsp; School</label></div><span class="answer-reveal" id="r11"></span></div>
+      <div class="mcq-question"><p><span class="qid-tag">Q.12.TEST018</span> 12. The fair will begin on Friday</p><div class="mcq-options"><label><input type="radio" name="q12" value="A"> A &nbsp; Morning</label><label><input type="radio" name="q12" value="B"> B &nbsp; Afternoon</label><label><input type="radio" name="q12" value="C"> C &nbsp; Evening</label></div><span class="answer-reveal" id="r12"></span></div>
+      <div class="mcq-question"><p><span class="qid-tag">Q.13.TEST018</span> 13. The fair will begin with a</p><div class="mcq-options"><label><input type="radio" name="q13" value="A"> A &nbsp; Parade</label><label><input type="radio" name="q13" value="B"> B &nbsp; Dance performance</label><label><input type="radio" name="q13" value="C"> C &nbsp; Speech by the mayor</label></div><span class="answer-reveal" id="r13"></span></div>
+      <p class="instruction" style="margin-top:12px;">Question 14: Choose the correct letter.</p>
+      <div class="mcq-question"><p><span class="qid-tag">Q.14.TEST018</span> 14. (Additional MCQ)</p><div class="mcq-options"><label><input type="radio" name="q14" value="A"> A &nbsp; Option A</label><label><input type="radio" name="q14" value="B"> B &nbsp; Option B</label><label><input type="radio" name="q14" value="C"> C &nbsp; Option C</label></div><span class="answer-reveal" id="r14"></span></div>
+      <p class="instruction" style="margin-top:12px;">Questions 15–20: Complete the event table. Write NO MORE THAN ONE WORD for each answer.</p>
+      <table>
+        <thead><tr><th>Day/Time</th><th>Event</th></tr></thead>
+        <tbody>
+          <tr><td>Saturday afternoon</td><td><span class="qid-tag">Q.15.TEST018</span><input type="text" id="q15" placeholder="..." style="width:100px;"> show <span class="answer-reveal" id="r15"></span></td></tr>
+          <tr><td>Saturday evening</td><td><span class="qid-tag">Q.16.TEST018</span><input type="text" id="q16" placeholder="..." style="width:100px;"> by the lake <span class="answer-reveal" id="r16"></span></td></tr>
+          <tr><td>Sunday afternoon</td><td><span class="qid-tag">Q.17.TEST018</span><input type="text" id="q17" placeholder="..." style="width:100px;"> contest <span class="answer-reveal" id="r17"></span></td></tr>
+          <tr><td>All weekend</td><td><span class="qid-tag">Q.18.TEST018</span><input type="text" id="q18" placeholder="..." style="width:100px;"> food <span class="answer-reveal" id="r18"></span></td></tr>
+          <tr><td>All weekend</td><td><span class="qid-tag">Q.19.TEST018</span><input type="text" id="q19" placeholder="..." style="width:100px;"> for children <span class="answer-reveal" id="r19"></span></td></tr>
+          <tr><td>All weekend</td><td><span class="qid-tag">Q.20.TEST018</span><input type="text" id="q20" placeholder="..." style="width:100px;"> for sale <span class="answer-reveal" id="r20"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- PART 3 -->
+  <div class="part">
+    <div class="part-title">PART 3 &nbsp;|&nbsp; Questions 21–30</div>
+    <div class="question-block">
+      <p class="instruction">Questions 21–23: Complete the information below. Write NO MORE THAN TWO WORDS for each answer.</p>
+      <div class="notes-box">
+        <h3>How to get academic credit for work experience</h3>
+        <div class="note-row"><span class="note-value">First, read the <span class="qid-tag">Q.21.TEST018</span><input type="text" id="q21" placeholder="..." style="width:140px;"> <span class="answer-reveal" id="r21"></span></span></div>
+        <div class="note-row"><span class="note-value">Find courses that match your work experience.</span></div>
+        <div class="note-row"><span class="note-value">Then write <span class="qid-tag">Q.22.TEST018</span><input type="text" id="q22" placeholder="..." style="width:130px;"> of your work experience. <span class="answer-reveal" id="r22"></span></span></div>
+        <div class="note-row"><span class="note-value">Submit that together with a letter from your <span class="qid-tag">Q.23.TEST018</span><input type="text" id="q23" placeholder="..." style="width:140px;"> to the university admissions office. <span class="answer-reveal" id="r23"></span></span></div>
+      </div>
+    </div>
+    <div class="question-block">
+      <p class="instruction">Questions 24–28: Where can the items listed below be found? Write A, B or C.</p>
+      <div class="matching-key"><p>A &nbsp; admissions office &nbsp;&nbsp; B &nbsp; counseling center &nbsp;&nbsp; C &nbsp; library</p></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.24.TEST018</span> 24. University catalog</span><select id="q24"><option value="">--</option><option>A</option><option>B</option><option>C</option></select><span class="answer-reveal" id="r24"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.25.TEST018</span> 25. Application for admission form</span><select id="q25"><option value="">--</option><option>A</option><option>B</option><option>C</option></select><span class="answer-reveal" id="r25"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.26.TEST018</span> 26. Requirements list</span><select id="q26"><option value="">--</option><option>A</option><option>B</option><option>C</option></select><span class="answer-reveal" id="r26"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.27.TEST018</span> 27. Recommendation forms</span><select id="q27"><option value="">--</option><option>A</option><option>B</option><option>C</option></select><span class="answer-reveal" id="r27"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.28.TEST018</span> 28. Job listings</span><select id="q28"><option value="">--</option><option>A</option><option>B</option><option>C</option></select><span class="answer-reveal" id="r28"></span></div>
+    </div>
+    <div class="question-block">
+      <p class="instruction">Questions 29–30: Choose the correct letter, A, B or C.</p>
+      <div class="mcq-question"><p><span class="qid-tag">Q.29.TEST018</span> 29. What are full-time students eligible for?</p><div class="mcq-options"><label><input type="radio" name="q29" value="A"> A &nbsp; Discounted books</label><label><input type="radio" name="q29" value="B"> B &nbsp; The work-study program</label><label><input type="radio" name="q29" value="C"> C &nbsp; A free bus pass</label></div><span class="answer-reveal" id="r29"></span></div>
+      <div class="mcq-question"><p><span class="qid-tag">Q.30.TEST018</span> 30. How can a student get financial assistance?</p><div class="mcq-options"><label><input type="radio" name="q30" value="A"> A &nbsp; Speak with a counselor</label><label><input type="radio" name="q30" value="B"> B &nbsp; Apply to the admissions office</label><label><input type="radio" name="q30" value="C"> C &nbsp; Make arrangements with a bank</label></div><span class="answer-reveal" id="r30"></span></div>
+    </div>
+  </div>
+
+  <!-- PART 4 -->
+  <div class="part">
+    <div class="part-title">PART 4 &nbsp;|&nbsp; Questions 31–40</div>
+    <div class="question-block">
+      <p class="instruction">Questions 31–35: Complete the chart about black bears. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
+      <table>
+        <thead><tr><th>Category</th><th>Information</th></tr></thead>
+        <tbody>
+          <tr><td>Range</td><td>Lives in <span class="qid-tag">Q.31.TEST018</span><input type="text" id="q31" placeholder="..." style="width:150px;"> of North America <span class="answer-reveal" id="r31"></span></td></tr>
+          <tr><td>Diet</td><td>90% consists of <span class="qid-tag">Q.32.TEST018</span><input type="text" id="q32" placeholder="..." style="width:120px;">, also eats <span class="qid-tag">Q.33.TEST018</span><input type="text" id="q33" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r32"></span> <span class="answer-reveal" id="r33"></span></td></tr>
+          <tr><td>Cubs</td><td>Baby bear cubs are born in <span class="qid-tag">Q.34.TEST018</span><input type="text" id="q34" placeholder="..." style="width:120px;"> <span class="answer-reveal" id="r34"></span></td></tr>
+          <tr><td>Life Span</td><td>About <span class="qid-tag">Q.35.TEST018</span><input type="text" id="q35" placeholder="..." style="width:100px;"> in the wild <span class="answer-reveal" id="r35"></span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="question-block">
+      <p class="instruction">Questions 36–40: Write A for black bears or B for grizzly bears.</p>
+      <div class="matching-key"><p>A &nbsp; Black bears &nbsp;&nbsp; B &nbsp; Grizzly bears</p></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.36.TEST018</span> 36. Has a patch of light fur on its chest</span><select id="q36"><option value="">--</option><option>A</option><option>B</option></select><span class="answer-reveal" id="r36"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.37.TEST018</span> 37. Weighs 225 kilos</span><select id="q37"><option value="">--</option><option>A</option><option>B</option></select><span class="answer-reveal" id="r37"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.38.TEST018</span> 38. Has a shoulder hump</span><select id="q38"><option value="">--</option><option>A</option><option>B</option></select><span class="answer-reveal" id="r38"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.39.TEST018</span> 39. Has pointed ears</span><select id="q39"><option value="">--</option><option>A</option><option>B</option></select><span class="answer-reveal" id="r39"></span></div>
+      <div class="matching-row"><span><span class="qid-tag">Q.40.TEST018</span> 40. Has shorter claws</span><select id="q40"><option value="">--</option><option>A</option><option>B</option></select><span class="answer-reveal" id="r40"></span></div>
+    </div>
+  </div>
+
+  <div class="submit-section"><button id="submitBtn" onclick="window.submitTest()">📩 Nộp bài</button></div>
+  <div id="scoreBoard"><h2>🎯 Kết quả bài thi</h2><div class="score-num" id="scoreNum"></div><p id="scoreBand" style="font-size:1.1em;color:#1a3a5c;margin-top:6px;"></p><p id="scoreDetail" style="color:#666;font-size:0.9em;margin-top:8px;"></p></div>
+</div>
+
+<script>
+(function(){ 'use strict';
+var ANSWERS = {
+  q1:{type:'text',correct:['kramer']},
+  q2:{type:'text',correct:['58']},
+  q3:{type:'text',correct:['residential']},
+  q4:{type:'text',correct:['office manager']},
+  q5:{type:'text',correct:['6375559014']},
+  q6:{type:'text',correct:['nine years']},
+  q7:{type:'text',correct:['long distance']},
+  q8:{type:'text',correct:['internet']},
+  q9:{type:'text',correct:['friday']},
+  q10:{type:'text',correct:['morning']},
+  q11:{type:'radio',correct:'B'},
+  q12:{type:'radio',correct:'C'},
+  q13:{type:'radio',correct:'B'},
+  q14:{type:'radio',correct:'A'},
+  q15:{type:'text',correct:['clown']},
+  q16:{type:'text',correct:['concert']},
+  q17:{type:'text',correct:['singing']},
+  q18:{type:'text',correct:['international']},
+  q19:{type:'text',correct:['games']},
+  q20:{type:'text',correct:['crafts']},
+  q21:{type:'text',correct:['university catalog']},
+  q22:{type:'text',correct:['a summary']},
+  q23:{type:'text',correct:['work supervisor']},
+  q24:{type:'select',correct:'C'},
+  q25:{type:'select',correct:'A'},
+  q26:{type:'select',correct:'B'},
+  q27:{type:'select',correct:'A'},
+  q28:{type:'select',correct:'C'},
+  q29:{type:'radio',correct:'B'},
+  q30:{type:'radio',correct:'A'},
+  q31:{type:'text',correct:['forested area']},
+  q32:{type:'text',correct:['plant foods']},
+  q33:{type:'text',correct:['insects','fish','insects/ fish','insects/fish']},
+  q34:{type:'text',correct:['the winter']},
+  q35:{type:'text',correct:['25 years']},
+  q36:{type:'select',correct:'A'},
+  q37:{type:'select',correct:'B'},
+  q38:{type:'select',correct:'B'},
+  q39:{type:'select',correct:'A'},
+  q40:{type:'select',correct:'A'}
+};
+var GOOGLE_SHEET_URL='https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+var TEST_ID='TEST018';
+var _studentName='',_studentClass='',_timerInterval=null,_extraTimerInterval=null,_submitted=false,_violations=0,_tabSwitches=0,_fsExits=0,_antiCheatLog=[],_startTime=null;
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=20)return'Band 5.5';if(s>=16)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Band < 4';}
+function normalize(s){return String(s).toLowerCase().trim().replace(/\s+/g,' ');}
+function pad(n){return n<10?'0'+n:n;}
+window.startExam=function(){var n=document.getElementById('studentName').value.trim(),c=document.getElementById('studentClass').value.trim();if(!n||!c){document.getElementById('popupError').style.display='block';return;}_studentName=n;_studentClass=c;document.getElementById('studentPopup').style.display='none';window._testStartTime=Date.now();_startTime=Date.now();window.enterFullscreen();startTimer();logEvent('Bắt đầu làm bài');};
+window.enterFullscreen=function(){try{var el=document.documentElement;if(el.requestFullscreen)el.requestFullscreen();else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();else if(el.mozRequestFullScreen)el.mozRequestFullScreen();}catch(e){}};
+function startTimer(){var totalSec=2400;_timerInterval=setInterval(function(){if(_submitted){clearInterval(_timerInterval);return;}var elapsed=Math.floor((Date.now()-_startTime)/1000),remaining=totalSec-elapsed;if(remaining<=0){clearInterval(_timerInterval);showTimeUp();return;}var m=Math.floor(remaining/60),s=remaining%60;document.getElementById('timerDisplay').textContent=pad(m)+':'+pad(s);var b=document.getElementById('timerBox');b.className='';if(remaining<=300)b.classList.add('danger');else if(remaining<=600)b.classList.add('warning');},500);}
+function showTimeUp(){document.getElementById('warningOverlay').classList.add('show');var sec=300;_extraTimerInterval=setInterval(function(){if(_submitted){clearInterval(_extraTimerInterval);return;}sec--;var m=Math.floor(sec/60),s=sec%60;document.getElementById('extraCountdown').textContent=pad(m)+':'+pad(s);if(sec<=0){clearInterval(_extraTimerInterval);window.forceSubmit();}},1000);}
+window.forceSubmit=function(){document.getElementById('warningOverlay').classList.remove('show');runSubmit();};
+window.submitTest=function(){if(_submitted)return;document.getElementById('confirmOverlay').classList.add('show');};
+window.doSubmit=function(){document.getElementById('confirmOverlay').classList.remove('show');runSubmit();};
+function runSubmit(){
+  if(_submitted)return;_submitted=true;clearInterval(_timerInterval);clearInterval(_extraTimerInterval);document.getElementById('warningOverlay').classList.remove('show');
+  var score=0,details=[];
+  Object.keys(ANSWERS).forEach(function(qid){
+    var info=ANSWERS[qid],userVal='',isCorrect=false;
+    if(info.type==='text'){var el=document.getElementById(qid);userVal=el?el.value:'';isCorrect=info.correct.some(function(c){return normalize(c)===normalize(userVal);});if(el){el.disabled=true;el.classList.add(isCorrect?'correct':'wrong');}var rel=document.getElementById('r'+qid.slice(1));if(rel){rel.textContent=isCorrect?'✔ ':'✘ Đáp án: '+info.correct[0];rel.style.color=isCorrect?'#27ae60':'#e74c3c';rel.classList.add('show');}}
+    else if(info.type==='radio'){var radios=document.querySelectorAll('input[name="'+qid+'"]');radios.forEach(function(r){r.disabled=true;});var checked=document.querySelector('input[name="'+qid+'"]:checked');userVal=checked?checked.value:'';isCorrect=(userVal===info.correct);radios.forEach(function(r){var lbl=r.parentElement;if(r.value===info.correct)lbl.classList.add('correct-label');else if(r.value===userVal&&!isCorrect)lbl.classList.add('wrong-label');});var rel2=document.getElementById('r'+qid.slice(1));if(rel2){rel2.textContent=isCorrect?'✔':'✘ Đáp án: '+info.correct;rel2.style.color=isCorrect?'#27ae60':'#e74c3c';rel2.classList.add('show');}}
+    else if(info.type==='select'){var sel=document.getElementById(qid);userVal=sel?sel.value:'';isCorrect=(userVal===info.correct);if(sel){sel.disabled=true;sel.classList.add(isCorrect?'correct':'wrong');}var rel3=document.getElementById('r'+qid.slice(1));if(rel3){rel3.textContent=isCorrect?'✔':'✘ Đáp án: '+info.correct;rel3.style.color=isCorrect?'#27ae60':'#e74c3c';rel3.classList.add('show');}}
+    if(isCorrect)score++;details.push({qid:qid.toUpperCase()+'.'+TEST_ID,user:userVal,correct:isCorrect});
+  });
+  var band=getBand(score);
+  document.getElementById('scoreNum').textContent=score+'/40';document.getElementById('scoreBand').textContent='🏆 Band IELTS ước tính: '+band;document.getElementById('scoreDetail').textContent='Vi phạm: '+_violations+' | Chuyển tab: '+_tabSwitches+' | Thoát fullscreen: '+_fsExits;document.getElementById('scoreBoard').style.display='block';document.getElementById('submitBtn').style.display='none';document.getElementById('scoreBoard').scrollIntoView({behavior:'smooth'});
+  var elapsed=Math.round((Date.now()-_startTime)/1000);
+  var payload={action:'save_result',testId:TEST_ID,studentName:_studentName,studentClass:_studentClass,score:score,band:band,timeUsed:elapsed,violations:_violations,tabSwitches:_tabSwitches,fsExits:_fsExits,details:JSON.stringify(details),log:JSON.stringify(_antiCheatLog)};
+  try{fetch(GOOGLE_SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}catch(e){}
+  try{document.exitFullscreen();}catch(e){}
+}
+function logEvent(msg){var t=new Date().toLocaleTimeString();_antiCheatLog.push('['+t+'] '+msg);var lp=document.getElementById('logPanel');if(lp)lp.innerHTML=_antiCheatLog.slice(-5).join('<br>');}
+document.addEventListener('visibilitychange',function(){if(!_startTime||_submitted)return;if(document.hidden){_tabSwitches++;_violations++;logEvent('Chuyển tab lần '+_tabSwitches);var tw=document.getElementById('tabWarning');tw.textContent='⚠️ Đã phát hiện chuyển tab! Lần '+_tabSwitches;tw.classList.add('show');setTimeout(function(){tw.classList.remove('show');},3000);}});
+window.addEventListener('blur',function(){if(!_startTime||_submitted)return;_violations++;logEvent('Rời khỏi cửa sổ');});
+document.addEventListener('fullscreenchange',function(){if(!_startTime||_submitted)return;if(!document.fullscreenElement){_fsExits++;_violations++;logEvent('Thoát fullscreen lần '+_fsExits);document.getElementById('fsWarning').classList.add('show');}else{document.getElementById('fsWarning').classList.remove('show');}});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'||e.key==='C'))||(e.ctrlKey&&e.key==='U')){e.preventDefault();_violations++;logEvent('Phím tắt DevTools bị chặn');}if(e.ctrlKey&&(e.key==='c'||e.key==='v'||e.key==='x'||e.key==='a')){var tag=document.activeElement?document.activeElement.tagName:'';if(tag!=='INPUT'&&tag!=='TEXTAREA')e.preventDefault();}});
+document.addEventListener('copy',function(e){if(!['INPUT','TEXTAREA'].includes(document.activeElement.tagName))e.preventDefault();});
+document.addEventListener('cut',function(e){if(!['INPUT','TEXTAREA'].includes(document.activeElement.tagName))e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+})();
+</script>
+</body>
+</html>
