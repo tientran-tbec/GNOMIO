@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 15</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+#right-panel input[type="text"],#right-panel select{user-select:text}
+.passage-section{display:none}
+.passage-section.active{display:block}
+.q-section{display:none}
+.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:6px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer,.check-label.selected-answer{background:#FFD580;border-radius:4px}
+.radio-label.correct,.check-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong,.check-label.wrong{background:#f8d7da!important;color:#721c24}
+.radio-label.missed{background:#fff3cd!important;border:2px dashed #856404}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+.word-bank-box{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+.word-bank-item{display:inline-block;margin:2px 6px;font-size:13px}
+.flow-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.flow-box{border:1px solid #aaa;border-radius:4px;padding:6px 10px;background:#fff;min-width:80px;text-align:center}
+.flow-arrow{font-size:18px;color:#888}
+.company-list{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+table.fill-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.fill-table td,table.fill-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.fill-table th{background:#e8eaf6;font-weight:700}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#submit-btn:hover{background:#2a5080}
+.hl-yellow{background:#FFE066}
+.hl-green{background:#90EE90}
+.hl-pink{background:#FFB6C1}
+/* Overlays */
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#start-btn:hover{background:#2a5080}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+#score-panel h2{color:#1a3a5c;margin-bottom:12px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #left-panel,#right-panel{width:100%!important;height:50vh}
+  #divider{display:none}
+  .tab-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 15</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label>
+    <input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label>
+    <input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát khỏi toàn màn hình. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+<div id="overtime-overlay">
+  <div id="overtime-box">
+    <p>⏰ Hết 60 phút! Bạn có thêm 5 phút để hoàn thành.<br>Bài sẽ tự nộp sau 5 phút.</p>
+    <button onclick="confirmSubmit()">Nộp bài ngay</button>
+  </div>
+</div>
+<div id="warning-banner"></div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">Grey Workers</div>
+      <div class="passage-para"><span class="subheading">A</span> Given the speed at which their workers are growing greyer, employers know surprisingly little about how productive they are. The general assumption is that the old are paid more in spite of, rather than because of, their extra productivity. That might partly explain why, when employers are under pressure to cut costs, they persuade the 55-year-olds to take early retirement. Earlier this year, Sun Life of Canada, an insurance company, announced that it was offering redundancy to all its British employees aged 50 or over “to bring in new blood”.</div>
+      <div class="passage-para"><span class="subheading">B</span> In Japan, says Mariko Fujiwara, an industrial anthropologist who runs a think-tank for Hakuhodo, Japan’s second-largest advertising agency, most companies are bringing down the retirement age from the traditional 57 to 50 or thereabouts – and in some cases, such as Nissan, to 45. More than perhaps anywhere else, pay in Japan is linked to seniority. Given that the percentage of workers who have spent more than 32 years with the same employer rose from 11% in 1980 to 42% by 1994, it is hardly surprising that seniority-based wage costs have become the most intractable item on corporate profit-and-loss accounts.</div>
+      <div class="passage-para"><span class="subheading">C</span> In Germany, Patrick Pohl, spokesman for Hoechst, expresses a widely held view: “The company is trying to lower the average age of the workforce. Perhaps the main reason for replacing older workers is that it makes it easier to ‘defrost’ the corporate culture. Older workers are less willing to try a new way of thinking. Younger workers are cheaper and more flexible.” Some German firms are hampered from getting rid of older workers as quickly as they would like. At SGL Carbon, a graphite producer, the average age of workers has been going up not down. The reason, says the company’s Ivo Lingnau, is not that SGL values older workers more. It is collective bargaining: the union agreement puts strict limits on the proportion of workers that may retire early.</div>
+      <div class="passage-para"><span class="subheading">D</span> Clearly, when older people do heavy physical work, their age may affect their productivity. But other skills may increase with age, including many that are crucial for good management, such as an ability to handle people diplomatically, to run a meeting or to spot a problem before it blows up. Peter Hicks, who co-ordinates OECD work on the policy implications of ageing, says that plenty of research suggests older people are paid more because they are worth more.</div>
+      <div class="passage-para"><span class="subheading">E</span> And the virtues of the young may be exaggerated. “The few companies that have kept on older workers find they have good judgment and their productivity is good,” says Mr Peterson. “Besides, their education standards are much better than those of today’s young high-school graduates.” Companies may say that older workers are not worth training, because they are reaching the end of their working lives: in fact, young people tend to switch jobs so frequently that offer the worst returns on training. “The median age for employer-driven training is the late 40s and early 50s,” says Mr Hicks. “It goes mainly to managers.”</div>
+      <div class="passage-para"><span class="subheading">F</span> Take away those seniority-based pay scales, and older workers may become a much more attractive employment proposition. But most companies (and many workers) are uncomfortable with the idea of reducing someone’s pay in later life – although workers on piece-fates often earn less over time. So retaining the services of older workers may mean employing them in new ways.</div>
+      <div class="passage-para"><span class="subheading">G</span> One innovation, described in Mr Walker’s report on combating age barriers, was devised by IBM Belgium. Faced with the need to cut staff costs, and have decided to concentrate cuts on 55-60-year-olds, IBM set up a separate company called SkillTeam, which re-employed any of the early retired who wanted to go on working up to the age of 60. An employee who joined SkillTeam at the age of 55 on a five-year contract would work for 58% of his time, over the full period, for 88% of his last IBM salary. The company offered services to IBM, thus allowing it to retain access to some of the intellectual capital it would otherwise have lost.</div>
+      <div class="passage-para"><span class="subheading">H</span> The best way to tempt the old to go on working may be to build on such “bridge” jobs: part-time or temporary employment that creates a more gradual transition from full-time work to retirement. Mr Quinn, who has studied the phenomenon, finds that, in the United States, nearly half of all men and women who had been in full-time jobs in middle age moved into such “bridge” jobs at the end of their working lives. In general, it is the best-paid and worst-paid who carry on working: “There are”, he says, “two very different types of bridge jog-holders – those who continue working because they have to and those who continue working because they want to, even though they could afford to retire.”</div>
+      <div class="passage-para"><span class="subheading">I</span> If the job market grows more flexible, the old may find more jobs that suit them. Often, they will be self-employed. Sometimes, they may start their own businesses: a study by David Storey of Warwick University found that, in Britain, 70% of businesses started by people over 55 survived, compared with an average of only 19%. To coax the old back into the job market, work will not only have to pay. It will need to be more fun than touring the country in an Airstream trailer, or seeing the grandchildren, or playing golf. Only then will there be many more Joe Clarks.</div>
+    </div>
+
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">Travel Accounts</div>
+      <div class="passage-para"><span class="subheading">A</span> There are many reasons why individuals have traveled beyond their own societies. Some travelers may have simply desired to satisfy curiosity about the larger world. Until recent times, however, trade, business dealings, diplomacy, political administration, military campaigns, exile, flight from persecution, migration, pilgrimage, missionary efforts, and the quest for economic or educational opportunities were more common inducements for foreign travel than was a mere curiosity. While the travelers’ accounts give much valuable information on these foreign lands and provide a window for the understanding of the local cultures and histories, they are also a mirror to the travelers themselves, for these accounts help them to have a better understanding of themselves.</div>
+      <div class="passage-para"><span class="subheading">B</span> Records of foreign travel appeared soon after the invention of writing, and fragmentary travel accounts appeared in both Mesopotamia and Egypt in ancient times. After the formation of large, imperial states in the classical world, travel accounts emerged as a prominent literary genre in many lands, and they held especially strong appeal for rulers desiring useful knowledge about their realms. The Greek historian Herodotus reported on his travels in Egypt and Anatolia in researching the history of the Persian wars. The Chinese envoy Zhang Qian described much of central Asia as far west as Bactria (modern-day Afghanistan) on the basis of travels undertaken in the first century BC while searching for allies for the Han dynasty. Hellenistic and Roman geographers such as Ptolemy, Strabo, and Pliny the Elder relied on their own travels through much of the Mediterranean world as well as reports of other travelers to compile vast compendia of geographical knowledge.</div>
+      <div class="passage-para"><span class="subheading">C</span> During the postclassical era (about 500 to 1500 CE), trade and pilgrimage emerged as major incentives for travel to foreign lands. Muslim merchants sought trading opportunities throughout much of the eastern hemisphere. They described lands, peoples, and commercial products of the Indian Ocean basin from East Africa to Indonesia, and they supplied the first written accounts of societies in sub-Saharan west Africa. While merchants set out in search of trade and profit, devout Muslims traveled as pilgrims to Mecca to make their hajj and visit the holy sites of Islam. Since the prophet Muhammad’s original pilgrimage to Mecca, untold millions of Muslims have followed his example, and thousands of hajj accounts have related their experiences. One of the best known Muslim travelers, Ibn Battuta, began his travels with the hajj but then went on to visit central Asia, India, China, sub-Saharan Africa, and parts of Mediterranean Europe before returning finally to his home in Morocco. East Asian travelers were not quite so prominent as Muslims during the postclassical era, but they too followed many of the highways and sea lanes of the eastern hemisphere. Chinese merchants frequently visited Southeast Asia and India, occasionally venturing even to east Africa, and devout East Asian Buddhists undertook distant pilgrimages. Between the 5th and 9th centuries CE, hundreds and possibly even thousands of Chinese Buddhists traveled to India to study with Buddhist teachers, collect sacred texts, and visit holy sites. Written accounts recorded the experiences of many pilgrims, such as Faxian, Xuanzang, and Yijing. Though not so numerous as the Chinese pilgrims, Buddhists from Japan, Korea, and other lands also ventured abroad in the interests of spiritual enlightenment.</div>
+      <div class="passage-para"><span class="subheading">D</span> Medieval Europeans did not hit the roads in such large numbers as their Muslim and east Asian counterparts during the early part of the postclassical era, although gradually increasing crowds of Christian pilgrims flowed to Jerusalem, Rome, Santiago de Compostela (in northern Spain), and other sites. After the 12th century, however, merchants, pilgrims, and missionaries from medieval Europe traveled widely and left numerous travel accounts, of which Marco Polo’s description of his travels and sojourn in China is the best known. As they became familiar with the larger world of the eastern hemisphere – and the profitable commercial opportunities that it offered – European peoples worked to find new and more direct routes to Asian and African markets. Their efforts took them not only to all parts of the eastern hemisphere but eventually to the Americas and Oceania as well.</div>
+      <div class="passage-para"><span class="subheading">E</span> If Muslim and Chinese peoples dominated travel writing in postclassical times, European explorers, conquerors, merchants, and missionaries took center stage during the early modern era (about 1500 to 1800 CE). By no means did Muslim and Chinese travel come to a halt in early modern times. But European peoples ventured to the distant corners of the globe, and European printing presses churned out thousands of travel accounts that described foreign lands and peoples for a reading public with an apparently insatiable appetite for news about the larger world. The volume of travel literature was so great that several editors, including Giambattista Ramusio, Richard Hakluyt, Theodore de Bry, and Samuel Purchas, assembled numerous travel accounts and made them available in enormous published collections.</div>
+      <div class="passage-para"><span class="subheading">F</span> During the 19th century, European travelers made their way to the interior regions of Africa and the Americas, generating a fresh round of travel writing as they did so. Meanwhile, European colonial administrators devoted numerous writing to the societies of their colonial subjects, particularly in Asian and African colonies they established. By midcentury, attention was flowing also in the other direction. Painfully aware of the military and technological prowess of European and Euro-American societies, Asian travelers, in particular, visited Europe and the United States in hopes of discovering principles useful for the reorganization of their own societies. Among the most prominent of these travelers who made extensive use of their overseas observations and experiences in their own writing were the Japanese reformer Fukuzawa Yukichi and the Chinese revolutionary Sun Yat-sen.</div>
+      <div class="passage-para"><span class="subheading">G</span> With the development of inexpensive and reliable means of mass transport, the 20th century witnessed explosions both in the frequency of long-distance travel and in the volume of travel writing. While a great deal of travel took place for reasons of business, administration, diplomacy, pilgrimage, and missionary work, as in ages past, increasingly effective modes of mass transport made it possible for new kinds of travel to flourish. The most distinctive of them was mass tourism, which emerged as a major form of consumption for individuals living in the world’s wealthy societies. Tourism enabled consumers to get away from home to see the sights in Rome, take a cruise through the Caribbean, walk the Great Wall of China, visit some wineries in Bordeaux, or go on safari in Kenya. A peculiar variant of the travel account arose to meet the needs of these tourists: the guidebook, which offered advice on food, lodging, shopping, local customs, and all the sights that visitors should not miss seeing. Tourism has had a massive economic impact throughout the world, but other new forms of travel have also had considerable influence in contemporary times. Recent times have seen unprecedented waves of migration, for example, and numerous migrants have sought to record their experiences and articulate their feelings about life in foreign lands. Recent times have also seen an unprecedented development of ethnic consciousness, and many are the intellectuals and writers in the diaspora who have visited the homes of their ancestors to see how much of their forebears’ values and cultural traditions they themselves have inherited. Particularly notable among their accounts are the memoirs of Malcolm X and Maya Angelou describing their visits to Africa.</div>
+    </div>
+
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction">D Adult humans spend about a quarter of their sleep time in REM, much of it dreaming. During that time, the body is essentially paralyzed but the brain is buzzing. Scientists using PET and fMRI technology to watch the dreaming brain have found that one of the most active areas during REM is the limbic system, which controls our emotions. Much less active is the prefrontal cortex, which is associated with logical thinking. That could explain why dreams in REM sleep often lack a coherent storyline (some researchers have also found that people dream in non-REM sleep as well, although those dreams generally are less vivid.) Another active part of the brain in REM sleep is the anterior cingulate cortex, which detects discrepancies. Eric Nofzinger, director of the Sleep Neuroimaging Program at the University of Pittsburgh Medical Center, thinks that could be why people often figure out thorny problems in their dreams. “As if the brain surveys the internal milieu and tries to figure out what it should be doing, and whether our actions conflict with who we are,” he says.</div>
+      <div class="passage-title" style="margin-top:12px">What Are Dreams?</div>
+      <div class="passage-para"><span class="subheading">A</span> Thousands of years ago, dreams were seen as messages from the gods, and in many cultures, they are still considered prophetic. In ancient Greece, sick people slept at the temples of Asclepius, the god of medicine, in order to receive dreams that would heal them. Modern dream science really begins at the end of the 19th century with Sigmund Feud, who theorized that dreams were the expression of unconscious desires often stemming from childhood. He believed that exploring these hidden emotions through analysis could help cure mental illness. The Freudian model of psychoanalysis dominated until the 1970s when new research into the chemistry of the brain showed that emotional problems could have biological or chemical roots, as well as environmental ones. In other words, we weren’t sick just because of something our mothers did (or didn’t do), but because of some imbalance that might be cured with medication.</div>
+      <div class="passage-para"><span class="subheading">B</span> After Freud, the most important event in dream science was the discovery in the early 1950s of a phase of sleep characterized by intense brain activity and rapid eye movement (REM). People awakened in the midst of REM sleep reported vivid dreams, which led researchers to conclude that most dreaming took place during REM. Using the electroencephalograph (EEG), researchers could see that brain activity during REM resembled that of the waking brain. That old them that a lot more was going on at night than anyone had suspected. But what, exactly?</div>
+      <div class="passage-para"><span class="subheading">C</span> Scientists still don’t know for sure, although they have lots of theories. On one side are scientists like Harvard’s Allan Hobson, who believes that dreams are essentially random. In the 1970s, Hobson and his colleague Robert McCarley proposed what they called the “activation-synthesis hypothesis’” which describes how dreams are formed by nerve signals sent out during REM sleep from a small area at the base of the brain called the pons. These signals, the researchers said, activate the images that we call dreams. That put a crimp in dream research; if dreams were meaningless nocturnal firings, what was the point of studying them?</div>
+      <div class="passage-para"><span class="subheading">E</span> These may seem like vital mental functions, but no one has yet been able to say that REM sleep or dreaming is essential to life or even sanity. MAO inhibitors, an older class of antidepressants, essentially block REM sleep without any detectable effects, although people do get a “REM rebound” – extra REM – if they stop the medication. That’s also true of selective serotonin reuptake inhibitors (SSRIs) like Prozac, which reduce dreaming by a third to a half. Even permanently losing the ability to dream doesn’t have to be disabling. Israeli researcher Peretz Lavie has been observing a patient named Yuval Chamtzani, who was injured by a fragment of shrapnel that penetrated his brain when he was 19. As a result, he gets no REM sleep and doesn’t remember any dreams. But Lavie says that Chamtzani, now 55, “is probably the most normal person I know and one of the most successful ones.” He’s a lawyer, a painter and the editor of a puzzle column in a popular Israeli newspaper.</div>
+      <div class="passage-para"><span class="subheading">F</span> The mystery of REM sleep is that even though it may not be essential, it is ubiquitous – at least in mammals and birds. But that doesn’t mean all mammals and birds dream (or if they do, they’re certainly not – talking about it). Some researchers think REM may have evolved for physiological reasons. “One thing that’s unique about mammals and birds is that they regulate body temperature”, says neuroscientist Jerry Siegel, director of UCLA’s Center for Sleep Research. “There’s no good evidence that any coldblooded animal has REM sleep.” REM sleep heats up the brain and non-REM cools it off, Siegel says, and that could mean that the changing sleep cycles allow the brain to repair itself. “It seems likely that REM sleep is filling a basic physiological function and that dreams are a kind of epiphenomenon,” Siegel says – an extraneous byproduct; like foam on beer.</div>
+      <div class="passage-para"><span class="subheading">G</span> Whatever the function of dreams at night, they clearly can play a role in therapy during the day. The University of Maryland’s Clara Hill, who has studied the use of dreams in therapy, says that dreams are a ‘backdoor’, into a patient’s thinking. “Dreams reveal stuff about you that you didn’t know was there,” she says. The therapists she trains to work with patients’ dreams are, in essence, heirs to Freud, using dream imagery to uncover hidden emotions and feelings. Dreams provide clues to the nature of the more serious mental illness. Schizophrenics, for example, have poor-quality dreams, usually about objects rather than people. “If you’re going to understand human behavior,” says Rosalind Cartwright, a chairman of psychology at Rush University Medical Center in Chicago, “here’s a big piece of it. Dreaming is our own storytelling time – to help us know who we are, where we’re going and how we’re going to get there.” Cartwright has been studying depression in divorced men and women, and she is finding that “good dreamers,” people who have vivid dreams with strong storylines, are less likely to remain depressed. She thinks that dreaming helps diffuse strong emotions. “Dreaming is a mental-health activity,” she says. Question 27 – 31</div>
+      <div class="passage-para">Reading passage has seven paragraphs, A-G. Which paragraph contains the following information?</div>
+      <div class="passage-para">27	Reference of an artist’s dreams who has versatile talents</div>
+      <div class="passage-para">28	The dream actually happens to many animals</div>
+      <div class="passage-para">29	Dreams are related to benefit and happiness</div>
+      <div class="passage-para">30	Advanced scientific technology applied in the investigation of the REM stage.</div>
+      <div class="passage-para">31	Questioning concern raised about the usefulness of investigation on dreams</div>
+    </div>
+  </div>
+  <div id="divider"></div>
+  <div id="right-panel">
+<!-- QUESTIONS PASSAGE 1 -->
+    <div class="q-section active" id="qs1">
+
+      <!-- Q1-4: T/F/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 1–4</div>
+        <p class="q-instruction">Do the following statements agree with the information given in the reading passage? Write <strong>TRUE</strong> if the statement agrees with the information, <strong>FALSE</strong> if the statement contradicts the information, or <strong>NOT GIVEN</strong> if there is no information on this.</p>
+        <div class="q-text"><span class="q-num">1.</span> Insurance company Sun Life of Canada made a decision that it would hire more Canadian employees rather than British ones in order to get a fresh start.
+            <br><br>
+            <select  id="q1">
+              <option value="">-- Select --</option>
+              <option value="TRUE">TRUE</option>
+              <option value="FALSE">FALSE</option>
+              <option value="NOT GIVEN">NOT GIVEN</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">2.</span> Unlike other places, employees in Japan get paid according to the years they are employed.
+            <br><br>
+            <select  id="q2">
+              <option value="">-- Select --</option>
+              <option value="TRUE">TRUE</option>
+              <option value="FALSE">FALSE</option>
+              <option value="NOT GIVEN">NOT GIVEN</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">3.</span> Elder workers are laid off by some German companies which are refreshing corporate culture.
+            <br><br>
+            <select  id="q3">
+              <option value="">-- Select --</option>
+              <option value="TRUE">TRUE</option>
+              <option value="FALSE">FALSE</option>
+              <option value="NOT GIVEN">NOT GIVEN</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">4.</span> According to Peter Hicks, companies pay older people more regardless of the contribution they make.
+            <br><br>
+            <select  id="q4">
+              <option value="">-- Select --</option>
+              <option value="TRUE">TRUE</option>
+              <option value="FALSE">FALSE</option>
+              <option value="NOT GIVEN">NOT GIVEN</option>
+            </select></div>
+      </div>
+
+      <!-- Q5-6: MCQ Choose TWO advantages -->
+      <div class="q-block">
+        <div class="q-num">Questions 5–6</div>
+        <p class="q-instruction">Choose <strong>TWO</strong> correct letters, A–E. According to the passage, there are several advantages to hire elder people. Please choose TWO from below:</p>
+        <p style="font-size:13px;color:#888;margin-bottom:8px;">(Chọn đúng 2 đáp án)</p>
+        <div style="margin-left:32px;">
+          <div class="options-list" id="q56-options">
+            <label class="radio-label"><input type="checkbox" name="q56" value="A"> <span><strong>A</strong> &nbsp; their products are more superior to the young.</span></label>
+            <label class="radio-label"><input type="checkbox" name="q56" value="B"> <span><strong>B</strong> &nbsp; paid less compared with younger ones</span></label>
+            <label class="radio-label"><input type="checkbox" name="q56" value="C"> <span><strong>C</strong> &nbsp; run fast when there is a meeting</span></label>
+            <label class="radio-label"><input type="checkbox" name="q56" value="D"> <span><strong>D</strong> &nbsp; have a better inter-person relationship</span></label>
+            <label class="radio-label"><input type="checkbox" name="q56" value="E"> <span><strong>E</strong> &nbsp; identify problems in an advanced time</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7-8: MCQ Choose TWO weaknesses of young -->
+      <div class="q-block">
+        <div class="q-num">Questions 7–8</div>
+        <p class="q-instruction">Choose <strong>TWO</strong> correct letters, A–E. According to Mr. Peterson, compared with elder employees, young graduates have several weaknesses in workplace. Please choose TWO of them below:</p>
+        <p style="font-size:13px;color:#888;margin-bottom:8px;">(Chọn đúng 2 đáp án)</p>
+        <div style="margin-left:32px;">
+          <div class="options-list" id="q78-options">
+            <label class="radio-label"><input type="checkbox" name="q78" value="A"> <span><strong>A</strong> &nbsp; they are not worth training</span></label>
+            <label class="radio-label"><input type="checkbox" name="q78" value="B"> <span><strong>B</strong> &nbsp; their productivity is lower than counterparts.</span></label>
+            <label class="radio-label"><input type="checkbox" name="q78" value="C"> <span><strong>C</strong> &nbsp; they change work more often</span></label>
+            <label class="radio-label"><input type="checkbox" name="q78" value="D"> <span><strong>D</strong> &nbsp; their academic criteria is someway behind elders</span></label>
+            <label class="radio-label"><input type="checkbox" name="q78" value="E"> <span><strong>E</strong> &nbsp; they are normally high school graduates.</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9-13: MCQ single -->
+      <div class="q-block">
+        <div class="q-num">Questions 9–13</div>
+        <p class="q-instruction">Choose the correct letter, <strong>A</strong>, <strong>B</strong>, <strong>C</strong> or <strong>D</strong>.</p>
+
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">9</span>
+            <span class="q-text">According to paragraph F, the firms and workers still hold the opinion that</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q9" value="A"> <span><strong>A</strong> &nbsp; Older workers are more likely to attract other staff</span></label>
+              <label class="radio-label"><input type="radio" name="q9" value="B"> <span><strong>B</strong> &nbsp; people are not happy if pay gets lower in retiring age.</span></label>
+              <label class="radio-label"><input type="radio" name="q9" value="C"> <span><strong>C</strong> &nbsp; Older people have more retaining motivation than young people</span></label>
+              <label class="radio-label"><input type="radio" name="q9" value="D"> <span><strong>D</strong> &nbsp; young people often earn less for their piece-rates salary.</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">10</span>
+            <span class="q-text">SkillTeam that has been founded by IBM conducted which of the following movement:</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q10" value="A"> <span><strong>A</strong> &nbsp; Ask all the old worker to continue their job on former working hours basis</span></label>
+              <label class="radio-label"><input type="radio" name="q10" value="B"> <span><strong>B</strong> &nbsp; Carry on the action of cutting off the elder's proportion of employment</span></label>
+              <label class="radio-label"><input type="radio" name="q10" value="C"> <span><strong>C</strong> &nbsp; Ask employees to work more hours in order to get extra pay</span></label>
+              <label class="radio-label"><input type="radio" name="q10" value="D"> <span><strong>D</strong> &nbsp; Re-hire old employees and kept the salary a bit lower</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">11</span>
+            <span class="q-text">Which of the followings is correct according to the research of Mr Quinn?</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q11" value="A"> <span><strong>A</strong> &nbsp; About 50% of all employees in America switched into 'Bridge' jobs.</span></label>
+              <label class="radio-label"><input type="radio" name="q11" value="B"> <span><strong>B</strong> &nbsp; Only the worst-paid continue to work.</span></label>
+              <label class="radio-label"><input type="radio" name="q11" value="C"> <span><strong>C</strong> &nbsp; More men than women fell into the category of 'bridge' work.</span></label>
+              <label class="radio-label"><input type="radio" name="q11" value="D"> <span><strong>D</strong> &nbsp; Some old people keep working for their motives rather than an economic incentive.</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">12</span>
+            <span class="q-text">Which of the followings is correct according to David Storey:</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q12" value="A"> <span><strong>A</strong> &nbsp; 70% of business is successful if hire more older people.</span></label>
+              <label class="radio-label"><input type="radio" name="q12" value="B"> <span><strong>B</strong> &nbsp; The average success of the self-employed business is getting lower.</span></label>
+              <label class="radio-label"><input type="radio" name="q12" value="C"> <span><strong>C</strong> &nbsp; Self-employed elder people are more likely to survive.</span></label>
+              <label class="radio-label"><input type="radio" name="q12" value="D"> <span><strong>D</strong> &nbsp; Older people's working hours are more flexible.</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">13</span>
+            <span class="q-text">What is the main purpose of the author in writing this passage?</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q13" value="A"> <span><strong>A</strong> &nbsp; there must be a successful retiring program for the old</span></label>
+              <label class="radio-label"><input type="radio" name="q13" value="B"> <span><strong>B</strong> &nbsp; older people should be correctly valued in employment</span></label>
+              <label class="radio-label"><input type="radio" name="q13" value="C"> <span><strong>C</strong> &nbsp; old people should offer more helping young employees grow.</span></label>
+              <label class="radio-label"><input type="radio" name="q13" value="D"> <span><strong>D</strong> &nbsp; There are more jobs in the world that only employ older people</span></label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- end questions-0 -->
+
+    <!-- QUESTIONS PASSAGE 2 -->
+    <div class="q-section" id="qs2">
+
+      <!-- Q14-21: Table completion -->
+      <div class="q-block">
+        <div class="q-num">Questions 14–21</div>
+        <p class="q-instruction">Complete the table below. Write <strong>NO MORE THAN TWO WORDS</strong> from the reading passage for each answer.</p>
+        <table class="q-table">
+          <tr>
+            <th>Time</th>
+            <th>Destination</th>
+            <th>Traveler</th>
+            <th>Purpose</th>
+          </tr>
+          <tr>
+            <td>Classical era</td>
+            <td>Egypt and Anatolia</td>
+            <td>Herodotus</td>
+            <td>To obtain information on <strong>14</strong> <input type="text"  id="q14" placeholder="answer" style="width:140px;"></td>
+          </tr>
+          <tr>
+            <td>1st century BC</td>
+            <td>Central Asia</td>
+            <td>Zhang Qian</td>
+            <td>To seek <strong>15</strong> <input type="text"  id="q15" placeholder="answer" style="width:130px;"></td>
+          </tr>
+          <tr>
+            <td>Roman Empire</td>
+            <td>Mediterranean</td>
+            <td>Ptolemy, Strabo, Pliny the Elder</td>
+            <td>To gather <strong>16</strong> <input type="text"  id="q16" placeholder="answer" style="width:160px;"></td>
+          </tr>
+          <tr>
+            <td>Post-classical era</td>
+            <td>Eastern Hemisphere</td>
+            <td>Muslims</td>
+            <td>For business and <strong>17</strong> <input type="text"  id="q17" placeholder="answer" style="width:120px;"></td>
+          </tr>
+          <tr>
+            <td>5th to 9th centuries CE</td>
+            <td>India</td>
+            <td>Asian Buddhists</td>
+            <td>To study with <strong>18</strong> <input type="text"  id="q18" placeholder="answer" style="width:150px;"></td>
+          </tr>
+          <tr>
+            <td>Early modern era</td>
+            <td>Distant places of the globe</td>
+            <td>The Europeans</td>
+            <td>To meet the public's expectation for the outside world</td>
+          </tr>
+          <tr>
+            <td>19th century</td>
+            <td>Asia, Africa</td>
+            <td>Colonial administrator</td>
+            <td>To provide information on the <strong>19</strong> <input type="text"  id="q19" placeholder="answer" style="width:120px;"> they conquer</td>
+          </tr>
+          <tr>
+            <td>By the mid-century of the 1800s</td>
+            <td>Europe and the United States</td>
+            <td>Sun Yat-sen, Fukuzawa Yukichi</td>
+            <td>To learn <strong>20</strong> <input type="text"  id="q20" placeholder="answer" style="width:120px;"> for the reorganization of their societies</td>
+          </tr>
+          <tr>
+            <td>20th century</td>
+            <td>Mass tourism</td>
+            <td>People from <strong>21</strong> <input type="text"  id="q21" placeholder="answer" style="width:120px;"> countries</td>
+            <td>For entertainment</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Q22-26: MCQ single -->
+      <div class="q-block">
+        <div class="q-num">Questions 22–26</div>
+        <p class="q-instruction">Choose the correct letter, <strong>A</strong>, <strong>B</strong>, <strong>C</strong> or <strong>D</strong>.</p>
+
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">22</span>
+            <span class="q-text">Why did some people travel in the early days?</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q22" value="A"> <span><strong>A</strong> &nbsp; to do research on themselves</span></label>
+              <label class="radio-label"><input type="radio" name="q22" value="B"> <span><strong>B</strong> &nbsp; to write travel books</span></label>
+              <label class="radio-label"><input type="radio" name="q22" value="C"> <span><strong>C</strong> &nbsp; to have a better understanding of other people and places</span></label>
+              <label class="radio-label"><input type="radio" name="q22" value="D"> <span><strong>D</strong> &nbsp; to study local culture</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">23</span>
+            <span class="q-text">The travelers' accounts are a mirror to themselves,</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q23" value="A"> <span><strong>A</strong> &nbsp; because they help them to be aware of local histories.</span></label>
+              <label class="radio-label"><input type="radio" name="q23" value="B"> <span><strong>B</strong> &nbsp; because travelers are curious about the world.</span></label>
+              <label class="radio-label"><input type="radio" name="q23" value="C"> <span><strong>C</strong> &nbsp; because travelers could do more research on the unknown.</span></label>
+              <label class="radio-label"><input type="radio" name="q23" value="D"> <span><strong>D</strong> &nbsp; because they reflect the writers' own experience and social life.</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">24</span>
+            <span class="q-text">Most of the people who went to holy sites during the early part of the postclassical era are</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q24" value="A"> <span><strong>A</strong> &nbsp; Europeans</span></label>
+              <label class="radio-label"><input type="radio" name="q24" value="B"> <span><strong>B</strong> &nbsp; Muslim and East Asians</span></label>
+              <label class="radio-label"><input type="radio" name="q24" value="C"> <span><strong>C</strong> &nbsp; Americans</span></label>
+              <label class="radio-label"><input type="radio" name="q24" value="D"> <span><strong>D</strong> &nbsp; Greeks</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">25</span>
+            <span class="q-text">During the early modern era, a large number of travel books were published to</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q25" value="A"> <span><strong>A</strong> &nbsp; provide what the public wants.</span></label>
+              <label class="radio-label"><input type="radio" name="q25" value="B"> <span><strong>B</strong> &nbsp; encourage the public's feedback.</span></label>
+              <label class="radio-label"><input type="radio" name="q25" value="C"> <span><strong>C</strong> &nbsp; gain profit.</span></label>
+              <label class="radio-label"><input type="radio" name="q25" value="D"> <span><strong>D</strong> &nbsp; prompt trips to the new world.</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">26</span>
+            <span class="q-text">What stimulated the market for traveling in the 20th century?</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q26" value="A"> <span><strong>A</strong> &nbsp; the wealthy</span></label>
+              <label class="radio-label"><input type="radio" name="q26" value="B"> <span><strong>B</strong> &nbsp; travel books</span></label>
+              <label class="radio-label"><input type="radio" name="q26" value="C"> <span><strong>C</strong> &nbsp; delicious food</span></label>
+              <label class="radio-label"><input type="radio" name="q26" value="D"> <span><strong>D</strong> &nbsp; mass transport</span></label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div><!-- end questions-1 -->
+
+    <!-- QUESTIONS PASSAGE 3 -->
+    <div class="q-section" id="qs3">
+
+      <!-- Q27-31: Paragraph matching -->
+      <div class="q-block">
+        <div class="q-num">Questions 27–31</div>
+        <p class="q-instruction">The reading passage has seven paragraphs, <strong>A–G</strong>. Which paragraph contains the following information? Write the correct letter <strong>A–G</strong> in boxes 27–31 on your answer sheet. <em>NB You may use any letter more than once.</em></p>
+        <div class="q-text"><span class="q-num">27.</span> Reference of an artist's dreams who has versatile talents
+            <br><br>
+            <select  id="q27">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">28.</span> The dream actually happens to many animals
+            <br><br>
+            <select  id="q28">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">29.</span> Dreams are related to benefit and happiness
+            <br><br>
+            <select  id="q29">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">30.</span> Advanced scientific technology applied in the investigation of the REM stage.
+            <br><br>
+            <select  id="q30">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">31.</span> Questioning concern raised about the usefulness of investigation on dreams
+            <br><br>
+            <select  id="q31">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+      </div>
+
+      <!-- Q32-34: MCQ single -->
+      <div class="q-block">
+        <div class="q-num">Questions 32–34</div>
+        <p class="q-instruction">Choose the correct letter, <strong>A</strong>, <strong>B</strong>, <strong>C</strong> or <strong>D</strong>.</p>
+
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">32</span>
+            <span class="q-text">What were dreams regarded as by ancient people?</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q32" value="A"> <span><strong>A</strong> &nbsp; superstitious and unreliable</span></label>
+              <label class="radio-label"><input type="radio" name="q32" value="B"> <span><strong>B</strong> &nbsp; communication with gods and chance to predict the future</span></label>
+              <label class="radio-label"><input type="radio" name="q32" value="C"> <span><strong>C</strong> &nbsp; medical relief for children with an ill desire</span></label>
+              <label class="radio-label"><input type="radio" name="q32" value="D"> <span><strong>D</strong> &nbsp; rules to follow as they fell asleep in a temple</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">33</span>
+            <span class="q-text">According to Paragraph D, which part of the brain controls reasoning?</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q33" value="A"> <span><strong>A</strong> &nbsp; anterior cingulate cortex</span></label>
+              <label class="radio-label"><input type="radio" name="q33" value="B"> <span><strong>B</strong> &nbsp; internal cortex</span></label>
+              <label class="radio-label"><input type="radio" name="q33" value="C"> <span><strong>C</strong> &nbsp; limbic system</span></label>
+              <label class="radio-label"><input type="radio" name="q33" value="D"> <span><strong>D</strong> &nbsp; prefrontal cortex</span></label>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="q-row" style="flex-direction:column;gap:6px;">
+          <div style="display:flex;align-items:flex-start;gap:10px;">
+            <span class="q-num">34</span>
+            <span class="q-text">What can we conclude when the author cited a reference for dreams in animals?</span>
+          </div>
+          <div style="margin-left:42px;">
+            <div class="options-list">
+              <label class="radio-label"><input type="radio" name="q34" value="A"> <span><strong>A</strong> &nbsp; Brain temperature rises when REM pattern happens.</span></label>
+              <label class="radio-label"><input type="radio" name="q34" value="B"> <span><strong>B</strong> &nbsp; The reason why mammals are warm-blooded</span></label>
+              <label class="radio-label"><input type="radio" name="q34" value="C"> <span><strong>C</strong> &nbsp; mammals are bound to appear with more frequent REM.</span></label>
+              <label class="radio-label"><input type="radio" name="q34" value="D"> <span><strong>D</strong> &nbsp; REM makes people want to drink beer with more foam.</span></label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Q35-40: Matching people -->
+      <div class="q-block">
+        <div class="q-num">Questions 35–40</div>
+        <p class="q-instruction">Look at the following people and the list of statements below. Match each statement with the correct person, <strong>A–G</strong>.</p>
+        <div class="word-bank-box">
+          <strong>List of People:</strong>
+          A – Sigmund Freud &nbsp;|&nbsp; B – Allan Hobson (Harvard) &nbsp;|&nbsp; C – Robert McCarley &nbsp;|&nbsp; D – Eric Nofzinger &nbsp;|&nbsp; E – Jerry Siegel &nbsp;|&nbsp; F – Clara Hill &nbsp;|&nbsp; G – Rosalind Cartwright
+        </div>
+        <div class="q-text"><span class="q-num">35.</span> Dreams sometimes come along with REM as no more than a trivial attachment
+            <br><br>
+            <select  id="q35">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">36.</span> Exploring patients' dreams would be beneficial for treatment as it reveals the unconscious thinking
+            <br><br>
+            <select  id="q36">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">37.</span> Dreams help people cope with the difficulties they meet in the daytime
+            <br><br>
+            <select  id="q37">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">38.</span> Decoding dreams would provide a reminder to human desire in the early days
+            <br><br>
+            <select  id="q38">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">39.</span> Dreams are a body function to control strong emotion
+            <br><br>
+            <select  id="q39">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+        <div class="q-text"><span class="q-num">40.</span> Dreams seem to be as randomly occurring and have limited research significance
+            <br><br>
+            <select  id="q40">
+              <option value="">-- Select --</option>
+              <option>A</option><option>B</option><option>C</option><option>D</option>
+              <option>E</option><option>F</option><option>G</option>
+            </select></div>
+      </div>
+
+    </div><!-- end questions-2 -->
+  </div>
+</div>
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 15</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+<script>
+(function(){
+'use strict';
+var ANS = {
+  q1: 'NOT GIVEN',
+  q2: 'TRUE',
+  q3: 'TRUE',
+  q4: 'FALSE',
+  q56: ['D','E'],   // Q5-6: choose TWO advantages (D=inter-person, E=identify problems)
+  q78: ['C','D'],   // Q7-8: choose TWO weaknesses (C=change work often, D=academic criteria behind)
+  q9: 'B',
+  q10: 'D',
+  q11: 'D',
+  q12: 'C',
+  q13: 'B',
+  q14: ['persian wars','the persian wars'],
+  q15: ['allies'],
+  q16: ['geographical knowledge'],
+  q17: ['pilgrimage'],
+  q18: ['buddhist teachers'],
+  q19: ['colonies'],
+  q20: ['principles'],
+  q21: ['wealthy'],
+  q22: 'C',
+  q23: 'D',
+  q24: 'B',
+  q25: 'A',
+  q26: 'D',
+  q27: 'E',
+  q28: 'F',
+  q29: 'G',
+  q30: 'D',
+  q31: 'C',
+  q32: 'B',
+  q33: 'D',
+  q34: 'A',
+  q35: 'E',
+  q36: 'F',
+  q37: 'D',
+  q38: 'A',
+  q39: 'G',
+  q40: 'B'
+};
+var TOTAL_QUESTIONS=40,P1_COUNT=13,P2_COUNT=13,P3_COUNT=14;
+var currentTab=1,hlMode='yellow',timerStopped=false,submitted=false;
+var tabViolations=0,focusViolations=0,fsViolations=0,violationLog=[];
+var startTime=null,timerInterval=null,overtimeFired=false;
+var hlColors={yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function setHL(mode){
+  hlMode=mode;
+  ['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.remove('active-hl');});
+  var t=mode==='clear'?'hl-clear':'hl-'+mode,el=document.getElementById(t);if(el)el.classList.add('active-hl');
+}
+window.setHL=setHL;
+function applyHighlight(container){
+  var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);if(!container.contains(range.commonAncestorContainer))return;
+  if(hlMode==='clear'){sel.removeAllRanges();return;}
+  try{var span=document.createElement('span');span.className=hlColors[hlMode];var frag=range.extractContents();span.appendChild(frag);range.insertNode(span);}catch(e){}
+  sel.removeAllRanges();
+}
+function handleErase(e,container){
+  if(hlMode!=='clear')return;var t=e.target;
+  while(t&&t!==container){if(t.tagName==='SPAN'&&(t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){var p=t.parentNode;while(t.firstChild)p.insertBefore(t.firstChild,t);p.removeChild(t);p.normalize();break;}t=t.parentNode;}
+}
+['left-panel','right-panel'].forEach(function(pid){
+  var panel=document.getElementById(pid);if(!panel)return;
+  panel.addEventListener('mouseup',function(){applyHighlight(panel);});
+  panel.addEventListener('click',function(e){handleErase(e,panel);});
+});
+function switchTab(n){
+  currentTab=n;[1,2,3].forEach(function(i){
+    document.getElementById('pass'+i).classList.toggle('active',i===n);
+    document.getElementById('qs'+i).classList.toggle('active',i===n);
+    document.getElementById('tab'+i).classList.toggle('active',i===n);
+  });
+  document.getElementById('left-panel').scrollTop=0;document.getElementById('right-panel').scrollTop=0;
+}
+window.switchTab=switchTab;
+function formatTime(sec){var m=Math.floor(sec/60),s=sec%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function startTimer(){
+  var box=document.getElementById('timer-box');
+  timerInterval=setInterval(function(){
+    if(timerStopped){clearInterval(timerInterval);box.style.display='none';return;}
+    if(!startTime)return;
+    var elapsed=Math.floor((Date.now()-startTime)/1000),remaining=3600-elapsed;
+    if(remaining<=0&&!overtimeFired){overtimeFired=true;box.textContent='00:00';document.getElementById('overtime-overlay').style.display='flex';setTimeout(function(){if(!submitted)confirmSubmit();},300000);return;}
+    if(remaining>0){box.textContent=formatTime(remaining);if(remaining<=120){box.className='';box.classList.add('danger');}else if(remaining<=600){box.className='';box.classList.add('warn');}else{box.className='';}}
+  },500);
+}
+window.stopTimer=function(){timerStopped=true;};
+window.enterFullscreen=function(){
+  var el=document.documentElement;
+  try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}
+  document.getElementById('fs-overlay').style.display='none';
+};
+document.addEventListener('fullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');document.getElementById('fs-overlay').style.display='flex';}});
+document.addEventListener('webkitfullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;document.getElementById('fs-overlay').style.display='flex';}});
+window.startExam=function(){
+  var name=document.getElementById('inp-name').value.trim(),cls=document.getElementById('inp-class').value.trim();
+  if(!name||!cls){document.getElementById('popup-err').style.display='block';return;}
+  window._studentName=name;window._studentClass=cls;
+  startTime=window._testStartTime=Date.now();
+  document.getElementById('popup-overlay').style.display='none';
+  enterFullscreen();startTimer();
+};
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(['F12'].indexOf(e.key)>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.key==='Escape'&&!submitted){e.preventDefault();}
+});
+document.addEventListener('visibilitychange',function(){
+  if(submitted||!startTime)return;
+  if(document.hidden){tabViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab (lần '+tabViolations+')');showWarning('⚠ Phát hiện chuyển tab! Vi phạm lần '+tabViolations);}
+});
+window.addEventListener('blur',function(){
+  if(submitted||!startTime)return;
+  focusViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Mất focus (lần '+focusViolations+')');showWarning('⚠ Phát hiện rời cửa sổ! Vi phạm lần '+focusViolations);
+});
+},1000);
+function showWarning(msg){var b=document.getElementById('warning-banner');b.textContent=msg;b.style.display='block';clearTimeout(b._t);b._t=setTimeout(function(){b.style.display='none';},4000);}
+document.querySelectorAll('input[type="radio"]').forEach(function(inp){
+  inp.addEventListener('change',function(){
+    document.querySelectorAll('input[name="'+inp.name+'"]').forEach(function(r){var l=r.closest('label');if(l)l.classList.remove('selected-answer');});
+    var l=inp.closest('label');if(l&&inp.checked)l.classList.add('selected-answer');
+  });
+});
+document.querySelectorAll('input[type="checkbox"]').forEach(function(inp){
+  inp.addEventListener('change',function(){var l=inp.closest('label');if(l){if(inp.checked)l.classList.add('selected-answer');else l.classList.remove('selected-answer');}});
+});
+function wireCheckLimit(name,max){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){var n=document.querySelectorAll('input[name="'+name+'"]:checked').length;if(n>max){inp.checked=false;var l=inp.closest('label');if(l)l.classList.remove('selected-answer');showCheckLimit(name,max);}}
+    });
+  });
+}
+function showCheckLimit(name,max){var id='chk-limit-'+name,el=document.getElementById(id);if(!el)return;el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';el.style.color='#e74c3c';el.style.fontWeight='bold';el.style.fontSize='12px';clearTimeout(el._t);el._t=setTimeout(function(){el.textContent='';},2500);}
+wireCheckLimit('q56',2);
+wireCheckLimit('q78',2);
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getRad(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function getChecked(name){var r=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){r.push(c.value);});return r;}
+function chkText(id,ans){var v=getVal(id).toLowerCase();if(Array.isArray(ans))return ans.some(function(a){return v===a.toLowerCase();});return v===ans.toLowerCase();}
+function chkSel(id,ans){return getVal(id)===ans;}
+function chkRad(name,ans){return getRad(name)===ans;}
+function chkCheck(name,ans){return getChecked(name).sort().join(',')===ans.slice().sort().join(',');}
+window.askSubmit=function(){if(submitted)return;document.getElementById('confirm-overlay').style.display='flex';};
+window.confirmSubmit=function(){if(submitted)return;submitted=true;document.getElementById('confirm-overlay').style.display='none';document.getElementById('overtime-overlay').style.display='none';window.stopTimer();doSubmit();};
+function doSubmit(){
+  document.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true;});
+  document.querySelectorAll('.selected-answer').forEach(function(el){el.classList.remove('selected-answer');});
+  var p1=0,p2=0,p3=0;
+  (function(){var ok=chkRad('q1',ANS['q1']);markRadio('q1',ok,ANS['q1']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q2',ANS['q2']);markRadio('q2',ok,ANS['q2']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q3',ANS['q3']);markRadio('q3',ok,ANS['q3']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q4',ANS['q4']);markRadio('q4',ok,ANS['q4']);if(ok)p1++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q9"]');
+    var ok=hasRadio?chkRad('q9',ANS['q9']):chkSel('q9',ANS['q9']);
+    if(hasRadio)markRadio('q9',ok,ANS['q9']);else markSelect('q9',ok,ANS['q9']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q10"]');
+    var ok=hasRadio?chkRad('q10',ANS['q10']):chkSel('q10',ANS['q10']);
+    if(hasRadio)markRadio('q10',ok,ANS['q10']);else markSelect('q10',ok,ANS['q10']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q11"]');
+    var ok=hasRadio?chkRad('q11',ANS['q11']):chkSel('q11',ANS['q11']);
+    if(hasRadio)markRadio('q11',ok,ANS['q11']);else markSelect('q11',ok,ANS['q11']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q12"]');
+    var ok=hasRadio?chkRad('q12',ANS['q12']):chkSel('q12',ANS['q12']);
+    if(hasRadio)markRadio('q12',ok,ANS['q12']);else markSelect('q12',ok,ANS['q12']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q13"]');
+    var ok=hasRadio?chkRad('q13',ANS['q13']):chkSel('q13',ANS['q13']);
+    if(hasRadio)markRadio('q13',ok,ANS['q13']);else markSelect('q13',ok,ANS['q13']);
+    if(ok)p1++;
+  })();
+  (function(){var ok=chkText('q14',ANS['q14']);markText('q14',ok,ANS['q14'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q15',ANS['q15']);markText('q15',ok,ANS['q15'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q16',ANS['q16']);markText('q16',ok,ANS['q16'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q17',ANS['q17']);markText('q17',ok,ANS['q17'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q18',ANS['q18']);markText('q18',ok,ANS['q18'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q19',ANS['q19']);markText('q19',ok,ANS['q19'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q20',ANS['q20']);markText('q20',ok,ANS['q20'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q21',ANS['q21']);markText('q21',ok,ANS['q21'][0]);if(ok)p2++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q22"]');
+    var ok=hasRadio?chkRad('q22',ANS['q22']):chkSel('q22',ANS['q22']);
+    if(hasRadio)markRadio('q22',ok,ANS['q22']);else markSelect('q22',ok,ANS['q22']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q23"]');
+    var ok=hasRadio?chkRad('q23',ANS['q23']):chkSel('q23',ANS['q23']);
+    if(hasRadio)markRadio('q23',ok,ANS['q23']);else markSelect('q23',ok,ANS['q23']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q24"]');
+    var ok=hasRadio?chkRad('q24',ANS['q24']):chkSel('q24',ANS['q24']);
+    if(hasRadio)markRadio('q24',ok,ANS['q24']);else markSelect('q24',ok,ANS['q24']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q25"]');
+    var ok=hasRadio?chkRad('q25',ANS['q25']):chkSel('q25',ANS['q25']);
+    if(hasRadio)markRadio('q25',ok,ANS['q25']);else markSelect('q25',ok,ANS['q25']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q26"]');
+    var ok=hasRadio?chkRad('q26',ANS['q26']):chkSel('q26',ANS['q26']);
+    if(hasRadio)markRadio('q26',ok,ANS['q26']);else markSelect('q26',ok,ANS['q26']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q27"]');
+    var ok=hasRadio?chkRad('q27',ANS['q27']):chkSel('q27',ANS['q27']);
+    if(hasRadio)markRadio('q27',ok,ANS['q27']);else markSelect('q27',ok,ANS['q27']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q28"]');
+    var ok=hasRadio?chkRad('q28',ANS['q28']):chkSel('q28',ANS['q28']);
+    if(hasRadio)markRadio('q28',ok,ANS['q28']);else markSelect('q28',ok,ANS['q28']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q29"]');
+    var ok=hasRadio?chkRad('q29',ANS['q29']):chkSel('q29',ANS['q29']);
+    if(hasRadio)markRadio('q29',ok,ANS['q29']);else markSelect('q29',ok,ANS['q29']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q30"]');
+    var ok=hasRadio?chkRad('q30',ANS['q30']):chkSel('q30',ANS['q30']);
+    if(hasRadio)markRadio('q30',ok,ANS['q30']);else markSelect('q30',ok,ANS['q30']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q31"]');
+    var ok=hasRadio?chkRad('q31',ANS['q31']):chkSel('q31',ANS['q31']);
+    if(hasRadio)markRadio('q31',ok,ANS['q31']);else markSelect('q31',ok,ANS['q31']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q32"]');
+    var ok=hasRadio?chkRad('q32',ANS['q32']):chkSel('q32',ANS['q32']);
+    if(hasRadio)markRadio('q32',ok,ANS['q32']);else markSelect('q32',ok,ANS['q32']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q33"]');
+    var ok=hasRadio?chkRad('q33',ANS['q33']):chkSel('q33',ANS['q33']);
+    if(hasRadio)markRadio('q33',ok,ANS['q33']);else markSelect('q33',ok,ANS['q33']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q34"]');
+    var ok=hasRadio?chkRad('q34',ANS['q34']):chkSel('q34',ANS['q34']);
+    if(hasRadio)markRadio('q34',ok,ANS['q34']);else markSelect('q34',ok,ANS['q34']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q35"]');
+    var ok=hasRadio?chkRad('q35',ANS['q35']):chkSel('q35',ANS['q35']);
+    if(hasRadio)markRadio('q35',ok,ANS['q35']);else markSelect('q35',ok,ANS['q35']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q36"]');
+    var ok=hasRadio?chkRad('q36',ANS['q36']):chkSel('q36',ANS['q36']);
+    if(hasRadio)markRadio('q36',ok,ANS['q36']);else markSelect('q36',ok,ANS['q36']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q37"]');
+    var ok=hasRadio?chkRad('q37',ANS['q37']):chkSel('q37',ANS['q37']);
+    if(hasRadio)markRadio('q37',ok,ANS['q37']);else markSelect('q37',ok,ANS['q37']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q38"]');
+    var ok=hasRadio?chkRad('q38',ANS['q38']):chkSel('q38',ANS['q38']);
+    if(hasRadio)markRadio('q38',ok,ANS['q38']);else markSelect('q38',ok,ANS['q38']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q39"]');
+    var ok=hasRadio?chkRad('q39',ANS['q39']):chkSel('q39',ANS['q39']);
+    if(hasRadio)markRadio('q39',ok,ANS['q39']);else markSelect('q39',ok,ANS['q39']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q40"]');
+    var ok=hasRadio?chkRad('q40',ANS['q40']):chkSel('q40',ANS['q40']);
+    if(hasRadio)markRadio('q40',ok,ANS['q40']);else markSelect('q40',ok,ANS['q40']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var correct=ANS['q56'],chosen=getChecked('q56');
+    markCheckbox('q56',correct);
+    chosen.forEach(function(v){if(correct.indexOf(v)>=0)p3++;});
+    var ar=document.getElementById('ar56');if(ar)ar.textContent=chkCheck('q56',correct)?'':'✓ Đáp án: '+correct.join(', ');
+  })();
+  (function(){
+    var correct=ANS['q78'],chosen=getChecked('q78');
+    markCheckbox('q78',correct);
+    chosen.forEach(function(v){if(correct.indexOf(v)>=0)p3++;});
+    var ar=document.getElementById('ar78');if(ar)ar.textContent=chkCheck('q78',correct)?'':'✓ Đáp án: '+correct.join(', ');
+  })();
+  var total=p1+p2+p3,band=getBand(total);
+  showScore(p1,p2,p3,total,band);sendResults(p1,p2,p3,total,band);
+}
+function markSelect(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markText(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markRadio(name,ok,correct){var num=name.replace('q','');document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(inp.value===correct)l.classList.add('correct');else if(inp.checked&&inp.value!==correct)l.classList.add('wrong');});var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markCheckbox(name,correct){document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(correct.indexOf(inp.value)>=0){l.classList.add(inp.checked?'correct':'missed');}else if(inp.checked){l.classList.add('wrong');}});}
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=19)return'Band 5.5';if(s>=15)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Dưới Band 4';}
+function getTimeTaken(){if(!startTime)return'N/A';var e=Math.floor((Date.now()-startTime)/1000),m=Math.floor(e/60),s=e%60;return m+' phút '+s+' giây';}
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var h='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr>';
+  h+='<tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr>';
+  h+='<tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr></table>';
+  h+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p>';
+  h+='<p style="color:#555;margin-top:6px">⏱ Thời gian: '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=h;
+  if(tabViolations+focusViolations+fsViolations>0){
+    var v='<strong>📋 Báo cáo vi phạm:</strong><br>Chuyển tab: '+tabViolations+' lần | Mất focus: '+focusViolations+' lần | Thoát fullscreen: '+fsViolations+' lần<br>';
+    if(violationLog.length)v+='<small>'+violationLog.join('<br>')+'</small>';
+    document.getElementById('violation-report').innerHTML=v;
+  }
+}
+function buildDetails(){
+  var parts=[];
+  (function(){var v=getRad('q1');parts.push('Q1:'+(v===ANS['q1']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q2');parts.push('Q2:'+(v===ANS['q2']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q3');parts.push('Q3:'+(v===ANS['q3']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q4');parts.push('Q4:'+(v===ANS['q4']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q9')||getVal('q9');parts.push('Q9:'+(v===ANS['q9']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q10')||getVal('q10');parts.push('Q10:'+(v===ANS['q10']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q11')||getVal('q11');parts.push('Q11:'+(v===ANS['q11']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q12')||getVal('q12');parts.push('Q12:'+(v===ANS['q12']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q13')||getVal('q13');parts.push('Q13:'+(v===ANS['q13']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q14'),ok=chkText('q14',ANS['q14'])?'✔':'✘';parts.push('Q14:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q15'),ok=chkText('q15',ANS['q15'])?'✔':'✘';parts.push('Q15:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q16'),ok=chkText('q16',ANS['q16'])?'✔':'✘';parts.push('Q16:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q17'),ok=chkText('q17',ANS['q17'])?'✔':'✘';parts.push('Q17:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q18'),ok=chkText('q18',ANS['q18'])?'✔':'✘';parts.push('Q18:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q19'),ok=chkText('q19',ANS['q19'])?'✔':'✘';parts.push('Q19:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q20'),ok=chkText('q20',ANS['q20'])?'✔':'✘';parts.push('Q20:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q21'),ok=chkText('q21',ANS['q21'])?'✔':'✘';parts.push('Q21:'+ok+'('+v+')');})();
+  (function(){var v=getRad('q22')||getVal('q22');parts.push('Q22:'+(v===ANS['q22']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q23')||getVal('q23');parts.push('Q23:'+(v===ANS['q23']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q24')||getVal('q24');parts.push('Q24:'+(v===ANS['q24']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q25')||getVal('q25');parts.push('Q25:'+(v===ANS['q25']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q26')||getVal('q26');parts.push('Q26:'+(v===ANS['q26']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q27')||getVal('q27');parts.push('Q27:'+(v===ANS['q27']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q28')||getVal('q28');parts.push('Q28:'+(v===ANS['q28']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q29')||getVal('q29');parts.push('Q29:'+(v===ANS['q29']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q30')||getVal('q30');parts.push('Q30:'+(v===ANS['q30']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q31')||getVal('q31');parts.push('Q31:'+(v===ANS['q31']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q32')||getVal('q32');parts.push('Q32:'+(v===ANS['q32']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q33')||getVal('q33');parts.push('Q33:'+(v===ANS['q33']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q34')||getVal('q34');parts.push('Q34:'+(v===ANS['q34']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q35')||getVal('q35');parts.push('Q35:'+(v===ANS['q35']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q36')||getVal('q36');parts.push('Q36:'+(v===ANS['q36']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q37')||getVal('q37');parts.push('Q37:'+(v===ANS['q37']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q38')||getVal('q38');parts.push('Q38:'+(v===ANS['q38']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q39')||getVal('q39');parts.push('Q39:'+(v===ANS['q39']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q40')||getVal('q40');parts.push('Q40:'+(v===ANS['q40']?'✔':'✘')+'('+v+')');})();
+  (function(){var chosen=getChecked('q56'),correct=ANS['q56'];parts.push('Q56:['+chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');}).join(' ')+']');})();
+  (function(){var chosen=getChecked('q78'),correct=ANS['q78'];parts.push('Q78:['+chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');}).join(' ')+']');})();
+  return parts.join(' | ');
+}
+function sendResults(p1,p2,p3,total,band){
+  var payload={action:'save_result',timestamp:new Date().toISOString(),student:(window._studentName||'')+'  —  '+(window._studentClass||''),test:'Reading Test 15',score:total,total:TOTAL_QUESTIONS,band:band,timeTaken:getTimeTaken(),p1score:p1+'/'+P1_COUNT,p2score:p2+'/'+P2_COUNT,p3score:p3+'/'+P3_COUNT,tabViol:tabViolations,focusViol:focusViolations,fsViol:fsViolations,details:buildDetails()};
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+}
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX=0,startW=0;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+  div.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startW=left.offsetWidth;},{passive:true});
+  document.addEventListener('touchmove',function(e){if(!dragging)return;var w=startW+(e.touches[0].clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';},{passive:true});
+  document.addEventListener('touchend',function(){dragging=false;});
+})();
+})();
+</script>
+</body>
+</html>

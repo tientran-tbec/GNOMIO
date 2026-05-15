@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 19</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+#right-panel input[type="text"],#right-panel select{user-select:text}
+.passage-section{display:none}
+.passage-section.active{display:block}
+.q-section{display:none}
+.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:6px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer,.check-label.selected-answer{background:#FFD580;border-radius:4px}
+.radio-label.correct,.check-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong,.check-label.wrong{background:#f8d7da!important;color:#721c24}
+.radio-label.missed{background:#fff3cd!important;border:2px dashed #856404}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+.word-bank-box{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+.word-bank-item{display:inline-block;margin:2px 6px;font-size:13px}
+.flow-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.flow-box{border:1px solid #aaa;border-radius:4px;padding:6px 10px;background:#fff;min-width:80px;text-align:center}
+.flow-arrow{font-size:18px;color:#888}
+.company-list{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+table.fill-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.fill-table td,table.fill-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.fill-table th{background:#e8eaf6;font-weight:700}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#submit-btn:hover{background:#2a5080}
+.hl-yellow{background:#FFE066}
+.hl-green{background:#90EE90}
+.hl-pink{background:#FFB6C1}
+/* Overlays */
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#start-btn:hover{background:#2a5080}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+#score-panel h2{color:#1a3a5c;margin-bottom:12px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #left-panel,#right-panel{width:100%!important;height:50vh}
+  #divider{display:none}
+  .tab-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 19</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label>
+    <input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label>
+    <input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát khỏi toàn màn hình. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+<div id="overtime-overlay">
+  <div id="overtime-box">
+    <p>⏰ Hết 60 phút! Bạn có thêm 5 phút để hoàn thành.<br>Bài sẽ tự nộp sau 5 phút.</p>
+    <button onclick="confirmSubmit()">Nộp bài ngay</button>
+  </div>
+</div>
+<div id="warning-banner"></div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">A Disaster Of Titanic Proportions</div>
+      <div class="passage-para">At 11:39 p.m. on the evening of Sunday, 14 April 1912, lookouts Frederick Fleet and Reginald Lee on the forward mast of the Titanic sighted an eerie, black mass coming into view directly in front of the ship. Fleet picked up the phone to the helm, waited for Sixth Officer Moody to answer, and yelled “Iceberg, right ahead!” The greatest disaster in maritime history was about to be set in motion.</div>
+      <div class="passage-para">Thirty-seven seconds later, despite the efforts of officers in the bridge and engine room to steer around the iceberg, the Titanic struck a piece of submerged ice, bursting rivets in the ship’s hull and flooding the first five watertight compartments. The ship’s designer, Thomas Andrews, carried out a visual inspection of the ship’s damage and informed Captain Smith at midnight that the ship would sink in less than two hours. By 1 2:30 a.m., the lifeboats were being filled with women and children, after Smith had given the command for them to be uncovered and swung out 15 minutes earlier. The first lifeboat was successfully lowered 15 minutes later, with only 28 of its 65 seats occupied. By 1:15 a.m., the waterline was beginning to reach the Titanic’s name on the ship’s bow, and over the next hour, every lifeboat would be released as officers struggled to maintain order amongst the growing panic on board.</div>
+      <div class="passage-para">The dosing moments of the Titanic’s sinking began shortly after 2 a.m., as the last lifeboat was lowered and the ship’s propellers lifted out of the water, leaving the 1,500 passengers still on board to surge towards the stern. At 2:17 a.m., Harold Bride and Jack Philips tapped out their last wireless message after being relieved of duty as the ship’s wireless operators, and the ship’s band stopped playing. Less than a minute later, occupants of the lifeboats witnessed the ship’s lights flash once, then go black, and a huge roar signalled the Titanic’s contents plunging towards the bow, causing the front half of the ship to break off and go under. The Titanic’s stem bobbed up momentarily, and at 2:20 a.m., the ship finally disappeared beneath the frigid waters.</div>
+      <div class="passage-para">What or who was responsible for the scale of this catastrophe? Explanations abound, some that focus on very small details. Due to a last-minute change in the ship’s officer line-up, iceberg lookouts Frederick Fleet and Reginald Lee were making do without a pair of binoculars that an officer transferred off the ship in Southampton had left in a cupboard onboard, unbeknownst to any of the ship’s crew. Fleet, who survived the sinking, insisted at a subsequent inquiry that he could have identified the iceberg in time to avert disaster if he had been in possession of the binoculars.</div>
+      <div class="passage-para">Less than an hour before the Titanic struck the iceberg, wireless operator Cyril Evans on the California, located just 20 miles to the north, tried to contact operator Jack Philips on the Titanic to warn him of pack ice in the area. “Shut up, shut up, you’re jamming my signal,” Philips replied. “I’m busy.” The Titanic’s wireless system had broken down for several hours earlier that day, and Philips was clearing a backlog of personal messages that passengers had requested to be sent to family and friends in the USA. Nevertheless, Captain Smith had maintained the ship’s speed of 22 knots despite multiple earlier warnings of ice ahead. It has been suggested that Smith was under pressure to make headlines by arriving early in New York, but maritime historians such as Richard Howell have countered this perception, noting that Smith was simply following common procedure at the time, and not behaving recklessly.</div>
+      <div class="passage-para">One of the strongest explanations for the severe loss of life has been the fact that the Titanic did not carry enough lifeboats for everyone on board. Maritime regulations at the time tied lifeboat capacity to the ship size, not to the number of passengers on board. This meant that the Titanic, with room for 1,178 of its 2,222 passengers, actually surpassed the Board of Trade’s requirement that it carry lifeboats for 1,060 of its passengers. Nevertheless, with lifeboats being lowered less than half full in many cases, and only 71 2 passengers surviving despite a two-and-a-half-hour window of opportunity, more lifeboats would not have guaranteed more survivors in the absence of better training and preparation. Many passengers were confused about where to go after the order to launch lifeboats was given; a lifeboat drill scheduled for earlier on the same day that the Titanic struck the iceberg was cancelled by Captain Smith in order to allow passengers to attend church.</div>
+    </div>
+
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">In boxes 7—13 on your answer sheet, write</div>
+      <div class="passage-para">TRUE 			if the statement agrees with the information</div>
+      <div class="passage-para">FALSE 		if the statement contradicts the information</div>
+      <div class="passage-para">NOT GIVEN 		if there is no information on this</div>
+      <div class="passage-para">7 The binoculars for the men on watch had been left in a crew locker in Southampton.</div>
+      <div class="passage-para">8 The missing binoculars were the major factor leading to the collision with the iceberg.</div>
+      <div class="passage-para">9 Philips missed notification about the ice from Evans because the Titanic’s wireless system was not functioning at the time.</div>
+      <div class="passage-para">10 Captain Smith knew there was ice in the area.</div>
+      <div class="passage-para">11 Howell believed the captain’s failure to reduce speed was an irresponsible action.</div>
+      <div class="passage-para">12 The Titanic was able to seat more passengers in lifeboats than the Board of Trade required.</div>
+      <div class="passage-para">13 A lifeboat drill would have saved more lives.</div>
+      <div class="passage-para">READING PASSAGE 2</div>
+    </div>
+
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">Three – Dimensional Films</div>
+      <div class="passage-para"><span class="subheading">A</span> In the theatre of the Ambassador Hotel in Los Angeles, on the evening of 27 September 1922, a new form of film-making made its commercial debut: 3-D. The film. The Power of Love, was then shown in New York City to exhibitors and press, but was subsequently not picked up for distribution and is now believed to be lost. The following three decades were a period of quiet experimentation for 3-D pioneers, as they adapted to new technologies and steadily improved the viewing experience. In 1952, the “golden era” of 3-D is considered to have begun with the release of Bwana Devil, and over the next several years, audiences met with a string of films that used the technology. Over the following decades, it waxed and waned within film- making circles, peaking in the 1970s and again in the 1990s when IMAX gained traction, but it is only in the last few years that 3-D appears to have firmly entered mainstream production.</div>
+      <div class="passage-para"><span class="subheading">B</span> Released worldwide in December 2009, die fantasy film Avatar quickly became the highest-grossing film ever made, knocking Titanic from the top slot. Avatar, set in 2154 on a planet in a distant solar system, went on to become the only film to have earned US$2 billion worldwide, and is now approaching the $3 billion mark. The main reason for its runaway popularity appears to be its visual splendour; though most critics praised the film, it was mostly on account of its ground-breaking special effects. Kenneth Turan of the Los Angeles Times praised Avatar’s “powerful” visual accomplishments, but suggested the dialogue was “flat” and the characterizations “obvious”. A film analyst at Exhibitor Relations has agreed, noting that Avatarhas cemented die use of 3-D as a production and promotional tool for blockbuster films, rather than as a mere niche or novelty experiment. “This is why all these 3-D venues were built,” he said. “This is the one. The behemoth… The holy grail of 3-D has finally arrived.”</div>
+      <div class="passage-para"><span class="subheading">C</span> Those who embrace 3-D. note that it spices up a trip to the cinema by adding a more active “embodied” layer of experience instead of the viewer passively receiving die film through eyes and cars only. A blogger on Animation Ideas writes, “…when 3~D is done well, like in the flying scenes in Up, How to Train Your Dragon, and Avatar, there is an added feeling of vertigo. If you have any fear of heights, the 3-D really adds to this element…” Kevin Carr argues that the backlash against 3-D is similar to that which occurred against CGI several years ago, and points out that CGI is now widely regarded as part of the film-maker’s artistic toolkit. He also notes that new technology is frequently seen to be a “gimmick” in its early days, pointing out that many commentators slapped the first “talkie” films of the early 1920s with this same label.</div>
+      <div class="passage-para"><span class="subheading">D</span> But not everyone greets the rise of 3~D with open arms. Some ophthalmologists point out that 3-D can have unsettling physical effects for many viewers. Dr. Michael Rosenberg, a professor at Northwestern University, has pointed out that many people go through life with minor eye disturbances – a slight muscular imbalance, for example – that does not interrupt day-to-day activities. In the experience of a 3-D movie, however, this problem can be exacerbated through the viewer trying to concentrate on unusual visual phenomena. Dr. Deborah Friedman, from the University of Rochester Medical Center, notes that the perception of depth conjured through three dimensions docs not complement die angles from which we take in the world. Eyestrains, headaches and nausea are, therefore, a problem for around 15% of a 3-D film audience.</div>
+      <div class="passage-para"><span class="subheading">E</span> Film critic Roger Ebert warns that 3-D is detrimental to good film-making. Firstly, he argues, the technology is simply unnecessary; 2~D movies are “already” 3-D, as far as our minds are concerned. Adding die extra dimension with technology, instead of letting our minds do the work, can actually be counter- purposeful and make the overall effect seem clumsy and contrived. Ebert also points out dial the special glasses dim the effect by soaking up light from the screen, making 3-D films a slightly duller experience than they might otherwise be. Finally, Ebeit suggests that 3-D encourages film-makers to undercut drama and narrative in favour of simply piling on more gimmicks and special effects.“ Hollywood is racing headlong toward the kiddie market,” he says, pointing to Disney’s announcement that it will no longer make traditional films in favour of animation, franchises, and superheroes.</div>
+      <div class="passage-para"><span class="subheading">F</span> Whether or not 3-D becomes a powerful force for the film-maker’s vision and the film-going experience, or goes down in history as an over-hyped, expensive novelty, the technology certainly shows no signs of fading in the popularity stakes at the moment. Clash of the Titans, Alice in Wonderland, and How to Train Your Dragon have all recently benefited at the box office due to the added sales that 3-D provides, and with Avatar’s record set to last some time as a totem of 3-D’s commercial possibilities, studios are not prepared to back down.</div>
+    </div>
+  </div>
+  <div id="divider"></div>
+  <div id="right-panel">
+
+    <!-- Questions Passage 1 -->
+    <div class="q-section active" id="qs1">
+      <div class="passage-title" style="margin-bottom:10px">Questions 1–13 — Passage 1</div>
+
+      <!-- Q1-6: Table completion -->
+      <div class="q-block">
+        <div class="q-num">Questions 1–6</div>
+        <div class="q-instruction">Complete the table below. Choose <strong>NO MORE THAN TWO WORDS</strong> from the text for each answer.</div>
+        <table class="fill-table">
+          <tr><th>Time</th><th>Person</th><th>Position</th><th>Action / Detail</th></tr>
+          <tr>
+            <td>11:39 pm</td>
+            <td><strong>Q1:</strong> <input type="text" id="q1" placeholder="answer"> <span class="answer-reveal" id="ar1"></span></td>
+            <td><strong>Q2:</strong> <input type="text" id="q2" placeholder="answer"> <span class="answer-reveal" id="ar2"></span></td>
+            <td>spotted the iceberg</td>
+          </tr>
+          <tr>
+            <td>Shortly after 2 am</td>
+            <td colspan="2">Last lifeboat lowered</td>
+            <td><strong>Q3:</strong> minutes to sinking — <input type="text" id="q3" placeholder="answer"> <span class="answer-reveal" id="ar3"></span></td>
+          </tr>
+          <tr>
+            <td>Aftermath</td>
+            <td colspan="2">Shortage of <strong>Q4:</strong> <input type="text" id="q4" placeholder="answer"> <span class="answer-reveal" id="ar4"></span></td>
+            <td>contributed to casualties</td>
+          </tr>
+          <tr>
+            <td>Before collision</td>
+            <td colspan="2">Californian's <strong>Q5:</strong> <input type="text" id="q5" placeholder="answer"> <span class="answer-reveal" id="ar5"></span></td>
+            <td>sent ice warning — ignored</td>
+          </tr>
+          <tr>
+            <td>Ice warning</td>
+            <td colspan="3">Evans sent a <strong>Q6:</strong> <input type="text" id="q6" placeholder="answer"> <span class="answer-reveal" id="ar6"></span> which was not passed to the captain</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Q7-13: T/F/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 7–13</div>
+        <div class="q-instruction">Do the following statements agree with the information given in Reading Passage 1?<br>
+        Write <strong>TRUE</strong> if the statement agrees with the information<br>
+        <strong>FALSE</strong> if the statement contradicts the information<br>
+        <strong>NOT GIVEN</strong> if there is no information on this</div>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">7.</span> The binoculars for the men on watch had been left in a crew locker in Southampton.</div>
+        <label class="radio-label"><input type="radio" name="q7" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q7" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q7" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar7"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">8.</span> The missing binoculars were the major factor leading to the collision with the iceberg.</div>
+        <label class="radio-label"><input type="radio" name="q8" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q8" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q8" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar8"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">9.</span> Philips missed notification about the ice from Evans because the Titanic's wireless system was not working.</div>
+        <label class="radio-label"><input type="radio" name="q9" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q9" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q9" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar9"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">10.</span> Captain Smith knew there was ice in the area.</div>
+        <label class="radio-label"><input type="radio" name="q10" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q10" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q10" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar10"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">11.</span> Howell believed the captain's failure to reduce speed was an irresponsible action.</div>
+        <label class="radio-label"><input type="radio" name="q11" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q11" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q11" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar11"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">12.</span> The Titanic was able to seat more passengers in lifeboats than the Board of Trade required.</div>
+        <label class="radio-label"><input type="radio" name="q12" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q12" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q12" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar12"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">13.</span> A lifeboat drill would have saved more lives.</div>
+        <label class="radio-label"><input type="radio" name="q13" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q13" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q13" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar13"></span>
+      </div>
+    </div><!-- /qs1 -->
+
+    <!-- Questions Passage 2 -->
+    <div class="q-section" id="qs2">
+      <div class="passage-title" style="margin-bottom:10px">Questions 14–26 — Passage 2</div>
+
+      <!-- Q14-19: Heading matching -->
+      <div class="q-block">
+        <div class="q-num">Questions 14–19</div>
+        <div class="q-instruction">Reading Passage 2 has six sections, A–F. Choose the correct heading for each section from the list below.</div>
+        <div class="group-box">
+          <div class="group-title">List of Headings</div>
+          <div>i &nbsp;Construction of special cinemas for 3-D</div>
+          <div>ii &nbsp;Good returns forecast for immediate future</div>
+          <div>iii &nbsp;The greatest 3-D film of all time</div>
+          <div>iv &nbsp;End of traditional movies for children</div>
+          <div>v &nbsp;Early developments</div>
+          <div>vi &nbsp;New technology diminishes the art</div>
+          <div>vii &nbsp;The golden age of movies</div>
+          <div>viii &nbsp;In defence of 3-D</div>
+          <div>ix &nbsp;3-D is here to stay</div>
+          <div>x &nbsp;Undesirable visual effects</div>
+        </div>
+        <div class="q-text"><span class="q-num">14.</span> Section A &nbsp;
+          <select id="q14"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar14"></span>
+        </div>
+        <div class="q-text"><span class="q-num">15.</span> Section B &nbsp;
+          <select id="q15"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar15"></span>
+        </div>
+        <div class="q-text"><span class="q-num">16.</span> Section C &nbsp;
+          <select id="q16"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar16"></span>
+        </div>
+        <div class="q-text"><span class="q-num">17.</span> Section D &nbsp;
+          <select id="q17"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar17"></span>
+        </div>
+        <div class="q-text"><span class="q-num">18.</span> Section E &nbsp;
+          <select id="q18"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar18"></span>
+        </div>
+        <div class="q-text"><span class="q-num">19.</span> Section F &nbsp;
+          <select id="q19"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar19"></span>
+        </div>
+      </div>
+
+      <!-- Q20-26: Person matching -->
+      <div class="q-block">
+        <div class="q-num">Questions 20–26</div>
+        <div class="q-instruction">Match each statement with the correct person, A–G.<br><em>NB. You may use any letter more than once.</em></div>
+        <div class="company-list">
+          <div class="group-title">List of People</div>
+          <div>A &nbsp;Kenneth Turan</div>
+          <div>B &nbsp;Exhibition Relations' analyst</div>
+          <div>C &nbsp;Animation Ideas' blogger</div>
+          <div>D &nbsp;Kevin Carr</div>
+          <div>E &nbsp;Dr. Michael Rosenberg</div>
+          <div>F &nbsp;Dr. Deborah Friedman</div>
+          <div>G &nbsp;Roger Ebert</div>
+        </div>
+        <div class="q-text"><span class="q-num">20.</span> 3-D conflicts with our mental construct of our surroundings.
+          <select id="q20"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar20"></span>
+        </div>
+        <div class="q-text"><span class="q-num">21.</span> 3-D encourages an over-emphasis on quick visual thrills.
+          <select id="q21"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar21"></span>
+        </div>
+        <div class="q-text"><span class="q-num">22.</span> Effective use of 3-D technology may increase our sensation of elevation.
+          <select id="q22"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar22"></span>
+        </div>
+        <div class="q-text"><span class="q-num">23.</span> 3-D viewing can worsen an existing visual disorder.
+          <select id="q23"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar23"></span>
+        </div>
+        <div class="q-text"><span class="q-num">24.</span> Avatar is the most powerful example of 3-D yet to arrive in cinemas.
+          <select id="q24"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar24"></span>
+        </div>
+        <div class="q-text"><span class="q-num">25.</span> Avatar's strength is found in its visual splendour, not in aspects of story.
+          <select id="q25"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar25"></span>
+        </div>
+        <div class="q-text"><span class="q-num">26.</span> People already have the mental capacity to see ordinary movies in three dimensions.
+          <select id="q26"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar26"></span>
+        </div>
+      </div>
+    </div><!-- /qs2 -->
+
+    <!-- Questions Passage 3 -->
+    <div class="q-section" id="qs3">
+      <div class="passage-title" style="margin-bottom:10px">Questions 27–40 — Passage 3</div>
+
+      <!-- Q27-32: Sentence endings -->
+      <div class="q-block">
+        <div class="q-num">Questions 27–32</div>
+        <div class="q-instruction">Complete each sentence with the correct ending, A–K, below.</div>
+        <div class="group-box">
+          <div>A &nbsp;avoid the unpredictable outcome of combining many remedies at once</div>
+          <div>B &nbsp;explain the success of 18th century apothecary medicine</div>
+          <div>C &nbsp;produce fever-like symptoms in a healthy person</div>
+          <div>D &nbsp;keep antibody molecules active in parts as low as 0.01%</div>
+          <div>E &nbsp;support the notion of similia similibus</div>
+          <div>F &nbsp;offer more remedial choice</div>
+          <div>G &nbsp;produce a less effective dose</div>
+          <div>H &nbsp;recreate the original results</div>
+          <div>I &nbsp;retain qualities of an antibody to which they were previously exposed</div>
+          <div>J &nbsp;satisfy the demand of buyers</div>
+          <div>K &nbsp;treat effectively someone with a fever</div>
+        </div>
+        <div class="q-text"><span class="q-num">27.</span> In the late 18th century, Hahnemann discovered that quinine was able to
+          <select id="q27"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option></select>
+          <span class="answer-reveal" id="ar27"></span>
+        </div>
+        <div class="q-text"><span class="q-num">28.</span> The effectiveness of vaccinations also helps to
+          <select id="q28"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option></select>
+          <span class="answer-reveal" id="ar28"></span>
+        </div>
+        <div class="q-text"><span class="q-num">29.</span> Benveniste argued in the journal Nature that water molecules possess the ability to
+          <select id="q29"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option></select>
+          <span class="answer-reveal" id="ar29"></span>
+        </div>
+        <div class="q-text"><span class="q-num">30.</span> Attempts to verify Benveniste's findings were unable to
+          <select id="q30"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option></select>
+          <span class="answer-reveal" id="ar30"></span>
+        </div>
+        <div class="q-text"><span class="q-num">31.</span> The purpose of the single remedy is to
+          <select id="q31"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option></select>
+          <span class="answer-reveal" id="ar31"></span>
+        </div>
+        <div class="q-text"><span class="q-num">32.</span> Classical homoeopaths suggest combination remedies have been created to
+          <select id="q32"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option></select>
+          <span class="answer-reveal" id="ar32"></span>
+        </div>
+      </div>
+
+      <!-- Q33-40: Table completion -->
+      <div class="q-block">
+        <div class="q-num">Questions 33–40</div>
+        <div class="q-instruction">Complete the table below. Choose <strong>NO MORE THAN TWO WORDS</strong> from the text for each answer.</div>
+        <div class="q-text"><span class="q-num">33.</span> Hahnemann found homoeopathic remedies kept patients <input type="text" id="q33" style="width:160px" placeholder="answer"> <span class="answer-reveal" id="ar33"></span></div>
+        <div class="q-text"><span class="q-num">34.</span> Critics say homoeopathic preparations could be <input type="text" id="q34" style="width:160px" placeholder="answer"> <span class="answer-reveal" id="ar34"></span></div>
+        <div class="q-text"><span class="q-num">35.</span> There is no <input type="text" id="q35" style="width:160px" placeholder="answer"> to homoeopathic preparations <span class="answer-reveal" id="ar35"></span></div>
+        <div class="q-text"><span class="q-num">36.</span> Regulatory bodies need to <input type="text" id="q36" style="width:160px" placeholder="answer"> homoeopathic treatments more closely <span class="answer-reveal" id="ar36"></span></div>
+        <div class="q-text"><span class="q-num">37.</span> Patients may experience <input type="text" id="q37" style="width:160px" placeholder="answer"> when taking homoeopathic remedies <span class="answer-reveal" id="ar37"></span></div>
+        <div class="q-text"><span class="q-num">38.</span> Positive results may mask <input type="text" id="q38" style="width:160px" placeholder="answer"> of a condition <span class="answer-reveal" id="ar38"></span></div>
+        <div class="q-text"><span class="q-num">39.</span> Successful outcomes may be due to the <input type="text" id="q39" style="width:160px" placeholder="answer"> <span class="answer-reveal" id="ar39"></span></div>
+        <div class="q-text"><span class="q-num">40.</span> The mind can produce <input type="text" id="q40" style="width:160px" placeholder="answer"> healing <span class="answer-reveal" id="ar40"></span></div>
+      </div>
+    </div><!-- /qs3 -->
+
+  </div>
+</div>
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 19</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+<script>
+(function(){
+'use strict';
+var ANS = {
+  q1:['fleet'],
+  q2:['lookout'],
+  q3:['midnight'],
+  q4:['lifeboats'],
+  q5:['wireless operators'],
+  q6:['message','wireless message'],
+  q7:'FALSE',
+  q8:'NOT GIVEN',
+  q9:'FALSE',
+  q10:'TRUE',
+  q11:'FALSE',
+  q12:'TRUE',
+  q13:'NOT GIVEN',
+  q14:'v',
+  q15:'iii',
+  q16:'viii',
+  q17:'x',
+  q18:'vi',
+  q19:'ii',
+  q20:'F',
+  q21:'G',
+  q22:'C',
+  q23:'E',
+  q24:'B',
+  q25:'A',
+  q26:'G',
+  q27:'C',
+  q28:'E',
+  q29:'I',
+  q30:'H',
+  q31:'A',
+  q32:'J',
+  q33:['active'],
+  q34:['toxic'],
+  q35:['systematic design'],
+  q36:['monitor'],
+  q37:['side effects'],
+  q38:['symptoms'],
+  q39:['placebo effect'],
+  q40:['unconscious']
+};
+var TOTAL_QUESTIONS=40,P1_COUNT=13,P2_COUNT=13,P3_COUNT=14;
+var currentTab=1,hlMode='yellow',timerStopped=false,submitted=false;
+var tabViolations=0,focusViolations=0,fsViolations=0,violationLog=[];
+var startTime=null,timerInterval=null,overtimeFired=false;
+var hlColors={yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function setHL(mode){
+  hlMode=mode;
+  ['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.remove('active-hl');});
+  var t=mode==='clear'?'hl-clear':'hl-'+mode,el=document.getElementById(t);if(el)el.classList.add('active-hl');
+}
+window.setHL=setHL;
+function applyHighlight(container){
+  var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);if(!container.contains(range.commonAncestorContainer))return;
+  if(hlMode==='clear'){sel.removeAllRanges();return;}
+  try{var span=document.createElement('span');span.className=hlColors[hlMode];var frag=range.extractContents();span.appendChild(frag);range.insertNode(span);}catch(e){}
+  sel.removeAllRanges();
+}
+function handleErase(e,container){
+  if(hlMode!=='clear')return;var t=e.target;
+  while(t&&t!==container){if(t.tagName==='SPAN'&&(t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){var p=t.parentNode;while(t.firstChild)p.insertBefore(t.firstChild,t);p.removeChild(t);p.normalize();break;}t=t.parentNode;}
+}
+['left-panel','right-panel'].forEach(function(pid){
+  var panel=document.getElementById(pid);if(!panel)return;
+  panel.addEventListener('mouseup',function(){applyHighlight(panel);});
+  panel.addEventListener('click',function(e){handleErase(e,panel);});
+});
+function switchTab(n){
+  currentTab=n;[1,2,3].forEach(function(i){
+    document.getElementById('pass'+i).classList.toggle('active',i===n);
+    document.getElementById('qs'+i).classList.toggle('active',i===n);
+    document.getElementById('tab'+i).classList.toggle('active',i===n);
+  });
+  document.getElementById('left-panel').scrollTop=0;document.getElementById('right-panel').scrollTop=0;
+}
+window.switchTab=switchTab;
+function formatTime(sec){var m=Math.floor(sec/60),s=sec%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function startTimer(){
+  var box=document.getElementById('timer-box');
+  timerInterval=setInterval(function(){
+    if(timerStopped){clearInterval(timerInterval);box.style.display='none';return;}
+    if(!startTime)return;
+    var elapsed=Math.floor((Date.now()-startTime)/1000),remaining=3600-elapsed;
+    if(remaining<=0&&!overtimeFired){overtimeFired=true;box.textContent='00:00';document.getElementById('overtime-overlay').style.display='flex';setTimeout(function(){if(!submitted)confirmSubmit();},300000);return;}
+    if(remaining>0){box.textContent=formatTime(remaining);if(remaining<=120){box.className='';box.classList.add('danger');}else if(remaining<=600){box.className='';box.classList.add('warn');}else{box.className='';}}
+  },500);
+}
+window.stopTimer=function(){timerStopped=true;};
+window.enterFullscreen=function(){
+  var el=document.documentElement;
+  try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}
+  document.getElementById('fs-overlay').style.display='none';
+};
+document.addEventListener('fullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');document.getElementById('fs-overlay').style.display='flex';}});
+document.addEventListener('webkitfullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;document.getElementById('fs-overlay').style.display='flex';}});
+window.startExam=function(){
+  var name=document.getElementById('inp-name').value.trim(),cls=document.getElementById('inp-class').value.trim();
+  if(!name||!cls){document.getElementById('popup-err').style.display='block';return;}
+  window._studentName=name;window._studentClass=cls;
+  startTime=window._testStartTime=Date.now();
+  document.getElementById('popup-overlay').style.display='none';
+  enterFullscreen();startTimer();
+};
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(['F12'].indexOf(e.key)>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.key==='Escape'&&!submitted){e.preventDefault();}
+});
+document.addEventListener('visibilitychange',function(){
+  if(submitted||!startTime)return;
+  if(document.hidden){tabViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab (lần '+tabViolations+')');showWarning('⚠ Phát hiện chuyển tab! Vi phạm lần '+tabViolations);}
+});
+window.addEventListener('blur',function(){
+  if(submitted||!startTime)return;
+  focusViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Mất focus (lần '+focusViolations+')');showWarning('⚠ Phát hiện rời cửa sổ! Vi phạm lần '+focusViolations);
+});
+},1000);
+function showWarning(msg){var b=document.getElementById('warning-banner');b.textContent=msg;b.style.display='block';clearTimeout(b._t);b._t=setTimeout(function(){b.style.display='none';},4000);}
+document.querySelectorAll('input[type="radio"]').forEach(function(inp){
+  inp.addEventListener('change',function(){
+    document.querySelectorAll('input[name="'+inp.name+'"]').forEach(function(r){var l=r.closest('label');if(l)l.classList.remove('selected-answer');});
+    var l=inp.closest('label');if(l&&inp.checked)l.classList.add('selected-answer');
+  });
+});
+document.querySelectorAll('input[type="checkbox"]').forEach(function(inp){
+  inp.addEventListener('change',function(){var l=inp.closest('label');if(l){if(inp.checked)l.classList.add('selected-answer');else l.classList.remove('selected-answer');}});
+});
+function wireCheckLimit(name,max){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){var n=document.querySelectorAll('input[name="'+name+'"]:checked').length;if(n>max){inp.checked=false;var l=inp.closest('label');if(l)l.classList.remove('selected-answer');showCheckLimit(name,max);}}
+    });
+  });
+}
+function showCheckLimit(name,max){var id='chk-limit-'+name,el=document.getElementById(id);if(!el)return;el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';el.style.color='#e74c3c';el.style.fontWeight='bold';el.style.fontSize='12px';clearTimeout(el._t);el._t=setTimeout(function(){el.textContent='';},2500);}
+
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getRad(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function getChecked(name){var r=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){r.push(c.value);});return r;}
+function chkText(id,ans){var v=getVal(id).toLowerCase();if(Array.isArray(ans))return ans.some(function(a){return v===a.toLowerCase();});return v===ans.toLowerCase();}
+function chkSel(id,ans){return getVal(id)===ans;}
+function chkRad(name,ans){return getRad(name)===ans;}
+function chkCheck(name,ans){return getChecked(name).sort().join(',')===ans.slice().sort().join(',');}
+window.askSubmit=function(){if(submitted)return;document.getElementById('confirm-overlay').style.display='flex';};
+window.confirmSubmit=function(){if(submitted)return;submitted=true;document.getElementById('confirm-overlay').style.display='none';document.getElementById('overtime-overlay').style.display='none';window.stopTimer();doSubmit();};
+function doSubmit(){
+  document.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true;});
+  document.querySelectorAll('.selected-answer').forEach(function(el){el.classList.remove('selected-answer');});
+  var p1=0,p2=0,p3=0;
+  (function(){var ok=chkText('q1',ANS['q1']);markText('q1',ok,ANS['q1'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q2',ANS['q2']);markText('q2',ok,ANS['q2'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q3',ANS['q3']);markText('q3',ok,ANS['q3'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q4',ANS['q4']);markText('q4',ok,ANS['q4'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q5',ANS['q5']);markText('q5',ok,ANS['q5'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q6',ANS['q6']);markText('q6',ok,ANS['q6'][0]);if(ok)p1++;})();
+  (function(){var ok=chkRad('q7',ANS['q7']);markRadio('q7',ok,ANS['q7']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q8',ANS['q8']);markRadio('q8',ok,ANS['q8']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q9',ANS['q9']);markRadio('q9',ok,ANS['q9']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q10',ANS['q10']);markRadio('q10',ok,ANS['q10']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q11',ANS['q11']);markRadio('q11',ok,ANS['q11']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q12',ANS['q12']);markRadio('q12',ok,ANS['q12']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q13',ANS['q13']);markRadio('q13',ok,ANS['q13']);if(ok)p1++;})();
+  (function(){var ok=chkText('q14',ANS['q14']);markText('q14',ok,Array.isArray(ANS['q14'])?ANS['q14'][0]:ANS['q14']);if(ok)p2++;})();
+  (function(){var ok=chkText('q15',ANS['q15']);markText('q15',ok,Array.isArray(ANS['q15'])?ANS['q15'][0]:ANS['q15']);if(ok)p2++;})();
+  (function(){var ok=chkText('q16',ANS['q16']);markText('q16',ok,Array.isArray(ANS['q16'])?ANS['q16'][0]:ANS['q16']);if(ok)p2++;})();
+  (function(){var ok=chkText('q17',ANS['q17']);markText('q17',ok,Array.isArray(ANS['q17'])?ANS['q17'][0]:ANS['q17']);if(ok)p2++;})();
+  (function(){var ok=chkText('q18',ANS['q18']);markText('q18',ok,Array.isArray(ANS['q18'])?ANS['q18'][0]:ANS['q18']);if(ok)p2++;})();
+  (function(){var ok=chkText('q19',ANS['q19']);markText('q19',ok,Array.isArray(ANS['q19'])?ANS['q19'][0]:ANS['q19']);if(ok)p2++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q20"]');
+    var ok=hasRadio?chkRad('q20',ANS['q20']):chkSel('q20',ANS['q20']);
+    if(hasRadio)markRadio('q20',ok,ANS['q20']);else markSelect('q20',ok,ANS['q20']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q21"]');
+    var ok=hasRadio?chkRad('q21',ANS['q21']):chkSel('q21',ANS['q21']);
+    if(hasRadio)markRadio('q21',ok,ANS['q21']);else markSelect('q21',ok,ANS['q21']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q22"]');
+    var ok=hasRadio?chkRad('q22',ANS['q22']):chkSel('q22',ANS['q22']);
+    if(hasRadio)markRadio('q22',ok,ANS['q22']);else markSelect('q22',ok,ANS['q22']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q23"]');
+    var ok=hasRadio?chkRad('q23',ANS['q23']):chkSel('q23',ANS['q23']);
+    if(hasRadio)markRadio('q23',ok,ANS['q23']);else markSelect('q23',ok,ANS['q23']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q24"]');
+    var ok=hasRadio?chkRad('q24',ANS['q24']):chkSel('q24',ANS['q24']);
+    if(hasRadio)markRadio('q24',ok,ANS['q24']);else markSelect('q24',ok,ANS['q24']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q25"]');
+    var ok=hasRadio?chkRad('q25',ANS['q25']):chkSel('q25',ANS['q25']);
+    if(hasRadio)markRadio('q25',ok,ANS['q25']);else markSelect('q25',ok,ANS['q25']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q26"]');
+    var ok=hasRadio?chkRad('q26',ANS['q26']):chkSel('q26',ANS['q26']);
+    if(hasRadio)markRadio('q26',ok,ANS['q26']);else markSelect('q26',ok,ANS['q26']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q27"]');
+    var ok=hasRadio?chkRad('q27',ANS['q27']):chkSel('q27',ANS['q27']);
+    if(hasRadio)markRadio('q27',ok,ANS['q27']);else markSelect('q27',ok,ANS['q27']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q28"]');
+    var ok=hasRadio?chkRad('q28',ANS['q28']):chkSel('q28',ANS['q28']);
+    if(hasRadio)markRadio('q28',ok,ANS['q28']);else markSelect('q28',ok,ANS['q28']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q29"]');
+    var ok=hasRadio?chkRad('q29',ANS['q29']):chkSel('q29',ANS['q29']);
+    if(hasRadio)markRadio('q29',ok,ANS['q29']);else markSelect('q29',ok,ANS['q29']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q30"]');
+    var ok=hasRadio?chkRad('q30',ANS['q30']):chkSel('q30',ANS['q30']);
+    if(hasRadio)markRadio('q30',ok,ANS['q30']);else markSelect('q30',ok,ANS['q30']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q31"]');
+    var ok=hasRadio?chkRad('q31',ANS['q31']):chkSel('q31',ANS['q31']);
+    if(hasRadio)markRadio('q31',ok,ANS['q31']);else markSelect('q31',ok,ANS['q31']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q32"]');
+    var ok=hasRadio?chkRad('q32',ANS['q32']):chkSel('q32',ANS['q32']);
+    if(hasRadio)markRadio('q32',ok,ANS['q32']);else markSelect('q32',ok,ANS['q32']);
+    if(ok)p3++;
+  })();
+  (function(){var ok=chkText('q33',ANS['q33']);markText('q33',ok,ANS['q33'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q34',ANS['q34']);markText('q34',ok,ANS['q34'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q35',ANS['q35']);markText('q35',ok,ANS['q35'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q36',ANS['q36']);markText('q36',ok,ANS['q36'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q37',ANS['q37']);markText('q37',ok,ANS['q37'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q38',ANS['q38']);markText('q38',ok,ANS['q38'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q39',ANS['q39']);markText('q39',ok,ANS['q39'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q40',ANS['q40']);markText('q40',ok,ANS['q40'][0]);if(ok)p3++;})();
+  var total=p1+p2+p3,band=getBand(total);
+  showScore(p1,p2,p3,total,band);sendResults(p1,p2,p3,total,band);
+}
+function markSelect(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markText(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markRadio(name,ok,correct){var num=name.replace('q','');document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(inp.value===correct)l.classList.add('correct');else if(inp.checked&&inp.value!==correct)l.classList.add('wrong');});var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markCheckbox(name,correct){document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(correct.indexOf(inp.value)>=0){l.classList.add(inp.checked?'correct':'missed');}else if(inp.checked){l.classList.add('wrong');}});}
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=19)return'Band 5.5';if(s>=15)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Dưới Band 4';}
+function getTimeTaken(){if(!startTime)return'N/A';var e=Math.floor((Date.now()-startTime)/1000),m=Math.floor(e/60),s=e%60;return m+' phút '+s+' giây';}
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var h='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr>';
+  h+='<tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr>';
+  h+='<tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr></table>';
+  h+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p>';
+  h+='<p style="color:#555;margin-top:6px">⏱ Thời gian: '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=h;
+  if(tabViolations+focusViolations+fsViolations>0){
+    var v='<strong>📋 Báo cáo vi phạm:</strong><br>Chuyển tab: '+tabViolations+' lần | Mất focus: '+focusViolations+' lần | Thoát fullscreen: '+fsViolations+' lần<br>';
+    if(violationLog.length)v+='<small>'+violationLog.join('<br>')+'</small>';
+    document.getElementById('violation-report').innerHTML=v;
+  }
+}
+function buildDetails(){
+  var parts=[];
+  (function(){var v=getVal('q1'),ok=chkText('q1',ANS['q1'])?'✔':'✘';parts.push('Q1:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q2'),ok=chkText('q2',ANS['q2'])?'✔':'✘';parts.push('Q2:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q3'),ok=chkText('q3',ANS['q3'])?'✔':'✘';parts.push('Q3:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q4'),ok=chkText('q4',ANS['q4'])?'✔':'✘';parts.push('Q4:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q5'),ok=chkText('q5',ANS['q5'])?'✔':'✘';parts.push('Q5:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q6'),ok=chkText('q6',ANS['q6'])?'✔':'✘';parts.push('Q6:'+ok+'('+v+')');})();
+  (function(){var v=getRad('q7');parts.push('Q7:'+(v===ANS['q7']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q8');parts.push('Q8:'+(v===ANS['q8']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q9');parts.push('Q9:'+(v===ANS['q9']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q10');parts.push('Q10:'+(v===ANS['q10']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q11');parts.push('Q11:'+(v===ANS['q11']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q12');parts.push('Q12:'+(v===ANS['q12']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q13');parts.push('Q13:'+(v===ANS['q13']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q14'),ok=chkText('q14',ANS['q14'])?'✔':'✘';parts.push('Q14:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q15'),ok=chkText('q15',ANS['q15'])?'✔':'✘';parts.push('Q15:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q16'),ok=chkText('q16',ANS['q16'])?'✔':'✘';parts.push('Q16:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q17'),ok=chkText('q17',ANS['q17'])?'✔':'✘';parts.push('Q17:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q18'),ok=chkText('q18',ANS['q18'])?'✔':'✘';parts.push('Q18:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q19'),ok=chkText('q19',ANS['q19'])?'✔':'✘';parts.push('Q19:'+ok+'('+v+')');})()
+  (function(){var v=getRad('q20')||getVal('q20');parts.push('Q20:'+(v===ANS['q20']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q21')||getVal('q21');parts.push('Q21:'+(v===ANS['q21']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q22')||getVal('q22');parts.push('Q22:'+(v===ANS['q22']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q23')||getVal('q23');parts.push('Q23:'+(v===ANS['q23']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q24')||getVal('q24');parts.push('Q24:'+(v===ANS['q24']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q25')||getVal('q25');parts.push('Q25:'+(v===ANS['q25']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q26')||getVal('q26');parts.push('Q26:'+(v===ANS['q26']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q27')||getVal('q27');parts.push('Q27:'+(v===ANS['q27']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q28')||getVal('q28');parts.push('Q28:'+(v===ANS['q28']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q29')||getVal('q29');parts.push('Q29:'+(v===ANS['q29']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q30')||getVal('q30');parts.push('Q30:'+(v===ANS['q30']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q31')||getVal('q31');parts.push('Q31:'+(v===ANS['q31']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q32')||getVal('q32');parts.push('Q32:'+(v===ANS['q32']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q33'),ok=chkText('q33',ANS['q33'])?'✔':'✘';parts.push('Q33:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q34'),ok=chkText('q34',ANS['q34'])?'✔':'✘';parts.push('Q34:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q35'),ok=chkText('q35',ANS['q35'])?'✔':'✘';parts.push('Q35:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q36'),ok=chkText('q36',ANS['q36'])?'✔':'✘';parts.push('Q36:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q37'),ok=chkText('q37',ANS['q37'])?'✔':'✘';parts.push('Q37:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q38'),ok=chkText('q38',ANS['q38'])?'✔':'✘';parts.push('Q38:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q39'),ok=chkText('q39',ANS['q39'])?'✔':'✘';parts.push('Q39:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q40'),ok=chkText('q40',ANS['q40'])?'✔':'✘';parts.push('Q40:'+ok+'('+v+')');})();
+  return parts.join(' | ');
+}
+function sendResults(p1,p2,p3,total,band){
+  var payload={action:'save_result',timestamp:new Date().toISOString(),student:(window._studentName||'')+'  —  '+(window._studentClass||''),test:'Reading Test 19',score:total,total:TOTAL_QUESTIONS,band:band,timeTaken:getTimeTaken(),p1score:p1+'/'+P1_COUNT,p2score:p2+'/'+P2_COUNT,p3score:p3+'/'+P3_COUNT,tabViol:tabViolations,focusViol:focusViolations,fsViol:fsViolations,details:buildDetails()};
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+}
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX=0,startW=0;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+  div.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startW=left.offsetWidth;},{passive:true});
+  document.addEventListener('touchmove',function(e){if(!dragging)return;var w=startW+(e.touches[0].clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';},{passive:true});
+  document.addEventListener('touchend',function(){dragging=false;});
+})();
+})();
+</script>
+</body>
+</html>

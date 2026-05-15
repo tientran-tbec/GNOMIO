@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 20</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+#right-panel input[type="text"],#right-panel select{user-select:text}
+.passage-section{display:none}
+.passage-section.active{display:block}
+.q-section{display:none}
+.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:6px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer,.check-label.selected-answer{background:#FFD580;border-radius:4px}
+.radio-label.correct,.check-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong,.check-label.wrong{background:#f8d7da!important;color:#721c24}
+.radio-label.missed{background:#fff3cd!important;border:2px dashed #856404}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+.word-bank-box{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+.word-bank-item{display:inline-block;margin:2px 6px;font-size:13px}
+.flow-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.flow-box{border:1px solid #aaa;border-radius:4px;padding:6px 10px;background:#fff;min-width:80px;text-align:center}
+.flow-arrow{font-size:18px;color:#888}
+.company-list{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+table.fill-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.fill-table td,table.fill-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.fill-table th{background:#e8eaf6;font-weight:700}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#submit-btn:hover{background:#2a5080}
+.hl-yellow{background:#FFE066}
+.hl-green{background:#90EE90}
+.hl-pink{background:#FFB6C1}
+/* Overlays */
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#start-btn:hover{background:#2a5080}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+#score-panel h2{color:#1a3a5c;margin-bottom:12px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #left-panel,#right-panel{width:100%!important;height:50vh}
+  #divider{display:none}
+  .tab-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 20</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label>
+    <input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label>
+    <input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát khỏi toàn màn hình. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+<div id="overtime-overlay">
+  <div id="overtime-box">
+    <p>⏰ Hết 60 phút! Bạn có thêm 5 phút để hoàn thành.<br>Bài sẽ tự nộp sau 5 phút.</p>
+    <button onclick="confirmSubmit()">Nộp bài ngay</button>
+  </div>
+</div>
+<div id="warning-banner"></div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">SOSUS: Listening to the Ocean</div>
+      <div class="passage-para"><span class="subheading">A</span> The oceans of Earth cover more than 70 percent of the planet’s surface, yet, until quite recently, we knew less about their depths than we did about the surface of the Moon. Distant as it is, the Moon has been far more accessible to study because astronomers long have been able to look at its surface, first with the naked eye and then with the telescope-both instruments that focus light. And, with telescopes tuned to different wavelengths of light, modem astronomers can not only analyze Earth’s atmosphere, but also determine the temperature and composition of the Sun or other stars many hundreds of light-years away. Until the twentieth century, however, no analogous instruments were available for the study of Earth’s oceans: Light, which can travel trillions of miles through the vast vacuum of space, cannot penetrate very far in seawater.</div>
+      <div class="passage-para"><span class="subheading">B</span> Curious investigators long have been fascinated by sound and the way it travels in water. As early as 1490, Leonardo da Vinci observed: “If you cause your ship to stop and place the head of a long tube in the water and place the outer extremity to your ear, you will hear ships at a great distance from you.” In 1687, the first mathematical theory of sound propagation was published by Sir Isaac Newton in his Philosophiae Naturalis Principia Mathematica, Investigators were measuring the speed of sound in air beginning in the mid seventeenth century, but it was not until 1826 that Daniel Colladon, a Swiss physicist, and Charles Sturm, a French mathematician, accurately measured its speed in water. Using a long tube to listen underwater (as da Vinci had suggested), they recorded how fast the sound of a submerged bell traveled across Lake Geneva. Their result-1,435 meters (1,569 yards) per second in water of 1.8 degrees Celsius (35 degrees Fahrenheit)- was only 3 meters per second off from the speed accepted today. What these investigators demonstrated was that water – whether fresh or salt- is an excellent medium for sound, transmitting it almost five times faster than its speed in air</div>
+      <div class="passage-para"><span class="subheading">C</span> In 1877 and 1878，the British scientist John William Strutt, third Baron Rayleigh, published his two-volume seminal work, The Theory of Sound, often regarded as marking the beginning of the modem study of acoustics. The recipient of the Nobel Prize for Physics in 1904 for his successful isolation of the element argon, Lord Rayleigh made key discoveries in the fields of acoustics and optics that are critical to the theory of wave propagation in fluids. Among other things, Lord Rayleigh was the first to describe a sound wave as a mathematical equation (the basis of all theoretical work on acoustics) and the first to describe how small particles in the atmosphere scatter certain wavelengths of sunlight, a principle that also applies to the behavior of sound waves in water.</div>
+      <div class="passage-para"><span class="subheading">D</span> A number of factors influence how far sound travels underwater and how long it lasts. For one, particles in seawater can reflect, scatter, and absorb certain frequencies of sound – just as certain wavelengths of light may be reflected, scattered, and absorbed by specific types of particles in the atmosphere. Seawater absorbs 30 times the amount of sound absorbed by distilled water, with specific chemicals (such as magnesium sulfate and boric acid) damping out certain frequencies of sound. Researchers also learned that low frequency sounds, whose long wavelengths generally pass over tiny particles, tend to travel farther without loss through absorption or scattering. Further work on the effects of salinity, temperature, and pressure on the speed of sound has yielded fascinating insights into the structure of the ocean. Speaking generally, the ocean is divided into horizontal layers in which sound speed is influenced more greatly by temperature in the upper regions and by pressure in the lower depths. At the surface is a sun-warmed upper layer, the actual temperature and thickness of which varies with the season. At midlatitudes, this layer tends to be isothermal, that is， the temperature tends to be uniform throughout the layer because the water is well mixed by the action of waves, winds, and convection currents; a sound signal moving down through this layer tends to travel at an almost constant speed. Next comes a transitional layer called the thermocline, in which temperature drops steadily with depth; as temperature falls, so does the speed of sound.</div>
+      <div class="passage-para"><span class="subheading">E</span> The U.S. Navy was quick to appreciate the usefulness of low-frequency sound and the deep sound channel in extending the range at which it could detect submarines. In great secrecy during the 1950s，the U.S. Navy launched a project that went by the code name Jezebel; it would later come to be known as the Sound Surveillance System (SOSUS). The system involved arrays of underwater microphones, called hydrophones, that were placed on the ocean bottom and connected by cables to onshore processing centers. With SOSUS deployed in both deep and shallow waters along both coasts of North America and the British West Indies, the U.S. Navy not only could detect submarines in much of the northern hemisphere, it also could distinguish how many propellers a submarine had, whether it was conventional or nuclear, and sometimes even the class of sub.</div>
+      <div class="passage-para"><span class="subheading">F</span> The realization that SOSUS could be used to listen to whales also was made by Christopher Clark, a biological acoustician at Cornell University, when he first visited a SOSUS station in 1992. When Clark looked at the graphic representations of sound, scrolling 24 hours a day, every day, he saw the voice patterns of blue, finback, minke, and humpback whales. He also could hear the sounds. Using a SOSUS receiver in the West Indies, he could hear whales that were 1,770 kilometers (1,100 miles) away. Whales are the biggest of Earth’s creatures. The blue whale, for example, can be 100 feet long and weigh as many tons. Yet these animals also are remarkably elusive. Scientists wish to observe blue time and position them on a map. Moreover, they can track not just one whale at a time, but many creatures simultaneously throughout the North Atlantic and the eastern North Pacific. They also can learn to distinguish whale calls. For example, Fox and colleagues have detected changes in the calls of finback whales during different seasons and have found that blue whales in different regions of the Pacific Ocean have different calls. Whales firsthand must wait in their ships for the whales to surface. A few whales have been tracked briefly in the wild this way but not for very great distances, and much about them remains unknown. Using the SOSUS stations, scientists can track the whales in real time and position them on a map. Moreover, they can track not just one whale at a time, but many creatures simultaneously throughout the North Atlantic and the eastern North Pacific. They also can learn to distinguish whale calls. For example, Fox and colleagues have detected changes in the calls of finback whales during different seasons and have found that blue whales in different regions of the Pacific Ocean have different calls.</div>
+      <div class="passage-para"><span class="subheading">G</span> SOSUS, with its vast reach, also has proved instrumental in obtaining information crucial to our understanding of Earth’s weather and climate. Specifically, the system has enabled researchers to begin making ocean temperature measurements on a global scale – measurements that are keys to puzzling out the workings of heat transfer between the ocean and the atmosphere. The ocean plays an enormous role in determining air temperature the heat capacity in only the upper few meters of ocean is thought to be equal to all of the heat in the entire atmosphere. For sound waves traveling horizontally in the ocean, speed is largely a function of temperature. Thus, the travel time of a wave of sound between two points is a sensitive indicator of the average temperature along its path. Transmitting sound in numerous directions through the deep sound channel can give scientists measurements spanning vast areas of the globe. Thousands of sound paths in the ocean could be pieced together into a map of global ocean temperatures and, by repeating measurements along the same paths over times, scientists could track changes in temperature over months or years.</div>
+      <div class="passage-para"><span class="subheading">H</span> Researchers also are using other acoustic techniques to monitor climate. Oceanographer Jeff Nystuen at the University of Washington, for example, has explored the use of sound to measure rainfall over the ocean. Monitoring changing global rainfall patterns undoubtedly will contribute to understanding major climate change as well as the weather phenomenon known as El Nino. Since 1985, Nystuen has used hydrophones to listen to rain over the ocean, acoustically measuring not only the rainfall rate but also the rainfall type, from drizzle to thunderstorms. By using the sound of rain underwater as a “natural” rain gauge, the measurement of rainfall over the oceans will become available to climatologists.</div>
+    </div>
+
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">In boxes 1-4 on your answer sheet, write</div>
+      <div class="passage-para">TRUE 			if the statement agrees with the information</div>
+      <div class="passage-para">FALSE 		if the statement contradicts the information</div>
+      <div class="passage-para">NOT GIVEN 		if there is no information on this</div>
+      <div class="passage-para">1 In the past, difficulties of research carried out on Moon were much easier than that of</div>
+      <div class="passage-para">2 The same light technology used on investigation of moon can be employed in the field of ocean.</div>
+      <div class="passage-para">3 Research on the depth of ocean by method of sound wave is more time-consuming.</div>
+      <div class="passage-para">4 Hydrophones technology is able to detect the category of precipitation.</div>
+    </div>
+
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">Save Endangered Language</div>
+      <div class="passage-para">“Obviously we must do some serious rethinking of our priorities, lest linguistics go down in history as the only science that presided obviously over the disappearance of 90 percent of the very field to which it is dedicated.” – Michael Krauss, “The World’s Languages in Crisis”.</div>
+      <div class="passage-para"><span class="subheading">A</span> Ten years ago Michael Krauss sent a shudder through the discipline of linguistics with his prediction that half the 6,000 or so languages spoken in the world would cease to be uttered within a century. Unless scientists and community leaders directed a worldwide effort to stabilize the decline of local languages, he warned, nine-tenths of the linguistic diversity of humankind would probably be doomed to extinction. Krauss’s prediction was little more than an educated guess, but other respected linguists had been clanging out similar alarms. Keneth L. Hale of the Massachusetts Institute of Technology noted in the same journal issue that eight languages on which he had done fieldwork had since passed into extinction. A 1990 survey in Australia found that 70 of the 90 surviving Aboriginal languages were no longer used regularly by all age groups. The same was true for all but 20 of the 175 Native American languages spoken or remembered in the US., Krauss told a congressional panel in 1992.</div>
+      <div class="passage-para"><span class="subheading">B</span> Many experts in the field mourn the loss of rare languages, for several reasons. To start, there is scientific self-interest: some of the most basic questions in linguistics have to do with the limits of human speech, which are far from fully explored. Many researchers would like to know which structural elements of grammar and vocabulary – if any – are truly universal and probably, therefore, hardwired into the human brain. Other scientists try to reconstruct ancient migration patterns by comparing borrowed words that appear in otherwise unrelated languages. In each of these cases, the wider the portfolio of languages you study, the more likely you are to get the right answers.</div>
+      <div class="passage-para"><span class="subheading">C</span> Despite the near-constant buzz in linguistics about endangered languages over the past 10 years, the field has accomplished depressingly little. “You would think that there would be some organized response to this dire situation,” some attempt to determine which language can be saved and which should be documented before they disappear, says Sarah G. Thomason, a linguist at the University of Michigan at Ann Arbor. “But there isn’t any such effort organized in the profession. It is only recently that it has become fashionable enough to work on endangered languages.” Six years ago, recalls Douglas H. Whalen of Yale University, “when I asked linguists who were raising money to deal with these problems, I mostly got blank stares.” So Whalen and a few other linguists founded the Endangered Languages Fund. In the five years to 2001, they were able to collect only $80,000 for research grants. A similar foundation in England, directed by Nicholas Ostler, has raised just $8,000 since 1995.</div>
+      <div class="passage-para"><span class="subheading">D</span> But there are encouraging signs that the field has turned a corner. The Volkswagen Foundation, a German charity, just issued its second round of grants totaling more than $2 million. It has created a multimedia archive at the Max Planck Institute for Psycholinguistics in the Netherlands that can house recordings, grammars, dictionaries and other data on endangered languages. To fill the archive, the foundation has dispatched field linguists to document Aweti (100 or so speakers in Brazil), Ega (about 300 speakers in Ivory Coast), Waima’a (a few hundred speakers in East Timor), and a dozen or so other languages unlikely to survive the century. The Ford Foundation has also edged into the arena. Its contributions helped to reinvigorate a master-apprentice program created in 1992 by Leanne Hinton of Berkeley and Native Americans worried about the imminent demise of about 50 indigenous languages in California. Fluent speakers receive $3,000 to teach a younger relative (who is also paid) their native tongue through 360 hours of shared activities, spread over six months. So far about 5 teams have completed program, Hinton says, transmitting a least some knowledge of 25 languages. “It’s too early to call this language revitalization,” Hinton admits. “In California, the death rate of elderly speakers will always be greater than the recruitment rate of young speakers. But at least we prolong the survival of the language.” That will give linguists more time to record these tongues before they vanish.</div>
+      <div class="passage-para"><span class="subheading">E</span> But the master-apprentice approach hasn’t caught on outside the U.S., and Hinton’s effort is a drop in the sea. At least 440 languages have been reduced to a mere handful of elders, according to the Ethnologue, a catalogue of languages produced by the Dallas-based group SIL International that comes closest to global coverage. For the vast majority of these languages, there is little or no record of their grammar, vocabulary, pronunciation or use in daily life. Even if a language has been fully documented, all that remains once it vanishes from active use is a fossil skeleton, a scattering of features that the scientist was lucky and astute enough to capture. Linguists may be able to sketch an outline of the forgotten language and fix its place on the evolutionary tree, but little more. “How did people start conversations and talk to babies? How dis husbands and wives converse?” Hinton asks. “Those are the first things you want to learn when you want to revitalize the language.”</div>
+      <div class="passage-para"><span class="subheading">F</span> But there is as yet no discipline of “conservation linguistics,” as there is for biology. Almost every strategy tried so far has succeeded in some places but failed in others, and there seems to be no way to predict with certainty what will work where. Twenty years ago in New Zealand, Maori speakers set up “language nests,” in which preschoolers were immersed in the native language. Additional Maori-only classes were added as the children progressed through elementary and secondary school. A similar approach was tried in Hawaii, with some success – the number of native speakers has stabilized at 1,000 or so, reports Joseph E. Grimes of SIL International, who is working on Oahu. Students can now get instruction in Hawaiian all the way through university.</div>
+      <div class="passage-para"><span class="subheading">G</span> One factor that always seems to occur in the demise of a language is that the speakers begin to have collective doubts about the usefulness of language loyalty. Once they start regarding their own language as inferior to the majority language, people stop using it in all situations. Kids pick up on the attitude and prefer the dominant language. In many cases, people don’t notice until they suddenly realize that their kids never speak the language, even at home. This is how Cornish and some dialects of Scottish Gaelic is still only rarely used for daily home life in Ireland, 80 years after the republic was founded with Irish as its first official language. H Linguists agree that ultimately, the answer to the problem of language extinction is multilingualism. Even uneducated people can learn several languages, as long as they start as children. Indeed, most people in the world speak more than one tongue, and in places such as Cameroon (279 languages), Papua New Guinea (823) and India (387) it is common to speak three of four distinct languages and a dialect or two as well. Most Americans and Canadians, to the west of Quebec, have a gut reaction that anyone speaking another language in front of them is committing an immoral act. You get the same reaction in Australia and Russia. It is no coincidence that these are the areas where languages are disappearing the fastest. The first step in saving dying languages is to persuade the world’s majorities to allow the minorities among them to speak with their own voices.</div>
+    </div>
+  </div>
+  <div id="divider"></div>
+  <div id="right-panel">
+
+    <!-- Questions Passage 1 -->
+    <div class="q-section active" id="qs1">
+      <div class="passage-title" style="margin-bottom:10px">Questions 1–13 — Passage 1</div>
+
+      <!-- Q1-4: T/F/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 1–4</div>
+        <div class="q-instruction">Do the following statements agree with the information given in Reading Passage 1?<br>
+        Write <strong>TRUE</strong> if the statement agrees with the information<br>
+        <strong>FALSE</strong> if the statement contradicts the information<br>
+        <strong>NOT GIVEN</strong> if there is no information on this</div>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">1.</span> In the past, difficulties of research carried out on the Moon were much easier than that of the ocean floor.</div>
+        <label class="radio-label"><input type="radio" name="q1" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q1" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q1" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar1"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">2.</span> The same light technology used in investigation of the Moon can be employed in the field of ocean research.</div>
+        <label class="radio-label"><input type="radio" name="q2" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q2" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q2" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar2"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">3.</span> Research on the depth of the ocean by method of sound wave is more time-consuming.</div>
+        <label class="radio-label"><input type="radio" name="q3" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q3" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q3" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar3"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">4.</span> Hydrophones technology is able to detect the category of precipitation.</div>
+        <label class="radio-label"><input type="radio" name="q4" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q4" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q4" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar4"></span>
+      </div>
+
+      <!-- Q5-8: Paragraph matching -->
+      <div class="q-block">
+        <div class="q-num">Questions 5–8</div>
+        <div class="q-instruction">Reading Passage 1 has several paragraphs. Which paragraph contains the following information?<br>Write the correct letter in the boxes.</div>
+        <div class="q-text"><span class="q-num">5.</span> Elements that affect sound transmission in the ocean
+          <select id="q5"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar5"></span>
+        </div>
+        <div class="q-text"><span class="q-num">6.</span> Relationship between global climate and ocean temperature
+          <select id="q6"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar6"></span>
+        </div>
+        <div class="q-text"><span class="q-num">7.</span> Examples of how sound technology helps people research ocean creatures
+          <select id="q7"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar7"></span>
+        </div>
+        <div class="q-text"><span class="q-num">8.</span> Sound transmission under water is similar to that of light in any condition
+          <select id="q8"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar8"></span>
+        </div>
+      </div>
+
+      <!-- Q9-13: MCQ -->
+      <div class="q-block">
+        <div class="q-num">Questions 9–13</div>
+        <div class="q-instruction">Choose the correct letter, A, B, C or D.</div>
+
+        <div class="q-text"><span class="q-num">9.</span> Who is dedicated to the research of the rate of sound?</div>
+        <label class="radio-label"><input type="radio" name="q9" value="A"> A &nbsp;Leroy and Longuet-Higgins</label>
+        <label class="radio-label"><input type="radio" name="q9" value="B"> B &nbsp;Bjorno and Leroy</label>
+        <label class="radio-label"><input type="radio" name="q9" value="C"> C &nbsp;Longuet-Higgins</label>
+        <label class="radio-label"><input type="radio" name="q9" value="D"> D &nbsp;Leroy and colleagues</label>
+        <span class="answer-reveal" id="ar9"></span>
+
+        <div class="q-text" style="margin-top:12px"><span class="q-num">10.</span> Who explained that the theory of light or sound wavelength is significant in water?</div>
+        <label class="radio-label"><input type="radio" name="q10" value="A"> A &nbsp;Longuet-Higgins</label>
+        <label class="radio-label"><input type="radio" name="q10" value="B"> B &nbsp;Leroy</label>
+        <label class="radio-label"><input type="radio" name="q10" value="C"> C &nbsp;Bjorno</label>
+        <label class="radio-label"><input type="radio" name="q10" value="D"> D &nbsp;Fox</label>
+        <span class="answer-reveal" id="ar10"></span>
+
+        <div class="q-text" style="margin-top:12px"><span class="q-num">11.</span> According to Fox and colleagues, in what pattern does the change of finback whale calls happen?</div>
+        <label class="radio-label"><input type="radio" name="q11" value="A"> A &nbsp;gradual and steady decline</label>
+        <label class="radio-label"><input type="radio" name="q11" value="B"> B &nbsp;sudden dramatic change</label>
+        <label class="radio-label"><input type="radio" name="q11" value="C"> C &nbsp;seasonal variation</label>
+        <label class="radio-label"><input type="radio" name="q11" value="D"> D &nbsp;random fluctuation</label>
+        <span class="answer-reveal" id="ar11"></span>
+
+        <div class="q-text" style="margin-top:12px"><span class="q-num">12.</span> In which way does the SOSUS technology inspect whales?</div>
+        <label class="radio-label"><input type="radio" name="q12" value="A"> A &nbsp;by tracking their movement on screen</label>
+        <label class="radio-label"><input type="radio" name="q12" value="B"> B &nbsp;by recording their vocalisations</label>
+        <label class="radio-label"><input type="radio" name="q12" value="C"> C &nbsp;by measuring water temperature changes</label>
+        <label class="radio-label"><input type="radio" name="q12" value="D"> D &nbsp;by detecting sonar reflections</label>
+        <span class="answer-reveal" id="ar12"></span>
+
+        <div class="q-text" style="margin-top:12px"><span class="q-num">13.</span> What could scientists inspect via monitoring along a repeated route?</div>
+        <label class="radio-label"><input type="radio" name="q13" value="A"> A &nbsp;the migration paths of fish</label>
+        <label class="radio-label"><input type="radio" name="q13" value="B"> B &nbsp;changes in ocean temperature</label>
+        <label class="radio-label"><input type="radio" name="q13" value="C"> C &nbsp;the depth of the ocean floor</label>
+        <label class="radio-label"><input type="radio" name="q13" value="D"> D &nbsp;the speed of underwater currents</label>
+        <span class="answer-reveal" id="ar13"></span>
+      </div>
+    </div><!-- /qs1 -->
+
+    <!-- Questions Passage 2 -->
+    <div class="q-section" id="qs2">
+      <div class="passage-title" style="margin-bottom:10px">Questions 14–27 — Passage 2</div>
+
+      <!-- Q14-20: Heading matching -->
+      <div class="q-block">
+        <div class="q-num">Questions 14–20</div>
+        <div class="q-instruction">Reading Passage 2 has several paragraphs, A–H. Choose the correct heading for each paragraph from the list below.</div>
+        <div class="group-box">
+          <div class="group-title">List of Headings</div>
+          <div>i &nbsp;The dominant language wins out</div>
+          <div>ii &nbsp;Emergency measures</div>
+          <div>iii &nbsp;A global warning</div>
+          <div>iv &nbsp;The last speaker</div>
+          <div>v &nbsp;Languages as living things</div>
+          <div>vi &nbsp;Too little too late</div>
+          <div>vii &nbsp;The value of linguistic diversity</div>
+          <div>viii &nbsp;Successful revival</div>
+          <div>ix &nbsp;Learning from the young</div>
+          <div>x &nbsp;Better late than never</div>
+        </div>
+        <div class="q-text"><span class="q-num">14.</span> Paragraph A &nbsp;
+          <select id="q14"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar14"></span>
+        </div>
+        <div class="q-text"><span class="q-num">15.</span> Paragraph B &nbsp;
+          <select id="q15"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar15"></span>
+        </div>
+        <div class="q-text"><span class="q-num">16.</span> Paragraph D &nbsp;
+          <select id="q16"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar16"></span>
+        </div>
+        <div class="q-text"><span class="q-num">17.</span> Paragraph E &nbsp;
+          <select id="q17"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar17"></span>
+        </div>
+        <div class="q-text"><span class="q-num">18.</span> Paragraph F &nbsp;
+          <select id="q18"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar18"></span>
+        </div>
+        <div class="q-text"><span class="q-num">19.</span> Paragraph G &nbsp;
+          <select id="q19"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar19"></span>
+        </div>
+        <div class="q-text"><span class="q-num">20.</span> Paragraph H &nbsp;
+          <select id="q20"><option value="">--</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option><option>ix</option><option>x</option></select>
+          <span class="answer-reveal" id="ar20"></span>
+        </div>
+      </div>
+
+      <!-- Q21-25: Person matching -->
+      <div class="q-block">
+        <div class="q-num">Questions 21–25</div>
+        <div class="q-instruction">Match each statement with the correct person or organisation, A–E.</div>
+        <div class="company-list">
+          <div class="group-title">List of People / Organisations</div>
+          <div>A &nbsp;Wurm</div>
+          <div>B &nbsp;Hale</div>
+          <div>C &nbsp;Hawaiian government</div>
+          <div>D &nbsp;Brenzinger</div>
+          <div>E &nbsp;Crystal</div>
+        </div>
+        <div class="q-text"><span class="q-num">21.</span> Reported language conservation practice in Hawaii
+          <select id="q21"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select>
+          <span class="answer-reveal" id="ar21"></span>
+        </div>
+        <div class="q-text"><span class="q-num">22.</span> Predicted that many languages would disappear soon
+          <select id="q22"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select>
+          <span class="answer-reveal" id="ar22"></span>
+        </div>
+        <div class="q-text"><span class="q-num">23.</span> Experienced the process of languages dying out personally
+          <select id="q23"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select>
+          <span class="answer-reveal" id="ar23"></span>
+        </div>
+        <div class="q-text"><span class="q-num">24.</span> Raised a language fund in England
+          <select id="q24"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select>
+          <span class="answer-reveal" id="ar24"></span>
+        </div>
+        <div class="q-text"><span class="q-num">25.</span> Not enough effort on saving languages until recent work
+          <select id="q25"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select>
+          <span class="answer-reveal" id="ar25"></span>
+        </div>
+      </div>
+
+      <!-- Q26-27: Short answer -->
+      <div class="q-block">
+        <div class="q-num">Questions 26–27</div>
+        <div class="q-instruction">Answer the questions below using <strong>NO MORE THAN TWO WORDS</strong> from the passage.</div>
+        <div class="q-text"><span class="q-num">26.</span> What is the real result of a master-apprentice program sponsored by The Ford Foundation?<br>
+          <select id="q26"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select>
+          <span class="answer-reveal" id="ar26"></span>
+        </div>
+        <div class="q-text"><span class="q-num">27.</span> What should the majority language speakers do according to the last paragraph?<br>
+          <select id="q27"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+          <span class="answer-reveal" id="ar27"></span>
+        </div>
+      </div>
+    </div><!-- /qs2 -->
+
+    <!-- Questions Passage 3 -->
+    <div class="q-section" id="qs3">
+      <div class="passage-title" style="margin-bottom:10px">Questions 28–40 — Passage 3</div>
+
+      <!-- Q28-33: T/F/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 28–33</div>
+        <div class="q-instruction">Do the following statements agree with the information given in Reading Passage 3?<br>
+        Write <strong>TRUE</strong> if the statement agrees with the information<br>
+        <strong>FALSE</strong> if the statement contradicts the information<br>
+        <strong>NOT GIVEN</strong> if there is no information on this</div>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">28.</span> The purpose of collecting seeds now is different from the past.</div>
+        <label class="radio-label"><input type="radio" name="q28" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q28" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q28" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar28"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">29.</span> The Millennium Seed Bank is the earliest seed bank.</div>
+        <label class="radio-label"><input type="radio" name="q29" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q29" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q29" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar29"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">30.</span> One of the major threats for plant species extinction is farmland expansion into wilderness.</div>
+        <label class="radio-label"><input type="radio" name="q30" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q30" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q30" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar30"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">31.</span> The approach that scientists apply to store seeds is similar to that used by farmers.</div>
+        <label class="radio-label"><input type="radio" name="q31" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q31" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q31" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar31"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">32.</span> Technological development is the only hope to save plant species.</div>
+        <label class="radio-label"><input type="radio" name="q32" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q32" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q32" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar32"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">33.</span> The work of seed conservation is often limited by financial problems.</div>
+        <label class="radio-label"><input type="radio" name="q33" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q33" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q33" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar33"></span>
+      </div>
+
+      <!-- Q34-38: Short answer text -->
+      <div class="q-block">
+        <div class="q-num">Questions 34–38</div>
+        <div class="q-instruction">Answer the questions below. Choose <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.</div>
+        <div class="q-text"><span class="q-num">34.</span> What threatens plant survival when habitats shrink?<br>
+          <input type="text" id="q34" style="width:200px" placeholder="answer"> <span class="answer-reveal" id="ar34"></span>
+        </div>
+        <div class="q-text"><span class="q-num">35.</span> Besides food, what else do plants provide that is of value?<br>
+          <input type="text" id="q35" style="width:200px" placeholder="answer"> <span class="answer-reveal" id="ar35"></span>
+        </div>
+        <div class="q-text"><span class="q-num">36.</span> Who were the earliest people to collect and preserve seeds?<br>
+          <input type="text" id="q36" style="width:200px" placeholder="answer"> <span class="answer-reveal" id="ar36"></span>
+        </div>
+        <div class="q-text"><span class="q-num">37.</span> Who founded Kew Gardens?<br>
+          <input type="text" id="q37" style="width:200px" placeholder="answer"> <span class="answer-reveal" id="ar37"></span>
+        </div>
+        <div class="q-text"><span class="q-num">38.</span> Where are seeds stored in the Svalbard Global Seed Vault?<br>
+          <input type="text" id="q38" style="width:200px" placeholder="answer"> <span class="answer-reveal" id="ar38"></span>
+        </div>
+      </div>
+
+      <!-- Q39-40: Checkbox (TWO answers) -->
+      <div class="q-block">
+        <div class="q-num">Questions 39–40</div>
+        <div class="q-instruction">Which <strong>TWO</strong> of the following statements are given about the Millennium Seed Bank? Choose <strong>TWO</strong> letters, A–E.</div>
+        <label class="check-label"><input type="checkbox" name="q39q40" value="A"> A &nbsp;It is the world's largest seed bank</label>
+        <label class="check-label"><input type="checkbox" name="q39q40" value="B"> B &nbsp;It focuses on wild plant species rather than crops</label>
+        <label class="check-label"><input type="checkbox" name="q39q40" value="C"> C &nbsp;It is funded entirely by the British government</label>
+        <label class="check-label"><input type="checkbox" name="q39q40" value="D"> D &nbsp;It also stores animal genetic material</label>
+        <label class="check-label"><input type="checkbox" name="q39q40" value="E"> E &nbsp;It aims to store seeds from all plant species by 2050</label>
+        <div id="chk-limit-q39q40"></div>
+        <span class="answer-reveal" id="arq39q40"></span>
+      </div>
+    </div><!-- /qs3 -->
+
+  </div>
+</div>
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 20</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+<script>
+(function(){
+'use strict';
+var ANS = {
+  q1:'TRUE', q2:'FALSE', q3:'NOT GIVEN', q4:'TRUE',
+  q5:'D', q6:'G', q7:'F', q8:'D',
+  q9:'D', q10:'A', q11:'A', q12:'B', q13:'C',
+  q14:'v', q15:'x', q16:'iii', q17:'vii', q18:'ix', q19:'viii', q20:'ii',
+  q21:'C', q22:'B', q23:'E', q24:'A', q25:'D',
+  q26:'C', q27:'D',
+  q28:'TRUE', q29:'NOT GIVEN', q30:'TRUE', q31:'TRUE', q32:'FALSE', q33:'TRUE',
+  q34:['extinction'],
+  q35:['drugs'],
+  q36:['pioneers'],
+  q37:['sir joseph banks','joseph banks'],
+  q38:['underground vaults'],
+  'q39q40':['A','B']
+};
+var TOTAL_QUESTIONS=40,P1_COUNT=13,P2_COUNT=14,P3_COUNT=13;
+var currentTab=1,hlMode='yellow',timerStopped=false,submitted=false;
+var tabViolations=0,focusViolations=0,fsViolations=0,violationLog=[];
+var startTime=null,timerInterval=null,overtimeFired=false;
+var hlColors={yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function setHL(mode){
+  hlMode=mode;
+  ['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.remove('active-hl');});
+  var t=mode==='clear'?'hl-clear':'hl-'+mode,el=document.getElementById(t);if(el)el.classList.add('active-hl');
+}
+window.setHL=setHL;
+function applyHighlight(container){
+  var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);if(!container.contains(range.commonAncestorContainer))return;
+  if(hlMode==='clear'){sel.removeAllRanges();return;}
+  try{var span=document.createElement('span');span.className=hlColors[hlMode];var frag=range.extractContents();span.appendChild(frag);range.insertNode(span);}catch(e){}
+  sel.removeAllRanges();
+}
+function handleErase(e,container){
+  if(hlMode!=='clear')return;var t=e.target;
+  while(t&&t!==container){if(t.tagName==='SPAN'&&(t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){var p=t.parentNode;while(t.firstChild)p.insertBefore(t.firstChild,t);p.removeChild(t);p.normalize();break;}t=t.parentNode;}
+}
+['left-panel','right-panel'].forEach(function(pid){
+  var panel=document.getElementById(pid);if(!panel)return;
+  panel.addEventListener('mouseup',function(){applyHighlight(panel);});
+  panel.addEventListener('click',function(e){handleErase(e,panel);});
+});
+function switchTab(n){
+  currentTab=n;[1,2,3].forEach(function(i){
+    document.getElementById('pass'+i).classList.toggle('active',i===n);
+    document.getElementById('qs'+i).classList.toggle('active',i===n);
+    document.getElementById('tab'+i).classList.toggle('active',i===n);
+  });
+  document.getElementById('left-panel').scrollTop=0;document.getElementById('right-panel').scrollTop=0;
+}
+window.switchTab=switchTab;
+function formatTime(sec){var m=Math.floor(sec/60),s=sec%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function startTimer(){
+  var box=document.getElementById('timer-box');
+  timerInterval=setInterval(function(){
+    if(timerStopped){clearInterval(timerInterval);box.style.display='none';return;}
+    if(!startTime)return;
+    var elapsed=Math.floor((Date.now()-startTime)/1000),remaining=3600-elapsed;
+    if(remaining<=0&&!overtimeFired){overtimeFired=true;box.textContent='00:00';document.getElementById('overtime-overlay').style.display='flex';setTimeout(function(){if(!submitted)confirmSubmit();},300000);return;}
+    if(remaining>0){box.textContent=formatTime(remaining);if(remaining<=120){box.className='';box.classList.add('danger');}else if(remaining<=600){box.className='';box.classList.add('warn');}else{box.className='';}}
+  },500);
+}
+window.stopTimer=function(){timerStopped=true;};
+window.enterFullscreen=function(){
+  var el=document.documentElement;
+  try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}
+  document.getElementById('fs-overlay').style.display='none';
+};
+document.addEventListener('fullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');document.getElementById('fs-overlay').style.display='flex';}});
+document.addEventListener('webkitfullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;document.getElementById('fs-overlay').style.display='flex';}});
+window.startExam=function(){
+  var name=document.getElementById('inp-name').value.trim(),cls=document.getElementById('inp-class').value.trim();
+  if(!name||!cls){document.getElementById('popup-err').style.display='block';return;}
+  window._studentName=name;window._studentClass=cls;
+  startTime=window._testStartTime=Date.now();
+  document.getElementById('popup-overlay').style.display='none';
+  enterFullscreen();startTimer();
+};
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(['F12'].indexOf(e.key)>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.key==='Escape'&&!submitted){e.preventDefault();}
+});
+document.addEventListener('visibilitychange',function(){
+  if(submitted||!startTime)return;
+  if(document.hidden){tabViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab (lần '+tabViolations+')');showWarning('⚠ Phát hiện chuyển tab! Vi phạm lần '+tabViolations);}
+});
+window.addEventListener('blur',function(){
+  if(submitted||!startTime)return;
+  focusViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Mất focus (lần '+focusViolations+')');showWarning('⚠ Phát hiện rời cửa sổ! Vi phạm lần '+focusViolations);
+});
+},1000);
+function showWarning(msg){var b=document.getElementById('warning-banner');b.textContent=msg;b.style.display='block';clearTimeout(b._t);b._t=setTimeout(function(){b.style.display='none';},4000);}
+document.querySelectorAll('input[type="radio"]').forEach(function(inp){
+  inp.addEventListener('change',function(){
+    document.querySelectorAll('input[name="'+inp.name+'"]').forEach(function(r){var l=r.closest('label');if(l)l.classList.remove('selected-answer');});
+    var l=inp.closest('label');if(l&&inp.checked)l.classList.add('selected-answer');
+  });
+});
+document.querySelectorAll('input[type="checkbox"]').forEach(function(inp){
+  inp.addEventListener('change',function(){var l=inp.closest('label');if(l){if(inp.checked)l.classList.add('selected-answer');else l.classList.remove('selected-answer');}});
+});
+function wireCheckLimit(name,max){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){var n=document.querySelectorAll('input[name="'+name+'"]:checked').length;if(n>max){inp.checked=false;var l=inp.closest('label');if(l)l.classList.remove('selected-answer');showCheckLimit(name,max);}}
+    });
+  });
+}
+function showCheckLimit(name,max){var id='chk-limit-'+name,el=document.getElementById(id);if(!el)return;el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';el.style.color='#e74c3c';el.style.fontWeight='bold';el.style.fontSize='12px';clearTimeout(el._t);el._t=setTimeout(function(){el.textContent='';},2500);}
+
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getRad(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function getChecked(name){var r=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){r.push(c.value);});return r;}
+function chkText(id,ans){var v=getVal(id).toLowerCase();if(Array.isArray(ans))return ans.some(function(a){return v===a.toLowerCase();});return v===ans.toLowerCase();}
+function chkSel(id,ans){return getVal(id)===ans;}
+function chkRad(name,ans){return getRad(name)===ans;}
+function chkCheck(name,ans){return getChecked(name).sort().join(',')===ans.slice().sort().join(',');}
+window.askSubmit=function(){if(submitted)return;document.getElementById('confirm-overlay').style.display='flex';};
+window.confirmSubmit=function(){if(submitted)return;submitted=true;document.getElementById('confirm-overlay').style.display='none';document.getElementById('overtime-overlay').style.display='none';window.stopTimer();doSubmit();};
+function doSubmit(){
+  document.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true;});
+  document.querySelectorAll('.selected-answer').forEach(function(el){el.classList.remove('selected-answer');});
+  var p1=0,p2=0,p3=0;
+  (function(){var ok=chkRad('q1',ANS['q1']);markRadio('q1',ok,ANS['q1']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q2',ANS['q2']);markRadio('q2',ok,ANS['q2']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q3',ANS['q3']);markRadio('q3',ok,ANS['q3']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q4',ANS['q4']);markRadio('q4',ok,ANS['q4']);if(ok)p1++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q5"]');
+    var ok=hasRadio?chkRad('q5',ANS['q5']):chkSel('q5',ANS['q5']);
+    if(hasRadio)markRadio('q5',ok,ANS['q5']);else markSelect('q5',ok,ANS['q5']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q6"]');
+    var ok=hasRadio?chkRad('q6',ANS['q6']):chkSel('q6',ANS['q6']);
+    if(hasRadio)markRadio('q6',ok,ANS['q6']);else markSelect('q6',ok,ANS['q6']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q7"]');
+    var ok=hasRadio?chkRad('q7',ANS['q7']):chkSel('q7',ANS['q7']);
+    if(hasRadio)markRadio('q7',ok,ANS['q7']);else markSelect('q7',ok,ANS['q7']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q8"]');
+    var ok=hasRadio?chkRad('q8',ANS['q8']):chkSel('q8',ANS['q8']);
+    if(hasRadio)markRadio('q8',ok,ANS['q8']);else markSelect('q8',ok,ANS['q8']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q9"]');
+    var ok=hasRadio?chkRad('q9',ANS['q9']):chkSel('q9',ANS['q9']);
+    if(hasRadio)markRadio('q9',ok,ANS['q9']);else markSelect('q9',ok,ANS['q9']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q10"]');
+    var ok=hasRadio?chkRad('q10',ANS['q10']):chkSel('q10',ANS['q10']);
+    if(hasRadio)markRadio('q10',ok,ANS['q10']);else markSelect('q10',ok,ANS['q10']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q11"]');
+    var ok=hasRadio?chkRad('q11',ANS['q11']):chkSel('q11',ANS['q11']);
+    if(hasRadio)markRadio('q11',ok,ANS['q11']);else markSelect('q11',ok,ANS['q11']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q12"]');
+    var ok=hasRadio?chkRad('q12',ANS['q12']):chkSel('q12',ANS['q12']);
+    if(hasRadio)markRadio('q12',ok,ANS['q12']);else markSelect('q12',ok,ANS['q12']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q13"]');
+    var ok=hasRadio?chkRad('q13',ANS['q13']):chkSel('q13',ANS['q13']);
+    if(hasRadio)markRadio('q13',ok,ANS['q13']);else markSelect('q13',ok,ANS['q13']);
+    if(ok)p1++;
+  })();
+  (function(){var ok=chkText('q14',ANS['q14']);markText('q14',ok,Array.isArray(ANS['q14'])?ANS['q14'][0]:ANS['q14']);if(ok)p2++;})();
+  (function(){var ok=chkText('q15',ANS['q15']);markText('q15',ok,Array.isArray(ANS['q15'])?ANS['q15'][0]:ANS['q15']);if(ok)p2++;})();
+  (function(){var ok=chkText('q16',ANS['q16']);markText('q16',ok,Array.isArray(ANS['q16'])?ANS['q16'][0]:ANS['q16']);if(ok)p2++;})();
+  (function(){var ok=chkText('q17',ANS['q17']);markText('q17',ok,Array.isArray(ANS['q17'])?ANS['q17'][0]:ANS['q17']);if(ok)p2++;})();
+  (function(){var ok=chkText('q18',ANS['q18']);markText('q18',ok,Array.isArray(ANS['q18'])?ANS['q18'][0]:ANS['q18']);if(ok)p2++;})();
+  (function(){var ok=chkText('q19',ANS['q19']);markText('q19',ok,Array.isArray(ANS['q19'])?ANS['q19'][0]:ANS['q19']);if(ok)p2++;})();
+  (function(){var ok=chkText('q20',ANS['q20']);markText('q20',ok,Array.isArray(ANS['q20'])?ANS['q20'][0]:ANS['q20']);if(ok)p2++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q21"]');
+    var ok=hasRadio?chkRad('q21',ANS['q21']):chkSel('q21',ANS['q21']);
+    if(hasRadio)markRadio('q21',ok,ANS['q21']);else markSelect('q21',ok,ANS['q21']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q22"]');
+    var ok=hasRadio?chkRad('q22',ANS['q22']):chkSel('q22',ANS['q22']);
+    if(hasRadio)markRadio('q22',ok,ANS['q22']);else markSelect('q22',ok,ANS['q22']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q23"]');
+    var ok=hasRadio?chkRad('q23',ANS['q23']):chkSel('q23',ANS['q23']);
+    if(hasRadio)markRadio('q23',ok,ANS['q23']);else markSelect('q23',ok,ANS['q23']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q24"]');
+    var ok=hasRadio?chkRad('q24',ANS['q24']):chkSel('q24',ANS['q24']);
+    if(hasRadio)markRadio('q24',ok,ANS['q24']);else markSelect('q24',ok,ANS['q24']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q25"]');
+    var ok=hasRadio?chkRad('q25',ANS['q25']):chkSel('q25',ANS['q25']);
+    if(hasRadio)markRadio('q25',ok,ANS['q25']);else markSelect('q25',ok,ANS['q25']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q26"]');
+    var ok=hasRadio?chkRad('q26',ANS['q26']):chkSel('q26',ANS['q26']);
+    if(hasRadio)markRadio('q26',ok,ANS['q26']);else markSelect('q26',ok,ANS['q26']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q27"]');
+    var ok=hasRadio?chkRad('q27',ANS['q27']):chkSel('q27',ANS['q27']);
+    if(hasRadio)markRadio('q27',ok,ANS['q27']);else markSelect('q27',ok,ANS['q27']);
+    if(ok)p2++;
+  })();
+  (function(){var ok=chkRad('q28',ANS['q28']);markRadio('q28',ok,ANS['q28']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q29',ANS['q29']);markRadio('q29',ok,ANS['q29']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q30',ANS['q30']);markRadio('q30',ok,ANS['q30']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q31',ANS['q31']);markRadio('q31',ok,ANS['q31']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q32',ANS['q32']);markRadio('q32',ok,ANS['q32']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q33',ANS['q33']);markRadio('q33',ok,ANS['q33']);if(ok)p3++;})();
+  (function(){var ok=chkText('q34',ANS['q34']);markText('q34',ok,ANS['q34'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q35',ANS['q35']);markText('q35',ok,ANS['q35'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q36',ANS['q36']);markText('q36',ok,ANS['q36'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q37',ANS['q37']);markText('q37',ok,ANS['q37'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q38',ANS['q38']);markText('q38',ok,ANS['q38'][0]);if(ok)p3++;})();
+  var total=p1+p2+p3,band=getBand(total);
+  showScore(p1,p2,p3,total,band);sendResults(p1,p2,p3,total,band);
+}
+function markSelect(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markText(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markRadio(name,ok,correct){var num=name.replace('q','');document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(inp.value===correct)l.classList.add('correct');else if(inp.checked&&inp.value!==correct)l.classList.add('wrong');});var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markCheckbox(name,correct){document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(correct.indexOf(inp.value)>=0){l.classList.add(inp.checked?'correct':'missed');}else if(inp.checked){l.classList.add('wrong');}});}
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=19)return'Band 5.5';if(s>=15)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Dưới Band 4';}
+function getTimeTaken(){if(!startTime)return'N/A';var e=Math.floor((Date.now()-startTime)/1000),m=Math.floor(e/60),s=e%60;return m+' phút '+s+' giây';}
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var h='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr>';
+  h+='<tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr>';
+  h+='<tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr></table>';
+  h+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p>';
+  h+='<p style="color:#555;margin-top:6px">⏱ Thời gian: '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=h;
+  if(tabViolations+focusViolations+fsViolations>0){
+    var v='<strong>📋 Báo cáo vi phạm:</strong><br>Chuyển tab: '+tabViolations+' lần | Mất focus: '+focusViolations+' lần | Thoát fullscreen: '+fsViolations+' lần<br>';
+    if(violationLog.length)v+='<small>'+violationLog.join('<br>')+'</small>';
+    document.getElementById('violation-report').innerHTML=v;
+  }
+}
+function buildDetails(){
+  var parts=[];
+  (function(){var v=getRad('q1');parts.push('Q1:'+(v===ANS['q1']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q2');parts.push('Q2:'+(v===ANS['q2']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q3');parts.push('Q3:'+(v===ANS['q3']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q4');parts.push('Q4:'+(v===ANS['q4']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q5')||getVal('q5');parts.push('Q5:'+(v===ANS['q5']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q6')||getVal('q6');parts.push('Q6:'+(v===ANS['q6']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q7')||getVal('q7');parts.push('Q7:'+(v===ANS['q7']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q8')||getVal('q8');parts.push('Q8:'+(v===ANS['q8']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q9')||getVal('q9');parts.push('Q9:'+(v===ANS['q9']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q10')||getVal('q10');parts.push('Q10:'+(v===ANS['q10']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q11')||getVal('q11');parts.push('Q11:'+(v===ANS['q11']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q12')||getVal('q12');parts.push('Q12:'+(v===ANS['q12']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q13')||getVal('q13');parts.push('Q13:'+(v===ANS['q13']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q14'),ok=chkText('q14',ANS['q14'])?'✔':'✘';parts.push('Q14:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q15'),ok=chkText('q15',ANS['q15'])?'✔':'✘';parts.push('Q15:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q16'),ok=chkText('q16',ANS['q16'])?'✔':'✘';parts.push('Q16:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q17'),ok=chkText('q17',ANS['q17'])?'✔':'✘';parts.push('Q17:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q18'),ok=chkText('q18',ANS['q18'])?'✔':'✘';parts.push('Q18:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q19'),ok=chkText('q19',ANS['q19'])?'✔':'✘';parts.push('Q19:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q20'),ok=chkText('q20',ANS['q20'])?'✔':'✘';parts.push('Q20:'+ok+'('+v+')');})()
+  (function(){var v=getRad('q21')||getVal('q21');parts.push('Q21:'+(v===ANS['q21']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q22')||getVal('q22');parts.push('Q22:'+(v===ANS['q22']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q23')||getVal('q23');parts.push('Q23:'+(v===ANS['q23']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q24')||getVal('q24');parts.push('Q24:'+(v===ANS['q24']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q25')||getVal('q25');parts.push('Q25:'+(v===ANS['q25']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q26')||getVal('q26');parts.push('Q26:'+(v===ANS['q26']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q27')||getVal('q27');parts.push('Q27:'+(v===ANS['q27']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q28');parts.push('Q28:'+(v===ANS['q28']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q29');parts.push('Q29:'+(v===ANS['q29']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q30');parts.push('Q30:'+(v===ANS['q30']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q31');parts.push('Q31:'+(v===ANS['q31']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q32');parts.push('Q32:'+(v===ANS['q32']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q33');parts.push('Q33:'+(v===ANS['q33']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q34'),ok=chkText('q34',ANS['q34'])?'✔':'✘';parts.push('Q34:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q35'),ok=chkText('q35',ANS['q35'])?'✔':'✘';parts.push('Q35:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q36'),ok=chkText('q36',ANS['q36'])?'✔':'✘';parts.push('Q36:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q37'),ok=chkText('q37',ANS['q37'])?'✔':'✘';parts.push('Q37:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q38'),ok=chkText('q38',ANS['q38'])?'✔':'✘';parts.push('Q38:'+ok+'('+v+')');})();
+  return parts.join(' | ');
+}
+function sendResults(p1,p2,p3,total,band){
+  var payload={action:'save_result',timestamp:new Date().toISOString(),student:(window._studentName||'')+'  —  '+(window._studentClass||''),test:'Reading Test 20',score:total,total:TOTAL_QUESTIONS,band:band,timeTaken:getTimeTaken(),p1score:p1+'/'+P1_COUNT,p2score:p2+'/'+P2_COUNT,p3score:p3+'/'+P3_COUNT,tabViol:tabViolations,focusViol:focusViolations,fsViol:fsViolations,details:buildDetails()};
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+}
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX=0,startW=0;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+  div.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startW=left.offsetWidth;},{passive:true});
+  document.addEventListener('touchmove',function(e){if(!dragging)return;var w=startW+(e.touches[0].clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';},{passive:true});
+  document.addEventListener('touchend',function(){dragging=false;});
+})();
+})();
+</script>
+</body>
+</html>

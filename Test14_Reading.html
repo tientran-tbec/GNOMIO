@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 14</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+.passage-section{display:none}.passage-section.active{display:block}
+.q-section{display:none}.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:8px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer{background:#FFD580}
+.radio-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong{background:#f8d7da!important;color:#721c24}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.hl-yellow{background:#FFE066}.hl-green{background:#90EE90}.hl-pink{background:#FFB6C1}
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){#main{flex-direction:column}#left-panel,#right-panel{width:100%!important;height:50vh}#divider{display:none}.tab-btn{padding:4px 8px;font-size:12px}}
+</style>
+</head>
+<body>
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 14</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label><input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label><input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+<div id="overtime-overlay"><div id="overtime-box"><p>⏰ Hết 60 phút! Bạn có thêm 5 phút.<br>Bài sẽ tự nộp sau 5 phút.</p><button onclick="confirmSubmit()">Nộp bài ngay</button></div></div>
+<div id="warning-banner"></div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+    <!-- Passage 1 -->
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 1–14 which are based on Reading Passage 1 below.</div>
+      <div class="passage-title" style="margin-top:12px">Mungo Man</div>
+      <div class="passage-para"><span class="subheading">A</span> Fifty thousand years ago, a lush landscape greeted the first Australians making their way towards the south-east of the continent. Temperatures were cooler than now. Megafauna – giant prehistoric animals such as marsupial lions, goannas and the rhinoceros-sized diprotodon – were abundant. The Lake Mungo remains are three prominent sets of fossils which tell the archaeologists the story: Mungo Man lived around the shores of Lake Mungo with his family. When he was young Mungo Man lost his two lower canine teeth, possibly knocked out in a ritual. He grew into a man nearly 1.7m in height. Over the years his molar teeth became worn and scratched, possibly from eating a gritty diet or stripping the long leaves of water reeds with his teeth to make twine. As Mungo Man grew older his bones ached with arthritis, especially his right elbow, which was so damaged that bits of bone were completely worn out or broken away. Such wear and tear are typical of people who have used a woomera to throw spears over many years. Mungo Man reached a good age for the hard life of a hunter-gatherer and died when he was about 50. His family mourned for him, and carefully buried him in the lunette, on his back with his hands crossed in his lap, and sprinkled with red ochre. Mungo Man is the oldest known example in the world of such a ritual.</div>
+      <div class="passage-para"><span class="subheading">B</span> This treasure-trove of history was found by the University of Melbourne geologist Professor Jim Bowler in 1969. He was searching for ancient lakes and came across the charred remains of Mungo Lady, who had been cremated. And in 1974, he found a second complete skeleton, Mungo Man, buried 300 metres away. Using carbon-dating, a technique only reliable to around 40,000 years old, the skeleton was first estimated at 28,000 to 32,000 years old. The comprehensive study of 25 different sediment layers at Mungo concludes that both graves are 40,000 years old.</div>
+      <div class="passage-para"><span class="subheading">C</span> This is much younger than the 62,000 years Mungo Man was attributed within 1999 by a team led by Professor Alan Thorne, of the Australian National University. The modern-day story of the science of Mungo also has its fair share of rivalry. Because Thorne is the country's leading opponent of the Out of Africa theory – that Homo sapiens had a single place of origin. Dr Alan Thorne supports the multi-regional explanation (that modern humans arose simultaneously in Africa, Europe and Asia from one of our predecessors, Homo erectus, who left Africa more than 1.5 million years ago). If Mungo Man was descended from a person who had left Africa in the past 200,000 years, Thorne argues, then his mitochondrial DNA should have looked like that of the other samples.</div>
+      <div class="passage-para"><span class="subheading">D</span> However, Out of Africa supporters are not about to let go of their beliefs because of the Australian research. Professor Chris Stringer, from the Natural History Museum in London, UK, said that the research community would want to see the work repeated in other labs before major conclusions were drawn from the Australian research. But even assuming the DNA sequences were correct, Professor Stringer said it could just mean that there was much more genetic diversity in the past than was previously realised. 'There is no evidence here that the ancestry of these Australian fossils goes back a million or two million years. It's much more likely that modern humans came out of Africa.' For Bowler, these debates are irritating speculative distractions from the study's main findings. At 40,000 years old, Mungo Man and Mungo Lady remain Australia's oldest human burials and the earliest evidence on Earth of cultural sophistication, he says. Modern humans had not even reached North America by this time. In 1997, Pääbo's research group recovered an mtDNA fingerprint from the Feldhofer Neanderthal skeleton uncovered in Germany in 1865 – the first Neanderthal remains ever found.</div>
+      <div class="passage-para"><span class="subheading">E</span> In its 1999 study, Thorne's team used three techniques to date Mungo Man at 62,000 years old, and it stands by its figures. It dated bone, teeth enamel and some sand. Bowler has strongly challenged the results ever since. Dating human bones is "notoriously unreliable", he says. As well, the sand sample Thorne's group dated was taken hundreds of metres from the burial site. "You don't have to be a gravedigger … to realize the age of the sand is not the same as the age of the grave," says Bowler.</div>
+      <div class="passage-para"><span class="subheading">F</span> Thorne counters that Bowler's team used one dating technique, while he used three. The best practice is to have at least two methods produce the same result. A Thorne team member, Professor Rainer Grün, says the fact that the latest results were consistent between laboratories doesn't mean they are absolutely correct. 'We now have two data sets that are contradictory. I do not have a plausible explanation.' Now, however, Thorne says the age of Mungo Man is irrelevant to this origins debate. Recent fossil finds show modern humans were in China 110,000 years ago. 'So he has got a long time to turn up in Australia. It doesn't matter if he is 40,000 or 60,000 years old.'</div>
+      <div class="passage-para"><span class="subheading">G</span> Dr Tim Flannery, a proponent of the controversial theory that Australia's megafauna were wiped out 46,000 years ago in a "blitzkrieg" of hunting by the arriving people, also claims the new Mungo dates support this view. In 2001 a member of Bowler's team, Dr Richard Roberts of Wollongong University, along with Flannery, director of the South Australian Museum, published research on their blitzkrieg theory. They dated 28 sites across the continent, arguing their analysis showed the megafauna died out suddenly 46,000 years ago. Flannery praises the Bowler team's research on Mungo Man as "the most thorough and rigorous dating" of ancient human remains. He says the finding that humans arrived at Lake Mungo between 46,000 and 50,000 years ago was a critical time in Australia's history. There is no evidence of a dramatic climatic change then, he says. 'It's my view that humans arrived and extinction took place in almost the same geological instant.'</div>
+      <div class="passage-para"><span class="subheading">H</span> Bowler, however, is sceptical of Flannery's theory and says the Mungo study provides no definitive new evidence to support it. He argues that climate change at 40,000 years ago was more intense than had been previously realized and could have played a role in the megafauna's demise. 'To blame the earliest Australians for their complete extinction is drawing a longbow.'</div>
+    </div>
+    <!-- Passage 2 -->
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 15–27 which are based on Reading Passage 2 below.</div>
+      <div class="passage-title" style="margin-top:12px">Coral Reefs</div>
+      <div class="passage-para">Coral reefs are underwater structures made from calcium carbonate secreted by corals. Coral reefs are colonies of tiny living animals found in marine waters that contain few nutrients. Most coral reefs are built from stony corals, which in turn consist of polyps that cluster in groups.</div>
+      <div class="passage-para"><span class="subheading">A</span> Coral reefs are estimated to cover 284,300 km², just under 0.1% of the oceans' surface area, about half the area of France. The Indo-Pacific region accounts for 91.9% of this total area. Southeast Asia accounts for 32.3% of that figure, while the Pacific including Australia accounts for 40.8%. Atlantic and Caribbean coral reefs account for 7.6%. Yet often called "rainforests of the sea", coral reefs form some of the most diverse ecosystems on Earth. They provide a home for 25% of all marine species, including fish, mollusks, worms, crustaceans, echinoderms, sponges, tunicates and other cnidarians. Paradoxically, coral reefs flourish even though they are surrounded by ocean waters that provide few nutrients. They are most commonly found at shallow depths in tropical waters, but deep water and cold water corals also exist on smaller scales in other areas. Although corals exist both in temperate and tropical waters, shallow-water reefs form only in a zone extending from 30°N to 30°S of the equator. Deep-water coral can exist at greater depths and colder temperatures at much higher latitudes, as far north as Norway.</div>
+      <div class="passage-para"><span class="subheading">B</span> Coral reefs deliver ecosystem services to tourism, fisheries and coastline protection. The global economic value of coral reefs has been estimated at as much as $US375 billion per year. Coral reefs protect shorelines by absorbing wave energy, and many small islands would not exist without their reef to protect them.</div>
+      <div class="passage-para"><span class="subheading">C</span> The value of reefs in biodiverse regions can be even higher. In parts of Indonesia and the Caribbean where tourism is the main use, reefs are estimated to be worth US$1 million per square kilometer. Each year more than 1.8 million tourists visit the Great Barrier Reef, spending an estimated AU$4.3 billion on reef-related industries from diving to boat rental to posh island resort stays. In the Caribbean, the net annual benefits from diver tourism were US$2 billion in 2000 with US$625 million spent directly on diving on reefs. UNEP says that of the estimated 30 million small-scale fishers in the developing world, most are dependent to a greater or lesser extent on coral reefs. In the Philippines, more than one million small-scale fishers depend directly on coral reefs for their livelihoods. The report estimates that reef fisheries were worth between $15,000 and $150,000 per square kilometer a year, while fish caught for aquariums were worth $500 a kilogram against $6 for fish caught as food.</div>
+      <div class="passage-para"><span class="subheading">D</span> Unfortunately, coral reefs are dying around the world. In particular, coral mining, agricultural and urban runoff, pollution (organic and inorganic), disease, and the digging of canals and access into islands and bays are localized threats to coral ecosystems. Broader threats are sea temperature rise, sea-level rise and pH changes from ocean acidification, all associated with greenhouse gas emissions. Some current fishing practices are destructive and unsustainable. These include cyanide fishing, overfishing and blast fishing. Although cyanide fishing supplies live reef fish for the tropical aquarium market, most fish caught using this method are sold in restaurants, primarily in Asia, where live fish are prized for their freshness. To catch fish with cyanide, fishers dive down to the reef and squirt cyanide in coral crevices and on the fast-moving fish, to stun the fish making them easy to catch. Overfishing is another leading cause for coral reef degradation. Poor fishing practices, such as banging on the reef with sticks (muro-ami), destroy coral formations that normally function as fish habitat. In some instances, people fish with explosives (blast fishing), which blast apart the surrounding coral.</div>
+      <div class="passage-para"><span class="subheading">E</span> Tourist resorts that empty their sewage directly into the water surrounding coral reefs contribute to coral reef degradation. Wastes kept in poorly maintained septic tanks can also leak into surrounding groundwater, eventually seeping out to the reefs. Careless boating, diving, snorkelling and fishing can also damage coral reefs. Whenever people grab, kick, walk on, or stir up sediment in the reefs, they contribute to coral reef destruction. Corals are also harmed or killed when people drop anchors on them or when people collect coral.</div>
+      <div class="passage-para"><span class="subheading">F</span> To find answers for these problems, scientists and researchers study the various factors that impact reefs. The list includes the ocean's role as a carbon dioxide sink, atmospheric changes, ultraviolet light, ocean acidification, viruses, impacts of dust storms carrying agents to far-flung reefs, pollutants, algal blooms and others. Reefs are threatened well beyond coastal areas. General estimates show approximately 10% of the world's coral reefs are dead. About 60% of the world's reefs are at risk due to destructive, human-related activities. The threat to the health of reefs is particularly strong in Southeast Asia, where 80% of reefs are endangered.</div>
+      <div class="passage-para"><span class="subheading">G</span> In Australia, the Great Barrier Reef is protected by the Great Barrier Reef Marine Park Authority and is the subject of much legislation, including a biodiversity action plan. Inhabitants of Ahus Island, Manus Province, Papua New Guinea, have followed a generations-old practice of restricting fishing in six areas of their reef lagoon. Their cultural traditions allow line fishing, but not net or spear-fishing. The result is both the biomass and individual fish sizes are significantly larger in these areas than in places where fishing is unrestricted.</div>
+    </div>
+    <!-- Passage 3 -->
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 28–40 which are based on Reading Passage 3 below.</div>
+      <div class="passage-title" style="margin-top:12px">Tele-working</div>
+      <div class="passage-para"><span class="subheading">A</span> Teleworking – working remotely from an office – is said to have many benefits for organisations, the environment and society. It provokes mixed reactions from its acolytes and those that experience it first-hand. Whether you like it or not, it is true to say that work is no longer dependent on geography and this opens up a range of opportunities for working in new ways and environments.</div>
+      <div class="passage-para"><span class="subheading">B</span> The surveys show "that the productivity increase is not primarily because of longer working hours (as is sometimes suggested). Although prevalent, working more is just one of a number of influencing factors, and not the most important." An unusual comparison of the performance of teleworkers with a closely matched control group of non-teleworkers found that not only was productivity higher but also that absenteeism and error rates were lower.</div>
+      <div class="passage-para"><span class="subheading">C</span> Two other areas where SUSTEL has added to the economic impact knowledge base is its effect on absenteeism and space utilisation. In the case of absenteeism, over 60 per cent of those surveyed stated that telework had enabled them to work when they were prevented from reaching a work location (usually through illness or transport problems). Around half the cases also identified substantial reductions in space requirements – to the point where one organisation had completely done away with a central office. Changes in non-commuting travel on weekends: home-based workers, which includes a substantial population of people who are not telecommuters, spend more time shopping out of the home than traditional workers.</div>
+      <div class="passage-para"><span class="subheading">D</span> Half-time telecommuting could reduce carbon emissions by over 51 million metric tons a year – the equivalent of taking all of New York's commuters off the road. Additional carbon footprint savings will come from reduced: office energy, roadway repairs, urban heating, office construction, business travel, paper usage (as electronic documents replace paper). Although energy utilization will continue to grow as we expand our industry and improve our standard of living, efficient use of energy will always be of prime importance. By telecommuting to work instead of using more conventional methods, there is a great potential to save energy. The three major areas where energy can be conserved are: Vehicle-related materials and resources; Highway-related materials and resources; and work-related materials and resources.</div>
+      <div class="passage-para"><span class="subheading">E</span> A tremendous amount of energy is required to produce transportation equipment such as automobiles, buses, trains and jet aircraft. If telecommuting is promoted, there will be less use of this equipment and less energy will be required for production, maintenance and repair of this equipment. Fuel resources and gases needed to operate this equipment will be reduced, as well the building and repair of highways and maintenance requires a large consumption of energy, not only in the operation of the highway construction and repair equipment but also in the manufacture and transportation of the required materials. An increase in the percentage of people telecommuting to work will decrease the need for expanded highways and associated road maintenance. The first two areas are related to getting to work.</div>
+      <div class="passage-para"><span class="subheading">F</span> Socially, the SUSTEL research found that most survey respondents felt that teleworking gave them a better quality of life and work-life balance. Many also reported health benefits. A significant number also stated that they were using local services more and becoming more involved in their local communities. The loss of teamwork and team spirit within teleworking populations was tackled through ideas such as Oracle's 'FUNctional' offices. Designed to increase communication and interaction when people are at the office, they are bright and focused around a central café to stimulate ideas and face-to-face contact.</div>
+      <div class="passage-para"><span class="subheading">G</span> The finding that many teleworkers report both longer working hours and a better quality of life is paradoxical. More time working is usually associated with increased stress, domestic tension and other factors that reduce the quality of life. One possible explanation is that, for many individuals, their increased working hours will be less than the time they have saved in commuting. Hence, they still have more time available for family and other activities. For some, the stress associated with commuting (especially for long distances) may be less than that arising from additional working time. Perhaps most significantly, teleworking can in effect create time through opportunities for multi-tasking or greater control of activities.</div>
+      <div class="passage-para"><span class="subheading">H</span> When you work in an office or a cubicle and something goes wrong with any hardware or software you have the option of calling in the IT man. In fact, all of the equipment that you use at the office is supported by technical staff. That means regular updates and maintenance for various and sundry office tools like land-line phones, computers, internet connections, laptops, cell phones, printers, and other office equipment. When you work from home, you'll surely encounter technical problems and when you do, where do you get the support and help you need? If your computer hard drive crashed today, would you have the funds to replace it?</div>
+    </div>
+  </div>
+  <div id="divider"></div>
+  <div id="right-panel">
+    <!-- Q1-14 Passage 1 -->
+    <div class="q-section active" id="qs1">
+      <div class="passage-title" style="margin-bottom:10px">Questions 1–14 — Passage 1</div>
+      <!-- Q1-8 Matching people -->
+      <div class="q-block">
+        <div class="q-num">Questions 1–8</div>
+        <div class="q-instruction">Use the information in the passage to match the people (listed A–F) with opinions or deeds below. NB You may use any letter more than once.</div>
+        <div class="group-box">
+          <div class="group-title">List of People</div>
+          <div>A &nbsp;Jim Bowler</div>
+          <div>B &nbsp;Alan Thorne</div>
+          <div>C &nbsp;Pääbo</div>
+          <div>D &nbsp;Tim Flannery</div>
+          <div>E &nbsp;Chris Stringer</div>
+          <div>F &nbsp;Rainer Grün</div>
+        </div>
+        <div class="q-text"><span class="q-num">Q.01.TEST014</span> He was searching for ancient lakes and came across the charred remains of Mungo Lady, who had been cremated.
+          <select id="q1"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar1"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.02.TEST014</span> Professor who holds a sceptical attitude towards reliability of DNA analysis on some fossils.
+          <select id="q2"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar2"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.03.TEST014</span> Professor whose determination of the age of Mungo Man is much younger than the former result of 62,000 years.
+          <select id="q3"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar3"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.04.TEST014</span> Determining the age of Mungo Man has little to do with the controversy for the origins of Australians.
+          <select id="q4"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar4"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.05.TEST014</span> Research group who recovered a biological proof of the first Neanderthal found in Europe.
+          <select id="q5"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar5"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.06.TEST014</span> A supporter of the idea that Australia's megafauna was extinct due to the hunting by ancient human beings.
+          <select id="q6"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar6"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.07.TEST014</span> Instead of arguing a single source origin, a multi-regional explanation has been raised.
+          <select id="q7"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar7"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.08.TEST014</span> Climate change rather than prehistoric human activities resulted in megafauna's extinction.
+          <select id="q8"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar8"></span>
+        </div>
+      </div>
+      <!-- Q9-14 T/F/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 9–14</div>
+        <div class="q-instruction">Do the following statements agree with the information given in Reading Passage 1?<br>
+        Write <strong>TRUE</strong> if the statement agrees with the information<br>
+        <strong>FALSE</strong> if the statement contradicts the information<br>
+        <strong>NOT GIVEN</strong> if there is no information on this</div>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.09.TEST014</span> The Lake Mungo remains offer the archaeologists evidence of a graphic illustration of human activities.</div>
+        <label class="radio-label"><input type="radio" name="q9" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q9" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q9" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar9"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.10.TEST014</span> In Lake Mungo remains, weapons were found used by Mungo.</div>
+        <label class="radio-label"><input type="radio" name="q10" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q10" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q10" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar10"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.11.TEST014</span> Mungo Man is one of the oldest known archaeological evidence in the world of cultural sophistication such as a burying ritual.</div>
+        <label class="radio-label"><input type="radio" name="q11" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q11" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q11" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar11"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.12.TEST014</span> Mungo Man and woman's skeletons were uncovered in the same year.</div>
+        <label class="radio-label"><input type="radio" name="q12" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q12" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q12" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar12"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.13.TEST014</span> There is controversy among scientists about the origin of the oldest Homo sapiens.</div>
+        <label class="radio-label"><input type="radio" name="q13" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q13" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q13" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar13"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.14.TEST014</span> Out of Africa supporters have criticised Australian professors for using an outmoded research method.</div>
+        <label class="radio-label"><input type="radio" name="q14" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q14" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q14" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar14"></span>
+      </div>
+    </div>
+    <!-- Q15-27 Passage 2 -->
+    <div class="q-section" id="qs2">
+      <div class="passage-title" style="margin-bottom:10px">Questions 15–27 — Passage 2</div>
+      <!-- Q15-20 Matching paragraphs -->
+      <div class="q-block">
+        <div class="q-num">Questions 15–20</div>
+        <div class="q-instruction">The reading passage has seven paragraphs A–G. Which paragraph contains the following information? Write the correct letter A–G. NB You may use any letter more than once.</div>
+        <div class="q-text"><span class="q-num">Q.15.TEST014</span> Geographical location of the world's coral reef
+          <select id="q15"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar15"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.16.TEST014</span> How does coral reef benefit economy locally
+          <select id="q16"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar16"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.17.TEST014</span> The statistics of coral reef's economic significance
+          <select id="q17"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar17"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.18.TEST014</span> The listed reasons for the declining number of coral reef
+          <select id="q18"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar18"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.19.TEST014</span> Physical approach to the coral reef by people
+          <select id="q19"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar19"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.20.TEST014</span> Unsustainable fishing methods are applied in regions of the world
+          <select id="q20"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select>
+          <span class="answer-reveal" id="ar20"></span>
+        </div>
+      </div>
+      <!-- Q21-26 T/F/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 21–26</div>
+        <div class="q-instruction">Do the following statements agree with the information given in Reading Passage 2?<br>
+        Write <strong>TRUE / FALSE / NOT GIVEN</strong></div>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.21.TEST014</span> Coral reefs provide habitat to a variety of marine life.</div>
+        <label class="radio-label"><input type="radio" name="q21" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q21" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q21" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar21"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.22.TEST014</span> Coral reef distributes around the ocean disproportionally.</div>
+        <label class="radio-label"><input type="radio" name="q22" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q22" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q22" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar22"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.23.TEST014</span> Coral reef is increasingly important for scientific purpose.</div>
+        <label class="radio-label"><input type="radio" name="q23" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q23" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q23" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar23"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.24.TEST014</span> Coral reefs are greatly exchanged among and exported to other countries.</div>
+        <label class="radio-label"><input type="radio" name="q24" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q24" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q24" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar24"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.25.TEST014</span> Reef tourism is of economic essence generally for some poor people.</div>
+        <label class="radio-label"><input type="radio" name="q25" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q25" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q25" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar25"></span>
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.26.TEST014</span> As with other fishing business, coral fishery is not suitable to women and children.</div>
+        <label class="radio-label"><input type="radio" name="q26" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q26" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q26" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar26"></span>
+      </div>
+      <!-- Q27 MCQ -->
+      <div class="q-block">
+        <div class="q-num">Question 27</div>
+        <div class="q-instruction">Choose the correct letter, A, B, C or D.</div>
+        <div class="q-text"><span class="q-num">Q.27.TEST014</span> What is the main purpose of this passage?</div>
+        <label class="radio-label"><input type="radio" name="q27" value="A"> A &nbsp;Demonstrate how coral reef grows in the ocean</label>
+        <label class="radio-label"><input type="radio" name="q27" value="B"> B &nbsp;To tell that coral reef is widely used as a scientific project</label>
+        <label class="radio-label"><input type="radio" name="q27" value="C"> C &nbsp;Present the general benefits and an alarming situation of coral reef</label>
+        <label class="radio-label"><input type="radio" name="q27" value="D"> D &nbsp;To show the vital efforts made to protect the coral reef in Australia</label>
+        <span class="answer-reveal" id="ar27"></span>
+      </div>
+    </div>
+    <!-- Q28-40 Passage 3 -->
+    <div class="q-section" id="qs3">
+      <div class="passage-title" style="margin-bottom:10px">Questions 28–40 — Passage 3</div>
+      <!-- Q28-35 Summary with word list -->
+      <div class="q-block">
+        <div class="q-num">Questions 28–35</div>
+        <div class="q-instruction">Complete the summary using the list of words, A–N below. Write the correct letter, A–N, in boxes 28–35.</div>
+        <div class="group-box">
+          <div class="group-title">Word List</div>
+          <div>A &nbsp;pollution &nbsp;&nbsp; B &nbsp;internet energy &nbsp;&nbsp; C &nbsp;paper usage &nbsp;&nbsp; D &nbsp;construction and maintenance</div>
+          <div>E &nbsp;materials &nbsp;&nbsp; F &nbsp;shopping &nbsp;&nbsp; G &nbsp;productivity &nbsp;&nbsp; H &nbsp;fuels and gases</div>
+          <div>I &nbsp;electronically &nbsp;&nbsp; J &nbsp;IT &nbsp;&nbsp; K &nbsp;equipment &nbsp;&nbsp; L &nbsp;company &nbsp;&nbsp; M &nbsp;work-related &nbsp;&nbsp; N &nbsp;geography</div>
+        </div>
+        <p class="passage-para" style="line-height:2">
+          Teleworking has been said to have many benefits for both society and companies. Survey identified that telecommuters spend more time on Q.28.TEST035 <select id="q28"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option></select> <span class="answer-reveal" id="ar28"></span>
+          than traditional workers. It also reduces the Q.29.TEST035 <select id="q29"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option></select> <span class="answer-reveal" id="ar29"></span>
+          in the atmosphere from decreased street repairs, city heating, or even Q.30.TEST035 <select id="q30"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option></select> <span class="answer-reveal" id="ar30"></span>
+          as staff in office could send documents Q.31.TEST035 <select id="q31"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option></select> <span class="answer-reveal" id="ar31"></span>.
+          Apart from that, other materials such as Vehicle-related, Highway-related and Q.32.TEST035 <select id="q32"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option></select> <span class="answer-reveal" id="ar32"></span>
+          materials will also be saved. Traditionally, a large amount of energy is needed to make Q.33.TEST035 <select id="q33"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option></select> <span class="answer-reveal" id="ar33"></span>,
+          e.g. Public transportation and private cars. With the rise of telecommuting, resources and Q.34.TEST035 <select id="q34"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option></select> <span class="answer-reveal" id="ar34"></span>
+          will be saved. And conservation goes to the energy and materials consumed in all Q.35.TEST035 <select id="q35"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option><option>K</option><option>L</option><option>M</option><option>N</option></select> <span class="answer-reveal" id="ar35"></span>.
+        </p>
+      </div>
+      <!-- Q36-39 Sentence endings -->
+      <div class="q-block">
+        <div class="q-num">Questions 36–39</div>
+        <div class="q-instruction">Complete each sentence with the correct ending, A–F, below.</div>
+        <div class="group-box">
+          <div>A &nbsp;stress and tension.</div>
+          <div>B &nbsp;consumption of goods.</div>
+          <div>C &nbsp;the problem of less communication with colleagues.</div>
+          <div>D &nbsp;many problems when equipment doesn't work.</div>
+          <div>E &nbsp;transport equipment such as automobiles.</div>
+          <div>F &nbsp;technical supporters.</div>
+        </div>
+        <div class="q-text"><span class="q-num">Q.36.TEST014</span> More working time is often connected with:
+          <select id="q36"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar36"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.37.TEST014</span> Oracle's Functional idea aims to improve:
+          <select id="q37"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar37"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.38.TEST014</span> When you work at an office, equipment such as computers and printers are maintained by:
+          <select id="q38"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar38"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.39.TEST014</span> When working from home using hardware and software:
+          <select id="q39"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar39"></span>
+        </div>
+      </div>
+      <!-- Q40 MCQ -->
+      <div class="q-block">
+        <div class="q-num">Question 40</div>
+        <div class="q-instruction">Choose the correct letter, A, B, C or D.</div>
+        <div class="q-text"><span class="q-num">Q.40.TEST014</span> Implied in the passage, what is the author's attitude toward Telework?</div>
+        <label class="radio-label"><input type="radio" name="q40" value="A"> A &nbsp;Surprised by its fast growth</label>
+        <label class="radio-label"><input type="radio" name="q40" value="B"> B &nbsp;Unconcerned about the future pattern</label>
+        <label class="radio-label"><input type="radio" name="q40" value="C"> C &nbsp;Believe it is generally positive and encouraging</label>
+        <label class="radio-label"><input type="radio" name="q40" value="D"> D &nbsp;Worried about the economical problems arising</label>
+        <span class="answer-reveal" id="ar40"></span>
+      </div>
+    </div>
+  </div>
+</div>
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 14</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+<script>
+(function(){
+'use strict';
+var ANS={
+  q1:'A',q2:'E',q3:'A',q4:'B',q5:'C',q6:'D',q7:'B',q8:'A',
+  q9:'TRUE',q10:'NOT GIVEN',q11:'TRUE',q12:'FALSE',q13:'TRUE',q14:'NOT GIVEN',
+  q15:'A',q16:'C',q17:'C',q18:'D',q19:'E',q20:'D',
+  q21:'TRUE',q22:'TRUE',q23:'NOT GIVEN',q24:'NOT GIVEN',q25:'TRUE',q26:'NOT GIVEN',q27:'C',
+  q28:'F',q29:'A',q30:'C',q31:'I',q32:'M',q33:'K',q34:'H',q35:'D',
+  q36:'A',q37:'C',q38:'F',q39:'D',q40:'C'
+};
+var TOTAL_QUESTIONS=40,P1_COUNT=14,P2_COUNT=13,P3_COUNT=13;
+var currentTab=1,hlMode='yellow',timerStopped=false,submitted=false;
+var tabViolations=0,focusViolations=0,fsViolations=0,violationLog=[];
+var startTime=null,timerInterval=null,overtimeFired=false;
+
+function setHL(m){hlMode=m;['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.remove('active-hl');});var t=m==='clear'?'hl-clear':'hl-'+m;var e=document.getElementById(t);if(e)e.classList.add('active-hl');}
+window.setHL=setHL;
+var hlColors={yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function applyHL(container){var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;var range=sel.getRangeAt(0);if(!container.contains(range.commonAncestorContainer))return;if(hlMode==='clear'){sel.removeAllRanges();return;}try{var span=document.createElement('span');span.className=hlColors[hlMode];var frag=range.extractContents();span.appendChild(frag);range.insertNode(span);}catch(e){}sel.removeAllRanges();}
+function handleErase(e,container){if(hlMode!=='clear')return;var t=e.target;while(t&&t!==container){if(t.tagName==='SPAN'&&(t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){var p=t.parentNode;while(t.firstChild)p.insertBefore(t.firstChild,t);p.removeChild(t);p.normalize();break;}t=t.parentNode;}}
+['left-panel','right-panel'].forEach(function(pid){var panel=document.getElementById(pid);if(!panel)return;panel.addEventListener('mouseup',function(){applyHL(panel);});panel.addEventListener('click',function(e){handleErase(e,panel);});});
+
+function switchTab(n){currentTab=n;[1,2,3].forEach(function(i){document.getElementById('pass'+i).classList.toggle('active',i===n);document.getElementById('qs'+i).classList.toggle('active',i===n);document.getElementById('tab'+i).classList.toggle('active',i===n);});document.getElementById('left-panel').scrollTop=0;document.getElementById('right-panel').scrollTop=0;}
+window.switchTab=switchTab;
+
+function startTimer(){var box=document.getElementById('timer-box');timerInterval=setInterval(function(){if(timerStopped){clearInterval(timerInterval);box.style.display='none';return;}if(!startTime)return;var elapsed=Math.floor((Date.now()-startTime)/1000);var remaining=3600-elapsed;if(remaining<=0&&!overtimeFired){overtimeFired=true;box.textContent='00:00';document.getElementById('overtime-overlay').style.display='flex';setTimeout(function(){if(!submitted)confirmSubmit();},300000);return;}if(remaining>0){var m=Math.floor(remaining/60),s=remaining%60;box.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;if(remaining<=120){box.className='';box.classList.add('danger');}else if(remaining<=600){box.className='';box.classList.add('warn');}else{box.className='';}}},500);}
+window.stopTimer=function(){timerStopped=true;};
+window.enterFullscreen=function(){var el=document.documentElement;try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}document.getElementById('fs-overlay').style.display='none';};
+document.addEventListener('fullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');document.getElementById('fs-overlay').style.display='flex';}});
+document.addEventListener('webkitfullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;document.getElementById('fs-overlay').style.display='flex';}});
+window.startExam=function(){var name=document.getElementById('inp-name').value.trim();var cls=document.getElementById('inp-class').value.trim();if(!name||!cls){document.getElementById('popup-err').style.display='block';return;}window._studentName=name;window._studentClass=cls;window._testStartTime=Date.now();startTime=window._testStartTime;document.getElementById('popup-overlay').style.display='none';enterFullscreen();startTimer();};
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){if(e.key==='F12'){e.preventDefault();return;}if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}if(e.key==='Escape'&&!submitted){e.preventDefault();}});
+document.addEventListener('visibilitychange',function(){if(submitted||!startTime)return;if(document.hidden){tabViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab');showWarning('⚠ Vi phạm chuyển tab lần '+tabViolations);}});
+window.addEventListener('blur',function(){if(submitted||!startTime)return;focusViolations++;showWarning('⚠ Vi phạm rời cửa sổ lần '+focusViolations);});
+
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getRad(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function chkSel(id,ans){return getVal(id)===ans;}
+function chkRad(name,ans){return getRad(name)===ans;}
+
+window.askSubmit=function(){if(submitted)return;document.getElementById('confirm-overlay').style.display='flex';};
+window.confirmSubmit=function(){if(submitted)return;submitted=true;document.getElementById('confirm-overlay').style.display='none';document.getElementById('overtime-overlay').style.display='none';window.stopTimer();doSubmit();};
+
+function doSubmit(){
+  document.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true;});
+  document.querySelectorAll('.selected-answer').forEach(function(el){el.classList.remove('selected-answer');});
+  var p1=0,p2=0,p3=0;
+  [1,2,3,4,5,6,7,8].forEach(function(n){var ok=chkSel('q'+n,ANS['q'+n]);markSelect('q'+n,ok,ANS['q'+n]);if(ok)p1++;});
+  [9,10,11,12,13,14].forEach(function(n){var ok=chkRad('q'+n,ANS['q'+n]);markRadio('q'+n,ok,ANS['q'+n]);if(ok)p1++;});
+  [15,16,17,18,19,20].forEach(function(n){var ok=chkSel('q'+n,ANS['q'+n]);markSelect('q'+n,ok,ANS['q'+n]);if(ok)p2++;});
+  [21,22,23,24,25,26].forEach(function(n){var ok=chkRad('q'+n,ANS['q'+n]);markRadio('q'+n,ok,ANS['q'+n]);if(ok)p2++;});
+  (function(){var ok=chkRad('q27',ANS['q27']);markRadio('q27',ok,ANS['q27']);if(ok)p2++;})();
+  [28,29,30,31,32,33,34,35].forEach(function(n){var ok=chkSel('q'+n,ANS['q'+n]);markSelect('q'+n,ok,ANS['q'+n]);if(ok)p3++;});
+  [36,37,38,39].forEach(function(n){var ok=chkSel('q'+n,ANS['q'+n]);markSelect('q'+n,ok,ANS['q'+n]);if(ok)p3++;});
+  (function(){var ok=chkRad('q40',ANS['q40']);markRadio('q40',ok,ANS['q40']);if(ok)p3++;})();
+  var total=p1+p2+p3;var band=getBand(total);
+  showScore(p1,p2,p3,total,band);sendResults(p1,p2,p3,total,band);
+}
+function markSelect(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markRadio(name,ok,correct){var num=name.replace('q','');document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var lbl=inp.closest('label');if(!lbl)return;if(inp.value===correct)lbl.classList.add('correct');else if(inp.checked&&inp.value!==correct)lbl.classList.add('wrong');});var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=19)return'Band 5.5';if(s>=15)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Dưới Band 4';}
+function getTimeTaken(){if(!startTime)return'N/A';var e=Math.floor((Date.now()-startTime)/1000);return Math.floor(e/60)+' phút '+(e%60)+' giây';}
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var html='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr><tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr><tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr><tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr><tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr></table>';
+  html+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p><p style="color:#555;margin-top:6px">⏱ '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=html;
+  if(tabViolations+focusViolations+fsViolations>0){document.getElementById('violation-report').innerHTML='<strong>Vi phạm:</strong> Tab:'+tabViolations+' Focus:'+focusViolations+' FS:'+fsViolations;}
+}
+function buildDetails(){
+  var parts=[];
+  [1,2,3,4,5,6,7,8].forEach(function(n){var v=getVal('q'+n);parts.push('Q0'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  [9,10,11,12,13,14].forEach(function(n){var v=getRad('q'+n);parts.push('Q'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  [15,16,17,18,19,20].forEach(function(n){var v=getVal('q'+n);parts.push('Q'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  [21,22,23,24,25,26,27].forEach(function(n){var v=getRad('q'+n);parts.push('Q'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  [28,29,30,31,32,33,34,35,36,37,38,39].forEach(function(n){var v=getVal('q'+n);parts.push('Q'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  var v40=getRad('q40');parts.push('Q40:'+(v40===ANS['q40']?'✔':'✘')+'('+v40+')');
+  return parts.join(' | ');
+}
+function sendResults(p1,p2,p3,total,band){
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',timestamp:new Date().toISOString(),student:(window._studentName||'')+'  —  '+(window._studentClass||''),test:'Reading Test 14',score:total,total:TOTAL_QUESTIONS,band:band,timeTaken:getTimeTaken(),p1score:p1+'/'+P1_COUNT,p2score:p2+'/'+P2_COUNT,p3score:p3+'/'+P3_COUNT,tabViol:tabViolations,focusViol:focusViolations,fsViol:fsViolations,details:buildDetails()})}).catch(function(){});
+}
+(function(){var div=document.getElementById('divider');var left=document.getElementById('left-panel');var dragging=false,startX=0,startW=0;div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';});document.addEventListener('mouseup',function(){dragging=false;});div.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startW=left.offsetWidth;},{passive:true});document.addEventListener('touchmove',function(e){if(!dragging)return;var w=startW+(e.touches[0].clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';},{passive:true});document.addEventListener('touchend',function(){dragging=false;});})();
+})();
+</script>
+</body>
+</html>

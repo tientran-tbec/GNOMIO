@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 16</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+#right-panel input[type="text"],#right-panel select{user-select:text}
+.passage-section{display:none}
+.passage-section.active{display:block}
+.q-section{display:none}
+.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:6px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer,.check-label.selected-answer{background:#FFD580;border-radius:4px}
+.radio-label.correct,.check-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong,.check-label.wrong{background:#f8d7da!important;color:#721c24}
+.radio-label.missed{background:#fff3cd!important;border:2px dashed #856404}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+.word-bank-box{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+.word-bank-item{display:inline-block;margin:2px 6px;font-size:13px}
+.flow-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.flow-box{border:1px solid #aaa;border-radius:4px;padding:6px 10px;background:#fff;min-width:80px;text-align:center}
+.flow-arrow{font-size:18px;color:#888}
+.company-list{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+table.fill-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.fill-table td,table.fill-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.fill-table th{background:#e8eaf6;font-weight:700}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#submit-btn:hover{background:#2a5080}
+.hl-yellow{background:#FFE066}
+.hl-green{background:#90EE90}
+.hl-pink{background:#FFB6C1}
+/* Overlays */
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#start-btn:hover{background:#2a5080}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+#score-panel h2{color:#1a3a5c;margin-bottom:12px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #left-panel,#right-panel{width:100%!important;height:50vh}
+  #divider{display:none}
+  .tab-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 16</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label>
+    <input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label>
+    <input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát khỏi toàn màn hình. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+<div id="overtime-overlay">
+  <div id="overtime-box">
+    <p>⏰ Hết 60 phút! Bạn có thêm 5 phút để hoàn thành.<br>Bài sẽ tự nộp sau 5 phút.</p>
+    <button onclick="confirmSubmit()">Nộp bài ngay</button>
+  </div>
+</div>
+<div id="warning-banner"></div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction">First, the researchers pulled together data from millions of records that had been submitted by butterfly enthusiasts – people who spend their free time observing the activities of different species. This provided information on 130 species of butterflies in Great Britain every year for a 20- year period. They then estimated the abundance and distribution of each species across this time, along with how far north in the country they had moved. The data also, crucially, allowed researchers to estimate subtle changes in what time of the year each species was changing into an adult butterfly.</div>
+      <div class="passage-title" style="margin-top:12px">The impact of climate change on butterflies in Britain</div>
+      <div class="passage-para">The impact of climate change on butterflies in Britain According to conservationists, populations of around two thirds of butterfly species have declined in Britain over the past 40 years. If this trend continues, it might have unpredictable knock-on effects for other species in the ecosystem. Butterfly eggs develop into caterpillars and these insects, which are the second stage in a new butterfly’s lifecycle, consume vast quantities of plant material, and in turn act as prey for birds as well as bats and other small mammals. Only by arming themselves with an understanding of why butterfly numbers are down can conservationists hope to halt or reverse the decline.</div>
+      <div class="passage-para">Butterflies prefer outdoor conditions to be ‘just right’, which means neither too hot nor too cold. Under the conditions of climate change, the temperature at any given time in summer is generally getting warmer, leaving butterflies with the challenge of how to deal with this. One of the main ways in which species are ensuring conditions suit them is by changing the time of year at which they are active and reproduce. Scientists refer to the timing of such lifecycle events as ‘phenology’, so when an animal or plant starts to do something earlier in the year than it usually does, it is said to be ‘advancing its phenology’.</div>
+      <div class="passage-para">These advances have been observed already in a wide range of butterflies – indeed, most species are advancing their phenology to some extent. In Britain, as the average spring temperature has increased by roughly 0.5 °C over the past 20 years, species have advanced by between three days and a week on average, to keep in line with cooler temperatures. Is this a sign that butterflies are well equipped to cope with climate change, and readily adjust to new temperatures? Or are these populations under stress, being dragged along unwillingly by unnaturally fast changes? The answer is still unknown, but a new study is seeking to answer these questions.</div>
+      <div class="passage-para">Analysing the trends in each variable, the researchers discovered that species with more flexible lifecycles were more likely to be able to benefit from an earlier emergence driven by climate change. Some species are able to go from caterpillar to butterfly twice or more per year, so that the individual butterflies you see flying in the spring are the grandchildren or great-grandchildren of the individuals seen a year previously.</div>
+      <div class="passage-para">Among these species, researchers observed that those which have been advancing their phenology the most over the 20-year study period also had the most positive trends in abundance, distribution and northwards extent. For these species, such as Britain’s tiniest butterfly, the dainty Small Blue, whose colonies are up to a hundred strong, some develop into butterflies early in spring, allowing their summer generations to complete another reproductive cycle by autumn so that more population growth occurs.</div>
+      <div class="passage-para">Other species, however, are less flexible and restricted to a single reproductive cycle per year. For these species, there was no evidence of any benefit to emerging earlier. Indeed, worryingly, it was found that the species in this group that specialise in very specific habitat types, often related to the caterpillar’s preferred diet, actually tended to be most at harm from advancing phenology. The beautiful High Brown Fritillary, often described as Britain’s most endangered butterfly, is in this group. It is found only in coppiced woodland and limestone pavement habitats; it is also a single-generation butterfly that has advanced its phenology. This suggests that climate change, while undoubtedly not the sole cause, might have played a part in the downfall of this species.</div>
+      <div class="passage-para">All is not lost, however. Many of Britain’s single-generation species show the capacity, in continental Europe, to add a second generation in years that are sufficiently warm. Therefore, as the climate continues to warm, species like the Silver-studded Blue might be able to switch to multiple generations in the UK as well, and so begin to extract benefits from the additional warmth, potentially leading to population increases.</div>
+      <div class="passage-para">More immediately, conservationists can arm themselves with all this knowledge to spot the warning signs of species that may be at risk. The White Admiral of southern England, a much sought-after butterfly, experienced a significant increase in numbers from the 1920s but has shown a considerable decline in the past 20 years. This may be because the caterpillar exists solely on a diet of a plant called honeysuckle. But it is also likely to be due to climate change.</div>
+    </div>
+
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">In boxes 1-6 on your answer sheet, write</div>
+      <div class="passage-para">TRUE 			if the statement agrees with the information</div>
+      <div class="passage-para">FALSE 		if the statement contradicts the information</div>
+      <div class="passage-para">NOT GIVEN 		if there is no information on this</div>
+      <div class="passage-para">1 Forty years ago, there were fewer butterflies in Britain than at present.</div>
+      <div class="passage-para">2 Caterpillars are eaten by a number of different predators.</div>
+      <div class="passage-para">3 ‘Phenology’ is a term used to describe a creature’s ability to alter the location of a lifecycle event.</div>
+      <div class="passage-para">4 Some species of butterfly have a reduced lifespan due to spring temperature increases.</div>
+      <div class="passage-para">5 There is a dear reason for the adaptations that butterflies are making to climate change.</div>
+      <div class="passage-para">6 The data used in the study was taken from the work of amateur butterfly watchers.</div>
+    </div>
+
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">Deep-sea mining</div>
+      <div class="passage-para">Bacteria from the ocean floor can beat superbugs and cancer.</div>
+      <div class="passage-para">But habitats are at risk from the hunger for marine minerals</div>
+      <div class="passage-para"><span class="subheading">A</span> When Professor Mat Upton found that a microbe from a deep-sea sponge was killing pathogenic bugs in his laboratory, he realised it could be a breakthrough in the fight against antibiotic-resistant superbugs, which are responsible for thousands of deaths a year in the UK alone. Further tests confirmed that an antibiotic from the sponge bacteria, found living more than 700 metres under the sea at the Rockall trough in the northeast Atlantic, was previously unknown to science, boosting its potential as a life-saving medicine. But Upton, and other scientists who view the deep ocean and its wealth of unique and undocumented species as a prospecting ground for new medicines, fear such potential will be lost in the rush to exploit the deep sea’s equally rich metal and mineral resources.</div>
+      <div class="passage-para"><span class="subheading">B</span> ‘We’re looking at the bioactive potential of marine resources, to see if there are any more medicines or drugs down there before we destroy it forever,’ says Upton, a medical microbiologist at the University of Plymouth. He is among many scientists urging a halt to deep-sea mining, asking for time to weigh up the pros and cons. ‘In sustainability terms, this could be a better way of exploiting the economic potential of the deep sea,’ he argues. Oceanographers using remotely operated vehicles have spotted many new species. Among them have been sea cucumbers with tails allowing them to sail along the ocean floor, and a rare ‘Dumbo’ octopus, found 3,000 metres under the Pacific Ocean, off the coast of California. Any one of these could offer lifesaving potential. Upton estimates it could take up to a decade for a newly discovered antibiotic to become a medicine – but the race towards commercial mining in the ocean abyss has already begun.</div>
+      <div class="passage-para"><span class="subheading">C</span> The deep sea contains more nickel, cobalt and rare earth metals than all land reserves combined, according to the US Geological Survey, Mining corporations argue that deep- sea exploration could help diversify the supply of metals and point to the fact that demand for resources such as copper, aluminum, cobalt for electric car batteries and other metals to power technology and smartphones, is soaring. They say that deep-sea mining could yield far superior ore to land mining with little, if any, waste, Different methods of extraction exist, but most involve employing some form of converted machinery previously used in terrestrial mining to excavate materials from the sea floor, at depths of up to 6,000 metres, hen drawing a seawater slurry, containing rock and other solid particles, from the sea floor to ships on the surface. The slurry is then ‘de-watered’ and transferred to another vessel for shipping. Extracted seawater is pumped back down and discharged close to the sea floor.</div>
+      <div class="passage-para"><span class="subheading">D</span> But environmental and legal groups have urged caution, arguing there are potentially massive and unknown ramifications for the environment and for nearby communities, and that the global regulatory framework is not yet drafted. ‘Despite arising in the last half century, the “new global gold rush” of deep-sea mining shares many features with past resource scrambles – including a general disregard for environmental and social impacts, and the marginalisation of indigenous peoples and their rights,’ a paper, written by Julie Hunter and Julian Aguon, from Blue Ocean Law, and Pradeep Singh, from the Center for Marine Environmental Sciences, Bremen, argues. The authors say that knowledge of the deep seabed remains extremely limited. ‘The surface of the Moon, Mars and even Venus have all been mapped and studied in much greater detail, leading marine scientists to commonly remark that, with respect to the deep sea, “We don’t yet know what we need to know”.’</div>
+      <div class="passage-para"><span class="subheading">E</span> Scientific research – including a recent paper in Marine Policy journal – has suggested the deep seabed, and hydrothermal vents, which are created when seawater meets volcanic magma, have crucial impacts upon biodiversity and the global climate. The mineral-rich vents and their surrounds are also home to many well-known animals including crustaceans, tubeworms, clams, slugs, anemones and fish. ‘It is becoming increasingly clear that deep- sea mining poses a grave threat to these vital seabed functions,’ the paper says. ‘Extraction methods would produce large sediment plumes and involve the discharge of waste back into the ocean, significantly disturbing seafloor environments,’ the paper continues. ‘On deep sea vents, scientists are clear,’ says Dr Jon Copley of the National Oceanography Centre, Southampton: ‘we don’t want mining on them.’</div>
+      <div class="passage-para"><span class="subheading">F</span> The oceans occupy around 70% of the planet and are relatively unexplored, says Mike Johnston, chief executive of Nautilus, a Canadian underwater exploration company: ‘It makes sense to explore this untapped potential in an environmentally sustainable way, instead of continually looking at the fast depleting land resources of the planet to meet society’s rising needs.’ Those leading the global rush to place giant mining machines thousands of metres below the sea surface say the environmental impacts will be far lower than on land. But critics say exotic and little-known ecosystems in the deep oceans could be destroyed and must be protected. ‘Mining will be the greatest assault on deep-sea ecosystems ever inflicted by humans,’ according to hydrothermal vent expert Verena Tunnicliffe, at the University of Victoria in Canada. She argues that active vents must be off-limits for mining to protect the new knowledge and biotechnology spin-offs they can deliver, and that strict controls must be in place elsewhere.</div>
+    </div>
+  </div>
+  <div id="divider"></div>
+  <div id="right-panel">
+<!-- QUESTIONS 1 -->
+<div class="q-section active" id="qs1">
+  <!-- Q1-6: T/F/NG -->
+  <div class="q-block">
+    <div class="q-num">Questions 1–6</div>
+    <p class="q-instruction">Do the following statements agree with the information given in the reading passage? Write <strong>TRUE</strong>, <strong>FALSE</strong>, or <strong>NOT GIVEN</strong>.</p>
+    <div class="q-text"><span class="q-num">1.</span> Forty years ago, there were fewer butterflies in Britain than at present.<br><br><select  id="q1"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">2.</span> Caterpillars are eaten by a number of different predators.<br><br><select  id="q2"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">3.</span> 'Phenology' is a term used to describe a creature's ability to alter the location of a lifecycle event.<br><br><select  id="q3"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">4.</span> Some species of butterfly have a reduced lifespan due to spring temperature increases.<br><br><select  id="q4"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">5.</span> There is a clear reason for the adaptations that butterflies are making to climate change.<br><br><select  id="q5"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">6.</span> The data used in the study was taken from the work of amateur butterfly watchers.<br><br><select  id="q6"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+  </div>
+
+  <!-- Q7-13: Notes completion (ONE WORD) -->
+  <div class="q-block">
+    <div class="q-num">Questions 7–13</div>
+    <p class="q-instruction">Complete the notes below. Choose <strong>ONE WORD ONLY</strong> from the passage for each answer.</p>
+    <div class="notes-box">
+      <div style="font-weight:bold;color:#1a3c6e;margin-bottom:8px;">Butterflies in the UK</div>
+      <div class="note-cat">The Small Blue</div>
+      <div class="note-item">• lives in large <strong>7</strong> <input type="text"  id="q7" placeholder="one word" style="width:130px;"></div>
+      <div class="note-item">• first appears at the start of <strong>8</strong> <input type="text"  id="q8" placeholder="one word" style="width:130px;"></div>
+      <div class="note-item">• completes more than one reproductive cycle per year</div>
+      <div class="note-cat">The High Brown Fritillary</div>
+      <div class="note-item">• has one reproductive cycle</div>
+      <div class="note-item">• is considered to be more <strong>9</strong> <input type="text"  id="q9" placeholder="one word" style="width:130px;"> than other species</div>
+      <div class="note-item">• its caterpillars occupy a limited range of <strong>10</strong> <input type="text"  id="q10" placeholder="one word" style="width:130px;"></div>
+      <div class="note-cat">The Silver-studded Blue</div>
+      <div class="note-item">• is already able to reproduce twice a year in warm areas of <strong>11</strong> <input type="text"  id="q11" placeholder="one word" style="width:130px;"></div>
+      <div class="note-cat">The White Admiral</div>
+      <div class="note-item">• is found in <strong>12</strong> <input type="text"  id="q12" placeholder="one word" style="width:130px;"> areas of England</div>
+      <div class="note-item">• both climate change and the <strong>13</strong> <input type="text"  id="q13" placeholder="one word" style="width:130px;"> of the caterpillar are possible reasons for decline</div>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTIONS 2 -->
+<div class="q-section" id="qs2">
+  <!-- Q14-17: Paragraph matching -->
+  <div class="q-block">
+    <div class="q-num">Questions 14–17</div>
+    <p class="q-instruction">Reading Passage 2 has six paragraphs, <strong>A–F</strong>. Which paragraph contains the following information? Write the correct letter, <strong>A–F</strong>.</p>
+    <div class="q-text"><span class="q-num">14.</span> reference to the rapidly increasing need for one raw material in the transport industry<br><br><select  id="q14"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+    <div class="q-text"><span class="q-num">15.</span> a rough estimate of the area of the Earth covered by the oceans<br><br><select  id="q15"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+    <div class="q-text"><span class="q-num">16.</span> how a particular underwater habitat, where minerals and organisms co-exist, is formed<br><br><select  id="q16"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+    <div class="q-text"><span class="q-num">17.</span> reference to the fact that the countries of the world have yet to agree on rules for the exploration of the seabed<br><br><select  id="q17"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+  </div>
+
+  <!-- Q18-23: Matching people -->
+  <div class="q-block">
+    <div class="q-num">Questions 18–23</div>
+    <p class="q-instruction">Look at the following statements and the list of people below. Match each statement with the correct person or people, <strong>A–E</strong>. <em>You may use any letter more than once.</em></p>
+    <div class="word-bank-box">
+      <strong>List of People:</strong>
+      A – Professor Mat Upton &nbsp;|&nbsp; B – Julie Hunter, Julian Aguon & Pradeep Singh &nbsp;|&nbsp; C – Dr Jon Copley &nbsp;|&nbsp; D – Mike Johnston &nbsp;|&nbsp; E – Verena Tunnicliffe
+    </div>
+    <div class="q-text"><span class="q-num">18.</span> A move away from the exploration of heavily mined reserves on land is a good idea.<br><br><select  id="q18"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+    <div class="q-text"><span class="q-num">19.</span> The negative effects of undersea exploration on local areas and their inhabitants are being ignored.<br><br><select  id="q19"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+    <div class="q-text"><span class="q-num">20.</span> There are more worthwhile things to extract from the sea than minerals.<br><br><select  id="q20"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+    <div class="q-text"><span class="q-num">21.</span> No other form of human exploration will have such a destructive impact on marine life as deep-sea mining.<br><br><select  id="q21"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+    <div class="q-text"><span class="q-num">22.</span> More is known about outer space than about what lies beneath the oceans.<br><br><select  id="q22"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+    <div class="q-text"><span class="q-num">23.</span> There is one marine life habitat where experts agree mining should not take place.<br><br><select  id="q23"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select></div>
+  </div>
+
+  <!-- Q24-26: Summary completion ONE WORD -->
+  <div class="q-block">
+    <div class="q-num">Questions 24–26</div>
+    <p class="q-instruction">Complete the summary below. Choose <strong>ONE WORD ONLY</strong> from the passage for each answer.</p>
+    <div class="notes-box" style="line-height:2.2;">
+      <strong>Mining the sea floor</strong><br><br>
+      Mining corporations believe that the mineral resources lying under the sea may be superior to those found in the earth. They also say that these can be removed without producing much <strong>24</strong> <input type="text"  id="q24" placeholder="one word" style="width:120px;">.<br><br>
+      The extraction is often done by adapting the <strong>25</strong> <input type="text"  id="q25" placeholder="one word" style="width:130px;"> that has already been used to work on land. The method of excavation involves removing the seawater from the slurry that is brought up to ships above. Environmental groups, however, urge <strong>26</strong> <input type="text"  id="q26" placeholder="one word" style="width:120px;">.
+    </div>
+  </div>
+</div>
+
+<!-- QUESTIONS 3 -->
+<div class="q-section" id="qs3">
+  <!-- Q27-30: MCQ -->
+  <div class="q-block">
+    <div class="q-num">Questions 27–30</div>
+    <p class="q-instruction">Choose the correct letter, <strong>A</strong>, <strong>B</strong>, <strong>C</strong> or <strong>D</strong>.</p>
+
+    <div style="margin-bottom:14px;">
+      <div class="q-row" style="flex-direction:column;gap:4px;">
+        <div style="display:flex;gap:10px;"><span class="q-num">27</span><span class="q-text">What is the writer doing in the first paragraph?</span></div>
+        <div style="margin-left:42px;"><div class="options-list">
+          <label class="radio-label"><input type="radio" name="q27" value="A"><span><strong>A</strong> &nbsp;setting out two opposing views about human nature</span></label>
+          <label class="radio-label"><input type="radio" name="q27" value="B"><span><strong>B</strong> &nbsp;justifying his opinion about our tendency to be greedy</span></label>
+          <label class="radio-label"><input type="radio" name="q27" value="C"><span><strong>C</strong> &nbsp;describing a commonly held belief about people's behaviour</span></label>
+          <label class="radio-label"><input type="radio" name="q27" value="D"><span><strong>D</strong> &nbsp;explaining why he thinks that humans act in a selfish manner</span></label>
+        </div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div class="q-row" style="flex-direction:column;gap:4px;">
+        <div style="display:flex;gap:10px;"><span class="q-num">28</span><span class="q-text">What point is made about Richard Dawkins' book <em>The Selfish Gene</em>?</span></div>
+        <div style="margin-left:42px;"><div class="options-list">
+          <label class="radio-label"><input type="radio" name="q28" value="A"><span><strong>A</strong> &nbsp;Its appeal lay in the radical nature of its ideas.</span></label>
+          <label class="radio-label"><input type="radio" name="q28" value="B"><span><strong>B</strong> &nbsp;Its success was due to the scientific support it offered.</span></label>
+          <label class="radio-label"><input type="radio" name="q28" value="C"><span><strong>C</strong> &nbsp;It presented a view that was in line with the attitudes of its time.</span></label>
+          <label class="radio-label"><input type="radio" name="q28" value="D"><span><strong>D</strong> &nbsp;It took an innovative approach to the analysis of human psychology.</span></label>
+        </div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div class="q-row" style="flex-direction:column;gap:4px;">
+        <div style="display:flex;gap:10px;"><span class="q-num">29</span><span class="q-text">What does the writer suggest about the prehistoric era in the fourth paragraph?</span></div>
+        <div style="margin-left:42px;"><div class="options-list">
+          <label class="radio-label"><input type="radio" name="q29" value="A"><span><strong>A</strong> &nbsp;Societies were more complex than many people believe.</span></label>
+          <label class="radio-label"><input type="radio" name="q29" value="B"><span><strong>B</strong> &nbsp;Supplies of natural resources were probably relatively plentiful.</span></label>
+          <label class="radio-label"><input type="radio" name="q29" value="C"><span><strong>C</strong> &nbsp;Most estimates about population sizes are likely to be inaccurate.</span></label>
+          <label class="radio-label"><input type="radio" name="q29" value="D"><span><strong>D</strong> &nbsp;Humans moved across continents more than was previously thought.</span></label>
+        </div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div class="q-row" style="flex-direction:column;gap:4px;">
+        <div style="display:flex;gap:10px;"><span class="q-num">30</span><span class="q-text">The writer refers to Bruce Knauft's work as support for the idea that</span></div>
+        <div style="margin-left:42px;"><div class="options-list">
+          <label class="radio-label"><input type="radio" name="q30" value="A"><span><strong>A</strong> &nbsp;selfishness is a relatively recent development in human societies.</span></label>
+          <label class="radio-label"><input type="radio" name="q30" value="B"><span><strong>B</strong> &nbsp;only people in isolated communities can live in an unselfish manner.</span></label>
+          <label class="radio-label"><input type="radio" name="q30" value="C"><span><strong>C</strong> &nbsp;very few lifestyles have survived unchanged since prehistoric times.</span></label>
+          <label class="radio-label"><input type="radio" name="q30" value="D"><span><strong>D</strong> &nbsp;hunter-gatherer cultures worldwide are declining in number.</span></label>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Q31-35: Summary ONE WORD -->
+  <div class="q-block">
+    <div class="q-num">Questions 31–35</div>
+    <p class="q-instruction">Complete the summary below. Choose <strong>ONE WORD ONLY</strong> from the passage for each answer.</p>
+    <div class="notes-box" style="line-height:2.2;">
+      <strong>Contemporary hunter-gatherer societies</strong><br><br>
+      Bruce Knauft's research shows that contemporary hunter-gatherer societies tend to exhibit a high level of <strong>31</strong> <input type="text"  id="q31" placeholder="one word" style="width:150px;"> in all areas of life. In these cultures, distributing resources fairly among all members of the community is highly valued. Members of these groups actively try to avoid showing too much <strong>32</strong> <input type="text"  id="q32" placeholder="one word" style="width:120px;">. For example, in the !Kung society of southern Africa, people go <strong>33</strong> <input type="text"  id="q33" placeholder="one word" style="width:120px;"> using arrows that belong to someone else. This prevents anyone from being seen as <strong>34</strong> <input type="text"  id="q34" placeholder="one word" style="width:140px;">. In these societies, the most important values are sharing and personal <strong>35</strong> <input type="text"  id="q35" placeholder="one word" style="width:130px;">.
+    </div>
+  </div>
+
+  <!-- Q36-40: Y/N/NG -->
+  <div class="q-block">
+    <div class="q-num">Questions 36–40</div>
+    <p class="q-instruction">Do the following statements agree with the <em>views of the writer</em>? Write <strong>YES</strong>, <strong>NO</strong>, or <strong>NOT GIVEN</strong>.</p>
+    <div class="q-text"><span class="q-num">36.</span> Some anthropologists are mistaken about the point when the number of societies such as the !Kung began to decline.<br><br><select  id="q36"><option value="">-- Select --</option><option>YES</option><option>NO</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">37.</span> Humans who developed warlike traits in prehistory would have had an advantage over those who did not.<br><br><select  id="q37"><option value="">-- Select --</option><option>YES</option><option>NO</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">38.</span> Being peaceful and cooperative is a natural way for people to behave.<br><br><select  id="q38"><option value="">-- Select --</option><option>YES</option><option>NO</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">39.</span> Negative traits are more apparent in some modern cultures than in others.<br><br><select  id="q39"><option value="">-- Select --</option><option>YES</option><option>NO</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">40.</span> Animal research has failed to reveal a link between changes in the environment and the emergence of aggressive tendencies.<br><br><select  id="q40"><option value="">-- Select --</option><option>YES</option><option>NO</option><option>NOT GIVEN</option></select></div>
+  </div>
+</div>
+  </div>
+</div>
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 16</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+<script>
+(function(){
+'use strict';
+var ANS = {
+  q1:'FALSE', q2:'NOT GIVEN', q3:'FALSE', q4:'NOT GIVEN', q5:'FALSE', q6:'TRUE',
+  q7:['colonies','colony'],
+  q8:['spring'],
+  q9:['endangered'],
+  q10:['habitats','habitat'],
+  q11:['europe'],
+  q12:['southern'],
+  q13:['diet'],
+  q14:'C', q15:'F', q16:'E', q17:'D', q18:'D', q19:'B', q20:'A', q21:'E', q22:'C', q23:'E',
+  q24:['waste'],
+  q25:['machinery'],
+  q26:['caution'],
+  q27:'C', q28:'C', q29:'B', q30:'A',
+  q31:['egalitarianism'],
+  q32:['status'],
+  q33:['hunting'],
+  q34:['domineering'],
+  q35:['autonomy'],
+  q36:'NOT GIVEN', q37:'NO', q38:'YES', q39:'NOT GIVEN', q40:'NO'
+};
+var TOTAL_QUESTIONS=40,P1_COUNT=13,P2_COUNT=13,P3_COUNT=14;
+var currentTab=1,hlMode='yellow',timerStopped=false,submitted=false;
+var tabViolations=0,focusViolations=0,fsViolations=0,violationLog=[];
+var startTime=null,timerInterval=null,overtimeFired=false;
+var hlColors={yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function setHL(mode){
+  hlMode=mode;
+  ['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.remove('active-hl');});
+  var t=mode==='clear'?'hl-clear':'hl-'+mode,el=document.getElementById(t);if(el)el.classList.add('active-hl');
+}
+window.setHL=setHL;
+function applyHighlight(container){
+  var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);if(!container.contains(range.commonAncestorContainer))return;
+  if(hlMode==='clear'){sel.removeAllRanges();return;}
+  try{var span=document.createElement('span');span.className=hlColors[hlMode];var frag=range.extractContents();span.appendChild(frag);range.insertNode(span);}catch(e){}
+  sel.removeAllRanges();
+}
+function handleErase(e,container){
+  if(hlMode!=='clear')return;var t=e.target;
+  while(t&&t!==container){if(t.tagName==='SPAN'&&(t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){var p=t.parentNode;while(t.firstChild)p.insertBefore(t.firstChild,t);p.removeChild(t);p.normalize();break;}t=t.parentNode;}
+}
+['left-panel','right-panel'].forEach(function(pid){
+  var panel=document.getElementById(pid);if(!panel)return;
+  panel.addEventListener('mouseup',function(){applyHighlight(panel);});
+  panel.addEventListener('click',function(e){handleErase(e,panel);});
+});
+function switchTab(n){
+  currentTab=n;[1,2,3].forEach(function(i){
+    document.getElementById('pass'+i).classList.toggle('active',i===n);
+    document.getElementById('qs'+i).classList.toggle('active',i===n);
+    document.getElementById('tab'+i).classList.toggle('active',i===n);
+  });
+  document.getElementById('left-panel').scrollTop=0;document.getElementById('right-panel').scrollTop=0;
+}
+window.switchTab=switchTab;
+function formatTime(sec){var m=Math.floor(sec/60),s=sec%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function startTimer(){
+  var box=document.getElementById('timer-box');
+  timerInterval=setInterval(function(){
+    if(timerStopped){clearInterval(timerInterval);box.style.display='none';return;}
+    if(!startTime)return;
+    var elapsed=Math.floor((Date.now()-startTime)/1000),remaining=3600-elapsed;
+    if(remaining<=0&&!overtimeFired){overtimeFired=true;box.textContent='00:00';document.getElementById('overtime-overlay').style.display='flex';setTimeout(function(){if(!submitted)confirmSubmit();},300000);return;}
+    if(remaining>0){box.textContent=formatTime(remaining);if(remaining<=120){box.className='';box.classList.add('danger');}else if(remaining<=600){box.className='';box.classList.add('warn');}else{box.className='';}}
+  },500);
+}
+window.stopTimer=function(){timerStopped=true;};
+window.enterFullscreen=function(){
+  var el=document.documentElement;
+  try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}
+  document.getElementById('fs-overlay').style.display='none';
+};
+document.addEventListener('fullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');document.getElementById('fs-overlay').style.display='flex';}});
+document.addEventListener('webkitfullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;document.getElementById('fs-overlay').style.display='flex';}});
+window.startExam=function(){
+  var name=document.getElementById('inp-name').value.trim(),cls=document.getElementById('inp-class').value.trim();
+  if(!name||!cls){document.getElementById('popup-err').style.display='block';return;}
+  window._studentName=name;window._studentClass=cls;
+  startTime=window._testStartTime=Date.now();
+  document.getElementById('popup-overlay').style.display='none';
+  enterFullscreen();startTimer();
+};
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(['F12'].indexOf(e.key)>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.key==='Escape'&&!submitted){e.preventDefault();}
+});
+document.addEventListener('visibilitychange',function(){
+  if(submitted||!startTime)return;
+  if(document.hidden){tabViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab (lần '+tabViolations+')');showWarning('⚠ Phát hiện chuyển tab! Vi phạm lần '+tabViolations);}
+});
+window.addEventListener('blur',function(){
+  if(submitted||!startTime)return;
+  focusViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Mất focus (lần '+focusViolations+')');showWarning('⚠ Phát hiện rời cửa sổ! Vi phạm lần '+focusViolations);
+});
+},1000);
+function showWarning(msg){var b=document.getElementById('warning-banner');b.textContent=msg;b.style.display='block';clearTimeout(b._t);b._t=setTimeout(function(){b.style.display='none';},4000);}
+document.querySelectorAll('input[type="radio"]').forEach(function(inp){
+  inp.addEventListener('change',function(){
+    document.querySelectorAll('input[name="'+inp.name+'"]').forEach(function(r){var l=r.closest('label');if(l)l.classList.remove('selected-answer');});
+    var l=inp.closest('label');if(l&&inp.checked)l.classList.add('selected-answer');
+  });
+});
+document.querySelectorAll('input[type="checkbox"]').forEach(function(inp){
+  inp.addEventListener('change',function(){var l=inp.closest('label');if(l){if(inp.checked)l.classList.add('selected-answer');else l.classList.remove('selected-answer');}});
+});
+function wireCheckLimit(name,max){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){var n=document.querySelectorAll('input[name="'+name+'"]:checked').length;if(n>max){inp.checked=false;var l=inp.closest('label');if(l)l.classList.remove('selected-answer');showCheckLimit(name,max);}}
+    });
+  });
+}
+function showCheckLimit(name,max){var id='chk-limit-'+name,el=document.getElementById(id);if(!el)return;el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';el.style.color='#e74c3c';el.style.fontWeight='bold';el.style.fontSize='12px';clearTimeout(el._t);el._t=setTimeout(function(){el.textContent='';},2500);}
+
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getRad(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function getChecked(name){var r=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){r.push(c.value);});return r;}
+function chkText(id,ans){var v=getVal(id).toLowerCase();if(Array.isArray(ans))return ans.some(function(a){return v===a.toLowerCase();});return v===ans.toLowerCase();}
+function chkSel(id,ans){return getVal(id)===ans;}
+function chkRad(name,ans){return getRad(name)===ans;}
+function chkCheck(name,ans){return getChecked(name).sort().join(',')===ans.slice().sort().join(',');}
+window.askSubmit=function(){if(submitted)return;document.getElementById('confirm-overlay').style.display='flex';};
+window.confirmSubmit=function(){if(submitted)return;submitted=true;document.getElementById('confirm-overlay').style.display='none';document.getElementById('overtime-overlay').style.display='none';window.stopTimer();doSubmit();};
+function doSubmit(){
+  document.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true;});
+  document.querySelectorAll('.selected-answer').forEach(function(el){el.classList.remove('selected-answer');});
+  var p1=0,p2=0,p3=0;
+  (function(){var ok=chkRad('q1',ANS['q1']);markRadio('q1',ok,ANS['q1']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q2',ANS['q2']);markRadio('q2',ok,ANS['q2']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q3',ANS['q3']);markRadio('q3',ok,ANS['q3']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q4',ANS['q4']);markRadio('q4',ok,ANS['q4']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q5',ANS['q5']);markRadio('q5',ok,ANS['q5']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q6',ANS['q6']);markRadio('q6',ok,ANS['q6']);if(ok)p1++;})();
+  (function(){var ok=chkText('q7',ANS['q7']);markText('q7',ok,ANS['q7'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q8',ANS['q8']);markText('q8',ok,ANS['q8'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q9',ANS['q9']);markText('q9',ok,ANS['q9'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q10',ANS['q10']);markText('q10',ok,ANS['q10'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q11',ANS['q11']);markText('q11',ok,ANS['q11'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q12',ANS['q12']);markText('q12',ok,ANS['q12'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q13',ANS['q13']);markText('q13',ok,ANS['q13'][0]);if(ok)p1++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q14"]');
+    var ok=hasRadio?chkRad('q14',ANS['q14']):chkSel('q14',ANS['q14']);
+    if(hasRadio)markRadio('q14',ok,ANS['q14']);else markSelect('q14',ok,ANS['q14']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q15"]');
+    var ok=hasRadio?chkRad('q15',ANS['q15']):chkSel('q15',ANS['q15']);
+    if(hasRadio)markRadio('q15',ok,ANS['q15']);else markSelect('q15',ok,ANS['q15']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q16"]');
+    var ok=hasRadio?chkRad('q16',ANS['q16']):chkSel('q16',ANS['q16']);
+    if(hasRadio)markRadio('q16',ok,ANS['q16']);else markSelect('q16',ok,ANS['q16']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q17"]');
+    var ok=hasRadio?chkRad('q17',ANS['q17']):chkSel('q17',ANS['q17']);
+    if(hasRadio)markRadio('q17',ok,ANS['q17']);else markSelect('q17',ok,ANS['q17']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q18"]');
+    var ok=hasRadio?chkRad('q18',ANS['q18']):chkSel('q18',ANS['q18']);
+    if(hasRadio)markRadio('q18',ok,ANS['q18']);else markSelect('q18',ok,ANS['q18']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q19"]');
+    var ok=hasRadio?chkRad('q19',ANS['q19']):chkSel('q19',ANS['q19']);
+    if(hasRadio)markRadio('q19',ok,ANS['q19']);else markSelect('q19',ok,ANS['q19']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q20"]');
+    var ok=hasRadio?chkRad('q20',ANS['q20']):chkSel('q20',ANS['q20']);
+    if(hasRadio)markRadio('q20',ok,ANS['q20']);else markSelect('q20',ok,ANS['q20']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q21"]');
+    var ok=hasRadio?chkRad('q21',ANS['q21']):chkSel('q21',ANS['q21']);
+    if(hasRadio)markRadio('q21',ok,ANS['q21']);else markSelect('q21',ok,ANS['q21']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q22"]');
+    var ok=hasRadio?chkRad('q22',ANS['q22']):chkSel('q22',ANS['q22']);
+    if(hasRadio)markRadio('q22',ok,ANS['q22']);else markSelect('q22',ok,ANS['q22']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q23"]');
+    var ok=hasRadio?chkRad('q23',ANS['q23']):chkSel('q23',ANS['q23']);
+    if(hasRadio)markRadio('q23',ok,ANS['q23']);else markSelect('q23',ok,ANS['q23']);
+    if(ok)p2++;
+  })();
+  (function(){var ok=chkText('q24',ANS['q24']);markText('q24',ok,ANS['q24'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q25',ANS['q25']);markText('q25',ok,ANS['q25'][0]);if(ok)p2++;})();
+  (function(){var ok=chkText('q26',ANS['q26']);markText('q26',ok,ANS['q26'][0]);if(ok)p2++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q27"]');
+    var ok=hasRadio?chkRad('q27',ANS['q27']):chkSel('q27',ANS['q27']);
+    if(hasRadio)markRadio('q27',ok,ANS['q27']);else markSelect('q27',ok,ANS['q27']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q28"]');
+    var ok=hasRadio?chkRad('q28',ANS['q28']):chkSel('q28',ANS['q28']);
+    if(hasRadio)markRadio('q28',ok,ANS['q28']);else markSelect('q28',ok,ANS['q28']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q29"]');
+    var ok=hasRadio?chkRad('q29',ANS['q29']):chkSel('q29',ANS['q29']);
+    if(hasRadio)markRadio('q29',ok,ANS['q29']);else markSelect('q29',ok,ANS['q29']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q30"]');
+    var ok=hasRadio?chkRad('q30',ANS['q30']):chkSel('q30',ANS['q30']);
+    if(hasRadio)markRadio('q30',ok,ANS['q30']);else markSelect('q30',ok,ANS['q30']);
+    if(ok)p3++;
+  })();
+  (function(){var ok=chkText('q31',ANS['q31']);markText('q31',ok,ANS['q31'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q32',ANS['q32']);markText('q32',ok,ANS['q32'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q33',ANS['q33']);markText('q33',ok,ANS['q33'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q34',ANS['q34']);markText('q34',ok,ANS['q34'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q35',ANS['q35']);markText('q35',ok,ANS['q35'][0]);if(ok)p3++;})();
+  (function(){var ok=chkRad('q36',ANS['q36']);markRadio('q36',ok,ANS['q36']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q37',ANS['q37']);markRadio('q37',ok,ANS['q37']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q38',ANS['q38']);markRadio('q38',ok,ANS['q38']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q39',ANS['q39']);markRadio('q39',ok,ANS['q39']);if(ok)p3++;})();
+  (function(){var ok=chkRad('q40',ANS['q40']);markRadio('q40',ok,ANS['q40']);if(ok)p3++;})();
+  var total=p1+p2+p3,band=getBand(total);
+  showScore(p1,p2,p3,total,band);sendResults(p1,p2,p3,total,band);
+}
+function markSelect(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markText(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markRadio(name,ok,correct){var num=name.replace('q','');document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(inp.value===correct)l.classList.add('correct');else if(inp.checked&&inp.value!==correct)l.classList.add('wrong');});var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markCheckbox(name,correct){document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(correct.indexOf(inp.value)>=0){l.classList.add(inp.checked?'correct':'missed');}else if(inp.checked){l.classList.add('wrong');}});}
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=19)return'Band 5.5';if(s>=15)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Dưới Band 4';}
+function getTimeTaken(){if(!startTime)return'N/A';var e=Math.floor((Date.now()-startTime)/1000),m=Math.floor(e/60),s=e%60;return m+' phút '+s+' giây';}
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var h='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr>';
+  h+='<tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr>';
+  h+='<tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr></table>';
+  h+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p>';
+  h+='<p style="color:#555;margin-top:6px">⏱ Thời gian: '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=h;
+  if(tabViolations+focusViolations+fsViolations>0){
+    var v='<strong>📋 Báo cáo vi phạm:</strong><br>Chuyển tab: '+tabViolations+' lần | Mất focus: '+focusViolations+' lần | Thoát fullscreen: '+fsViolations+' lần<br>';
+    if(violationLog.length)v+='<small>'+violationLog.join('<br>')+'</small>';
+    document.getElementById('violation-report').innerHTML=v;
+  }
+}
+function buildDetails(){
+  var parts=[];
+  (function(){var v=getRad('q1');parts.push('Q1:'+(v===ANS['q1']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q2');parts.push('Q2:'+(v===ANS['q2']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q3');parts.push('Q3:'+(v===ANS['q3']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q4');parts.push('Q4:'+(v===ANS['q4']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q5');parts.push('Q5:'+(v===ANS['q5']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q6');parts.push('Q6:'+(v===ANS['q6']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q7'),ok=chkText('q7',ANS['q7'])?'✔':'✘';parts.push('Q7:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q8'),ok=chkText('q8',ANS['q8'])?'✔':'✘';parts.push('Q8:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q9'),ok=chkText('q9',ANS['q9'])?'✔':'✘';parts.push('Q9:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q10'),ok=chkText('q10',ANS['q10'])?'✔':'✘';parts.push('Q10:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q11'),ok=chkText('q11',ANS['q11'])?'✔':'✘';parts.push('Q11:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q12'),ok=chkText('q12',ANS['q12'])?'✔':'✘';parts.push('Q12:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q13'),ok=chkText('q13',ANS['q13'])?'✔':'✘';parts.push('Q13:'+ok+'('+v+')');})();
+  (function(){var v=getRad('q14')||getVal('q14');parts.push('Q14:'+(v===ANS['q14']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q15')||getVal('q15');parts.push('Q15:'+(v===ANS['q15']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q16')||getVal('q16');parts.push('Q16:'+(v===ANS['q16']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q17')||getVal('q17');parts.push('Q17:'+(v===ANS['q17']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q18')||getVal('q18');parts.push('Q18:'+(v===ANS['q18']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q19')||getVal('q19');parts.push('Q19:'+(v===ANS['q19']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q20')||getVal('q20');parts.push('Q20:'+(v===ANS['q20']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q21')||getVal('q21');parts.push('Q21:'+(v===ANS['q21']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q22')||getVal('q22');parts.push('Q22:'+(v===ANS['q22']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q23')||getVal('q23');parts.push('Q23:'+(v===ANS['q23']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q24'),ok=chkText('q24',ANS['q24'])?'✔':'✘';parts.push('Q24:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q25'),ok=chkText('q25',ANS['q25'])?'✔':'✘';parts.push('Q25:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q26'),ok=chkText('q26',ANS['q26'])?'✔':'✘';parts.push('Q26:'+ok+'('+v+')');})();
+  (function(){var v=getRad('q27')||getVal('q27');parts.push('Q27:'+(v===ANS['q27']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q28')||getVal('q28');parts.push('Q28:'+(v===ANS['q28']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q29')||getVal('q29');parts.push('Q29:'+(v===ANS['q29']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q30')||getVal('q30');parts.push('Q30:'+(v===ANS['q30']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q31'),ok=chkText('q31',ANS['q31'])?'✔':'✘';parts.push('Q31:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q32'),ok=chkText('q32',ANS['q32'])?'✔':'✘';parts.push('Q32:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q33'),ok=chkText('q33',ANS['q33'])?'✔':'✘';parts.push('Q33:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q34'),ok=chkText('q34',ANS['q34'])?'✔':'✘';parts.push('Q34:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q35'),ok=chkText('q35',ANS['q35'])?'✔':'✘';parts.push('Q35:'+ok+'('+v+')');})();
+  (function(){var v=getRad('q36');parts.push('Q36:'+(v===ANS['q36']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q37');parts.push('Q37:'+(v===ANS['q37']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q38');parts.push('Q38:'+(v===ANS['q38']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q39');parts.push('Q39:'+(v===ANS['q39']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q40');parts.push('Q40:'+(v===ANS['q40']?'✔':'✘')+'('+v+')');})();
+  return parts.join(' | ');
+}
+function sendResults(p1,p2,p3,total,band){
+  var payload={action:'save_result',timestamp:new Date().toISOString(),student:(window._studentName||'')+'  —  '+(window._studentClass||''),test:'Reading Test 16',score:total,total:TOTAL_QUESTIONS,band:band,timeTaken:getTimeTaken(),p1score:p1+'/'+P1_COUNT,p2score:p2+'/'+P2_COUNT,p3score:p3+'/'+P3_COUNT,tabViol:tabViolations,focusViol:focusViolations,fsViol:fsViolations,details:buildDetails()};
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+}
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX=0,startW=0;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+  div.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startW=left.offsetWidth;},{passive:true});
+  document.addEventListener('touchmove',function(e){if(!dragging)return;var w=startW+(e.touches[0].clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';},{passive:true});
+  document.addEventListener('touchend',function(){dragging=false;});
+})();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 18</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+#right-panel input[type="text"],#right-panel select{user-select:text}
+.passage-section{display:none}
+.passage-section.active{display:block}
+.q-section{display:none}
+.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:6px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer,.check-label.selected-answer{background:#FFD580;border-radius:4px}
+.radio-label.correct,.check-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong,.check-label.wrong{background:#f8d7da!important;color:#721c24}
+.radio-label.missed{background:#fff3cd!important;border:2px dashed #856404}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+.word-bank-box{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+.word-bank-item{display:inline-block;margin:2px 6px;font-size:13px}
+.flow-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.flow-box{border:1px solid #aaa;border-radius:4px;padding:6px 10px;background:#fff;min-width:80px;text-align:center}
+.flow-arrow{font-size:18px;color:#888}
+.company-list{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+table.fill-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.fill-table td,table.fill-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.fill-table th{background:#e8eaf6;font-weight:700}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#submit-btn:hover{background:#2a5080}
+.hl-yellow{background:#FFE066}
+.hl-green{background:#90EE90}
+.hl-pink{background:#FFB6C1}
+/* Overlays */
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#start-btn:hover{background:#2a5080}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+#score-panel h2{color:#1a3a5c;margin-bottom:12px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #left-panel,#right-panel{width:100%!important;height:50vh}
+  #divider{display:none}
+  .tab-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 18</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label>
+    <input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label>
+    <input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát khỏi toàn màn hình. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+<div id="overtime-overlay">
+  <div id="overtime-box">
+    <p>⏰ Hết 60 phút! Bạn có thêm 5 phút để hoàn thành.<br>Bài sẽ tự nộp sau 5 phút.</p>
+    <button onclick="confirmSubmit()">Nộp bài ngay</button>
+  </div>
+</div>
+<div id="warning-banner"></div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">Dressed to Dazzle</div>
+      <div class="passage-para">As high-tech materials invade high-street fashion, prepare for clothes that are cooler than silk and warmer than wool, keep insects at arm’s length, and emit many pinpricks of coloured light.</div>
+      <div class="passage-para">The convergence of fashion and high technology is leading to new kinds of fibres, fabrics and coatings that are imbuing clothing with equally wondrous powers. Corpe Nove, an Italian fashion company, has made a prototype shirt that shortens its sleeves when room temperature rises and can be ironed with a hairdryer. And at Nexia Biotechnologies, a Canadian firm, scientists have caused a stir by manufacturing spider silk from the milk of genetically engineered goats. Not surprisingly, some industry analysts think high-tech materials may soon influence fashion more profoundly than any individual designer.</div>
+      <div class="passage-para"><span class="subheading">A</span> big impact is already being made at the molecular level. Nano-Tex, a subsidiary of American textiles maker Burlington, markets a portfolio of nanotechnologies that can make fabrics more durable, comfortable, wrinkle-free and stain-resistant. The notion of this technology posing a threat to the future of the clothing industry clearly does not worry popular fashion outlets such as Gap, Levi Strauss and Lands’ End, all of which employ Nano-Tex’s products. Meanwhile, Schoeller Textil in Germany, whose clients include famous designers Donna Karan and Polo Ralph Lauren, uses nanotechnology to create fabrics that can store or release heat.</div>
+      <div class="passage-para">Sensory Perception Technologies (Spn embodies an entirely different application of nanotechnology. Created in 2003 by Quest International, a flavour and fragrance company, and Woolmark, a wool textile organisation, SPT is a new technique of embedding chemicals into fabric. Though not the first of this type, SPT’s durability (evidently the microcapsule containing the chemicals can survive up to 30 washes) suggests an interesting future. Designers could incorporate signature scents into their collections. Sportswear could be impregnated with anti-perspirant. Hayfever sufferers might find relief by pulling on a T-shirt, and so on.</div>
+      <div class="passage-para">The loudest buzz now surrounds polylactic acid (PLA) fibres – and, in particular, one brand-named Ingeo. Developed by Cargill Dow, it is the first man-made fibre derived from a 100% annually renewable resource. This is currently maize (corn), though in theory any fermentable plant material, even potato peelings, can be used. In performance terms, the attraction for the 30-plus clothes makers signed up to use Ingeo lies in its superiority over polyester (which it was designed to replace).</div>
+      <div class="passage-para">As Philippa Watkins, a textiles specialist, notes, Ingeo is not a visual trend. Unlike nanotechnology, which promises to ‘transform what clothes can do, Ingeo’s impact on fashion will derive instead from its emphasis on using natural sustainable resources. Could wearing synthetic fabrics made from polluting and non-renewable fossil fuels become as uncool as slipping on a coat made from animal fur? Consumers should expect a much wider choice of ‘green’ fabrics. Alongside PLA fibres, firms are investigating plants such as bamboo, seaweed, nettles and banana stalks as raw materials for textiles. Soya bean fibre is also gaining ground. Harvested in China and spun in Europe, the fabric is a better absorber and ventilator than silk, and retains heat better than wool.</div>
+      <div class="passage-para">Elsewhere, fashion houses – among them Ermenegildo Zegna, Paul Smith and DKNY – are combining fashion with electronics. Clunky earlier attempts Involved attaching electronic components to the fabrics after the normal weaving process. But companies such as SOFTswitch have developed electro-conductive fabrics that behave in similar ways to conventional textiles.</div>
+      <div class="passage-para">Could electronic garments one day change colour or pattern? A hint of what could be achieved is offered by Luminex, a joint venture between Stabio Textile and Caen. Made of woven optical fibres and powered by a small battery, Luminex fabric emits thousands of pinpricks of light, the colour of which can be varied. Costumes made of the fabric wowed audiences at a production of the opera Aida in Washington, DC, last year.</div>
+      <div class="passage-para">Yet this ultimate of ambitions has remained elusive in daily fashion, largely because electronic textiles capable of such wizardry are still too fragile to wear. Margaret Orth, whose firm International Fashion Machines makes a colour-changing fabric, believes the capability is a decade or two away. Accessories with this chameleon-like capacity – for instance, a handbag that alters its colour – are more likely to appear first.</div>
+    </div>
+
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">Write your answers in boxes 7-14 on your answer sheet.</div>
+      <div class="passage-para">Major changes in fabrics</div>
+      <div class="passage-para">Using plants</div>
+      <div class="passage-para">Nanotechnology will bring changes we can see, while the brand called 7 ............................... will help the environment. Fibre made from the 8 ............................... plant has better qualities than silk and wool.</div>
+      <div class="passage-para">Electronics</div>
+      <div class="passage-para">In first attempts to use electronics, companies started with a material made by a standard 9 ............................. method and then they fixed 10 ............................... to the material.</div>
+      <div class="passage-para">Luminex fabric</div>
+      <div class="passage-para">• needs a 11 ............................... to make it work.</div>
+      <div class="passage-para">• has already been used to make stage 12 ............................... is not suitable for everyday wear because it is too 13 ...............................</div>
+      <div class="passage-para">• The first products that can change colour are likely to be 14 ...............................</div>
+      <div class="passage-para">READING PASSAGE 2</div>
+    </div>
+
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">UNMASKING SKIN</div>
+      <div class="passage-para"><span class="subheading">A</span> If you took off your skin and laid it flat, it would cover an area of about twenty-one square feet, making it by far the body’s largest organ. Draped in place over our bodies, skin forms the barrier between what’s inside us and what’s outside. It protects us from a multitude of external forces. It serves as an avenue to our most intimate physical and psychological selves.</div>
+      <div class="passage-para"><span class="subheading">B</span> This impervious yet permeable barrier, less than a millimetre thick in places, is composed of three layers. The outermost layer is the bloodless epidermis. The dermis includes collagen, elastin, and nerve endings. The innermost layer, subcutaneous fat, contains tissue that acts as an energy source, cushion and insulator for the body.</div>
+      <div class="passage-para"><span class="subheading">C</span> From these familiar characteristics of skin emerge the profound mysteries of touch, arguably our most essential source of sensory stimulation. We can live without seeing or hearing – in fact, without any of our other senses. But babies born without effective nerve connections between skin and brain can fail to thrive and may even die.</div>
+      <div class="passage-para"><span class="subheading">D</span> Laboratory experiments decades ago, now considered unethical and inhumane, kept baby monkeys from being touched by their mothers. It made no difference that the babies could see, hear and smell their mothers; without touching, the babies became apathetic, and failed to progress.</div>
+      <div class="passage-para"><span class="subheading">E</span> For humans, insufficient touching in early years can have lifelong results. “In touching cultures, adult aggression is low, whereas, in cultures where touch is limited, adult aggression is high,” writes Tiffany Field, director of the Touch Research Institutes at the University of Miami School of Medicine. Studies of a variety of cultures show a correspondence between high rates of physical affection in childhood and low rates of adult physical violence.</div>
+      <div class="passage-para"><span class="subheading">F</span> While the effects of touching are easy to understand, the mechanics of it are less so. “Your skin has millions of nerve cells of various shapes at different depths,” explains Stanley Bolanowski, a neuroscientist and associate director of the Institute for Sensory Research at Syracuse University. “When the nerve cells are stimulated, physical energy is transformed into energy used by the nervous system and passed from the skin to the spinal cord and brain. It’s called transduction, and no one knows exactly how it takes place.” Suffice it to say that the process involves the intricate, split-second operation of a complex system of signals between neurons in the skin and brain.</div>
+      <div class="passage-para"><span class="subheading">G</span> This is starting to sound very confusing until Bolanowski says: “In simple terms, people perceive three basic things via skin: pressure, temperature, and pain.” And then I’m sure he’s wrong. “When I get wet, my skin feels wet,” I protest. “Close your eyes and lean back,” says Bolanowski.</div>
+      <div class="passage-para"><span class="subheading">H</span> Something cold and wet is on my forehead – so wet, in fact, that I wait for water to start dripping down my cheeks. “Open your eyes.” Bolanowski says, showing me that the sensation comes from a chilled, but dry, metal cylinder. The combination of pressure and cold, he explains, is what makes my skin perceive wetness. He gives me a surgical glove to put on and has me put a finger in a glass of cold water. My finger feels wet, even though I have visual proof that it’s not touching water. My skin, which seemed so reliable, has been deceiving me my entire life. When I shower or wash my hands, I now realize, my skin feels pressure and temperature. It’s my brain that says I feel wet.</div>
+      <div class="passage-para"><span class="subheading">I</span> Perceptions of pressure, temperature and pain manifest themselves in many different ways. Gentle stimulation of pressure receptors can result in ticklishness; gentle stimulation of pain receptors, in itching. Both sensations arise from a neurological transmission, not from something that physically exists. Skin, I’m realizing, is under constant assault, both from within the body and from forces outside. Repairs occur with varying success.</div>
+      <div class="passage-para">J Take the spot where I nicked myself with a knife while slicing fruit. I have a crusty scab surrounded by pink tissue about a quarter inch long on my right palm. Under the scab, epidermal cells are migrating into the wound to close it up. When the process is complete, the scab will fall off to reveal new epidermis. It’s only been a few days, but my little self-repair is almost complete. Likewise, we recover quickly from slight burns. If you ever happen to touch a hot burner, just put your finger in cold water. The chances are you will have no blister, little pain and no scar. Severe burns, though, are a different matter.</div>
+    </div>
+  </div>
+  <div id="divider"></div>
+  <div id="right-panel">
+<!-- QUESTIONS 1 -->
+<div class="q-section active" id="qs1">
+  <div class="q-block">
+    <div class="q-num">Questions 1–6</div>
+    <p class="q-instruction">Match each company (1–6) with the correct new material (A–H). Write the correct letter A–H. <em>You may use any letter more than once.</em></p>
+    <div class="word-bank-box">
+      <strong>New Materials:</strong>
+      A – material that can make you warmer or cooler &nbsp;|&nbsp; B – clothing with perfume or medication added &nbsp;|&nbsp;
+      C – material that rarely needs washing &nbsp;|&nbsp; D – clothes that can change according to external heat levels &nbsp;|&nbsp;
+      E – material made from banana stalks &nbsp;|&nbsp; F – material that is environmentally-friendly &nbsp;|&nbsp;
+      G – fibres similar to those found in nature &nbsp;|&nbsp; H – clothes that can light up in the dark
+    </div>
+    <div class="q-text"><span class="q-num">1.</span> Corpe Nove<br><br><select  id="q1"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+    <div class="q-text"><span class="q-num">2.</span> Nexia Biotechnologies<br><br><select  id="q2"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+    <div class="q-text"><span class="q-num">3.</span> Nano-Tex<br><br><select  id="q3"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+    <div class="q-text"><span class="q-num">4.</span> Schoeller Textil<br><br><select  id="q4"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+    <div class="q-text"><span class="q-num">5.</span> Quest International and Woolmark<br><br><select  id="q5"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+    <div class="q-text"><span class="q-num">6.</span> Cargill Dow<br><br><select  id="q6"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 7–14</div>
+    <p class="q-instruction">Complete the summary below. Choose <strong>NO MORE THAN TWO WORDS</strong> from Reading Passage 1 for each answer.</p>
+    <div class="notes-box">
+      <strong>Major changes in fabrics</strong><br><br>
+      <u>Using plants</u><br>
+      Nanotechnology will bring changes we can see, while the brand called <strong>7</strong> <input type="text"  id="q7" placeholder="≤2 words" style="width:110px;"> will help the environment. Fibre made from the <strong>8</strong> <input type="text"  id="q8" placeholder="≤2 words" style="width:120px;"> plant has better environmental performance.<br><br>
+      <u>Electronics</u><br>
+      In first attempts to use electronics, companies started with a material made by a standard <strong>9</strong> <input type="text"  id="q9" placeholder="≤2 words" style="width:110px;"> method and then they fixed <strong>10</strong> <input type="text"  id="q10" placeholder="≤2 words" style="width:160px;"> to the material.<br><br>
+      <u>Luminex fabric</u><br>
+      • needs a <strong>11</strong> <input type="text"  id="q11" placeholder="≤2 words" style="width:110px;"> to make it work.<br>
+      • has already been used to make stage <strong>12</strong> <input type="text"  id="q12" placeholder="≤2 words" style="width:120px;"><br>
+      • is not suitable for everyday wear because it is too <strong>13</strong> <input type="text"  id="q13" placeholder="≤2 words" style="width:110px;"><br>
+      • The first products that can change colour are likely to be <strong>14</strong> <input type="text"  id="q14" placeholder="≤2 words" style="width:160px;">
+    </div>
+  </div>
+</div>
+
+<!-- QUESTIONS 2 -->
+<div class="q-section" id="qs2">
+  <div class="q-block">
+    <div class="q-num">Questions 15–18</div>
+    <p class="q-instruction">The passage has 10 paragraphs <strong>A–J</strong>. Which paragraph contains the following information? Write the correct letter A–J.</p>
+    <div class="q-text"><span class="q-num">15.</span> the features of human skin, on and below the surface<br><br><select  id="q15"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+    <div class="q-text"><span class="q-num">16.</span> an experiment in which the writer can see what is happening<br><br><select  id="q16"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+    <div class="q-text"><span class="q-num">17.</span> advice on how you can avoid damage to the skin<br><br><select  id="q17"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+    <div class="q-text"><span class="q-num">18.</span> cruel research methods used in the past<br><br><select  id="q18"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 19–20</div>
+    <p class="q-instruction">Choose the correct letter, <strong>A</strong>, <strong>B</strong>, <strong>C</strong> or <strong>D</strong>.</p>
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;"><span class="q-num">19</span><span class="q-text">How does a lack of affectionate touching affect children?</span></div>
+      <div style="margin-left:42px;"><div class="options-list">
+        <label class="radio-label"><input type="radio" name="q19" value="A"><span><strong>A</strong> &nbsp;It makes them apathetic.</span></label>
+        <label class="radio-label"><input type="radio" name="q19" value="B"><span><strong>B</strong> &nbsp;They are more likely to become violent adults.</span></label>
+        <label class="radio-label"><input type="radio" name="q19" value="C"><span><strong>C</strong> &nbsp;They will be less aggressive when they grow up.</span></label>
+        <label class="radio-label"><input type="radio" name="q19" value="D"><span><strong>D</strong> &nbsp;We do not really know.</span></label>
+      </div></div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;"><span class="q-num">20</span><span class="q-text">After the 'wetness' experiments, the writer says that</span></div>
+      <div style="margin-left:42px;"><div class="options-list">
+        <label class="radio-label"><input type="radio" name="q20" value="A"><span><strong>A</strong> &nbsp;his skin is not normal.</span></label>
+        <label class="radio-label"><input type="radio" name="q20" value="B"><span><strong>B</strong> &nbsp;his skin was wet when it felt wet.</span></label>
+        <label class="radio-label"><input type="radio" name="q20" value="C"><span><strong>C</strong> &nbsp;he knew why it felt wet when it was dry.</span></label>
+        <label class="radio-label"><input type="radio" name="q20" value="D"><span><strong>D</strong> &nbsp;the experiments taught him nothing new.</span></label>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 21–25</div>
+    <p class="q-instruction">Complete each sentence with the correct ending <strong>A–J</strong> from the box below.</p>
+    <div class="word-bank-box">
+      <strong>Endings:</strong>
+      A – because it is both cold and painful. &nbsp;|&nbsp; B – because the outer layer of the skin can mend itself. &nbsp;|&nbsp;
+      C – because it can be extremely thin. &nbsp;|&nbsp; D – because there is light pressure on the skin. &nbsp;|&nbsp;
+      E – because we do not need the others to survive. &nbsp;|&nbsp; F – because there is a good blood supply to the skin. &nbsp;|&nbsp;
+      G – because of a small amount of pain. &nbsp;|&nbsp; H – because there is a low temperature and pressure. &nbsp;|&nbsp;
+      I – because it is hurting a lot. &nbsp;|&nbsp; J – because all humans are capable of experiencing it.
+    </div>
+    <div class="q-text"><span class="q-num">21.</span> Touch is unique among the five senses<br><br><select  id="q21"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+    <div class="q-text"><span class="q-num">22.</span> A substance may feel wet<br><br><select  id="q22"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+    <div class="q-text"><span class="q-num">23.</span> Something may tickle<br><br><select  id="q23"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+    <div class="q-text"><span class="q-num">24.</span> The skin may itch<br><br><select  id="q24"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+    <div class="q-text"><span class="q-num">25.</span> A small cut heals up quickly<br><br><select  id="q25"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>J</option></select></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 26–28</div>
+    <p class="q-instruction">Do the following statements agree with the information given in Reading Passage 2? Write <strong>TRUE</strong>, <strong>FALSE</strong>, or <strong>NOT GIVEN</strong>.</p>
+    <div class="q-text"><span class="q-num">26.</span> Even scientists have difficulty understanding how our sense of touch works.<br><br><select  id="q26"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">27.</span> The skin is more sensitive to pressure than to temperature or pain.<br><br><select  id="q27"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">28.</span> The human skin is always good at repairing itself.<br><br><select  id="q28"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+  </div>
+</div>
+
+<!-- QUESTIONS 3 -->
+<div class="q-section" id="qs3">
+  <div class="q-block">
+    <div class="q-num">Questions 29–33</div>
+    <p class="q-instruction">The reading passage has five sections <strong>A–E</strong>. Choose the correct heading for each section from the list of headings below. Write the correct number <strong>i–viii</strong>.</p>
+    <div class="word-bank-box">
+      <strong>List of Headings:</strong> i – Colorblindness in different countries &nbsp;|&nbsp; ii – Diagnosing colorblindness &nbsp;|&nbsp;
+      iii – What is colorblindness? &nbsp;|&nbsp; iv – Curing colorblindness &nbsp;|&nbsp; v – Unsolved myths &nbsp;|&nbsp;
+      vi – Animals and colorblindness &nbsp;|&nbsp; vii – Developing the ability to see color &nbsp;|&nbsp; viii – Colorblindness and the sexes
+    </div>
+    <div class="q-text"><span class="q-num">29.</span> Section A<br><br><select  id="q29"><option value="">-- Select --</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option></select></div>
+    <div class="q-text"><span class="q-num">30.</span> Section B<br><br><select  id="q30"><option value="">-- Select --</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option></select></div>
+    <div class="q-text"><span class="q-num">31.</span> Section C<br><br><select  id="q31"><option value="">-- Select --</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option></select></div>
+    <div class="q-text"><span class="q-num">32.</span> Section D<br><br><select  id="q32"><option value="">-- Select --</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option></select></div>
+    <div class="q-text"><span class="q-num">33.</span> Section E<br><br><select  id="q33"><option value="">-- Select --</option><option>i</option><option>ii</option><option>iii</option><option>iv</option><option>v</option><option>vi</option><option>vii</option><option>viii</option></select></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 34–36</div>
+    <p class="q-instruction">Choose the correct letter, <strong>A</strong>, <strong>B</strong>, <strong>C</strong> or <strong>D</strong>.</p>
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;"><span class="q-num">34</span><span class="q-text">People who see color normally are called</span></div>
+      <div style="margin-left:42px;"><div class="options-list">
+        <label class="radio-label"><input type="radio" name="q34" value="A"><span><strong>A</strong> &nbsp;monochromatic.</span></label>
+        <label class="radio-label"><input type="radio" name="q34" value="B"><span><strong>B</strong> &nbsp;dichromatic.</span></label>
+        <label class="radio-label"><input type="radio" name="q34" value="C"><span><strong>C</strong> &nbsp;trichromatic.</span></label>
+        <label class="radio-label"><input type="radio" name="q34" value="D"><span><strong>D</strong> &nbsp;colorblind.</span></label>
+      </div></div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;"><span class="q-num">35</span><span class="q-text">Children usually begin to see a variety of colors by the age of</span></div>
+      <div style="margin-left:42px;"><div class="options-list">
+        <label class="radio-label"><input type="radio" name="q35" value="A"><span><strong>A</strong> &nbsp;one month.</span></label>
+        <label class="radio-label"><input type="radio" name="q35" value="B"><span><strong>B</strong> &nbsp;four months.</span></label>
+        <label class="radio-label"><input type="radio" name="q35" value="C"><span><strong>C</strong> &nbsp;one year.</span></label>
+        <label class="radio-label"><input type="radio" name="q35" value="D"><span><strong>D</strong> &nbsp;four years.</span></label>
+      </div></div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;"><span class="q-num">36</span><span class="q-text">Children who take the Ishihara Test must be able to</span></div>
+      <div style="margin-left:42px;"><div class="options-list">
+        <label class="radio-label"><input type="radio" name="q36" value="A"><span><strong>A</strong> &nbsp;distinguish letters.</span></label>
+        <label class="radio-label"><input type="radio" name="q36" value="B"><span><strong>B</strong> &nbsp;write their names.</span></label>
+        <label class="radio-label"><input type="radio" name="q36" value="C"><span><strong>C</strong> &nbsp;read numbers.</span></label>
+        <label class="radio-label"><input type="radio" name="q36" value="D"><span><strong>D</strong> &nbsp;name colors.</span></label>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 37–40</div>
+    <p class="q-instruction">Complete the summary using words from the box below. <em>There are more answers than spaces.</em></p>
+    <div class="word-bank-box">
+      <strong>Word Box:</strong>
+      myth &nbsp;|&nbsp; a little less &nbsp;|&nbsp; X chromosomes &nbsp;|&nbsp; defective genes &nbsp;|&nbsp; fact &nbsp;|&nbsp; less likely &nbsp;|&nbsp; slightly more &nbsp;|&nbsp; probable &nbsp;|&nbsp; exactly &nbsp;|&nbsp; more
+    </div>
+    <div class="notes-box" style="line-height:2.3;">
+      It is a common <strong>37</strong>
+      <select  id="q37" style="width:155px;">
+        <option value="">-- Select --</option><option>myth</option><option>a little less</option><option>X chromosomes</option><option>defective genes</option><option>fact</option><option>less likely</option><option>slightly more</option><option>probable</option><option>exactly</option><option>more</option>
+      </select> that only men suffer from colorblindness. On average <strong>38</strong>
+      <select  id="q38" style="width:155px;">
+        <option value="">-- Select --</option><option>myth</option><option>a little less</option><option>X chromosomes</option><option>defective genes</option><option>fact</option><option>less likely</option><option>slightly more</option><option>probable</option><option>exactly</option><option>more</option>
+      </select> than ten percent of men have this problem. Women have two <strong>39</strong>
+      <select  id="q39" style="width:165px;">
+        <option value="">-- Select --</option><option>myth</option><option>a little less</option><option>X chromosomes</option><option>defective genes</option><option>fact</option><option>less likely</option><option>slightly more</option><option>probable</option><option>exactly</option><option>more</option>
+      </select>. For this reason, it is <strong>40</strong>
+      <select  id="q40" style="width:145px;">
+        <option value="">-- Select --</option><option>myth</option><option>a little less</option><option>X chromosomes</option><option>defective genes</option><option>fact</option><option>less likely</option><option>slightly more</option><option>probable</option><option>exactly</option><option>more</option>
+      </select> for a woman to suffer from colorblindness.
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 18</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+<script>
+(function(){
+'use strict';
+var ANS = {
+  q1:'D',q2:'G',q3:'C',q4:'A',q5:'B',q6:'F',
+  q7:['ingeo'],q8:['soya bean'],q9:['weaving'],q10:['electronic components'],
+  q11:['battery'],q12:['costumes'],q13:['fragile'],q14:['accessories','accessories/handbags','handbags'],
+  q15:'B',q16:'H',q17:'J',q18:'D',
+  q19:'B',q20:'C',
+  q21:'E',q22:'H',q23:'D',q24:'G',q25:'B',
+  q26:'TRUE',q27:'NOT GIVEN',q28:'FALSE',
+  q29:'iii',q30:'viii',q31:'vii',q32:'ii',q33:'v',
+  q34:'C',q35:'B',q36:'C',
+  q37:'myth',q38:'a little less',q39:'X chromosomes',q40:'less likely'
+};
+var TOTAL_QUESTIONS=40,P1_COUNT=14,P2_COUNT=14,P3_COUNT=12;
+var currentTab=1,hlMode='yellow',timerStopped=false,submitted=false;
+var tabViolations=0,focusViolations=0,fsViolations=0,violationLog=[];
+var startTime=null,timerInterval=null,overtimeFired=false;
+var hlColors={yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function setHL(mode){
+  hlMode=mode;
+  ['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.remove('active-hl');});
+  var t=mode==='clear'?'hl-clear':'hl-'+mode,el=document.getElementById(t);if(el)el.classList.add('active-hl');
+}
+window.setHL=setHL;
+function applyHighlight(container){
+  var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);if(!container.contains(range.commonAncestorContainer))return;
+  if(hlMode==='clear'){sel.removeAllRanges();return;}
+  try{var span=document.createElement('span');span.className=hlColors[hlMode];var frag=range.extractContents();span.appendChild(frag);range.insertNode(span);}catch(e){}
+  sel.removeAllRanges();
+}
+function handleErase(e,container){
+  if(hlMode!=='clear')return;var t=e.target;
+  while(t&&t!==container){if(t.tagName==='SPAN'&&(t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){var p=t.parentNode;while(t.firstChild)p.insertBefore(t.firstChild,t);p.removeChild(t);p.normalize();break;}t=t.parentNode;}
+}
+['left-panel','right-panel'].forEach(function(pid){
+  var panel=document.getElementById(pid);if(!panel)return;
+  panel.addEventListener('mouseup',function(){applyHighlight(panel);});
+  panel.addEventListener('click',function(e){handleErase(e,panel);});
+});
+function switchTab(n){
+  currentTab=n;[1,2,3].forEach(function(i){
+    document.getElementById('pass'+i).classList.toggle('active',i===n);
+    document.getElementById('qs'+i).classList.toggle('active',i===n);
+    document.getElementById('tab'+i).classList.toggle('active',i===n);
+  });
+  document.getElementById('left-panel').scrollTop=0;document.getElementById('right-panel').scrollTop=0;
+}
+window.switchTab=switchTab;
+function formatTime(sec){var m=Math.floor(sec/60),s=sec%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function startTimer(){
+  var box=document.getElementById('timer-box');
+  timerInterval=setInterval(function(){
+    if(timerStopped){clearInterval(timerInterval);box.style.display='none';return;}
+    if(!startTime)return;
+    var elapsed=Math.floor((Date.now()-startTime)/1000),remaining=3600-elapsed;
+    if(remaining<=0&&!overtimeFired){overtimeFired=true;box.textContent='00:00';document.getElementById('overtime-overlay').style.display='flex';setTimeout(function(){if(!submitted)confirmSubmit();},300000);return;}
+    if(remaining>0){box.textContent=formatTime(remaining);if(remaining<=120){box.className='';box.classList.add('danger');}else if(remaining<=600){box.className='';box.classList.add('warn');}else{box.className='';}}
+  },500);
+}
+window.stopTimer=function(){timerStopped=true;};
+window.enterFullscreen=function(){
+  var el=document.documentElement;
+  try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}
+  document.getElementById('fs-overlay').style.display='none';
+};
+document.addEventListener('fullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');document.getElementById('fs-overlay').style.display='flex';}});
+document.addEventListener('webkitfullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;document.getElementById('fs-overlay').style.display='flex';}});
+window.startExam=function(){
+  var name=document.getElementById('inp-name').value.trim(),cls=document.getElementById('inp-class').value.trim();
+  if(!name||!cls){document.getElementById('popup-err').style.display='block';return;}
+  window._studentName=name;window._studentClass=cls;
+  startTime=window._testStartTime=Date.now();
+  document.getElementById('popup-overlay').style.display='none';
+  enterFullscreen();startTimer();
+};
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(['F12'].indexOf(e.key)>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.key==='Escape'&&!submitted){e.preventDefault();}
+});
+document.addEventListener('visibilitychange',function(){
+  if(submitted||!startTime)return;
+  if(document.hidden){tabViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab (lần '+tabViolations+')');showWarning('⚠ Phát hiện chuyển tab! Vi phạm lần '+tabViolations);}
+});
+window.addEventListener('blur',function(){
+  if(submitted||!startTime)return;
+  focusViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Mất focus (lần '+focusViolations+')');showWarning('⚠ Phát hiện rời cửa sổ! Vi phạm lần '+focusViolations);
+});
+},1000);
+function showWarning(msg){var b=document.getElementById('warning-banner');b.textContent=msg;b.style.display='block';clearTimeout(b._t);b._t=setTimeout(function(){b.style.display='none';},4000);}
+document.querySelectorAll('input[type="radio"]').forEach(function(inp){
+  inp.addEventListener('change',function(){
+    document.querySelectorAll('input[name="'+inp.name+'"]').forEach(function(r){var l=r.closest('label');if(l)l.classList.remove('selected-answer');});
+    var l=inp.closest('label');if(l&&inp.checked)l.classList.add('selected-answer');
+  });
+});
+document.querySelectorAll('input[type="checkbox"]').forEach(function(inp){
+  inp.addEventListener('change',function(){var l=inp.closest('label');if(l){if(inp.checked)l.classList.add('selected-answer');else l.classList.remove('selected-answer');}});
+});
+function wireCheckLimit(name,max){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){var n=document.querySelectorAll('input[name="'+name+'"]:checked').length;if(n>max){inp.checked=false;var l=inp.closest('label');if(l)l.classList.remove('selected-answer');showCheckLimit(name,max);}}
+    });
+  });
+}
+function showCheckLimit(name,max){var id='chk-limit-'+name,el=document.getElementById(id);if(!el)return;el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';el.style.color='#e74c3c';el.style.fontWeight='bold';el.style.fontSize='12px';clearTimeout(el._t);el._t=setTimeout(function(){el.textContent='';},2500);}
+
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getRad(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function getChecked(name){var r=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){r.push(c.value);});return r;}
+function chkText(id,ans){var v=getVal(id).toLowerCase();if(Array.isArray(ans))return ans.some(function(a){return v===a.toLowerCase();});return v===ans.toLowerCase();}
+function chkSel(id,ans){return getVal(id)===ans;}
+function chkRad(name,ans){return getRad(name)===ans;}
+function chkCheck(name,ans){return getChecked(name).sort().join(',')===ans.slice().sort().join(',');}
+window.askSubmit=function(){if(submitted)return;document.getElementById('confirm-overlay').style.display='flex';};
+window.confirmSubmit=function(){if(submitted)return;submitted=true;document.getElementById('confirm-overlay').style.display='none';document.getElementById('overtime-overlay').style.display='none';window.stopTimer();doSubmit();};
+function doSubmit(){
+  document.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true;});
+  document.querySelectorAll('.selected-answer').forEach(function(el){el.classList.remove('selected-answer');});
+  var p1=0,p2=0,p3=0;
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q1"]');
+    var ok=hasRadio?chkRad('q1',ANS['q1']):chkSel('q1',ANS['q1']);
+    if(hasRadio)markRadio('q1',ok,ANS['q1']);else markSelect('q1',ok,ANS['q1']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q2"]');
+    var ok=hasRadio?chkRad('q2',ANS['q2']):chkSel('q2',ANS['q2']);
+    if(hasRadio)markRadio('q2',ok,ANS['q2']);else markSelect('q2',ok,ANS['q2']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q3"]');
+    var ok=hasRadio?chkRad('q3',ANS['q3']):chkSel('q3',ANS['q3']);
+    if(hasRadio)markRadio('q3',ok,ANS['q3']);else markSelect('q3',ok,ANS['q3']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q4"]');
+    var ok=hasRadio?chkRad('q4',ANS['q4']):chkSel('q4',ANS['q4']);
+    if(hasRadio)markRadio('q4',ok,ANS['q4']);else markSelect('q4',ok,ANS['q4']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q5"]');
+    var ok=hasRadio?chkRad('q5',ANS['q5']):chkSel('q5',ANS['q5']);
+    if(hasRadio)markRadio('q5',ok,ANS['q5']);else markSelect('q5',ok,ANS['q5']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q6"]');
+    var ok=hasRadio?chkRad('q6',ANS['q6']):chkSel('q6',ANS['q6']);
+    if(hasRadio)markRadio('q6',ok,ANS['q6']);else markSelect('q6',ok,ANS['q6']);
+    if(ok)p1++;
+  })();
+  (function(){var ok=chkText('q7',ANS['q7']);markText('q7',ok,ANS['q7'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q8',ANS['q8']);markText('q8',ok,ANS['q8'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q9',ANS['q9']);markText('q9',ok,ANS['q9'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q10',ANS['q10']);markText('q10',ok,ANS['q10'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q11',ANS['q11']);markText('q11',ok,ANS['q11'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q12',ANS['q12']);markText('q12',ok,ANS['q12'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q13',ANS['q13']);markText('q13',ok,ANS['q13'][0]);if(ok)p1++;})();
+  (function(){var ok=chkText('q14',ANS['q14']);markText('q14',ok,ANS['q14'][0]);if(ok)p1++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q15"]');
+    var ok=hasRadio?chkRad('q15',ANS['q15']):chkSel('q15',ANS['q15']);
+    if(hasRadio)markRadio('q15',ok,ANS['q15']);else markSelect('q15',ok,ANS['q15']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q16"]');
+    var ok=hasRadio?chkRad('q16',ANS['q16']):chkSel('q16',ANS['q16']);
+    if(hasRadio)markRadio('q16',ok,ANS['q16']);else markSelect('q16',ok,ANS['q16']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q17"]');
+    var ok=hasRadio?chkRad('q17',ANS['q17']):chkSel('q17',ANS['q17']);
+    if(hasRadio)markRadio('q17',ok,ANS['q17']);else markSelect('q17',ok,ANS['q17']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q18"]');
+    var ok=hasRadio?chkRad('q18',ANS['q18']):chkSel('q18',ANS['q18']);
+    if(hasRadio)markRadio('q18',ok,ANS['q18']);else markSelect('q18',ok,ANS['q18']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q19"]');
+    var ok=hasRadio?chkRad('q19',ANS['q19']):chkSel('q19',ANS['q19']);
+    if(hasRadio)markRadio('q19',ok,ANS['q19']);else markSelect('q19',ok,ANS['q19']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q20"]');
+    var ok=hasRadio?chkRad('q20',ANS['q20']):chkSel('q20',ANS['q20']);
+    if(hasRadio)markRadio('q20',ok,ANS['q20']);else markSelect('q20',ok,ANS['q20']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q21"]');
+    var ok=hasRadio?chkRad('q21',ANS['q21']):chkSel('q21',ANS['q21']);
+    if(hasRadio)markRadio('q21',ok,ANS['q21']);else markSelect('q21',ok,ANS['q21']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q22"]');
+    var ok=hasRadio?chkRad('q22',ANS['q22']):chkSel('q22',ANS['q22']);
+    if(hasRadio)markRadio('q22',ok,ANS['q22']);else markSelect('q22',ok,ANS['q22']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q23"]');
+    var ok=hasRadio?chkRad('q23',ANS['q23']):chkSel('q23',ANS['q23']);
+    if(hasRadio)markRadio('q23',ok,ANS['q23']);else markSelect('q23',ok,ANS['q23']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q24"]');
+    var ok=hasRadio?chkRad('q24',ANS['q24']):chkSel('q24',ANS['q24']);
+    if(hasRadio)markRadio('q24',ok,ANS['q24']);else markSelect('q24',ok,ANS['q24']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q25"]');
+    var ok=hasRadio?chkRad('q25',ANS['q25']):chkSel('q25',ANS['q25']);
+    if(hasRadio)markRadio('q25',ok,ANS['q25']);else markSelect('q25',ok,ANS['q25']);
+    if(ok)p2++;
+  })();
+  (function(){var ok=chkRad('q26',ANS['q26']);markRadio('q26',ok,ANS['q26']);if(ok)p2++;})();
+  (function(){var ok=chkRad('q27',ANS['q27']);markRadio('q27',ok,ANS['q27']);if(ok)p2++;})();
+  (function(){var ok=chkRad('q28',ANS['q28']);markRadio('q28',ok,ANS['q28']);if(ok)p2++;})();
+  (function(){var ok=chkText('q29',ANS['q29']);markText('q29',ok,Array.isArray(ANS['q29'])?ANS['q29'][0]:ANS['q29']);if(ok)p3++;})();
+  (function(){var ok=chkText('q30',ANS['q30']);markText('q30',ok,Array.isArray(ANS['q30'])?ANS['q30'][0]:ANS['q30']);if(ok)p3++;})();
+  (function(){var ok=chkText('q31',ANS['q31']);markText('q31',ok,Array.isArray(ANS['q31'])?ANS['q31'][0]:ANS['q31']);if(ok)p3++;})();
+  (function(){var ok=chkText('q32',ANS['q32']);markText('q32',ok,Array.isArray(ANS['q32'])?ANS['q32'][0]:ANS['q32']);if(ok)p3++;})();
+  (function(){var ok=chkText('q33',ANS['q33']);markText('q33',ok,Array.isArray(ANS['q33'])?ANS['q33'][0]:ANS['q33']);if(ok)p3++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q34"]');
+    var ok=hasRadio?chkRad('q34',ANS['q34']):chkSel('q34',ANS['q34']);
+    if(hasRadio)markRadio('q34',ok,ANS['q34']);else markSelect('q34',ok,ANS['q34']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q35"]');
+    var ok=hasRadio?chkRad('q35',ANS['q35']):chkSel('q35',ANS['q35']);
+    if(hasRadio)markRadio('q35',ok,ANS['q35']);else markSelect('q35',ok,ANS['q35']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q36"]');
+    var ok=hasRadio?chkRad('q36',ANS['q36']):chkSel('q36',ANS['q36']);
+    if(hasRadio)markRadio('q36',ok,ANS['q36']);else markSelect('q36',ok,ANS['q36']);
+    if(ok)p3++;
+  })();
+  (function(){var ok=chkText('q37',ANS['q37']);markText('q37',ok,Array.isArray(ANS['q37'])?ANS['q37'][0]:ANS['q37']);if(ok)p3++;})();
+  (function(){var ok=chkText('q38',ANS['q38']);markText('q38',ok,Array.isArray(ANS['q38'])?ANS['q38'][0]:ANS['q38']);if(ok)p3++;})();
+  (function(){var ok=chkText('q39',ANS['q39']);markText('q39',ok,Array.isArray(ANS['q39'])?ANS['q39'][0]:ANS['q39']);if(ok)p3++;})();
+  (function(){var ok=chkText('q40',ANS['q40']);markText('q40',ok,Array.isArray(ANS['q40'])?ANS['q40'][0]:ANS['q40']);if(ok)p3++;})();
+  var total=p1+p2+p3,band=getBand(total);
+  showScore(p1,p2,p3,total,band);sendResults(p1,p2,p3,total,band);
+}
+function markSelect(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markText(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markRadio(name,ok,correct){var num=name.replace('q','');document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(inp.value===correct)l.classList.add('correct');else if(inp.checked&&inp.value!==correct)l.classList.add('wrong');});var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markCheckbox(name,correct){document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(correct.indexOf(inp.value)>=0){l.classList.add(inp.checked?'correct':'missed');}else if(inp.checked){l.classList.add('wrong');}});}
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=19)return'Band 5.5';if(s>=15)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Dưới Band 4';}
+function getTimeTaken(){if(!startTime)return'N/A';var e=Math.floor((Date.now()-startTime)/1000),m=Math.floor(e/60),s=e%60;return m+' phút '+s+' giây';}
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var h='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr>';
+  h+='<tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr>';
+  h+='<tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr></table>';
+  h+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p>';
+  h+='<p style="color:#555;margin-top:6px">⏱ Thời gian: '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=h;
+  if(tabViolations+focusViolations+fsViolations>0){
+    var v='<strong>📋 Báo cáo vi phạm:</strong><br>Chuyển tab: '+tabViolations+' lần | Mất focus: '+focusViolations+' lần | Thoát fullscreen: '+fsViolations+' lần<br>';
+    if(violationLog.length)v+='<small>'+violationLog.join('<br>')+'</small>';
+    document.getElementById('violation-report').innerHTML=v;
+  }
+}
+function buildDetails(){
+  var parts=[];
+  (function(){var v=getRad('q1')||getVal('q1');parts.push('Q1:'+(v===ANS['q1']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q2')||getVal('q2');parts.push('Q2:'+(v===ANS['q2']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q3')||getVal('q3');parts.push('Q3:'+(v===ANS['q3']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q4')||getVal('q4');parts.push('Q4:'+(v===ANS['q4']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q5')||getVal('q5');parts.push('Q5:'+(v===ANS['q5']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q6')||getVal('q6');parts.push('Q6:'+(v===ANS['q6']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q7'),ok=chkText('q7',ANS['q7'])?'✔':'✘';parts.push('Q7:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q8'),ok=chkText('q8',ANS['q8'])?'✔':'✘';parts.push('Q8:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q9'),ok=chkText('q9',ANS['q9'])?'✔':'✘';parts.push('Q9:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q10'),ok=chkText('q10',ANS['q10'])?'✔':'✘';parts.push('Q10:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q11'),ok=chkText('q11',ANS['q11'])?'✔':'✘';parts.push('Q11:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q12'),ok=chkText('q12',ANS['q12'])?'✔':'✘';parts.push('Q12:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q13'),ok=chkText('q13',ANS['q13'])?'✔':'✘';parts.push('Q13:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q14'),ok=chkText('q14',ANS['q14'])?'✔':'✘';parts.push('Q14:'+ok+'('+v+')');})();
+  (function(){var v=getRad('q15')||getVal('q15');parts.push('Q15:'+(v===ANS['q15']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q16')||getVal('q16');parts.push('Q16:'+(v===ANS['q16']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q17')||getVal('q17');parts.push('Q17:'+(v===ANS['q17']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q18')||getVal('q18');parts.push('Q18:'+(v===ANS['q18']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q19')||getVal('q19');parts.push('Q19:'+(v===ANS['q19']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q20')||getVal('q20');parts.push('Q20:'+(v===ANS['q20']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q21')||getVal('q21');parts.push('Q21:'+(v===ANS['q21']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q22')||getVal('q22');parts.push('Q22:'+(v===ANS['q22']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q23')||getVal('q23');parts.push('Q23:'+(v===ANS['q23']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q24')||getVal('q24');parts.push('Q24:'+(v===ANS['q24']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q25')||getVal('q25');parts.push('Q25:'+(v===ANS['q25']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q26');parts.push('Q26:'+(v===ANS['q26']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q27');parts.push('Q27:'+(v===ANS['q27']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q28');parts.push('Q28:'+(v===ANS['q28']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q29'),ok=chkText('q29',ANS['q29'])?'✔':'✘';parts.push('Q29:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q30'),ok=chkText('q30',ANS['q30'])?'✔':'✘';parts.push('Q30:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q31'),ok=chkText('q31',ANS['q31'])?'✔':'✘';parts.push('Q31:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q32'),ok=chkText('q32',ANS['q32'])?'✔':'✘';parts.push('Q32:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q33'),ok=chkText('q33',ANS['q33'])?'✔':'✘';parts.push('Q33:'+ok+'('+v+')');})()
+  (function(){var v=getRad('q34')||getVal('q34');parts.push('Q34:'+(v===ANS['q34']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q35')||getVal('q35');parts.push('Q35:'+(v===ANS['q35']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q36')||getVal('q36');parts.push('Q36:'+(v===ANS['q36']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q37'),ok=chkText('q37',ANS['q37'])?'✔':'✘';parts.push('Q37:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q38'),ok=chkText('q38',ANS['q38'])?'✔':'✘';parts.push('Q38:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q39'),ok=chkText('q39',ANS['q39'])?'✔':'✘';parts.push('Q39:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q40'),ok=chkText('q40',ANS['q40'])?'✔':'✘';parts.push('Q40:'+ok+'('+v+')');})()
+  return parts.join(' | ');
+}
+function sendResults(p1,p2,p3,total,band){
+  var payload={action:'save_result',timestamp:new Date().toISOString(),student:(window._studentName||'')+'  —  '+(window._studentClass||''),test:'Reading Test 18',score:total,total:TOTAL_QUESTIONS,band:band,timeTaken:getTimeTaken(),p1score:p1+'/'+P1_COUNT,p2score:p2+'/'+P2_COUNT,p3score:p3+'/'+P3_COUNT,tabViol:tabViolations,focusViol:focusViolations,fsViol:fsViolations,details:buildDetails()};
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+}
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX=0,startW=0;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+  div.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startW=left.offsetWidth;},{passive:true});
+  document.addEventListener('touchmove',function(e){if(!dragging)return;var w=startW+(e.touches[0].clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';},{passive:true});
+  document.addEventListener('touchend',function(){dragging=false;});
+})();
+})();
+</script>
+</body>
+</html>

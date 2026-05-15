@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 17</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+#right-panel input[type="text"],#right-panel select{user-select:text}
+.passage-section{display:none}
+.passage-section.active{display:block}
+.q-section{display:none}
+.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:6px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer,.check-label.selected-answer{background:#FFD580;border-radius:4px}
+.radio-label.correct,.check-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong,.check-label.wrong{background:#f8d7da!important;color:#721c24}
+.radio-label.missed{background:#fff3cd!important;border:2px dashed #856404}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+.word-bank-box{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+.word-bank-item{display:inline-block;margin:2px 6px;font-size:13px}
+.flow-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.flow-box{border:1px solid #aaa;border-radius:4px;padding:6px 10px;background:#fff;min-width:80px;text-align:center}
+.flow-arrow{font-size:18px;color:#888}
+.company-list{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+table.fill-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.fill-table td,table.fill-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.fill-table th{background:#e8eaf6;font-weight:700}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#submit-btn:hover{background:#2a5080}
+.hl-yellow{background:#FFE066}
+.hl-green{background:#90EE90}
+.hl-pink{background:#FFB6C1}
+/* Overlays */
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#start-btn:hover{background:#2a5080}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+#score-panel h2{color:#1a3a5c;margin-bottom:12px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #left-panel,#right-panel{width:100%!important;height:50vh}
+  #divider{display:none}
+  .tab-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 17</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label>
+    <input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label>
+    <input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát khỏi toàn màn hình. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+<div id="overtime-overlay">
+  <div id="overtime-box">
+    <p>⏰ Hết 60 phút! Bạn có thêm 5 phút để hoàn thành.<br>Bài sẽ tự nộp sau 5 phút.</p>
+    <button onclick="confirmSubmit()">Nộp bài ngay</button>
+  </div>
+</div>
+<div id="warning-banner"></div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">National Parks And Climate Change</div>
+      <div class="passage-para"><span class="subheading">A</span> National parks nature reserves, protected areas and sites of special scientific interest (SSSIs) are an important part of the natural landscape in most countries. Their habitat and terrains vary massively from tundra and glacier parks in the north to wetlands in Europe, steppes in central and Eastern Europe, and prairie grasslands and deserts in other areas virtually all kinds of landscape are protected somewhere. And these protected areas are important for the variety of plant and animal life they harbour: caribou, bears, wolves, rare types of fish and birds.</div>
+      <div class="passage-para"><span class="subheading">B</span> But these areas are under threat from a recent peril – global climate change. No amount of legislation in any one country can protect against a worldwide problem. What exactly are the problems caused by climate change? David Woodward, head of the British Council for Nature Conservation, spoke to Science Now’ about some of these areas, and his first point highlighted the enormous variation in nature reserves.</div>
+      <div class="passage-para"><span class="subheading">C</span> “Each park or reserve is an ecosystem,” he says, “and the larger reserves, such as those in Canada, may have several types of ecological subsystems within it. There are reserves which are half the size of Western Europe, so it doesn’t make sense to talk about them as if they were all the same or as if the microclimates within them were uniform,” Woodward outlines some of the dangers posed by climatic change to parks in the northern Americas, for example.</div>
+      <div class="passage-para"><span class="subheading">D</span> “If climatic change is severe, and in particular if the change is happening as quickly as it is at the moment, then the boundaries of the park no longer make much sense. A park that was designated as a protected area 90 years ago may suffer such change in its climate that the nature of it changes too. It will no longer contain the animal and plant life that it did. So the area which once protected, say. A species of reindeer or a type of scenery, will have changed. In effect, you lose the thing you were trying to protect.” This effect has already been seen in Canada, where parks which once contained glaciers have seen the glaciers melted by global warming.</div>
+      <div class="passage-para"><span class="subheading">E</span> Jennie Lindstrom, Chief Executive Officer of H2O, the charity which campaigns on an international level on behalf of mainland Europe’s protected wetland and wilderness areas, is even more pessimistic. In a letter to Science Now, she has asserted that up to 70% of such areas are already experiencing such significant change. In climate that the distribution patterns of flora and fauna are changing, and that all areas will eventually be affected. She estimates that the most profound change is occurring in the northernmost parks in areas such as Finland, Greenland, Iceland and northern Russia but adds that “there is no place which will not suffer the effects of global warming What we are seeing is a massive change in the environment – and that means the extinction of whole species, as well as visual and structural changes which means that areas like the Camargue may literally look totally different in 50 or 60 years’ time.”</div>
+      <div class="passage-para"><span class="subheading">F</span> The problems are manifold. First, it is difficult or impossible to predict which areas are most in need of help – that is, which areas are in most danger. Predicting climate change is even more unreliable than predicting the weather. Secondly, there is a sense that governments in most areas are apathetic towards a problem which may not manifest itself until long after that government’s term of office has come to an end in poor areas, of course, nature conservation is low on the list of priorities compared to, say employment or health. Third, and perhaps most important, even in areas where there is both the political will and the financial muscle to do something about the problem, it is hard to know just what to do. Maria Colehill of Forestlife, an American conservation body, thinks that in the case of climate change, the most we can realistically do is monitor the situation and allow for the changes that we cannot prevent, while lobbying governments internationally to make the changes to the pollution laws, for example, that will enable us to deal with the causes of the problem. “I am despondent.” she admits. “I have no doubt that a lot of the work we are doing on behalf of the North American lynx, for example, will be wasted The animal itself can live in virtually any environment where there are few humans, but of course its numbers are small. If climate change affects the other animal life in the areas where it now lives, if the food chain changes, then the lynx will be affected too. Less food for the lynx means fewer lynxes, or lynxes with nowhere to go.”</div>
+      <div class="passage-para"><span class="subheading">G</span> Certainly, climate change is not going to go away overnight. It is estimated that fossil fuels burnt in the 1950s will still be affecting our climate in another 30 years, so the charges will continue for some time after that If we want to protect the remnants of our wild landscapes for future generations, the impetus for change must come from the governments of the world.</div>
+    </div>
+
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">In boxes 1–7 on your answer sheet write</div>
+      <div class="passage-para">TRUE 			if the statement agrees with the information</div>
+      <div class="passage-para">FALSE 		if the statement contradicts the information</div>
+      <div class="passage-para">NOT GIVEN 		if there is no information on this</div>
+      <div class="passage-para">1 Every country has protected areas or national parks.</div>
+      <div class="passage-para">2 Countries can protect their parks by changing their laws.</div>
+      <div class="passage-para">3 A protected area or park can contain many different ecosystems.</div>
+      <div class="passage-para">4 David Woodward thinks that Canadian parks will all be different in 90 years.</div>
+      <div class="passage-para">5 Canada, more than any other country, has felt the effects of global warming.</div>
+      <div class="passage-para">6 H2O works to protect wetlands everywhere.</div>
+      <div class="passage-para">7 Some parts of the world will feel the results of global warming more than others.</div>
+    </div>
+
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction"></div>
+      <div class="passage-title" style="margin-top:12px">The Truth About Art</div>
+      <div class="passage-para">Modem art has had something of a bad press recently – or, to be more precise, it has always had a bad press in certain newspapers and amongst certain sectors of the public. In the public mind, it seems, art that is, graphic art — pictures – and spatial art – sculpture is divided into two broad categories. The first is “classic” art, by which is meant representational painting, drawing and sculpture; the second is “modem” art, also known as “abstract” or “non-representational”. British popular taste runs decidedly in favour of the former, if one believes a recent survey conducted by Sir Bruce McGowen, owner of the Tarn Gallery and Workshops in Suffolk, and one of Britain’s most influential artistic commentators. He found that the “man or woman  in the street” has a distrust of cubism, abstracts, sculptures made of hicks and all types of so-called “found” art, He likes Turner and Constable, the great representatives of British watercolour and oil painting respectively, or the French Impressionists, and his taste for statues is limited to the realistic figures of the great and good that litter the British landscape – Robin Hood in Nottingham and Oliver Cromwell outside the Houses of Parliament, This everyman does not believe in primary colours, abstraction and geometry in nature – the most common comment is that such-and-such a painting is “something a child could have done.”</div>
+      <div class="passage-para">Maurice Coates, director of the Buckinghamshire Galleries in Windsor, which specialises in modem painting, agrees. “Look around you at what ‘art’ is available every day,” he says. “Our great museums and galleries specialise in work which is designed to appeal to the lowest common denominator. It may be representational, it may be ‘realistic’ in one sense, but a lot of it wouldn’t make it into the great European galleries. Britain has had maybe two or three major world painters in the last 1000 years, so we make up the space with a lot of second-rate material.”</div>
+      <div class="passage-para">Coates believes that our ignorance of what “modem art” is has been caused by this lack of exposure to truly great art. He compares the experience of the average British city-dweller with that of a citizen of Italy, France or Spain.</div>
+      <div class="passage-para">“Of course, we don’t appreciate any kind of art in the same way because of the paucity of good art in Britain. We don’t have galleries of the quality of those in Madrid, Paris, Versailles, Florence, New York or even some places in Russia. We distrust good art – by which I mean both modern and traditional artistic forms – because we don’t have enough of it to learn about it. In other countries, people are surrounded by it from birth. Indeed, they lake it as a birthright, and are proud of it. The British tend to be suspicious of it. It’s not valued here.”</div>
+      <div class="passage-para">Not all agree. Jane Forrester, who runs the Hampshire Art House, believes that while the British do not have the same history of artistic experience as many European countries, their senses are as finely attuned to art as anyone else’s.</div>
+      <div class="passage-para">“Look at what sells – in the great art auction houses, in greetings cards, in posters. Look at what’s going on in local amateur art classes up and down the country. Of course, the British are not the same as other countries, but that’s true of all nationalities. The French artistic experience and outlook is not the same as the Italian. In Britain, we have artistic influences from all over the world. There’s the Irish, Welsh, and Scottish influences, as well as Caribbean, African and European, we also have strong links with the Far East, in particular the Indian subcontinent. All these influences come to bear in creating a British artistic outlook. There’s this tendency to say that British people only want garish pictures of clowns crying or ships sailing into battle, and that anything new or different is misunderstood. That’s not my experience at all. The British public is poorly educated in art, but that’s not the same as being uninterested in it.”</div>
+      <div class="passage-para">Forrester points to Britain’s long tradition of visionary artists such as William Blake, the London engraver and poet who died in 1827. Artists like Blake tended to be one-offs rather than members of a school, and their work is diverse and often word- based so it is difficult to export. Perhaps, as ever, the truth is somewhere in between these two opinions. It is true that visits to traditional galleries like the National and the National Portrait Gallery outnumber attendance at more modern shows, but this is the case in every country except Spain, perhaps because of the influence of the two most famous non-traditional Spanish painters of the 20th century, Picasso and Dali. However, what is also true is that Britain has produced a long line of individual artists with unique, almost unclassifiable styles such as Blake, Samuel Palmer and Henry Moore.</div>
+    </div>
+  </div>
+  <div id="divider"></div>
+  <div id="right-panel">
+<!-- QUESTIONS 1 -->
+<div class="q-section active" id="qs1">
+  <div class="q-block">
+    <div class="q-num">Questions 1–7</div>
+    <p class="q-instruction">Do the following statements agree with the information given in Reading Passage 1? Write <strong>TRUE</strong>, <strong>FALSE</strong>, or <strong>NOT GIVEN</strong>.</p>
+    <div class="q-text"><span class="q-num">1.</span> Every country has protected areas or national parks.<br><br><select  id="q1"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">2.</span> Countries can protect their parks by changing their laws.<br><br><select  id="q2"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">3.</span> A protected area or park can contain many different ecosystems.<br><br><select  id="q3"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">4.</span> David Woodward thinks that Canadian parks will all be different in 90 years.<br><br><select  id="q4"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">5.</span> Canada, more than any other country, has felt the effects of global warming.<br><br><select  id="q5"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">6.</span> H2O works to protect wetlands everywhere.<br><br><select  id="q6"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+    <div class="q-text"><span class="q-num">7.</span> Some parts of the world will feel the results of global warming more than others.<br><br><select  id="q7"><option value="">-- Select --</option><option>TRUE</option><option>FALSE</option><option>NOT GIVEN</option></select></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 8–13</div>
+    <p class="q-instruction">Complete the summary below. Choose your answers from the box below. There are more words than spaces.</p>
+    <div class="word-bank-box">
+      <strong>Word Box:</strong>
+      governmental willingness &nbsp;|&nbsp; lots of ways &nbsp;|&nbsp; global warming &nbsp;|&nbsp; internationally &nbsp;|&nbsp; for many years &nbsp;|&nbsp; locally &nbsp;|&nbsp; go away overnight &nbsp;|&nbsp; many problems &nbsp;|&nbsp; after all
+    </div>
+    <div class="notes-box">
+      There are <strong>8</strong> <select  id="q8" style="width:180px;"><option value="">-- Select --</option><option>governmental willingness</option><option>lots of ways</option><option>global warming</option><option>internationally</option><option>for many years</option><option>locally</option><option>go away overnight</option><option>many problems</option><option>after all</option></select> in attempting to stop the effects of <strong>9</strong> <select  id="q9" style="width:175px;"><option value="">-- Select --</option><option>governmental willingness</option><option>lots of ways</option><option>global warming</option><option>internationally</option><option>for many years</option><option>locally</option><option>go away overnight</option><option>many problems</option><option>after all</option></select>. One is the problem of predicting change. Another is a lack of <strong>10</strong> <select  id="q10" style="width:200px;"><option value="">-- Select --</option><option>governmental willingness</option><option>lots of ways</option><option>global warming</option><option>internationally</option><option>for many years</option><option>locally</option><option>go away overnight</option><option>many problems</option><option>after all</option></select> to change the situation; most governments' interest in the problem is limited because it will not become very serious <strong>11</strong> <select  id="q11" style="width:160px;"><option value="">-- Select --</option><option>governmental willingness</option><option>lots of ways</option><option>global warming</option><option>internationally</option><option>for many years</option><option>locally</option><option>go away overnight</option><option>many problems</option><option>after all</option></select>. Finally, there is the problem of what action to take. One solution is both to keep an eye on the situation and push for changes <strong>12</strong> <select  id="q12" style="width:165px;"><option value="">-- Select --</option><option>governmental willingness</option><option>lots of ways</option><option>global warming</option><option>internationally</option><option>for many years</option><option>locally</option><option>go away overnight</option><option>many problems</option><option>after all</option></select>. Even if we do this, the problem is not going to <strong>13</strong> <select  id="q13" style="width:190px;"><option value="">-- Select --</option><option>governmental willingness</option><option>lots of ways</option><option>global warming</option><option>internationally</option><option>for many years</option><option>locally</option><option>go away overnight</option><option>many problems</option><option>after all</option></select>.
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 14–15</div>
+    <p class="q-instruction">Reading Passage 1 has seven paragraphs <strong>A–G</strong>. Which paragraphs state the following information?</p>
+    <div class="q-text"><span class="q-num">14.</span> All areas of the world are likely to be affected by global climate changes.<br><br><select  id="q14"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select></div>
+    <div class="q-text"><span class="q-num">15.</span> Remedies for global warming will not reverse these trends immediately.<br><br><select  id="q15"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option></select></div>
+  </div>
+</div>
+
+<!-- QUESTIONS 2 -->
+<div class="q-section" id="qs2">
+  <div class="q-block">
+    <div class="q-num">Questions 16–24</div>
+    <p class="q-instruction">Classify the following statements as referring to:<br><strong>A</strong> – Sir Bruce McGowen &nbsp;|&nbsp; <strong>B</strong> – Maurice Coates &nbsp;|&nbsp; <strong>C</strong> – Jane Forrester &nbsp;|&nbsp; <strong>D</strong> – None of the above</p>
+    <div class="q-text"><span class="q-num">16.</span> British people don't appreciate art because they don't see enough art around them all the time.<br><br><select  id="q16"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+    <div class="q-text"><span class="q-num">17.</span> British museums aim to appeal to popular tastes in art.<br><br><select  id="q17"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+    <div class="q-text"><span class="q-num">18.</span> The average Englishman likes the works of Turner and Constable.<br><br><select  id="q18"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+    <div class="q-text"><span class="q-num">19.</span> Britain, like every other country, has its own view of what art is.<br><br><select  id="q19"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+    <div class="q-text"><span class="q-num">20.</span> In Britain, interest in art is mainly limited to traditional forms such as representational painting.<br><br><select  id="q20"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+    <div class="q-text"><span class="q-num">21.</span> Art in France and Italy has been affected by other cultures.<br><br><select  id="q21"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+    <div class="q-text"><span class="q-num">22.</span> Galleries in other countries are of better quality than those in Britain.<br><br><select  id="q22"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+    <div class="q-text"><span class="q-num">23.</span> People are not raised to appreciate art.<br><br><select  id="q23"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+    <div class="q-text"><span class="q-num">24.</span> The British have a limited knowledge of art.<br><br><select  id="q24"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option></select></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 25–27</div>
+    <p class="q-instruction">Choose the correct letter, <strong>A</strong>, <strong>B</strong>, <strong>C</strong> or <strong>D</strong>.</p>
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;"><span class="q-num">25</span><span class="q-text">Many British artists</span></div>
+      <div style="margin-left:42px;"><div class="options-list">
+        <label class="radio-label"><input type="radio" name="q25" value="A"><span><strong>A</strong> &nbsp;are engravers or poets</span></label>
+        <label class="radio-label"><input type="radio" name="q25" value="B"><span><strong>B</strong> &nbsp;are great but liked only in Britain</span></label>
+        <label class="radio-label"><input type="radio" name="q25" value="C"><span><strong>C</strong> &nbsp;do not belong to a school or general trend</span></label>
+        <label class="radio-label"><input type="radio" name="q25" value="D"><span><strong>D</strong> &nbsp;are influenced by Picasso and Dali</span></label>
+      </div></div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;"><span class="q-num">26</span><span class="q-text">"Classic" art can be described as</span></div>
+      <div style="margin-left:42px;"><div class="options-list">
+        <label class="radio-label"><input type="radio" name="q26" value="A"><span><strong>A</strong> &nbsp;sentimental, realistic paintings with geometric shapes</span></label>
+        <label class="radio-label"><input type="radio" name="q26" value="B"><span><strong>B</strong> &nbsp;realistic paintings with primary colours</span></label>
+        <label class="radio-label"><input type="radio" name="q26" value="C"><span><strong>C</strong> &nbsp;abstract modern paintings and sculptures</span></label>
+        <label class="radio-label"><input type="radio" name="q26" value="D"><span><strong>D</strong> &nbsp;realistic, representational pictures and sculptures</span></label>
+      </div></div>
+    </div>
+    <div style="margin-bottom:14px;">
+      <div style="display:flex;gap:10px;"><span class="q-num">27</span><span class="q-text">In Spain people probably enjoy modern art because</span></div>
+      <div style="margin-left:42px;"><div class="options-list">
+        <label class="radio-label"><input type="radio" name="q27" value="A"><span><strong>A</strong> &nbsp;their artists have a classifiable style</span></label>
+        <label class="radio-label"><input type="radio" name="q27" value="B"><span><strong>B</strong> &nbsp;the most renowned modern artists are Spanish</span></label>
+        <label class="radio-label"><input type="radio" name="q27" value="C"><span><strong>C</strong> &nbsp;they attend many modern exhibitions</span></label>
+        <label class="radio-label"><input type="radio" name="q27" value="D"><span><strong>D</strong> &nbsp;they have different opinions on art</span></label>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<!-- QUESTIONS 3 -->
+<div class="q-section" id="qs3">
+  <div class="q-block">
+    <div class="q-num">Questions 28–30</div>
+    <p class="q-instruction">Choose <strong>TWO</strong> letters, <strong>A–E</strong>, for each question.</p>
+    <div style="margin-bottom:18px;">
+      <p style="font-size:14px;font-weight:bold;margin-bottom:8px;">28 &nbsp;The Aboriginal demand that bones be returned to Australia is based on which TWO ideas?</p>
+      <p style="font-size:13px;color:#888;margin-bottom:6px;">(Chọn đúng 2 đáp án)</p>
+      <div class="options-list" id="q28-opts">
+        <label class="check-label"><input type="checkbox" name="q28" value="A"><span><strong>A</strong> &nbsp;The rightful place for the remains is Australia</span></label>
+        <label class="check-label"><input type="checkbox" name="q28" value="B"><span><strong>B</strong> &nbsp;Britain had no right to take the remains.</span></label>
+        <label class="check-label"><input type="checkbox" name="q28" value="C"><span><strong>C</strong> &nbsp;The remains have religious significance for Aborigines</span></label>
+        <label class="check-label"><input type="checkbox" name="q28" value="D"><span><strong>D</strong> &nbsp;Some remains have already been returned</span></label>
+        <label class="check-label"><input type="checkbox" name="q28" value="E"><span><strong>E</strong> &nbsp;They believe the remains must be returned to their ancestors to find peace</span></label>
+      </div>
+    </div>
+    <div style="margin-bottom:18px;">
+      <p style="font-size:14px;font-weight:bold;margin-bottom:8px;">29 &nbsp;Which TWO factors might cause problems when it comes to returning the remains?</p>
+      <p style="font-size:13px;color:#888;margin-bottom:6px;">(Chọn đúng 2 đáp án)</p>
+      <div class="options-list" id="q29-opts">
+        <label class="check-label"><input type="checkbox" name="q29" value="A"><span><strong>A</strong> &nbsp;Scottish and English law does not allow museums to return objects</span></label>
+        <label class="check-label"><input type="checkbox" name="q29" value="B"><span><strong>B</strong> &nbsp;It is not clear what will happen to the remains once they have been returned</span></label>
+        <label class="check-label"><input type="checkbox" name="q29" value="C"><span><strong>C</strong> &nbsp;The remains are scientifically important and need to be studied</span></label>
+        <label class="check-label"><input type="checkbox" name="q29" value="D"><span><strong>D</strong> &nbsp;Not all the Australian artifacts are human remains</span></label>
+        <label class="check-label"><input type="checkbox" name="q29" value="E"><span><strong>E</strong> &nbsp;Some museums do not have the right to return objects to their countries of origin</span></label>
+      </div>
+    </div>
+    <div style="margin-bottom:10px;">
+      <p style="font-size:14px;font-weight:bold;margin-bottom:8px;">30 &nbsp;Which TWO points may help to speed up the process of returning the remains?</p>
+      <p style="font-size:13px;color:#888;margin-bottom:6px;">(Chọn đúng 2 đáp án)</p>
+      <div class="options-list" id="q30-opts">
+        <label class="check-label"><input type="checkbox" name="q30" value="A"><span><strong>A</strong> &nbsp;The British government is going to discuss the return of Aboriginal items</span></label>
+        <label class="check-label"><input type="checkbox" name="q30" value="B"><span><strong>B</strong> &nbsp;Some items have already been returned to their countries of origin</span></label>
+        <label class="check-label"><input type="checkbox" name="q30" value="C"><span><strong>C</strong> &nbsp;There is already some sympathy to the Aborigines' claims in the world of archaeology</span></label>
+        <label class="check-label"><input type="checkbox" name="q30" value="D"><span><strong>D</strong> &nbsp;Not all the Australian artifacts are human remains</span></label>
+        <label class="check-label"><input type="checkbox" name="q30" value="E"><span><strong>E</strong> &nbsp;The remains have religious significance for Aborigines</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 31–36</div>
+    <p class="q-instruction">Classify the following opinions as referring to:<br><strong>A</strong> – National College of Surgeons &nbsp;|&nbsp; <strong>B</strong> – Stevie McCoy &nbsp;|&nbsp; <strong>C</strong> – Dr William Cowell Bell &nbsp;|&nbsp; <strong>D</strong> – Lady Amanda Spurway &nbsp;|&nbsp; <strong>E</strong> – Ewan Mather &nbsp;|&nbsp; <strong>F</strong> – None of the above</p>
+    <div class="q-text"><span class="q-num">31.</span> No country would allow the bones of its citizens to be used for scientific purposes in another country.<br><br><select  id="q31"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+    <div class="q-text"><span class="q-num">32.</span> The Glover Museum is ready to return its Aboriginal bones.<br><br><select  id="q32"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+    <div class="q-text"><span class="q-num">33.</span> Australian remains are a useful resource for scientific study.<br><br><select  id="q33"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+    <div class="q-text"><span class="q-num">34.</span> It would be a problem to accurately identify the human remains.<br><br><select  id="q34"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+    <div class="q-text"><span class="q-num">35.</span> Most Aboriginal remains in Britain have been made into artifacts.<br><br><select  id="q35"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+    <div class="q-text"><span class="q-num">36.</span> Discrepancies in the laws of different countries can hinder the return of relics.<br><br><select  id="q36"><option value="">-- Select --</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select></div>
+  </div>
+
+  <div class="q-block">
+    <div class="q-num">Questions 37–40</div>
+    <p class="q-instruction">Complete the paragraph based on Reading Passage 3. Use <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.</p>
+    <div class="notes-box" style="line-height:2.3;">
+      Aborigines believe that the remains should be returned for a number of reasons. First is the fact that the relics were taken during the period when Australia was a <strong>37</strong> <input type="text"  id="q37" placeholder="≤2 words" style="width:160px;">. The Aborigine belief that their ancestors can only <strong>38</strong> <input type="text"  id="q38" placeholder="≤2 words" style="width:140px;"> if their bones are returned is a further factor. Thirdly, the restitution of the remains is an issue of human rights. However, objectors who oppose the return of the artifacts point out that not only is there a <strong>39</strong> <input type="text"  id="q39" placeholder="≤2 words" style="width:130px;"> problem, but also that the remains constitute an important <strong>40</strong> <input type="text"  id="q40" placeholder="≤2 words" style="width:140px;"> in studying the lifestyle of the Aborigines.
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 17</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+<script>
+(function(){
+'use strict';
+var ANS = {
+  q1:'FALSE', q2:'FALSE', q3:'TRUE', q4:'NOT GIVEN', q5:'NOT GIVEN', q6:'FALSE', q7:'TRUE',
+  q8:'many problems',
+  q9:'global warming',
+  q10:'governmental willingness',
+  q11:'for many years',
+  q12:'internationally',
+  q13:'go away overnight',
+  q14:'E', q15:'G',
+  q16:'B', q17:'B', q18:'A', q19:'C', q20:'A', q21:'D', q22:'B', q23:'D', q24:'B',
+  q25:'C', q26:'D', q27:'B',
+  q28:['A','E'], q29:['C','E'], q30:['B','C'],
+  q31:'B', q32:'D', q33:'C', q34:'A', q35:'F', q36:'E',
+  q37:['british colony'],
+  q38:['find peace'],
+  q39:['legal'],
+  q40:['resource']
+};
+var TOTAL_QUESTIONS=40,P1_COUNT=15,P2_COUNT=12,P3_COUNT=13;
+var currentTab=1,hlMode='yellow',timerStopped=false,submitted=false;
+var tabViolations=0,focusViolations=0,fsViolations=0,violationLog=[];
+var startTime=null,timerInterval=null,overtimeFired=false;
+var hlColors={yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function setHL(mode){
+  hlMode=mode;
+  ['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.remove('active-hl');});
+  var t=mode==='clear'?'hl-clear':'hl-'+mode,el=document.getElementById(t);if(el)el.classList.add('active-hl');
+}
+window.setHL=setHL;
+function applyHighlight(container){
+  var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;
+  var range=sel.getRangeAt(0);if(!container.contains(range.commonAncestorContainer))return;
+  if(hlMode==='clear'){sel.removeAllRanges();return;}
+  try{var span=document.createElement('span');span.className=hlColors[hlMode];var frag=range.extractContents();span.appendChild(frag);range.insertNode(span);}catch(e){}
+  sel.removeAllRanges();
+}
+function handleErase(e,container){
+  if(hlMode!=='clear')return;var t=e.target;
+  while(t&&t!==container){if(t.tagName==='SPAN'&&(t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){var p=t.parentNode;while(t.firstChild)p.insertBefore(t.firstChild,t);p.removeChild(t);p.normalize();break;}t=t.parentNode;}
+}
+['left-panel','right-panel'].forEach(function(pid){
+  var panel=document.getElementById(pid);if(!panel)return;
+  panel.addEventListener('mouseup',function(){applyHighlight(panel);});
+  panel.addEventListener('click',function(e){handleErase(e,panel);});
+});
+function switchTab(n){
+  currentTab=n;[1,2,3].forEach(function(i){
+    document.getElementById('pass'+i).classList.toggle('active',i===n);
+    document.getElementById('qs'+i).classList.toggle('active',i===n);
+    document.getElementById('tab'+i).classList.toggle('active',i===n);
+  });
+  document.getElementById('left-panel').scrollTop=0;document.getElementById('right-panel').scrollTop=0;
+}
+window.switchTab=switchTab;
+function formatTime(sec){var m=Math.floor(sec/60),s=sec%60;return(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function startTimer(){
+  var box=document.getElementById('timer-box');
+  timerInterval=setInterval(function(){
+    if(timerStopped){clearInterval(timerInterval);box.style.display='none';return;}
+    if(!startTime)return;
+    var elapsed=Math.floor((Date.now()-startTime)/1000),remaining=3600-elapsed;
+    if(remaining<=0&&!overtimeFired){overtimeFired=true;box.textContent='00:00';document.getElementById('overtime-overlay').style.display='flex';setTimeout(function(){if(!submitted)confirmSubmit();},300000);return;}
+    if(remaining>0){box.textContent=formatTime(remaining);if(remaining<=120){box.className='';box.classList.add('danger');}else if(remaining<=600){box.className='';box.classList.add('warn');}else{box.className='';}}
+  },500);
+}
+window.stopTimer=function(){timerStopped=true;};
+window.enterFullscreen=function(){
+  var el=document.documentElement;
+  try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}
+  document.getElementById('fs-overlay').style.display='none';
+};
+document.addEventListener('fullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');document.getElementById('fs-overlay').style.display='flex';}});
+document.addEventListener('webkitfullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;document.getElementById('fs-overlay').style.display='flex';}});
+window.startExam=function(){
+  var name=document.getElementById('inp-name').value.trim(),cls=document.getElementById('inp-class').value.trim();
+  if(!name||!cls){document.getElementById('popup-err').style.display='block';return;}
+  window._studentName=name;window._studentClass=cls;
+  startTime=window._testStartTime=Date.now();
+  document.getElementById('popup-overlay').style.display='none';
+  enterFullscreen();startTimer();
+};
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(['F12'].indexOf(e.key)>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}
+  if(e.key==='Escape'&&!submitted){e.preventDefault();}
+});
+document.addEventListener('visibilitychange',function(){
+  if(submitted||!startTime)return;
+  if(document.hidden){tabViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab (lần '+tabViolations+')');showWarning('⚠ Phát hiện chuyển tab! Vi phạm lần '+tabViolations);}
+});
+window.addEventListener('blur',function(){
+  if(submitted||!startTime)return;
+  focusViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Mất focus (lần '+focusViolations+')');showWarning('⚠ Phát hiện rời cửa sổ! Vi phạm lần '+focusViolations);
+});
+},1000);
+function showWarning(msg){var b=document.getElementById('warning-banner');b.textContent=msg;b.style.display='block';clearTimeout(b._t);b._t=setTimeout(function(){b.style.display='none';},4000);}
+document.querySelectorAll('input[type="radio"]').forEach(function(inp){
+  inp.addEventListener('change',function(){
+    document.querySelectorAll('input[name="'+inp.name+'"]').forEach(function(r){var l=r.closest('label');if(l)l.classList.remove('selected-answer');});
+    var l=inp.closest('label');if(l&&inp.checked)l.classList.add('selected-answer');
+  });
+});
+document.querySelectorAll('input[type="checkbox"]').forEach(function(inp){
+  inp.addEventListener('change',function(){var l=inp.closest('label');if(l){if(inp.checked)l.classList.add('selected-answer');else l.classList.remove('selected-answer');}});
+});
+function wireCheckLimit(name,max){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    inp.addEventListener('change',function(){
+      if(inp.checked){var n=document.querySelectorAll('input[name="'+name+'"]:checked').length;if(n>max){inp.checked=false;var l=inp.closest('label');if(l)l.classList.remove('selected-answer');showCheckLimit(name,max);}}
+    });
+  });
+}
+function showCheckLimit(name,max){var id='chk-limit-'+name,el=document.getElementById(id);if(!el)return;el.textContent='⚠ Chỉ được chọn tối đa '+max+' đáp án!';el.style.color='#e74c3c';el.style.fontWeight='bold';el.style.fontSize='12px';clearTimeout(el._t);el._t=setTimeout(function(){el.textContent='';},2500);}
+wireCheckLimit('q28',2);
+wireCheckLimit('q29',2);
+wireCheckLimit('q30',2);
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getRad(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function getChecked(name){var r=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){r.push(c.value);});return r;}
+function chkText(id,ans){var v=getVal(id).toLowerCase();if(Array.isArray(ans))return ans.some(function(a){return v===a.toLowerCase();});return v===ans.toLowerCase();}
+function chkSel(id,ans){return getVal(id)===ans;}
+function chkRad(name,ans){return getRad(name)===ans;}
+function chkCheck(name,ans){return getChecked(name).sort().join(',')===ans.slice().sort().join(',');}
+window.askSubmit=function(){if(submitted)return;document.getElementById('confirm-overlay').style.display='flex';};
+window.confirmSubmit=function(){if(submitted)return;submitted=true;document.getElementById('confirm-overlay').style.display='none';document.getElementById('overtime-overlay').style.display='none';window.stopTimer();doSubmit();};
+function doSubmit(){
+  document.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true;});
+  document.querySelectorAll('.selected-answer').forEach(function(el){el.classList.remove('selected-answer');});
+  var p1=0,p2=0,p3=0;
+  (function(){var ok=chkRad('q1',ANS['q1']);markRadio('q1',ok,ANS['q1']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q2',ANS['q2']);markRadio('q2',ok,ANS['q2']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q3',ANS['q3']);markRadio('q3',ok,ANS['q3']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q4',ANS['q4']);markRadio('q4',ok,ANS['q4']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q5',ANS['q5']);markRadio('q5',ok,ANS['q5']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q6',ANS['q6']);markRadio('q6',ok,ANS['q6']);if(ok)p1++;})();
+  (function(){var ok=chkRad('q7',ANS['q7']);markRadio('q7',ok,ANS['q7']);if(ok)p1++;})();
+  (function(){var ok=chkText('q8',ANS['q8']);markText('q8',ok,Array.isArray(ANS['q8'])?ANS['q8'][0]:ANS['q8']);if(ok)p1++;})();
+  (function(){var ok=chkText('q9',ANS['q9']);markText('q9',ok,Array.isArray(ANS['q9'])?ANS['q9'][0]:ANS['q9']);if(ok)p1++;})();
+  (function(){var ok=chkText('q10',ANS['q10']);markText('q10',ok,Array.isArray(ANS['q10'])?ANS['q10'][0]:ANS['q10']);if(ok)p1++;})();
+  (function(){var ok=chkText('q11',ANS['q11']);markText('q11',ok,Array.isArray(ANS['q11'])?ANS['q11'][0]:ANS['q11']);if(ok)p1++;})();
+  (function(){var ok=chkText('q12',ANS['q12']);markText('q12',ok,Array.isArray(ANS['q12'])?ANS['q12'][0]:ANS['q12']);if(ok)p1++;})();
+  (function(){var ok=chkText('q13',ANS['q13']);markText('q13',ok,Array.isArray(ANS['q13'])?ANS['q13'][0]:ANS['q13']);if(ok)p1++;})();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q14"]');
+    var ok=hasRadio?chkRad('q14',ANS['q14']):chkSel('q14',ANS['q14']);
+    if(hasRadio)markRadio('q14',ok,ANS['q14']);else markSelect('q14',ok,ANS['q14']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q15"]');
+    var ok=hasRadio?chkRad('q15',ANS['q15']):chkSel('q15',ANS['q15']);
+    if(hasRadio)markRadio('q15',ok,ANS['q15']);else markSelect('q15',ok,ANS['q15']);
+    if(ok)p1++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q16"]');
+    var ok=hasRadio?chkRad('q16',ANS['q16']):chkSel('q16',ANS['q16']);
+    if(hasRadio)markRadio('q16',ok,ANS['q16']);else markSelect('q16',ok,ANS['q16']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q17"]');
+    var ok=hasRadio?chkRad('q17',ANS['q17']):chkSel('q17',ANS['q17']);
+    if(hasRadio)markRadio('q17',ok,ANS['q17']);else markSelect('q17',ok,ANS['q17']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q18"]');
+    var ok=hasRadio?chkRad('q18',ANS['q18']):chkSel('q18',ANS['q18']);
+    if(hasRadio)markRadio('q18',ok,ANS['q18']);else markSelect('q18',ok,ANS['q18']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q19"]');
+    var ok=hasRadio?chkRad('q19',ANS['q19']):chkSel('q19',ANS['q19']);
+    if(hasRadio)markRadio('q19',ok,ANS['q19']);else markSelect('q19',ok,ANS['q19']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q20"]');
+    var ok=hasRadio?chkRad('q20',ANS['q20']):chkSel('q20',ANS['q20']);
+    if(hasRadio)markRadio('q20',ok,ANS['q20']);else markSelect('q20',ok,ANS['q20']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q21"]');
+    var ok=hasRadio?chkRad('q21',ANS['q21']):chkSel('q21',ANS['q21']);
+    if(hasRadio)markRadio('q21',ok,ANS['q21']);else markSelect('q21',ok,ANS['q21']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q22"]');
+    var ok=hasRadio?chkRad('q22',ANS['q22']):chkSel('q22',ANS['q22']);
+    if(hasRadio)markRadio('q22',ok,ANS['q22']);else markSelect('q22',ok,ANS['q22']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q23"]');
+    var ok=hasRadio?chkRad('q23',ANS['q23']):chkSel('q23',ANS['q23']);
+    if(hasRadio)markRadio('q23',ok,ANS['q23']);else markSelect('q23',ok,ANS['q23']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q24"]');
+    var ok=hasRadio?chkRad('q24',ANS['q24']):chkSel('q24',ANS['q24']);
+    if(hasRadio)markRadio('q24',ok,ANS['q24']);else markSelect('q24',ok,ANS['q24']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q25"]');
+    var ok=hasRadio?chkRad('q25',ANS['q25']):chkSel('q25',ANS['q25']);
+    if(hasRadio)markRadio('q25',ok,ANS['q25']);else markSelect('q25',ok,ANS['q25']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q26"]');
+    var ok=hasRadio?chkRad('q26',ANS['q26']):chkSel('q26',ANS['q26']);
+    if(hasRadio)markRadio('q26',ok,ANS['q26']);else markSelect('q26',ok,ANS['q26']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q27"]');
+    var ok=hasRadio?chkRad('q27',ANS['q27']):chkSel('q27',ANS['q27']);
+    if(hasRadio)markRadio('q27',ok,ANS['q27']);else markSelect('q27',ok,ANS['q27']);
+    if(ok)p2++;
+  })();
+  (function(){
+    var correct=ANS['q28'],chosen=getChecked('q28');
+    markCheckbox('q28',correct);
+    chosen.forEach(function(v){if(correct.indexOf(v)>=0)p3++;});
+    var ar=document.getElementById('ar28');if(ar)ar.textContent=chkCheck('q28',correct)?'':'✓ Đáp án: '+correct.join(', ');
+  })();
+  (function(){
+    var correct=ANS['q29'],chosen=getChecked('q29');
+    markCheckbox('q29',correct);
+    chosen.forEach(function(v){if(correct.indexOf(v)>=0)p3++;});
+    var ar=document.getElementById('ar29');if(ar)ar.textContent=chkCheck('q29',correct)?'':'✓ Đáp án: '+correct.join(', ');
+  })();
+  (function(){
+    var correct=ANS['q30'],chosen=getChecked('q30');
+    markCheckbox('q30',correct);
+    chosen.forEach(function(v){if(correct.indexOf(v)>=0)p3++;});
+    var ar=document.getElementById('ar30');if(ar)ar.textContent=chkCheck('q30',correct)?'':'✓ Đáp án: '+correct.join(', ');
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q31"]');
+    var ok=hasRadio?chkRad('q31',ANS['q31']):chkSel('q31',ANS['q31']);
+    if(hasRadio)markRadio('q31',ok,ANS['q31']);else markSelect('q31',ok,ANS['q31']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q32"]');
+    var ok=hasRadio?chkRad('q32',ANS['q32']):chkSel('q32',ANS['q32']);
+    if(hasRadio)markRadio('q32',ok,ANS['q32']);else markSelect('q32',ok,ANS['q32']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q33"]');
+    var ok=hasRadio?chkRad('q33',ANS['q33']):chkSel('q33',ANS['q33']);
+    if(hasRadio)markRadio('q33',ok,ANS['q33']);else markSelect('q33',ok,ANS['q33']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q34"]');
+    var ok=hasRadio?chkRad('q34',ANS['q34']):chkSel('q34',ANS['q34']);
+    if(hasRadio)markRadio('q34',ok,ANS['q34']);else markSelect('q34',ok,ANS['q34']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q35"]');
+    var ok=hasRadio?chkRad('q35',ANS['q35']):chkSel('q35',ANS['q35']);
+    if(hasRadio)markRadio('q35',ok,ANS['q35']);else markSelect('q35',ok,ANS['q35']);
+    if(ok)p3++;
+  })();
+  (function(){
+    var hasRadio=!!document.querySelector('input[name="q36"]');
+    var ok=hasRadio?chkRad('q36',ANS['q36']):chkSel('q36',ANS['q36']);
+    if(hasRadio)markRadio('q36',ok,ANS['q36']);else markSelect('q36',ok,ANS['q36']);
+    if(ok)p3++;
+  })();
+  (function(){var ok=chkText('q37',ANS['q37']);markText('q37',ok,ANS['q37'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q38',ANS['q38']);markText('q38',ok,ANS['q38'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q39',ANS['q39']);markText('q39',ok,ANS['q39'][0]);if(ok)p3++;})();
+  (function(){var ok=chkText('q40',ANS['q40']);markText('q40',ok,ANS['q40'][0]);if(ok)p3++;})();
+  var total=p1+p2+p3,band=getBand(total);
+  showScore(p1,p2,p3,total,band);sendResults(p1,p2,p3,total,band);
+}
+function markSelect(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markText(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var ar=document.getElementById('ar'+id.replace('q',''));if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markRadio(name,ok,correct){var num=name.replace('q','');document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(inp.value===correct)l.classList.add('correct');else if(inp.checked&&inp.value!==correct)l.classList.add('wrong');});var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markCheckbox(name,correct){document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var l=inp.closest('label');if(!l)return;if(correct.indexOf(inp.value)>=0){l.classList.add(inp.checked?'correct':'missed');}else if(inp.checked){l.classList.add('wrong');}});}
+function getBand(s){if(s>=39)return'Band 9';if(s>=37)return'Band 8.5';if(s>=35)return'Band 8';if(s>=33)return'Band 7.5';if(s>=30)return'Band 7';if(s>=27)return'Band 6.5';if(s>=23)return'Band 6';if(s>=19)return'Band 5.5';if(s>=15)return'Band 5';if(s>=13)return'Band 4.5';if(s>=10)return'Band 4';return'Dưới Band 4';}
+function getTimeTaken(){if(!startTime)return'N/A';var e=Math.floor((Date.now()-startTime)/1000),m=Math.floor(e/60),s=e%60;return m+' phút '+s+' giây';}
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var h='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr>';
+  h+='<tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr>';
+  h+='<tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr>';
+  h+='<tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr></table>';
+  h+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p>';
+  h+='<p style="color:#555;margin-top:6px">⏱ Thời gian: '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=h;
+  if(tabViolations+focusViolations+fsViolations>0){
+    var v='<strong>📋 Báo cáo vi phạm:</strong><br>Chuyển tab: '+tabViolations+' lần | Mất focus: '+focusViolations+' lần | Thoát fullscreen: '+fsViolations+' lần<br>';
+    if(violationLog.length)v+='<small>'+violationLog.join('<br>')+'</small>';
+    document.getElementById('violation-report').innerHTML=v;
+  }
+}
+function buildDetails(){
+  var parts=[];
+  (function(){var v=getRad('q1');parts.push('Q1:'+(v===ANS['q1']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q2');parts.push('Q2:'+(v===ANS['q2']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q3');parts.push('Q3:'+(v===ANS['q3']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q4');parts.push('Q4:'+(v===ANS['q4']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q5');parts.push('Q5:'+(v===ANS['q5']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q6');parts.push('Q6:'+(v===ANS['q6']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q7');parts.push('Q7:'+(v===ANS['q7']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q8'),ok=chkText('q8',ANS['q8'])?'✔':'✘';parts.push('Q8:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q9'),ok=chkText('q9',ANS['q9'])?'✔':'✘';parts.push('Q9:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q10'),ok=chkText('q10',ANS['q10'])?'✔':'✘';parts.push('Q10:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q11'),ok=chkText('q11',ANS['q11'])?'✔':'✘';parts.push('Q11:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q12'),ok=chkText('q12',ANS['q12'])?'✔':'✘';parts.push('Q12:'+ok+'('+v+')');})()
+  (function(){var v=getVal('q13'),ok=chkText('q13',ANS['q13'])?'✔':'✘';parts.push('Q13:'+ok+'('+v+')');})()
+  (function(){var v=getRad('q14')||getVal('q14');parts.push('Q14:'+(v===ANS['q14']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q15')||getVal('q15');parts.push('Q15:'+(v===ANS['q15']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q16')||getVal('q16');parts.push('Q16:'+(v===ANS['q16']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q17')||getVal('q17');parts.push('Q17:'+(v===ANS['q17']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q18')||getVal('q18');parts.push('Q18:'+(v===ANS['q18']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q19')||getVal('q19');parts.push('Q19:'+(v===ANS['q19']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q20')||getVal('q20');parts.push('Q20:'+(v===ANS['q20']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q21')||getVal('q21');parts.push('Q21:'+(v===ANS['q21']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q22')||getVal('q22');parts.push('Q22:'+(v===ANS['q22']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q23')||getVal('q23');parts.push('Q23:'+(v===ANS['q23']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q24')||getVal('q24');parts.push('Q24:'+(v===ANS['q24']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q25')||getVal('q25');parts.push('Q25:'+(v===ANS['q25']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q26')||getVal('q26');parts.push('Q26:'+(v===ANS['q26']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q27')||getVal('q27');parts.push('Q27:'+(v===ANS['q27']?'✔':'✘')+'('+v+')');})();
+  (function(){var chosen=getChecked('q28'),correct=ANS['q28'];parts.push('Q28:['+chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');}).join(' ')+']');})();
+  (function(){var chosen=getChecked('q29'),correct=ANS['q29'];parts.push('Q29:['+chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');}).join(' ')+']');})();
+  (function(){var chosen=getChecked('q30'),correct=ANS['q30'];parts.push('Q30:['+chosen.map(function(v){return v+(correct.indexOf(v)>=0?'✔':'✘');}).join(' ')+']');})();
+  (function(){var v=getRad('q31')||getVal('q31');parts.push('Q31:'+(v===ANS['q31']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q32')||getVal('q32');parts.push('Q32:'+(v===ANS['q32']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q33')||getVal('q33');parts.push('Q33:'+(v===ANS['q33']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q34')||getVal('q34');parts.push('Q34:'+(v===ANS['q34']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q35')||getVal('q35');parts.push('Q35:'+(v===ANS['q35']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getRad('q36')||getVal('q36');parts.push('Q36:'+(v===ANS['q36']?'✔':'✘')+'('+v+')');})();
+  (function(){var v=getVal('q37'),ok=chkText('q37',ANS['q37'])?'✔':'✘';parts.push('Q37:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q38'),ok=chkText('q38',ANS['q38'])?'✔':'✘';parts.push('Q38:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q39'),ok=chkText('q39',ANS['q39'])?'✔':'✘';parts.push('Q39:'+ok+'('+v+')');})();
+  (function(){var v=getVal('q40'),ok=chkText('q40',ANS['q40'])?'✔':'✘';parts.push('Q40:'+ok+'('+v+')');})();
+  return parts.join(' | ');
+}
+function sendResults(p1,p2,p3,total,band){
+  var payload={action:'save_result',timestamp:new Date().toISOString(),student:(window._studentName||'')+'  —  '+(window._studentClass||''),test:'Reading Test 17',score:total,total:TOTAL_QUESTIONS,band:band,timeTaken:getTimeTaken(),p1score:p1+'/'+P1_COUNT,p2score:p2+'/'+P2_COUNT,p3score:p3+'/'+P3_COUNT,tabViol:tabViolations,focusViol:focusViolations,fsViol:fsViolations,details:buildDetails()};
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+}
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX=0,startW=0;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+  div.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startW=left.offsetWidth;},{passive:true});
+  document.addEventListener('touchmove',function(e){if(!dragging)return;var w=startW+(e.touches[0].clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';},{passive:true});
+  document.addEventListener('touchend',function(){dragging=false;});
+})();
+})();
+</script>
+</body>
+</html>
