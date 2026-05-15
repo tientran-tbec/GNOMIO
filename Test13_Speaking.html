@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Speaking Test 13</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --accent: #4f8ef7;
+    --accent2: #6c63ff;
+    --green: #22c55e;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --text: #e8eaf0;
+    --text2: #9099b5;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .screen { display: none; width: 100%; max-width: 620px; }
+  .screen.active { display: block; }
+
+  /* CARD */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .card-heading {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .card-sub {
+    font-size: 14px;
+    color: var(--text2);
+    margin-bottom: 24px;
+  }
+
+  /* LOGO / HEADER */
+  .logo {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .logo-icon {
+    font-size: 44px;
+    display: block;
+    margin-bottom: 8px;
+  }
+  .logo-title {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .logo-sub {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 4px;
+  }
+
+  /* INPUT */
+  .input-group { margin-bottom: 20px; }
+  .input-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text2);
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+  }
+  .input-group input, .input-group textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 15px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+    resize: vertical;
+  }
+  .input-group input:focus, .input-group textarea:focus {
+    border-color: var(--accent);
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 26px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.18s;
+    width: 100%;
+    letter-spacing: 0.3px;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-danger {
+    background: var(--red);
+    color: #fff;
+  }
+  .btn-danger:hover { opacity: 0.88; }
+  .btn-secondary {
+    background: var(--surface2);
+    color: var(--text);
+    border: 1.5px solid var(--border);
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-sm {
+    padding: 8px 16px;
+    font-size: 13px;
+    width: auto;
+    border-radius: 8px;
+  }
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { opacity: 0.88; }
+
+  /* PROGRESS BAR STEPS */
+  .steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    margin-bottom: 28px;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .step-dot {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700; color: var(--text2);
+    transition: all 0.3s;
+  }
+  .step.active .step-dot { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .step.done .step-dot { background: var(--green); border-color: var(--green); color: #fff; }
+  .step-label { font-size: 11px; color: var(--text2); font-weight: 600; }
+  .step.active .step-label { color: var(--accent); }
+  .step.done .step-label { color: var(--green); }
+  .step-line { width: 40px; height: 2px; background: var(--border); margin: 0 2px; margin-bottom: 18px; transition: background 0.3s; }
+  .step-line.done { background: var(--green); }
+
+  /* PART HEADER */
+  .part-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .part-badge {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+  }
+  .question-counter {
+    font-size: 13px;
+    color: var(--text2);
+    font-weight: 600;
+  }
+  .total-timer {
+    font-size: 13px;
+    color: var(--text2);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .total-timer span { color: var(--accent); font-weight: 700; }
+
+  /* STATUS BOX */
+  .status-box {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+  .status-icon { font-size: 32px; margin-bottom: 8px; display: block; }
+  .status-text { font-size: 16px; font-weight: 600; color: var(--text); }
+  .status-sub { font-size: 13px; color: var(--text2); margin-top: 4px; }
+
+  /* AUDIO PLAYING INDICATOR */
+  .audio-playing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 14px;
+    background: rgba(79,142,247,0.08);
+    border: 1.5px solid rgba(79,142,247,0.3);
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+  .audio-bar {
+    width: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    animation: audioBounce 0.8s ease-in-out infinite;
+  }
+  .audio-bar:nth-child(1) { height: 12px; animation-delay: 0s; }
+  .audio-bar:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+  .audio-bar:nth-child(3) { height: 16px; animation-delay: 0.2s; }
+  .audio-bar:nth-child(4) { height: 24px; animation-delay: 0.15s; }
+  .audio-bar:nth-child(5) { height: 14px; animation-delay: 0.05s; }
+  @keyframes audioBounce {
+    0%, 100% { transform: scaleY(0.4); }
+    50% { transform: scaleY(1); }
+  }
+  .audio-label { font-size: 14px; color: var(--accent); font-weight: 600; margin-left: 10px; }
+
+  /* TIMER */
+  .timer-wrap { margin-bottom: 16px; }
+  .timer-top {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--text2);
+    margin-bottom: 6px;
+  }
+  .timer-val { font-weight: 700; font-size: 15px; }
+  .timer-val.green { color: var(--green); }
+  .timer-val.yellow { color: var(--yellow); }
+  .timer-val.red { color: var(--red); }
+  .timer-bar-bg {
+    height: 8px;
+    background: var(--surface2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .timer-bar {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--green);
+    transition: width 1s linear, background 0.5s;
+    width: 100%;
+  }
+  .timer-bar.yellow { background: var(--yellow); }
+  .timer-bar.red { background: var(--red); }
+
+  /* WAVEFORM */
+  .waveform-wrap {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 12px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 64px;
+    overflow: hidden;
+  }
+  canvas#waveform { width: 100%; height: 40px; }
+
+  /* RECORDING INDICATOR */
+  .rec-dot {
+    display: inline-block;
+    width: 10px; height: 10px;
+    background: var(--red);
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: pulse 1s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* COUNTDOWN 3-2-1 */
+  .countdown-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,12,20,0.85);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+    display: none;
+  }
+  .countdown-number {
+    font-size: 120px;
+    font-weight: 900;
+    color: var(--accent);
+    line-height: 1;
+    animation: countPop 0.5s ease;
+  }
+  .countdown-label { font-size: 18px; color: var(--text2); margin-top: 12px; }
+  @keyframes countPop {
+    0% { transform: scale(1.4); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  /* WARNING FLASH */
+  @keyframes warnFlash {
+    0%, 100% { border-color: var(--border); }
+    50% { border-color: var(--yellow); box-shadow: 0 0 16px rgba(245,158,11,0.3); }
+  }
+  .warning-flash { animation: warnFlash 0.6s ease 3; }
+
+  /* PART 2 CUE CARD */
+  .cue-card {
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .cue-topic {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .cue-points { list-style: none; }
+  .cue-points li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--text2);
+    padding: 5px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .cue-points li:last-child { border-bottom: none; }
+  .cue-points li::before {
+    content: "✦";
+    color: var(--accent);
+    font-size: 11px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* PREP TIMER (Part 2) */
+  .prep-big {
+    text-align: center;
+    padding: 20px;
+    background: var(--surface2);
+    border-radius: 10px;
+    margin-bottom: 16px;
+  }
+  .prep-time {
+    font-size: 56px;
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: 2px;
+    line-height: 1;
+  }
+  .prep-label { font-size: 13px; color: var(--text2); margin-top: 6px; }
+
+  /* NOTEPAD */
+  .notepad-wrap { margin-bottom: 16px; }
+  .notepad-wrap label {
+    font-size: 12px;
+    color: var(--text2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .notepad-wrap textarea {
+    width: 100%;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 14px;
+    padding: 10px 12px;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+    height: 80px;
+    transition: border-color 0.2s;
+  }
+  .notepad-wrap textarea:focus { border-color: var(--accent); }
+  .notepad-wrap textarea:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* RECORDING CLIPS */
+  .clips-list { margin-top: 16px; }
+  .clip-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+  }
+  .clip-label { font-size: 13px; color: var(--text2); flex: 1; min-width: 100px; }
+  .clip-audio { flex: 2; min-width: 140px; }
+  .clip-audio audio { width: 100%; height: 32px; }
+  .clip-dl { flex-shrink: 0; }
+
+  /* MIC CHECK */
+  .mic-check-anim {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 5px;
+    height: 50px;
+    margin: 20px 0;
+  }
+  .mic-bar {
+    width: 8px;
+    background: var(--border);
+    border-radius: 4px;
+    transition: height 0.1s;
+    min-height: 6px;
+  }
+
+  /* FINISH SCREEN */
+  .finish-icon { font-size: 64px; text-align: center; display: block; margin-bottom: 12px; }
+  .finish-title { font-size: 24px; font-weight: 800; text-align: center; margin-bottom: 6px; }
+  .finish-sub { font-size: 14px; color: var(--text2); text-align: center; margin-bottom: 24px; }
+  .finish-stats {
+    background: var(--surface2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+  }
+  .finish-stat-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .finish-stat-row:last-child { border-bottom: none; }
+  .finish-stat-row .val { color: var(--green); font-weight: 700; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--green);
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 9999;
+    transition: transform 0.3s ease;
+    text-align: center;
+    max-width: 90vw;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* WARNING BANNER */
+  .warn-banner {
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.4);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--yellow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: var(--border); margin: 20px 0; }
+
+  /* RESPONSIVE */
+  @media (max-width: 480px) {
+    .card { padding: 20px 16px; }
+    .card-heading { font-size: 18px; }
+    .prep-time { font-size: 44px; }
+    .countdown-number { font-size: 80px; }
+    .step-line { width: 24px; }
+    .btn { padding: 12px 18px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COUNTDOWN OVERLAY -->
+<div class="countdown-overlay" id="countdownOverlay">
+  <div class="countdown-number" id="countdownNum">3</div>
+  <div class="countdown-label" id="countdownLabel">Chuẩn bị trả lời...</div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- ==================== SCREEN: MIC CHECK ==================== -->
+<div class="screen active" id="screenMic">
+  <div class="logo">
+    <span class="logo-icon">🎤</span>
+    <div class="logo-title">IELTS SPEAKING</div>
+    <div class="logo-sub">Test 13 &nbsp;·&nbsp; Kiểm tra thiết bị</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Bước 1 / 2</div>
+    <div class="card-heading">Kiểm tra Microphone</div>
+    <div class="card-sub">Nhấn nút bên dưới để kiểm tra mic trước khi thi</div>
+    <div class="warn-banner">⚠️ Vui lòng <strong>không chuyển tab</strong> hoặc tắt trình duyệt trong khi thi</div>
+    <div class="mic-check-anim" id="micBars">
+      <div class="mic-bar" id="mb1"></div>
+      <div class="mic-bar" id="mb2"></div>
+      <div class="mic-bar" id="mb3"></div>
+      <div class="mic-bar" id="mb4"></div>
+      <div class="mic-bar" id="mb5"></div>
+      <div class="mic-bar" id="mb6"></div>
+      <div class="mic-bar" id="mb7"></div>
+    </div>
+    <div class="status-box" id="micStatus">
+      <span class="status-icon">🎙️</span>
+      <div class="status-text">Chưa kiểm tra</div>
+      <div class="status-sub">Nhấn nút để bắt đầu test mic</div>
+    </div>
+    <button class="btn btn-secondary" id="btnTestMic" onclick="testMic()">🎙️ Kiểm tra Microphone</button>
+    <div style="height:12px"></div>
+    <button class="btn btn-primary" id="btnMicNext" onclick="goToName()" disabled>Tiếp tục →</button>
+  </div>
+</div>
+
+<!-- ==================== SCREEN: ENTER NAME ==================== -->
+<div class="screen" id="screenName">
+  <div class="logo">
+    <span class="logo-icon">🎤</span>
+    <div class="logo-title">IELTS SPEAKING</div>
+    <div class="logo-sub">Test 13 &nbsp;·&nbsp; Thông tin thí sinh</div>
+  </div>
+  <div class="card">
+    <div class="card-title">Bước 2 / 2</div>
+    <div class="card-heading">Thông tin thí sinh</div>
+    <div class="card-sub">Nhập họ tên đầy đủ — sẽ được dùng để đặt tên file ghi âm</div>
+    <div class="input-group">
+      <label>HỌ VÀ TÊN</label>
+      <input type="text" id="studentName" placeholder="Ví dụ: Nguyen Thi Lan" autocomplete="off" />
+    </div>
+    <button class="btn btn-primary" id="btnStartExam" onclick="startExam()">🎤 Bắt đầu thi</button>
+  </div>
+</div>
+
+<!-- ==================== SCREEN: PART 1 ==================== -->
+<div class="screen" id="screenPart1">
+  <div class="steps" id="stepsBar1"></div>
+  <div class="card" id="cardPart1">
+    <div class="part-header">
+      <span class="part-badge">PART 1</span>
+      <span class="question-counter" id="p1Counter">Câu 1 / 4</span>
+      <span class="total-timer">⏱ <span id="totalTimerDisplay1">00:00</span></span>
+    </div>
+    <div class="card-title">Topic: Advertisements</div>
+
+    <!-- Audio playing indicator -->
+    <div class="audio-playing" id="p1AudioPlaying" style="display:none">
+      <div class="audio-bar"></div><div class="audio-bar"></div>
+      <div class="audio-bar"></div><div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+      <span class="audio-label" id="p1AudioLabel">Examiner đang đặt câu hỏi...</span>
+    </div>
+
+    <!-- Recording section -->
+    <div id="p1RecSection" style="display:none">
+      <div class="status-box" style="padding:12px 16px;text-align:left;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span class="rec-dot"></span>
+          <span style="font-size:14px;font-weight:700;color:var(--red)">Đang ghi âm</span>
+          <span class="timer-val" id="p1TimerVal" style="margin-left:auto">00:00</span>
+        </div>
+        <div class="timer-bar-bg">
+          <div class="timer-bar" id="p1TimerBar"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-top:4px;">
+          <span>0s</span><span style="color:var(--yellow)">60s ⚠️</span><span style="color:var(--red)">80s ⏹</span>
+        </div>
+      </div>
+      <div class="waveform-wrap">
+        <canvas id="waveform" height="40"></canvas>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:0;">
+        <button class="btn btn-secondary" id="btnReplayP1" onclick="replayP1Question()" style="flex:1">🔁 Nghe lại câu hỏi</button>
+        <button class="btn btn-danger" id="btnStopP1" onclick="stopPart1Recording()" style="flex:2">⏹ Dừng & Câu tiếp theo</button>
+      </div>
+    </div>
+
+    <!-- After recording -->
+    <div id="p1AfterRec" style="display:none">
+      <div class="clips-list" id="p1ClipsList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN: PART 2 ==================== -->
+<div class="screen" id="screenPart2">
+  <div class="steps" id="stepsBar2"></div>
+  <div class="card">
+    <div class="part-header">
+      <span class="part-badge">PART 2</span>
+      <span class="total-timer">⏱ <span id="totalTimerDisplay2">00:00</span></span>
+    </div>
+
+    <!-- Intro audio -->
+    <div class="audio-playing" id="p2IntroPlaying" style="display:none">
+      <div class="audio-bar"></div><div class="audio-bar"></div>
+      <div class="audio-bar"></div><div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+      <span class="audio-label">Examiner đang hướng dẫn...</span>
+    </div>
+
+    <!-- Prep phase -->
+    <div id="p2PrepPhase" style="display:none">
+      <div class="prep-big">
+        <div class="prep-time" id="p2PrepTime">1:00</div>
+        <div class="prep-label">⏳ Thời gian chuẩn bị</div>
+      </div>
+      <div style="display:flex;gap:14px;align-items:flex-start;">
+        <div class="cue-card" style="flex:1;margin-bottom:0;">
+          <div class="cue-topic" id="p2Topic"></div>
+          <ul class="cue-points" id="p2Points"></ul>
+        </div>
+        <div class="notepad-wrap" style="flex:1;margin-bottom:0;">
+          <label>📝 GHI CHÚ (tự khóa khi hết giờ)</label>
+          <textarea id="p2Notes" placeholder="Gõ ghi chú nhanh tại đây..." style="height:180px;"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recording phase -->
+    <div id="p2RecPhase" style="display:none">
+      <div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;">
+        <div class="cue-card" style="flex:1;margin-bottom:0;">
+          <div class="cue-topic" id="p2TopicRec"></div>
+          <ul class="cue-points" id="p2PointsRec"></ul>
+        </div>
+        <div class="notepad-wrap" style="flex:1;margin-bottom:0;">
+          <label>📝 GHI CHÚ CỦA BẠN (chỉ đọc)</label>
+          <textarea id="p2NotesDisplay" readonly placeholder="(chưa có ghi chú)" style="height:180px;opacity:0.75;cursor:default;"></textarea>
+        </div>
+      </div>
+      <div class="status-box" style="padding:12px 16px;text-align:left;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span class="rec-dot"></span>
+          <span style="font-size:14px;font-weight:700;color:var(--red)">Đang ghi âm</span>
+          <span class="timer-val" id="p2TimerVal" style="margin-left:auto">0:00 / 2:00</span>
+        </div>
+        <div class="timer-bar-bg">
+          <div class="timer-bar" id="p2TimerBar"></div>
+        </div>
+      </div>
+      <div class="waveform-wrap">
+        <canvas id="waveform2" height="40"></canvas>
+      </div>
+      <button class="btn btn-danger btn-sm" id="btnStopP2Early" onclick="stopPart2Early()" style="width:auto;margin:0 auto;display:block;">⏹ Dừng sớm</button>
+    </div>
+
+    <!-- After part 2 -->
+    <div id="p2AfterRec" style="display:none">
+      <div class="status-box">
+        <span class="status-icon">✅</span>
+        <div class="status-text">Part 2 hoàn thành!</div>
+        <div class="status-sub" id="p2AfterSub"></div>
+      </div>
+      <div class="clips-list" id="p2ClipsList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN: PART 3 ==================== -->
+<div class="screen" id="screenPart3">
+  <div class="steps" id="stepsBar3"></div>
+  <div class="card" id="cardPart3">
+    <div class="part-header">
+      <span class="part-badge">PART 3</span>
+      <span class="question-counter" id="p3Counter">Câu 1 / 4</span>
+      <span class="total-timer">⏱ <span id="totalTimerDisplay3">00:00</span></span>
+    </div>
+    <div class="card-title">Discussion</div>
+
+    <div class="audio-playing" id="p3AudioPlaying" style="display:none">
+      <div class="audio-bar"></div><div class="audio-bar"></div>
+      <div class="audio-bar"></div><div class="audio-bar"></div>
+      <div class="audio-bar"></div>
+      <span class="audio-label" id="p3AudioLabel">Examiner đang đặt câu hỏi...</span>
+    </div>
+
+    <div id="p3RecSection" style="display:none">
+      <div class="status-box" style="padding:12px 16px;text-align:left;margin-bottom:12px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <span class="rec-dot"></span>
+          <span style="font-size:14px;font-weight:700;color:var(--red)">Đang ghi âm</span>
+          <span class="timer-val" id="p3TimerVal" style="margin-left:auto">00:00</span>
+        </div>
+        <div class="timer-bar-bg">
+          <div class="timer-bar" id="p3TimerBar"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text2);margin-top:4px;">
+          <span>0s</span><span style="color:var(--yellow)">60s ⚠️</span><span style="color:var(--red)">80s ⏹</span>
+        </div>
+      </div>
+      <div class="waveform-wrap">
+        <canvas id="waveform3" height="40"></canvas>
+      </div>
+      <div style="display:flex;gap:10px;margin-bottom:0;">
+        <button class="btn btn-secondary" id="btnReplayP3" onclick="replayP3Question()" style="flex:1">🔁 Nghe lại câu hỏi</button>
+        <button class="btn btn-danger" id="btnStopP3" onclick="stopPart3Recording()" style="flex:2">⏹ Dừng & Câu tiếp theo</button>
+      </div>
+    </div>
+
+    <div id="p3AfterRec" style="display:none">
+      <div class="clips-list" id="p3ClipsList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SCREEN: FINISH ==================== -->
+<div class="screen" id="screenFinish">
+  <div class="card">
+    <span class="finish-icon">🎉</span>
+    <div class="finish-title">Hoàn thành bài thi!</div>
+    <div class="finish-sub" id="finishSub"></div>
+    <div class="finish-stats" id="finishStats"></div>
+
+    <!-- Nút nộp bài -->
+    <button class="btn btn-green" id="btnSubmit" onclick="doSubmitAll()" style="margin-bottom:10px;width:100%;font-size:1.05rem">
+      📤 Nộp bài cho giáo viên
+    </button>
+
+    <!-- Progress nộp bài -->
+    <div id="submitProgress" style="display:none;margin-bottom:14px">
+      <div style="font-size:0.9rem;color:var(--text-muted);margin-bottom:6px" id="submitStatusText">Đang nộp bài...</div>
+      <div style="background:var(--border);border-radius:8px;height:10px;overflow:hidden">
+        <div id="submitBar" style="height:100%;width:0%;background:var(--green);border-radius:8px;transition:width 0.3s"></div>
+      </div>
+      <div id="submitFileList" style="margin-top:10px;font-size:0.82rem;color:var(--text-muted);line-height:1.7"></div>
+    </div>
+
+    <!-- Kết quả -->
+    <div id="submitResult" style="display:none;margin-bottom:14px;padding:12px 14px;border-radius:10px;font-size:0.9rem;text-align:center"></div>
+
+    <!-- Tải về (dự phòng) -->
+    <button class="btn btn-secondary" id="btnDownloadAll" onclick="downloadAll()" style="width:100%;font-size:0.9rem">
+      📥 Tải file về máy (dự phòng)
+    </button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA: TEST 1
+// ============================================================
+const TEST_DATA = {
+  testNumber: 13,
+  part1: {
+    topic: "Advertisements",
+    introText: "Now in this first part, I'd like to ask you some questions about yourself and your daily life. First let's talk about advertisements.",
+    questions: [
+      { text: "Do you like watching advertisements?", group: "ad_enjoyment" },
+      { text: "Will you buy something because of an advertisement?", group: "ad_purchase_influence" },
+      { text: "How do you feel when you see pop-up ads on the internet?", group: "popup_ads_feeling" },
+      { text: "Do you like funny or serious advertisements?", group: "ad_style_preference" },
+      { text: "What makes a good advertisement?", group: "good_ad_qualities" },
+      { text: "Do you often remember advertisements that you've seen?", group: "ad_memorability" }
+    ],
+    numToAsk: 4,
+    endText: "Thank you. That's the end of Part 1."
+  },
+  part2: {
+    introText: "Now I'm going to give you a topic and I'd like you to talk about it for one to two minutes. Before you talk, you'll have one minute to think about what you're going to say. You can make some notes if you wish.",
+    topic: "Describe an outdoor activity you did in a new place recently that makes you happy",
+    points: [
+      "What the activity is",
+      "Who invited you to participate in it",
+      "Whether you asked for help during the activity",
+      "And explain what change you had in the activity"
+    ],
+    endText: "Thank you. That's the end of Part 2."
+  },
+  part3: {
+    introText: "We've been talking about an outdoor activity you did recently, and I'd like to discuss with you one or two more general questions related to this. Let's consider the topic of outdoor activities and lifestyle.",
+    questions: [
+      { text: "What outdoor activities are popular in Vietnam?", group: "popular_outdoor_activities" },
+      { text: "Are those people who like dangerous activities more likely to be successful?", group: "danger_success" },
+      { text: "Do you think it's better for people to change jobs when there are new chances?", group: "job_change" },
+      { text: "Which is better, taking photos or keeping a diary?", group: "photos_vs_diary" },
+      { text: "Should young people try as many new activities as possible?", group: "youth_new_activities" },
+      { text: "When do people usually go outdoors to get close to nature?", group: "nature_time" }
+    ],
+    numToAsk: 4,
+    endText: "Thank you. That's the end of Part 3 and the end of the Speaking test."
+  }
+};
+
+// ============================================================
+// STATE
+// ============================================================
+let studentName = "";
+let micStream = null;
+let micOk = false;
+let hasFinished = false;
+let examStartTime = null;
+let totalTimerInterval = null;
+
+// Part 1
+let p1CurrentQuestion = '';
+let p1Questions = [];
+let p1CurrentIdx = 0;
+let p1Recorder = null;
+let p1Chunks = [];
+let p1TimerInterval = null;
+let p1ElapsedSec = 0;
+let p1Blobs = [];
+let p1AudioCtx = null;
+let p1Analyser = null;
+let p1WaveAnim = null;
+
+// Part 2
+let p2Recorder = null;
+let p2Chunks = [];
+let p2PrepInterval = null;
+let p2RecInterval = null;
+let p2ElapsedSec = 0;
+let p2Blob = null;
+let p2AudioCtx = null;
+let p2Analyser = null;
+let p2WaveAnim = null;
+
+// Part 3
+let p3CurrentQuestion = '';
+let p3Questions = [];
+let p3CurrentIdx = 0;
+let p3Recorder = null;
+let p3Chunks = [];
+let p3TimerInterval = null;
+let p3ElapsedSec = 0;
+let p3Blobs = [];
+let p3AudioCtx = null;
+let p3Analyser = null;
+let p3WaveAnim = null;
+
+// All blobs for final download
+let allRecordings = []; // {label, blob}
+
+// ============================================================
+// UTILITY
+// ============================================================
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+function formatTime(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function removeAccents(str) {
+  return str.normalize('NFD').replace(/[̀-ͯ]/g, '')
+            .replace(/đ/g,'d').replace(/Đ/g,'D')
+            .replace(/[^a-zA-Z0-9\s_-]/g,'')
+            .replace(/\s+/g,'_');
+}
+
+function showToast(msg, duration=3500) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), duration);
+}
+
+function getMimeType() {
+  const types = ['audio/webm;codecs=opus','audio/webm','audio/mp4','audio/ogg'];
+  for (const t of types) {
+    if (MediaRecorder.isTypeSupported(t)) return t;
+  }
+  return '';
+}
+
+function getExtension(mimeType) {
+  if (mimeType.includes('mp4')) return 'mp4';
+  if (mimeType.includes('ogg')) return 'ogg';
+  return 'webm';
+}
+
+function renderSteps(containerId, activeStep) {
+  const steps = [
+    {num:'1', label:'Part 1'},
+    {num:'2', label:'Part 2'},
+    {num:'3', label:'Part 3'},
+  ];
+  let html = '';
+  steps.forEach((s, i) => {
+    const st = i + 1 < activeStep ? 'done' : (i + 1 === activeStep ? 'active' : '');
+    const icon = st === 'done' ? '✓' : s.num;
+    html += `<div class="step ${st}"><div class="step-dot">${icon}</div><div class="step-label">${s.label}</div></div>`;
+    if (i < steps.length - 1) {
+      html += `<div class="step-line ${i + 1 < activeStep ? 'done' : ''}"></div>`;
+    }
+  });
+  document.getElementById(containerId).innerHTML = html;
+}
+
+// ============================================================
+// TOTAL TIMER
+// ============================================================
+function startTotalTimer() {
+  examStartTime = Date.now();
+  totalTimerInterval = setInterval(updateTotalTimers, 1000);
+}
+function updateTotalTimers() {
+  const sec = Math.floor((Date.now() - examStartTime) / 1000);
+  const fmt = formatTime(sec);
+  ['totalTimerDisplay1','totalTimerDisplay2','totalTimerDisplay3'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = fmt;
+  });
+}
+function getTotalElapsed() {
+  return Math.floor((Date.now() - examStartTime) / 1000);
+}
+
+// ============================================================
+// BEFOREUNLOAD WARNING (2 times)
+// ============================================================
+let unloadCount = 0;
+window.addEventListener('beforeunload', function(e) {
+  if (hasFinished) return;
+  unloadCount++;
+  if (unloadCount <= 2) {
+    e.preventDefault();
+    e.returnValue = 'Bạn đang thi — nếu thoát, dữ liệu ghi âm sẽ mất! Bạn có chắc không?';
+    return e.returnValue;
+  }
+});
+
+// ============================================================
+// MIC TEST
+// ============================================================
+async function testMic() {
+  const btn = document.getElementById('btnTestMic');
+  const statusBox = document.getElementById('micStatus');
+  btn.disabled = true;
+  btn.textContent = '🔄 Đang kiểm tra...';
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    micStream = stream;
+    micOk = true;
+    // visualize
+    const ctx = new AudioContext();
+    const src = ctx.createMediaStreamSource(stream);
+    const analyser = ctx.createAnalyser();
+    analyser.fftSize = 64;
+    src.connect(analyser);
+    const data = new Uint8Array(analyser.frequencyBinCount);
+    const bars = ['mb1','mb2','mb3','mb4','mb5','mb6','mb7'];
+    let micAnimId;
+    function animMic() {
+      analyser.getByteFrequencyData(data);
+      bars.forEach((id, i) => {
+        const v = data[i * 2] || 0;
+        const h = Math.max(6, Math.min(50, v / 4));
+        document.getElementById(id).style.height = h + 'px';
+        document.getElementById(id).style.background = `hsl(${140 + i*10},70%,55%)`;
+      });
+      micAnimId = requestAnimationFrame(animMic);
+    }
+    animMic();
+    setTimeout(() => {
+      cancelAnimationFrame(micAnimId);
+      bars.forEach(id => {
+        document.getElementById(id).style.height = '6px';
+        document.getElementById(id).style.background = 'var(--green)';
+      });
+    }, 3000);
+
+    statusBox.innerHTML = `
+      <span class="status-icon">✅</span>
+      <div class="status-text" style="color:var(--green)">Microphone hoạt động tốt!</div>
+      <div class="status-sub">Bạn có thể tiếp tục vào bài thi</div>`;
+    btn.textContent = '✅ Đã kiểm tra';
+    document.getElementById('btnMicNext').disabled = false;
+  } catch(e) {
+    statusBox.innerHTML = `
+      <span class="status-icon">❌</span>
+      <div class="status-text" style="color:var(--red)">Không tìm thấy microphone!</div>
+      <div class="status-sub">Kiểm tra lại kết nối mic và cấp quyền truy cập</div>`;
+    btn.disabled = false;
+    btn.textContent = '🔄 Thử lại';
+  }
+}
+
+// ============================================================
+// GO TO NAME SCREEN
+// ============================================================
+function goToName() { show('screenName'); }
+
+// ============================================================
+// START EXAM
+// ============================================================
+function startExam() {
+  const name = document.getElementById('studentName').value.trim();
+  if (!name) { showToast('⚠️ Vui lòng nhập họ tên!'); return; }
+  studentName = name;
+  startTotalTimer();
+  renderSteps('stepsBar1', 1);
+  renderSteps('stepsBar2', 2);
+  renderSteps('stepsBar3', 3);
+  show('screenPart1');
+  startPart1();
+}
+
+// ============================================================
+// TTS HELPER
+// ============================================================
+let _voicesReady = false;
+let _voicesList = [];
+
+function _loadVoices() {
+  _voicesList = window.speechSynthesis.getVoices();
+  if (_voicesList.length > 0) _voicesReady = true;
+}
+_loadVoices();
+if (typeof speechSynthesis !== 'undefined') {
+  speechSynthesis.onvoiceschanged = () => { _loadVoices(); };
+}
+
+function speak(text, onEnd) {
+  window.speechSynthesis.cancel();
+
+  function _doSpeak() {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-GB';
+    utter.rate = 0.78;
+    utter.pitch = 1.0;
+    const voices = window.speechSynthesis.getVoices();
+    const ukVoice = voices.find(v => v.lang === 'en-GB') ||
+                    voices.find(v => v.lang.startsWith('en-GB')) ||
+                    voices.find(v => v.lang.startsWith('en'));
+    if (ukVoice) utter.voice = ukVoice;
+    utter.onend = () => { if (onEnd) onEnd(); };
+    utter.onerror = () => { if (onEnd) onEnd(); };
+    window.speechSynthesis.speak(utter);
+  }
+
+  // If voices not ready yet, wait up to 1s
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length > 0) {
+    _doSpeak();
+  } else {
+    let waited = 0;
+    const poll = setInterval(() => {
+      waited += 50;
+      const v = window.speechSynthesis.getVoices();
+      if (v.length > 0 || waited >= 1000) {
+        clearInterval(poll);
+        _doSpeak();
+      }
+    }, 50);
+  }
+}
+
+// ============================================================
+// RANDOM QUESTIONS (no group conflict)
+// ============================================================
+function selectQuestions(questions, num) {
+  const usedGroups = new Set();
+  const pool = [...questions];
+  const selected = [];
+  // Shuffle
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  for (const q of pool) {
+    if (selected.length >= num) break;
+    if (!usedGroups.has(q.group)) {
+      selected.push(q);
+      usedGroups.add(q.group);
+    }
+  }
+  return selected;
+}
+
+// ============================================================
+// WAVEFORM VISUALIZER
+// ============================================================
+function startWaveform(stream, canvasId, storeRef) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return null;
+  const ctx2d = canvas.getContext('2d');
+  const audioCtx = new AudioContext();
+  const src = audioCtx.createMediaStreamSource(stream);
+  const analyser = audioCtx.createAnalyser();
+  analyser.fftSize = 128;
+  src.connect(analyser);
+  const data = new Uint8Array(analyser.frequencyBinCount);
+  let animId;
+  function draw() {
+    analyser.getByteFrequencyData(data);
+    const W = canvas.offsetWidth;
+    const H = 40;
+    canvas.width = W;
+    canvas.height = H;
+    ctx2d.clearRect(0,0,W,H);
+    const barW = W / data.length * 2;
+    data.forEach((v, i) => {
+      const h = (v / 255) * H;
+      ctx2d.fillStyle = `hsl(${210 + i},80%,60%)`;
+      ctx2d.fillRect(i * barW, H - h, barW - 1, h);
+    });
+    animId = requestAnimationFrame(draw);
+  }
+  draw();
+  return { audioCtx, animId, stop: () => {
+    cancelAnimationFrame(animId);
+    audioCtx.close();
+    ctx2d.clearRect(0,0,canvas.width,canvas.height);
+  }};
+}
+
+// ============================================================
+// COUNTDOWN 3-2-1
+// ============================================================
+function showCountdown(label, onDone) {
+  const overlay = document.getElementById('countdownOverlay');
+  const num = document.getElementById('countdownNum');
+  const lbl = document.getElementById('countdownLabel');
+  overlay.style.display = 'flex';
+  lbl.textContent = label || 'Chuẩn bị trả lời...';
+  let count = 3;
+  num.textContent = count;
+  const interval = setInterval(() => {
+    count--;
+    if (count > 0) {
+      num.textContent = count;
+      num.style.animation = 'none';
+      void num.offsetWidth;
+      num.style.animation = 'countPop 0.5s ease';
+    } else {
+      clearInterval(interval);
+      overlay.style.display = 'none';
+      if (onDone) onDone();
+    }
+  }, 800);
+}
+
+// ============================================================
+// PART 1
+// ============================================================
+function startPart1() {
+  p1Questions = selectQuestions(TEST_DATA.part1.questions, TEST_DATA.part1.numToAsk);
+  p1CurrentIdx = 0;
+  p1Blobs = [];
+  document.getElementById('p1ClipsList').innerHTML = '';
+  document.getElementById('p1AfterRec').style.display = 'none';
+  // Play intro
+  showP1AudioPlaying('Examiner đang hướng dẫn...');
+  speak(TEST_DATA.part1.introText, () => {
+    hideP1AudioPlaying();
+    setTimeout(() => askPart1Question(), 800);
+  });
+}
+
+function showP1AudioPlaying(label) {
+  document.getElementById('p1AudioPlaying').style.display = 'flex';
+  document.getElementById('p1AudioLabel').textContent = label;
+  document.getElementById('p1RecSection').style.display = 'none';
+}
+function hideP1AudioPlaying() {
+  document.getElementById('p1AudioPlaying').style.display = 'none';
+}
+
+function askPart1Question() {
+  if (p1CurrentIdx >= p1Questions.length) {
+    endPart1();
+    return;
+  }
+  const q = p1Questions[p1CurrentIdx];
+  p1CurrentQuestion = q.text;
+  document.getElementById('p1Counter').textContent = `Câu ${p1CurrentIdx + 1} / ${p1Questions.length}`;
+  showP1AudioPlaying(`Câu ${p1CurrentIdx + 1}: Examiner đang hỏi...`);
+  document.getElementById('p1RecSection').style.display = 'none';
+  speak(q.text, () => {
+    hideP1AudioPlaying();
+    setTimeout(() => startPart1Recording(), 1200);
+  });
+}
+
+function replayP1Question() {
+  if (!p1CurrentQuestion) return;
+  const btn = document.getElementById('btnReplayP1');
+  btn.disabled = true;
+  btn.textContent = '🔊 Đang phát...';
+  speak(p1CurrentQuestion, () => {
+    btn.disabled = false;
+    btn.textContent = '🔁 Nghe lại câu hỏi';
+  });
+}
+
+async function startPart1Recording() {
+  const stream = micStream || await navigator.mediaDevices.getUserMedia({ audio: true });
+  if (!micStream) micStream = stream;
+  const mime = getMimeType();
+  p1Recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : {});
+  p1Chunks = [];
+  p1Recorder.ondataavailable = e => { if (e.data.size > 0) p1Chunks.push(e.data); };
+  p1Recorder.onstop = () => {
+    const blob = new Blob(p1Chunks, { type: p1Recorder.mimeType });
+    p1Blobs.push({ blob, question: p1Questions[p1CurrentIdx] });
+    allRecordings.push({ label: `Part1_Q${p1CurrentIdx + 1}`, blob });
+    addClip('p1ClipsList', `Part 1 — Câu ${p1CurrentIdx + 1}`, blob);
+    document.getElementById('p1AfterRec').style.display = 'block';
+    document.getElementById('p1RecSection').style.display = 'none';
+    p1CurrentIdx++;
+    if (p1CurrentIdx < p1Questions.length) {
+      showCountdown('Chuẩn bị câu tiếp theo...', askPart1Question);
+    } else {
+      endPart1();
+    }
+  };
+  p1Recorder.start();
+  p1ElapsedSec = 0;
+  document.getElementById('p1RecSection').style.display = 'block';
+  updateP1Timer();
+  p1TimerInterval = setInterval(() => {
+    p1ElapsedSec++;
+    updateP1Timer();
+    if (p1ElapsedSec === 60) {
+      document.getElementById('cardPart1').classList.add('warning-flash');
+      showToast('⚠️ Gần đến giới hạn thời gian! Hãy kết thúc câu trả lời.', 3000);
+    }
+    if (p1ElapsedSec >= 80) {
+      stopPart1Recording();
+    }
+  }, 1000);
+  const wv = startWaveform(stream, 'waveform', null);
+  p1WaveAnim = wv;
+}
+
+function updateP1Timer() {
+  const sec = p1ElapsedSec;
+  const el = document.getElementById('p1TimerVal');
+  const bar = document.getElementById('p1TimerBar');
+  el.textContent = formatTime(sec);
+  const pct = Math.min(100, (sec / 80) * 100);
+  bar.style.width = pct + '%';
+  if (sec >= 60) {
+    el.className = 'timer-val yellow';
+    bar.className = 'timer-bar yellow';
+  } else {
+    el.className = 'timer-val green';
+    bar.className = 'timer-bar green';
+  }
+}
+
+function stopPart1Recording() {
+  clearInterval(p1TimerInterval);
+  if (p1WaveAnim) { p1WaveAnim.stop(); p1WaveAnim = null; }
+  if (p1Recorder && p1Recorder.state !== 'inactive') {
+    p1Recorder.stop();
+  }
+}
+
+function endPart1() {
+  showP1AudioPlaying('Examiner đang kết thúc Part 1...');
+  speak(TEST_DATA.part1.endText, () => {
+    hideP1AudioPlaying();
+    setTimeout(() => {
+      renderSteps('stepsBar2', 2);
+      show('screenPart2');
+      startPart2();
+    }, 800);
+  });
+}
+
+// ============================================================
+// PART 2
+// ============================================================
+function startPart2() {
+  document.getElementById('p2IntroPlaying').style.display = 'flex';
+  document.getElementById('p2PrepPhase').style.display = 'none';
+  document.getElementById('p2RecPhase').style.display = 'none';
+  document.getElementById('p2AfterRec').style.display = 'none';
+
+  speak(TEST_DATA.part2.introText, () => {
+    document.getElementById('p2IntroPlaying').style.display = 'none';
+    showPart2Prep();
+  });
+}
+
+function showPart2Prep() {
+  const topic = TEST_DATA.part2;
+  document.getElementById('p2Topic').textContent = topic.topic;
+  document.getElementById('p2TopicRec').textContent = topic.topic;
+  document.getElementById('p2Points').innerHTML = topic.points.map(p => `<li>${p}</li>`).join('');
+  document.getElementById('p2PointsRec').innerHTML = topic.points.map(p => `<li>${p}</li>`).join('');
+  document.getElementById('p2Notes').value = '';
+  document.getElementById('p2Notes').disabled = false;
+  document.getElementById('p2PrepPhase').style.display = 'block';
+
+  let prepSec = 60;
+  updatePrepDisplay(prepSec);
+  p2PrepInterval = setInterval(() => {
+    prepSec--;
+    updatePrepDisplay(prepSec);
+    if (prepSec <= 0) {
+      clearInterval(p2PrepInterval);
+      // Khóa notepad và copy nội dung sang phần hiển thị khi ghi âm
+      const notesVal = document.getElementById('p2Notes').value;
+      document.getElementById('p2Notes').disabled = true;
+      document.getElementById('p2NotesDisplay').value = notesVal || '(không có ghi chú)';
+      document.getElementById('p2PrepPhase').style.display = 'none';
+      showCountdown('Bắt đầu nói Part 2...', startPart2Recording);
+    }
+  }, 1000);
+}
+
+function updatePrepDisplay(sec) {
+  const m = Math.floor(sec / 60);
+  const s = sec % 60;
+  document.getElementById('p2PrepTime').textContent = `${m}:${String(s).padStart(2,'0')}`;
+}
+
+async function startPart2Recording() {
+  const stream = micStream || await navigator.mediaDevices.getUserMedia({ audio: true });
+  if (!micStream) micStream = stream;
+  const mime = getMimeType();
+  p2Recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : {});
+  p2Chunks = [];
+  p2Recorder.ondataavailable = e => { if (e.data.size > 0) p2Chunks.push(e.data); };
+  p2Recorder.onstop = () => {
+    const blob = new Blob(p2Chunks, { type: p2Recorder.mimeType });
+    p2Blob = blob;
+    allRecordings.push({ label: 'Part2', blob });
+    document.getElementById('p2RecPhase').style.display = 'none';
+    document.getElementById('p2AfterRec').style.display = 'block';
+    const dur = formatTime(p2ElapsedSec);
+    document.getElementById('p2AfterSub').textContent = `Thời gian: ${dur}`;
+    addClip('p2ClipsList', 'Part 2 — Cue Card', blob);
+    speak(TEST_DATA.part2.endText, () => {
+      setTimeout(() => {
+        renderSteps('stepsBar3', 3);
+        show('screenPart3');
+        startPart3();
+      }, 800);
+    });
+  };
+  p2Recorder.start();
+  p2ElapsedSec = 0;
+  document.getElementById('p2PrepPhase').style.display = 'none';
+  document.getElementById('p2RecPhase').style.display = 'block';
+  const maxSec = 120;
+  updateP2Timer(0, maxSec);
+  p2RecInterval = setInterval(() => {
+    p2ElapsedSec++;
+    updateP2Timer(p2ElapsedSec, maxSec);
+    if (p2ElapsedSec >= maxSec) {
+      clearInterval(p2RecInterval);
+      stopPart2();
+    }
+  }, 1000);
+  const wv = startWaveform(stream, 'waveform2', null);
+  p2WaveAnim = wv;
+}
+
+function updateP2Timer(elapsed, max) {
+  const rem = max - elapsed;
+  const eM = Math.floor(elapsed/60), eS = elapsed%60;
+  const rM = Math.floor(rem/60), rS = rem%60;
+  document.getElementById('p2TimerVal').textContent =
+    `${eM}:${String(eS).padStart(2,'0')} / ${rM}:${String(rS).padStart(2,'0')}`;
+  const pct = Math.min(100, (elapsed / max) * 100);
+  document.getElementById('p2TimerBar').style.width = pct + '%';
+}
+
+function stopPart2Early() {
+  clearInterval(p2RecInterval);
+  if (p2WaveAnim) { p2WaveAnim.stop(); p2WaveAnim = null; }
+  if (p2Recorder && p2Recorder.state !== 'inactive') p2Recorder.stop();
+}
+
+function stopPart2() {
+  if (p2WaveAnim) { p2WaveAnim.stop(); p2WaveAnim = null; }
+  if (p2Recorder && p2Recorder.state !== 'inactive') p2Recorder.stop();
+}
+
+// ============================================================
+// PART 3
+// ============================================================
+function startPart3() {
+  p3Questions = selectQuestions(TEST_DATA.part3.questions, TEST_DATA.part3.numToAsk);
+  p3CurrentIdx = 0;
+  p3Blobs = [];
+  document.getElementById('p3ClipsList').innerHTML = '';
+  document.getElementById('p3AfterRec').style.display = 'none';
+  showP3AudioPlaying('Examiner đang hướng dẫn...');
+  speak(TEST_DATA.part3.introText, () => {
+    hideP3AudioPlaying();
+    setTimeout(() => askPart3Question(), 800);
+  });
+}
+
+function showP3AudioPlaying(label) {
+  document.getElementById('p3AudioPlaying').style.display = 'flex';
+  document.getElementById('p3AudioLabel').textContent = label;
+  document.getElementById('p3RecSection').style.display = 'none';
+}
+function hideP3AudioPlaying() {
+  document.getElementById('p3AudioPlaying').style.display = 'none';
+}
+
+function askPart3Question() {
+  if (p3CurrentIdx >= p3Questions.length) {
+    endPart3();
+    return;
+  }
+  const q = p3Questions[p3CurrentIdx];
+  p3CurrentQuestion = q.text;
+  document.getElementById('p3Counter').textContent = `Câu ${p3CurrentIdx + 1} / ${p3Questions.length}`;
+  showP3AudioPlaying(`Câu ${p3CurrentIdx + 1}: Examiner đang hỏi...`);
+  speak(q.text, () => {
+    hideP3AudioPlaying();
+    setTimeout(() => startPart3Recording(), 1200);
+  });
+}
+
+function replayP3Question() {
+  if (!p3CurrentQuestion) return;
+  const btn = document.getElementById('btnReplayP3');
+  btn.disabled = true;
+  btn.textContent = '🔊 Đang phát...';
+  speak(p3CurrentQuestion, () => {
+    btn.disabled = false;
+    btn.textContent = '🔁 Nghe lại câu hỏi';
+  });
+}
+
+async function startPart3Recording() {
+  const stream = micStream || await navigator.mediaDevices.getUserMedia({ audio: true });
+  if (!micStream) micStream = stream;
+  const mime = getMimeType();
+  p3Recorder = new MediaRecorder(stream, mime ? { mimeType: mime } : {});
+  p3Chunks = [];
+  p3Recorder.ondataavailable = e => { if (e.data.size > 0) p3Chunks.push(e.data); };
+  p3Recorder.onstop = () => {
+    const blob = new Blob(p3Chunks, { type: p3Recorder.mimeType });
+    p3Blobs.push({ blob, question: p3Questions[p3CurrentIdx] });
+    allRecordings.push({ label: `Part3_Q${p3CurrentIdx + 1}`, blob });
+    addClip('p3ClipsList', `Part 3 — Câu ${p3CurrentIdx + 1}`, blob);
+    document.getElementById('p3AfterRec').style.display = 'block';
+    document.getElementById('p3RecSection').style.display = 'none';
+    p3CurrentIdx++;
+    if (p3CurrentIdx < p3Questions.length) {
+      showCountdown('Chuẩn bị câu tiếp theo...', askPart3Question);
+    } else {
+      endPart3();
+    }
+  };
+  p3Recorder.start();
+  p3ElapsedSec = 0;
+  document.getElementById('p3RecSection').style.display = 'block';
+  updateP3Timer();
+  p3TimerInterval = setInterval(() => {
+    p3ElapsedSec++;
+    updateP3Timer();
+    if (p3ElapsedSec === 60) {
+      showToast('⚠️ Gần đến giới hạn thời gian! Hãy kết thúc câu trả lời.', 3000);
+    }
+    if (p3ElapsedSec >= 80) {
+      stopPart3Recording();
+    }
+  }, 1000);
+  const wv = startWaveform(stream, 'waveform3', null);
+  p3WaveAnim = wv;
+}
+
+function updateP3Timer() {
+  const sec = p3ElapsedSec;
+  const el = document.getElementById('p3TimerVal');
+  const bar = document.getElementById('p3TimerBar');
+  el.textContent = formatTime(sec);
+  const pct = Math.min(100, (sec / 80) * 100);
+  bar.style.width = pct + '%';
+  if (sec >= 60) {
+    el.className = 'timer-val yellow';
+    bar.className = 'timer-bar yellow';
+  } else {
+    el.className = 'timer-val green';
+    bar.className = 'timer-bar green';
+  }
+}
+
+function stopPart3Recording() {
+  clearInterval(p3TimerInterval);
+  if (p3WaveAnim) { p3WaveAnim.stop(); p3WaveAnim = null; }
+  if (p3Recorder && p3Recorder.state !== 'inactive') p3Recorder.stop();
+}
+
+function endPart3() {
+  showP3AudioPlaying('Examiner đang kết thúc bài thi...');
+  speak(TEST_DATA.part3.endText, () => {
+    hideP3AudioPlaying();
+    clearInterval(totalTimerInterval);
+    hasFinished = true;
+    setTimeout(showFinish, 800);
+  });
+}
+
+// ============================================================
+// ADD CLIP TO LIST
+// ============================================================
+function addClip(listId, label, blob) {
+  const url = URL.createObjectURL(blob);
+  const ext = getExtension(blob.type);
+  const safeName = removeAccents(studentName);
+  const dateStr = new Date().toLocaleDateString('vi-VN').replace(/\//g,'');
+  const fname = `${safeName}_TEST13_${label.replace(/\s|—/g,'_')}_${dateStr}.${ext}`;
+  const div = document.createElement('div');
+  div.className = 'clip-item';
+  div.innerHTML = `
+    <span class="clip-label">${label}</span>
+    <div class="clip-audio"><audio controls src="${url}"></audio></div>
+    <div class="clip-dl">
+      <a href="${url}" download="${fname}" class="btn btn-secondary btn-sm">📥</a>
+    </div>`;
+  document.getElementById(listId).appendChild(div);
+}
+
+// ============================================================
+// FINISH SCREEN
+// ============================================================
+function showFinish() {
+  const totalSec = getTotalElapsed();
+  const today = new Date().toLocaleDateString('vi-VN');
+  document.getElementById('finishSub').textContent =
+    `${studentName} &nbsp;·&nbsp; ${today} &nbsp;·&nbsp; Tổng thời gian: ${formatTime(totalSec)}`;
+
+  document.getElementById('finishStats').innerHTML = `
+    <div class="finish-stat-row"><span>👤 Thí sinh</span><span class="val">${studentName}</span></div>
+    <div class="finish-stat-row"><span>📅 Ngày thi</span><span class="val">${today}</span></div>
+    <div class="finish-stat-row"><span>⏱ Tổng thời gian</span><span class="val">${formatTime(totalSec)}</span></div>
+    <div class="finish-stat-row"><span>🎤 Part 1</span><span class="val">${p1Blobs.length} câu ✅</span></div>
+    <div class="finish-stat-row"><span>📋 Part 2</span><span class="val">1 câu ✅</span></div>
+    <div class="finish-stat-row"><span>💬 Part 3</span><span class="val">${p3Blobs.length} câu ✅</span></div>
+  `;
+  show('screenFinish');
+}
+
+// ============================================================
+// APPS SCRIPT URL
+// ============================================================
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+
+// ============================================================
+// NỘP BÀI LÊN SERVER
+// ============================================================
+async function doSubmitAll() {
+  if (allRecordings.length === 0) {
+    showToast('Không có file ghi âm nào!', 3000); return;
+  }
+  const btn = document.getElementById('btnSubmit');
+  btn.disabled = true;
+  btn.textContent = '⏳ Đang nộp bài...';
+
+  document.getElementById('submitProgress').style.display = 'block';
+  document.getElementById('submitResult').style.display = 'none';
+
+  const total = allRecordings.length;
+  const totalSec = getTotalElapsed();
+  let successCount = 0;
+  const fileListEl = document.getElementById('submitFileList');
+  fileListEl.innerHTML = '';
+
+  for (let i = 0; i < total; i++) {
+    const rec = allRecordings[i];
+    const isLast = (i === total - 1);
+    const pct = Math.round(((i) / total) * 100);
+    document.getElementById('submitBar').style.width = pct + '%';
+    document.getElementById('submitStatusText').textContent =
+      `Đang tải file ${i + 1}/${total}: ${rec.label}...`;
+
+    // Convert blob → base64
+    const base64 = await new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(rec.blob);
+    });
+
+    const payload = {
+      action:    'save_speaking',
+      student:   studentName,
+      test:      'Test13',
+      label:     rec.label,
+      mimeType:  rec.blob.type || 'audio/webm',
+      audioB64:  base64,
+      totalTime: isLast ? String(totalSec) : '',
+      isLast:    isLast
+    };
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      successCount++;
+      const li = document.createElement('div');
+      li.textContent = '✅ ' + rec.label;
+      fileListEl.appendChild(li);
+    } catch (err) {
+      const li = document.createElement('div');
+      li.style.color = '#e55';
+      li.textContent = '❌ ' + rec.label + ' — ' + err.message;
+      fileListEl.appendChild(li);
+    }
+
+    await new Promise(r => setTimeout(r, 300));
+  }
+
+  // Hoàn thành
+  document.getElementById('submitBar').style.width = '100%';
+  document.getElementById('submitStatusText').textContent = 'Hoàn tất!';
+
+  const resultEl = document.getElementById('submitResult');
+  resultEl.style.display = 'block';
+  if (successCount === total) {
+    resultEl.style.background = 'rgba(39,174,96,0.15)';
+    resultEl.style.color = '#27ae60';
+    resultEl.innerHTML = '🎉 Nộp bài thành công! Giáo viên sẽ chấm và phản hồi sớm.';
+    btn.textContent = '✅ Đã nộp bài';
+  } else {
+    resultEl.style.background = 'rgba(231,76,60,0.12)';
+    resultEl.style.color = '#e74c3c';
+    resultEl.innerHTML = `⚠️ ${successCount}/${total} file đã nộp. Vui lòng tải về và gửi cho giáo viên.`;
+    btn.disabled = false;
+    btn.textContent = '🔄 Thử nộp lại';
+  }
+}
+
+// ============================================================
+// DOWNLOAD ALL
+// ============================================================
+async function downloadAll() {
+  if (allRecordings.length === 0) { showToast('Không có file nào để tải!'); return; }
+  const safeName = removeAccents(studentName);
+  const dateStr = new Date().toLocaleDateString('vi-VN').replace(/\//g,'');
+  for (const rec of allRecordings) {
+    const ext = getExtension(rec.blob.type);
+    const url = URL.createObjectURL(rec.blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${safeName}_TEST13_${rec.label}_${dateStr}.${ext}`;
+    a.click();
+    await new Promise(r => setTimeout(r, 400));
+    URL.revokeObjectURL(url);
+  }
+  showToast('✅ Đã tải tất cả file!', 4000);
+}
+
+</script>
+</body>
+</html>
