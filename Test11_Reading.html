@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 11</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+#right-panel input[type="text"],#right-panel select{user-select:text}
+.passage-section{display:none}
+.passage-section.active{display:block}
+.q-section{display:none}
+.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:6px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer,.check-label.selected-answer{background:#FFD580;border-radius:4px}
+.radio-label.correct,.check-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong,.check-label.wrong{background:#f8d7da!important;color:#721c24}
+.radio-label.missed{background:#fff3cd!important;border:2px dashed #856404}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+.word-bank-box{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+.word-bank-item{display:inline-block;margin:2px 6px;font-size:13px}
+.flow-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+.flow-box{border:1px solid #aaa;border-radius:4px;padding:6px 10px;background:#fff;min-width:80px;text-align:center}
+.flow-arrow{font-size:18px;color:#888}
+.company-list{background:#eef2ff;border:1px solid #b0c0ff;border-radius:6px;padding:10px 14px;margin:8px 0}
+table.fill-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.fill-table td,table.fill-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.fill-table th{background:#e8eaf6;font-weight:700}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#submit-btn:hover{background:#2a5080}
+.hl-yellow{background:#FFE066}
+.hl-green{background:#90EE90}
+.hl-pink{background:#FFB6C1}
+/* Overlays */
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#start-btn:hover{background:#2a5080}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+#score-panel h2{color:#1a3a5c;margin-bottom:12px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #left-panel,#right-panel{width:100%!important;height:50vh}
+  #divider{display:none}
+  .tab-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- Name Popup -->
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 11</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label>
+    <input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label>
+    <input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+
+<!-- Confirm submit overlay -->
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+
+<!-- Fullscreen overlay -->
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát khỏi toàn màn hình. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+
+<!-- Overtime overlay -->
+<div id="overtime-overlay">
+  <div id="overtime-box">
+    <p>⏰ Hết 60 phút! Bạn có thêm 5 phút để hoàn thành.<br>Bài sẽ tự nộp sau 5 phút.</p>
+    <button onclick="confirmSubmit()">Nộp bài ngay</button>
+  </div>
+</div>
+
+<!-- Warning banner -->
+<div id="warning-banner"></div>
+
+<!-- Header -->
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+
+<!-- Main layout -->
+<div id="main">
+  <!-- LEFT: Passages -->
+  <div id="left-panel">
+
+    <!-- Passage 1 -->
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 1–14 which are based on Reading Passage 1 below.</div>
+      <div class="passage-title" style="margin-top:12px">Nature Works for Nature Work PLA</div>
+      <div class="passage-para"><span class="subheading">A</span> A dozen years ago, scientists at Cargill got the idea of converting lactic acid made from corn into plastic while examining possible new uses for materials produced from corn wet milling processes. In the past, several efforts had been made to develop plastics from lactic acid, but with limited success. Achieving this technological breakthrough didn't come easily, but in time the efforts did succeed. A fermentation and distillation process using corn was designed to create a polymer suitable for a broad variety of applications.</div>
+      <div class="passage-para"><span class="subheading">B</span> As an agricultural based firm, Cargill had taken this product as far as it could by 1997. The company needed a partner with access to plastics markets and polymerization capabilities, and began discussions with The Dow Chemical Company. The next step was the formation of the joint venture that created Cargill Dow LLC. Cargill Dow's product is the world's first commercially available plastic made from annually renewable resources such as corn.</div>
+      <div class="passage-para"><span class="subheading">C</span> By applying their unique technology to the processing of natural plant sugars, Cargill Dow has created a more environmentally friendly material that reaches the consumer in clothes, cups, packaging and other products. While Cargill Dow is a stand-alone business, it continues to leverage the agricultural processing, manufacturing and polymer expertise of the two parent companies in order to bring the best possible products to market.</div>
+      <div class="passage-para"><span class="subheading">D</span> The basic raw materials for PLA are carbon dioxide and water. Growing plants, like corn, take these building blocks from the atmosphere and the soil. They are combined in the plant to make carbohydrates (sucrose and starch) through a process driven by photosynthesis. The process for making Nature Works PLA begins when a renewable resource such as corn is milled, separating starch from the raw material. Unrefined dextrose, in turn, is processed from the starch.</div>
+      <div class="passage-para"><span class="subheading">E</span> Cargill Dow turns the unrefined dextrose into lactic acid using a fermentation process similar to that used by beer and wine producers. This is the same lactic acid that is used as a food additive and is found in muscle tissue in the human body. Through a special condensation process, a lactide is formed. This lactide is purified through vacuum distillation and becomes a polymer (the base for NatureWorks PLA) that is ready for use through a solvent-free melt process. Development of this new technology allows the company to "harvest" the carbon that living plants remove from the air through photosynthesis. Carbon is stored in plant starches, which can be broken down into natural plant sugars. The carbon and other elements in these natural sugars are then used to make NatureWorks PLA.</div>
+      <div class="passage-para"><span class="subheading">F</span> Nature Works PLA fits all disposal systems and is fully compostable in commercial composting facilities. With the proper infrastructure, products made from this polymer can be recycled back to a monomer and re-used as a polymer. Thus, at the end of its life cycle, a product made from Nature Works PLA can be broken down into its simplest parts so that no sign of it remains.</div>
+      <div class="passage-para"><span class="subheading">G</span> PLA is now actively competing with traditional materials in packaging and fiber applications throughout the world; based on the technology's success and promise, Cargill Dow is quickly becoming a premier player in the polymers market. This new polymer now competes head-on with petroleum-based materials like polyester. A wide range of products that vary in molecular weight and crystallinity can be produced, and the blend of physical properties of PLA makes it suited for a broad range of fiber and packaging applications. Fiber and non-woven applications include clothing, fiberfill, blankets and wipes. Packaging applications include packaging films and food and beverage containers.</div>
+      <div class="passage-para"><span class="subheading">H</span> As Nature Works PLA polymers are more oil- and grease-resistant and provide a better flavor and aroma barrier than existing petroleum-based polymers, grocery retailers are increasingly using this packaging for their fresh foods. As companies begin to explore this family of polymers, more potential applications are being identified. For example, PLA possess two properties that are particularly useful for drape fabrics and window furnishings. Their resistance to ultraviolet light is particularly appealing as this reduces the amount of fading in such fabrics, and their refractive index is low, which means fabrics constructed from these polymers can be made with deep colors without requiring large amounts of dye. In addition, sportswear makers have been drawn to the product as it has an inherent ability to take moisture away from the skin and when blended with cotton and wool, the result is garments that are lighter and better at absorbing moisture.</div>
+      <div class="passage-para"><span class="subheading">I</span> PLA combines inexpensive large-scale fermentation with chemical processing to produce a value-added polymer product that improves the environment as well. The source material for PLA is a natural sugar found in plants such as corn and using such renewable feedstock presents several environmental benefits. As an alternative to traditional petroleum-based polymers, the production of PLA uses 20%–50% less fossil fuel and releases a lower amount of greenhouse gases than comparable petroleum-based plastic; carbon dioxide in the atmosphere is removed when the feedstock is grown and is returned to the earth when the polymer is degraded. Because the company is using raw materials that can be regenerated year after year, it is both cost-competitive and environmentally responsible.</div>
+    </div>
+
+    <!-- Passage 2 -->
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 15–27 which are based on Reading Passage 2 below.</div>
+      <div class="passage-title" style="margin-top:12px">Renewable Energy</div>
+      <div class="passage-subtitle">An insight into the progress in renewable energy research</div>
+      <div class="passage-para"><span class="subheading">A</span> The race is on for the ultimate goal of renewable energy: electricity production at prices that are competitive with coal-fired power stations, but without coal's pollution. Some new technologies are aiming to be the first to push coal from its position as Australia's chief source of electricity.</div>
+      <div class="passage-para"><span class="subheading">B</span> At the moment the front-runner in renewable energy is wind technology. According to Peter Bergin of Australian Hydro, one of Australia's leading wind energy companies, there have been no dramatic changes in windmill design for many years, but the cumulative effects of numerous small improvements have had a major impact on cost. 'We're reaping the benefits of 30 years of research in Europe, without having to make the same mistakes that they did,' Mr Bergin says.</div>
+      <div class="passage-para"><span class="subheading">C</span> Electricity can be produced from coal at around 4 cents per kilowatt-hour, but only if the environmental costs are ignored. 'Australia has the second cheapest electricity in the world, and this makes it difficult for renewables to compete,' says Richard Hunter of the Australian Ecogeneration Association (AEA). Nevertheless, the AEA reports: 'The production cost of a kilowatt-hour of wind power is one-fifth of what it was 20 years ago,' or around 7 cents per kilowatt-hour.</div>
+      <div class="passage-para"><span class="subheading">D</span> Australian Hydro has dozens of wind monitoring stations across Australia as part of its aim to become Australia's pre-eminent renewable energy company. Despite all these developments, wind power remains one of the few forms of alternative energy where Australia is nowhere near the global cutting edge, mostly just replicating European designs.</div>
+      <div class="passage-para"><span class="subheading">E</span> While wind may currently lead the way, some consider a number of technologies under development have more potential. In several cases, Australia is at the forefront of global research in the area. Some of them are very site-specific, ensuring that they may never become dominant market players. On the other hand, these newer developments are capable of providing more reliable power, avoiding the major criticism of windmills – the need for back-up on a calm day.</div>
+      <div class="passage-para"><span class="subheading">F</span> One such development uses hot, dry rocks. Deep beneath South Australia, radiation from elements contained in granite heats the rocks. Layers of insulating sedimentation raise the temperatures in some locations to 250° centigrade. An Australian firm, Geoenergy, is proposing to pump water 3.5 kilometres into the earth, where it will travel through tiny fissures in the granite, heating up as it goes until it escapes as steam through another drilled hole.</div>
+      <div class="passage-para"><span class="subheading">G</span> No greenhouse gases are produced, but the system needs some additional features if it is to be environmentally friendly. Dr Prue Chopra, a geophysicist at the Australian National University and one of the founders of Geoenergy, notes that the steam will bring with it radon gas, along through a heat exchanger and then sent back underground for another cycle. Technically speaking, hot dry rocks are not a renewable source of energy. However, the Australian source is so large it could supply the entire country's needs for thousands of years at current rates of consumption.</div>
+      <div class="passage-para"><span class="subheading">H</span> Two other proposals for very different ways to harness sun and wind energy have surfaced recently. Progress continues with Australian company EnviroPower's plans for Australia's first solar chimney near Mildura, in Victoria. Under this scheme, a tall tower will draw hot air from a greenhouse built to cover the surrounding 5 km². As the air rises, it will drive a turbine to produce electricity. The solar tower combines three very old technologies – the chimney, the turbine and the greenhouse – to produce something quite new. It is this reliance on proven engineering principles that led Enviropower's CEO, Richard Davies, to state: 'There is no doubt this technology will work, none at all.'</div>
+      <div class="passage-para"><span class="subheading">I</span> This year, Enviropower recognized that the quality of sunlight in the Mildura district will require a substantially larger collecting area than was previously thought. However, spokesperson Kay Firth says that a new location closer to Mildura will enable Enviropower to balance the increased costs with extra revenue. Besides saving in transmission costs, the new site 'will mean increased revenue from tourism and use of power for telecommunications. We'll also be able to use the outer 500 metres for agribusiness.' Wind speeds closer to the tower will be too high for farming.</div>
+      <div class="passage-para"><span class="subheading">J</span> Another Australian company, Wavetech, is achieving success with ways of harvesting the energy in waves. Wavetech's invention uses a curved surface to push waves into a chamber, where the flowing water column pushes air back and forth through a turbine. Wavetech was created when Dr Tim Devine offered the idea to the world leader in wave generator manufacturers, who rather surprisingly rejected it. Dr Devine responded by establishing Wavetech and making a number of other improvements to generator design. Wavetech claims that, at appropriate sites, 'the cost of electricity produced with our technology should be below 4 cents per kilowatt-hour.'</div>
+      <div class="passage-para"><span class="subheading">K</span> The diversity of forms of greenhouse-friendly energy under development in Australia is remarkable. However, support on a national level is disappointing. According to Richard Hunter of the AEA, 'Australia has huge potential for wind, sun and wave technology. We should really be at the forefront, but the reality is we are a long way behind.'</div>
+    </div>
+
+    <!-- Passage 3 -->
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 28–40 which are based on Reading Passage 3 below.</div>
+      <div class="passage-title" style="margin-top:12px">How Fair is Fair Trade?</div>
+      <div class="passage-para">The fair-trade movement began in Europe in earnest in the post-war period, but only in the last 25 years has it grown to include producers and consumers in over 60 countries.</div>
+      <div class="passage-para">In the 1950s and 60s, many people in the developed world felt passionately about the enormous disparities between developed and developing countries, and they believed the system of international trade shut out African, Asian, and South American producers who could not compete with multinational companies or who came from states that, for political reasons, were not trading with the West. The catchphrase 'Trade Not Aid' was used by church groups and trade unions – early supporters of fair trade – who also considered that international aid was either a pittance or a covert form of subjugation. These days, much fair trade does include aid: developed-world volunteers offer their services, and there is free training for producers and their workers.</div>
+      <div class="passage-para">Tea, coffee, cocoa, cotton, flowers, handicrafts, and gold are all major fair-trade items, with coffee being the most recognisable, found on supermarket shelves and at café chains throughout the developed world. Although around two million farmers and workers produce fair-trade items, this is a tiny number in relation to total global trade. Still, fair-trade advocates maintain that the system has positively impacted upon many more people worldwide, while the critics claim that if those two million returned to the mainstream trading system, they would receive higher prices for their goods or labour.</div>
+      <div class="passage-para">Fair trade is supposed to be a trade that is fair to producers. Its basic tenet is that developed-world consumers will pay slightly more for end products in the knowledge that developing-world producers have been equitably remunerated, and that the products have been made in decent circumstances. Additionally, the fair-trade system differs from that of the open market because there is a minimum price paid for goods, which may be higher than that of the open market. Secondly, a small premium, earmarked for community development, is added in good years; for example, coffee co-operatives in South America frequently receive an additional 25c per kilogram. Lastly, purchasers of fair-trade products may assist with crop pre-financing or with the training of producers and workers, which could take the form of improving product quality, using environmentally friendly fertilisers, or raising literacy. Research has shown that non-fair-trade farmers copy some fair-trade farming practices, and, occasionally, encourage social progress. In exchange for ethical purchase and other assistance, fair-trade producers agree not to use child or slave labour, to adhere to the United Nations Charter on Human Rights, to provide safe workplaces, and to protect the environment despite these not being legally binding in their own countries. However, few non-fair-trade farmers have adopted these practices, viewing them as little more than rich-world conceits.</div>
+      <div class="passage-para">So that consumers know which products are made under fair-trade conditions, goods are labelled, and, these days, a single European and American umbrella organisation supervises labelling, standardisation, and inspection.</div>
+      <div class="passage-para">While fair trade is increasing, the system is far from perfect. First and foremost, there are expenses involved in becoming a fair-trade-certified producer, meaning the desperately poor rarely participate, so the very farmers fair-trade advocates originally hoped to support are excluded. Secondly, because conforming to the standards of fair-trade certification is costly, some producers deliberately mislabel their goods. The fair-trade monitoring process is patchy, and unfortunately, around 12% of fair-trade-labelled produce is nothing of the kind. Next, a crop may genuinely be produced under fair-trade conditions, but due to a lack of demand cannot be sold as fair trade, so goes onto the open market, where prices are mostly lower. It is estimated that only between 18–37% of fair-trade output is actually sold as fair trade. Sadly, there is little reliable research on the real relationship between costs incurred and revenue for fair-trade farmers, although empirical evidence suggests that many never realise a profit. Partly, reporting from producers is inadequate, and ways of determining profit may not include credit, harvesting, transport, or processing. Sometimes, the price paid to fair-trade producers is lower than that of the open market, so while a crop may be sold, elsewhere it could have earned more, or where there are profits, they are often taken by the corporate firms that buy the goods and sell them on to retailers.</div>
+      <div class="passage-para">There are problems with the developed-world part of the equation too. People who volunteer to work for fair-trade concerns may do so believing they are assisting farmers and communities, whereas their labour serves to enrich middlemen and retailers. Companies involved in West African cocoa production have been criticised for this. In the developed world, the right to use a fair-trade logo is also expensive for packers and retailers, and sometimes a substantial amount of the money received from sale is ploughed back into marketing. In richer parts of the developed world, notably in London, packers and retailers charge high prices for fair-trade products. Consumers imagine they are paying so much because more money is returned to producers when profit-taking by retailers or packers is a more likely scenario. One UK café chain is known to have passed on 1.6% of the extra 18% it charged for fair-trade coffee to producers. However, this happens with other items at the supermarket or cafe, so perhaps consumers are naive to believe fair-traders behave otherwise. In addition, there are struggling farmers in rich countries, too, so some critics think fair-trade associations should certify them. Other critics find the entire fair-trade system flawed – nothing more than a colossal marketing scam – and they would rather assist the genuinely poor in more transparent ways, but this criticism may be overblown since fair trade has endured for and been praised in the developing world itself.</div>
+    </div>
+  </div><!-- /left-panel -->
+
+  <div id="divider"></div>
+
+  <!-- RIGHT: Questions -->
+  <div id="right-panel">
+
+    <!-- Questions Passage 1 -->
+    <div class="q-section active" id="qs1">
+      <div class="passage-title" style="margin-bottom:10px">Questions 1–14 — Passage 1</div>
+
+      <!-- Q1-4 Matching -->
+      <div class="q-block">
+        <div class="q-num">Questions 1–4</div>
+        <div class="q-instruction">Write the letters A–F in the boxes 1–4.<br>Match each statement with the correct ending A–F below.</div>
+        <div class="group-box">
+          <div class="group-title">List of Endings</div>
+          <div>A &nbsp;make things like clothes</div>
+          <div>B &nbsp;produce plastic from plant</div>
+          <div>C &nbsp;selling plastic in market</div>
+          <div>D &nbsp;fermentation process</div>
+          <div>E &nbsp;drape fabrics</div>
+          <div>F &nbsp;wrapping products</div>
+        </div>
+        <div class="q-text"><span class="q-num">1.</span> Q.01.TEST011 &nbsp;Scientists manage to &nbsp;
+          <select id="q1"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar1"></span>
+        </div>
+        <div class="q-text"><span class="q-num">2.</span> Q.02.TEST011 &nbsp;Cargill needs to have contacts with &nbsp;
+          <select id="q2"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar2"></span>
+        </div>
+        <div class="q-text"><span class="q-num">3.</span> Q.03.TEST011 &nbsp;Nature work is used for &nbsp;
+          <select id="q3"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar3"></span>
+        </div>
+        <div class="q-text"><span class="q-num">4.</span> Q.04.TEST011 &nbsp;Ingeo is used to &nbsp;
+          <select id="q4"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option></select>
+          <span class="answer-reveal" id="ar4"></span>
+        </div>
+      </div>
+
+      <!-- Q5-8 Flow-chart -->
+      <div class="q-block">
+        <div class="q-num">Questions 5–8</div>
+        <div class="q-instruction">Complete the following summary of the paragraphs of reading passage.<br>Using <strong>NO MORE THAN TWO WORDS</strong> from the reading passage for each answer.</div>
+        <div style="margin:10px 0">
+          <div class="flow-row">
+            <div class="flow-box">Milling</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">Corn</div>
+          </div>
+          <div class="flow-row" style="margin-left:40px"><div class="flow-arrow">↓</div></div>
+          <div class="flow-row">
+            <div class="flow-box">Q.05.TEST011<br><input type="text" id="q5" placeholder="answer"><span class="answer-reveal" id="ar5"></span></div>
+            <div class="flow-arrow"></div>
+            <div class="flow-box">Unrefined dextrose</div>
+          </div>
+          <div class="flow-row" style="margin-left:40px"><div class="flow-arrow">↓</div></div>
+          <div class="flow-row">
+            <div class="flow-box">Q.06.TEST011<br><input type="text" id="q6" placeholder="answer"><span class="answer-reveal" id="ar6"></span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">Lactic acid</div>
+          </div>
+          <div class="flow-row" style="margin-left:40px"><div class="flow-arrow">↓</div></div>
+          <div class="flow-row">
+            <div class="flow-box">Q.07.TEST011<br><input type="text" id="q7" placeholder="answer"><span class="answer-reveal" id="ar7"></span></div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">Lactide</div>
+          </div>
+          <div class="flow-row" style="margin-left:40px"><div class="flow-arrow">↓</div></div>
+          <div class="flow-row">
+            <div class="flow-box">Vacuum distillation</div>
+            <div class="flow-arrow">→</div>
+            <div class="flow-box">get Q.08.TEST011<br><input type="text" id="q8" placeholder="answer"><span class="answer-reveal" id="ar8"></span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q9-10 MCQ -->
+      <div class="q-block">
+        <div class="q-num">Questions 9–10</div>
+        <div class="q-instruction">Choose the correct letter, A, B, C or D.</div>
+        <div class="q-text"><span class="q-num">Q.09.TEST011</span> Why did they choose PLA as material for food packaging?</div>
+        <label class="radio-label"><input type="radio" name="q9" value="A"> A &nbsp;It smells good</label>
+        <label class="radio-label"><input type="radio" name="q9" value="B"> B &nbsp;It can save food freshness</label>
+        <label class="radio-label"><input type="radio" name="q9" value="C"> C &nbsp;It can be used on other materials</label>
+        <label class="radio-label"><input type="radio" name="q9" value="D"> D &nbsp;Some other things need to be revised about it</label>
+        <span class="answer-reveal" id="ar9"></span>
+
+        <div class="q-text" style="margin-top:12px"><span class="q-num">Q.10.TEST011</span> What is PLA packaging used for?</div>
+        <label class="radio-label"><input type="radio" name="q10" value="A"> A &nbsp;absorbing moisture</label>
+        <label class="radio-label"><input type="radio" name="q10" value="B"> B &nbsp;composting facilities</label>
+        <label class="radio-label"><input type="radio" name="q10" value="C"> C &nbsp;Packaging fresh food</label>
+        <label class="radio-label"><input type="radio" name="q10" value="D"> D &nbsp;manufacturing</label>
+        <span class="answer-reveal" id="ar10"></span>
+      </div>
+
+      <!-- Q11-12 Checkbox -->
+      <div class="q-block">
+        <div class="q-num">Questions 11–12</div>
+        <div class="q-instruction">Which <strong>TWO</strong> features of PLA are correct? Choose <strong>TWO</strong> answers from the list below.</div>
+        <label class="check-label"><input type="checkbox" name="q1112" value="A"> A &nbsp;It is made of renewable raw materials</label>
+        <label class="check-label"><input type="checkbox" name="q1112" value="B"> B &nbsp;It involves the removal of carbon dioxide</label>
+        <label class="check-label"><input type="checkbox" name="q1112" value="C"> C &nbsp;It is no use of fossil fuel product</label>
+        <label class="check-label"><input type="checkbox" name="q1112" value="D"> D &nbsp;It uses renewable raw resources</label>
+        <label class="check-label"><input type="checkbox" name="q1112" value="E"> E &nbsp;It is sustenance which can absorb the CO₂ in the atmosphere</label>
+        <div id="chk-limit-q1112"></div>
+        <span class="answer-reveal" id="ar1112"></span>
+      </div>
+
+      <!-- Q13-14 Checkbox -->
+      <div class="q-block">
+        <div class="q-num">Questions 13–14</div>
+        <div class="q-instruction">Which <strong>TWO</strong> features of PLA are correct? Choose <strong>TWO</strong> answers from the list below.</div>
+        <label class="check-label"><input type="checkbox" name="q1314" value="A"> A &nbsp;It takes in moisture of skin</label>
+        <label class="check-label"><input type="checkbox" name="q1314" value="B"> B &nbsp;It is waterproof</label>
+        <label class="check-label"><input type="checkbox" name="q1314" value="C"> C &nbsp;comfortable sportswear</label>
+        <label class="check-label"><input type="checkbox" name="q1314" value="D"> D &nbsp;It's fading under the sun</label>
+        <label class="check-label"><input type="checkbox" name="q1314" value="E"> E &nbsp;It is only made in deep color</label>
+        <div id="chk-limit-q1314"></div>
+        <span class="answer-reveal" id="ar1314"></span>
+      </div>
+    </div><!-- /qs1 -->
+
+    <!-- Questions Passage 2 -->
+    <div class="q-section" id="qs2">
+      <div class="passage-title" style="margin-bottom:10px">Questions 15–27 — Passage 2</div>
+
+      <!-- Q15-21 T/F/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 15–21</div>
+        <div class="q-instruction">Do the following statements agree with the information given in Reading Passage 2?<br>
+        Write <strong>TRUE</strong> if the statement agrees with the information<br>
+        <strong>FALSE</strong> if the statement contradicts the information<br>
+        <strong>NOT GIVEN</strong> if there is no information on this</div>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.15.TEST011</span> In Australia, alternative energies are less expensive than conventional electricity.</div>
+        <label class="radio-label"><input type="radio" name="q15" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q15" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q15" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar15"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.16.TEST011</span> Geoenergy needs to adapt its system to make it less harmful to the environment.</div>
+        <label class="radio-label"><input type="radio" name="q16" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q16" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q16" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar16"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.17.TEST011</span> Dr Prue Chopra has studied the effects of radon gas on the environment.</div>
+        <label class="radio-label"><input type="radio" name="q17" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q17" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q17" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar17"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.18.TEST011</span> Hot, dry rocks could provide enough power for the whole of Australia.</div>
+        <label class="radio-label"><input type="radio" name="q18" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q18" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q18" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar18"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.19.TEST011</span> The new Enviropower facility will keep tourists away.</div>
+        <label class="radio-label"><input type="radio" name="q19" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q19" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q19" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar19"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.20.TEST011</span> Wavetech was established when its founders were turned down by another company.</div>
+        <label class="radio-label"><input type="radio" name="q20" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q20" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q20" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar20"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.21.TEST011</span> According to AEA, Australia is a world leader in developing renewable energy.</div>
+        <label class="radio-label"><input type="radio" name="q21" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q21" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q21" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar21"></span>
+      </div>
+
+      <!-- Q22-27 Matching companies -->
+      <div class="q-block">
+        <div class="q-num">Questions 22–27</div>
+        <div class="q-instruction">Look at the following statements (Questions 22–27) and the list of companies below.<br>Match each statement with the correct company, A–D.</div>
+        <div class="company-list">
+          <div class="group-title">List of Companies</div>
+          <div>A &nbsp;Australian Hydro</div>
+          <div>B &nbsp;Geoenergy</div>
+          <div>C &nbsp;Enviropower</div>
+          <div>D &nbsp;Wavetech</div>
+        </div>
+        <div class="q-text"><span class="q-num">Q.22.TEST011</span> During the process, harmful substances are prevented from escaping.
+          <select id="q22"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+          <span class="answer-reveal" id="ar22"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.23.TEST011</span> Water is used to force air through a special device.
+          <select id="q23"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+          <span class="answer-reveal" id="ar23"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.24.TEST011</span> Techniques used by other countries are being copied.
+          <select id="q24"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+          <span class="answer-reveal" id="ar24"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.25.TEST011</span> The system can provide services other than energy production.
+          <select id="q25"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+          <span class="answer-reveal" id="ar25"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.26.TEST011</span> It is planned to force water deep under the ground.
+          <select id="q26"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+          <span class="answer-reveal" id="ar26"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.27.TEST011</span> Original estimates for part of the project have been revised.
+          <select id="q27"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option></select>
+          <span class="answer-reveal" id="ar27"></span>
+        </div>
+      </div>
+    </div><!-- /qs2 -->
+
+    <!-- Questions Passage 3 -->
+    <div class="q-section" id="qs3">
+      <div class="passage-title" style="margin-bottom:10px">Questions 28–40 — Passage 3</div>
+
+      <!-- Q28-32 Short answer -->
+      <div class="q-block">
+        <div class="q-num">Questions 28–32</div>
+        <div class="q-instruction">Answer the questions below. Choose <strong>NO MORE THAN THREE WORDS</strong> from the passage for each answer.</div>
+        <div class="q-text"><span class="q-num">Q.28.TEST011</span> What was an early slogan about addressing the imbalance between the developed and developing worlds?<br>
+          <input type="text" id="q28" style="width:220px" placeholder="answer"> <span class="answer-reveal" id="ar28"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.29.TEST011</span> What is probably the most well-known fair-trade commodity?<br>
+          <input type="text" id="q29" style="width:220px" placeholder="answer"> <span class="answer-reveal" id="ar29"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.30.TEST011</span> According to the writer, in terms of total global trade, what do fair-trade producers represent?<br>
+          <input type="text" id="q30" style="width:220px" placeholder="answer"> <span class="answer-reveal" id="ar30"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.31.TEST011</span> How do its supporters think fair trade has affected many people?<br>
+          <input type="text" id="q31" style="width:220px" placeholder="answer"> <span class="answer-reveal" id="ar31"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.32.TEST011</span> What do its critics think fair-trade producers would get if they went back to mainstream trade?<br>
+          <input type="text" id="q32" style="width:220px" placeholder="answer"> <span class="answer-reveal" id="ar32"></span>
+        </div>
+      </div>
+
+      <!-- Q33-36 Sentence endings -->
+      <div class="q-block">
+        <div class="q-num">Questions 33–36</div>
+        <div class="q-instruction">Complete each sentence with the correct ending, A–H, below. Write the correct letter, A–H, in boxes 33–36.</div>
+        <div class="group-box">
+          <div>A &nbsp;loans or training for producers and employees.</div>
+          <div>B &nbsp;although they may not be obliged to do so in their own country.</div>
+          <div>C &nbsp;for the various social benefits fair trade brings.</div>
+          <div>D &nbsp;to pay more for what they see as ethical products.</div>
+          <div>E &nbsp;has influenced non-fair-trade producers.</div>
+          <div>F &nbsp;because these are United Nations obligations.</div>
+          <div>G &nbsp;too much corruption.</div>
+          <div>H &nbsp;have been adopted by non-fair-trade producers.</div>
+        </div>
+        <div class="q-text"><span class="q-num">Q.33.TEST011</span> Consumers of fair-trade products are happy
+          <select id="q33"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar33"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.34.TEST011</span> The fair-trade system may include
+          <select id="q34"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar34"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.35.TEST011</span> Some fair-trade practices
+          <select id="q35"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar35"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.36.TEST011</span> Fair-trade producers must adopt international employment standards
+          <select id="q36"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar36"></span>
+        </div>
+      </div>
+
+      <!-- Q37-40 Y/N/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 37–40</div>
+        <div class="q-instruction">Do the following statements agree with the claims of the writer in Reading Passage 3?<br>
+        Write <strong>YES</strong> if the statement agrees with the views of the writer<br>
+        <strong>NO</strong> if the statement contradicts the views of the writer<br>
+        <strong>NOT GIVEN</strong> if it is impossible to say what the writer thinks about this</div>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.37.TEST011</span> The fair-trade system assists farmers who are extremely poor.</div>
+        <label class="radio-label"><input type="radio" name="q37" value="YES"> YES</label>
+        <label class="radio-label"><input type="radio" name="q37" value="NO"> NO</label>
+        <label class="radio-label"><input type="radio" name="q37" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar37"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.38.TEST011</span> Some products labelled as fair-trade is in fact not.</div>
+        <label class="radio-label"><input type="radio" name="q38" value="YES"> YES</label>
+        <label class="radio-label"><input type="radio" name="q38" value="NO"> NO</label>
+        <label class="radio-label"><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar38"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.39.TEST011</span> UK supermarkets and cafes should not charge such high prices for fair-trade items.</div>
+        <label class="radio-label"><input type="radio" name="q39" value="YES"> YES</label>
+        <label class="radio-label"><input type="radio" name="q39" value="NO"> NO</label>
+        <label class="radio-label"><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar39"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.40.TEST011</span> Fair trade is mainly a marketing ploy and not a valid way of helping the poor.</div>
+        <label class="radio-label"><input type="radio" name="q40" value="YES"> YES</label>
+        <label class="radio-label"><input type="radio" name="q40" value="NO"> NO</label>
+        <label class="radio-label"><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar40"></span>
+      </div>
+    </div><!-- /qs3 -->
+
+  </div><!-- /right-panel -->
+</div><!-- /main -->
+
+<!-- Submit button -->
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+
+<!-- Score panel -->
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 11</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+
+// ── ANSWER KEY ──
+var ANS = {
+  q1:'B', q2:'C', q3:'A', q4:'A',
+  q5:['starch','the starch'],
+  q6:['fermentation','fermentation process'],
+  q7:['condensation','condensation process'],
+  q8:['polymer','a polymer'],
+  q9:'B', q10:'C',
+  q1112:['A','C'],
+  q1314:['A','D'],
+  q15:'FALSE', q16:'TRUE', q17:'NOT GIVEN', q18:'TRUE', q19:'FALSE', q20:'TRUE', q21:'FALSE',
+  q22:'B', q23:'D', q24:'A', q25:'C', q26:'B', q27:'C',
+  q28:['trade not aid','Trade Not Aid'],
+  q29:['coffee','Coffee'],
+  q30:['a tiny number','tiny number'],
+  q31:['positively','Positively'],
+  q32:['higher prices','Higher prices'],
+  q33:'D', q34:'A', q35:'H', q36:'B',
+  q37:'NO', q38:'YES', q39:'NOT GIVEN', q40:'NO'
+};
+
+var TOTAL_QUESTIONS = 40;
+var P1_COUNT = 14, P2_COUNT = 13, P3_COUNT = 13;
+
+// ── STATE ──
+var currentTab = 1;
+var hlMode = 'yellow';
+var timerStopped = false;
+var submitted = false;
+var tabViolations = 0, focusViolations = 0, fsViolations = 0;
+var violationLog = [];
+var startTime = null;
+var timerInterval = null;
+var overtimeFired = false;
+
+// ── HIGHLIGHT ──
+var hlColors = {yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function setHL(mode){
+  hlMode = mode;
+  ['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){
+    var btn = document.getElementById(id);
+    if(btn) btn.classList.remove('active-hl');
+  });
+  var target = mode==='clear'?'hl-clear':'hl-'+mode;
+  var el = document.getElementById(target);
+  if(el) el.classList.add('active-hl');
+}
+window.setHL = setHL;
+
+function applyHighlight(container){
+  var sel = window.getSelection();
+  if(!sel || sel.rangeCount===0 || sel.isCollapsed) return;
+  var range = sel.getRangeAt(0);
+  if(!container.contains(range.commonAncestorContainer)) return;
+  if(hlMode==='clear'){ sel.removeAllRanges(); return; }
+  try {
+    var span = document.createElement('span');
+    span.className = hlColors[hlMode];
+    var frag = range.extractContents();
+    span.appendChild(frag);
+    range.insertNode(span);
+  } catch(e){}
+  sel.removeAllRanges();
+}
+
+function handleErase(e, container){
+  if(hlMode!=='clear') return;
+  var t = e.target;
+  while(t && t!==container){
+    if(t.tagName==='SPAN' && (t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){
+      var parent = t.parentNode;
+      while(t.firstChild) parent.insertBefore(t.firstChild, t);
+      parent.removeChild(t);
+      parent.normalize();
+      break;
+    }
+    t = t.parentNode;
+  }
+}
+
+['left-panel','right-panel'].forEach(function(pid){
+  var panel = document.getElementById(pid);
+  if(!panel) return;
+  panel.addEventListener('mouseup', function(){ applyHighlight(panel); });
+  panel.addEventListener('click', function(e){ handleErase(e, panel); });
+});
+
+// ── TAB SWITCH ──
+function switchTab(n){
+  currentTab = n;
+  [1,2,3].forEach(function(i){
+    document.getElementById('pass'+i).classList.toggle('active', i===n);
+    document.getElementById('qs'+i).classList.toggle('active', i===n);
+    document.getElementById('tab'+i).classList.toggle('active', i===n);
+  });
+  document.getElementById('left-panel').scrollTop = 0;
+  document.getElementById('right-panel').scrollTop = 0;
+}
+window.switchTab = switchTab;
+
+// ── TIMER ──
+function formatTime(sec){
+  var m = Math.floor(sec/60), s = sec%60;
+  return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+}
+function startTimer(){
+  var box = document.getElementById('timer-box');
+  timerInterval = setInterval(function(){
+    if(timerStopped){ clearInterval(timerInterval); box.style.display='none'; return; }
+    if(!startTime) return;
+    var elapsed = Math.floor((Date.now()-startTime)/1000);
+    var remaining = 3600 - elapsed;
+    if(remaining <= 0 && !overtimeFired){
+      overtimeFired = true;
+      box.textContent = '00:00';
+      document.getElementById('overtime-overlay').style.display='flex';
+      // auto submit after 5 more min
+      setTimeout(function(){ if(!submitted) confirmSubmit(); }, 300000);
+      return;
+    }
+    if(remaining > 0){
+      box.textContent = formatTime(remaining);
+      if(remaining <= 120){ box.className=''; box.classList.add('danger'); }
+      else if(remaining <= 600){ box.className=''; box.classList.add('warn'); }
+      else { box.className=''; }
+    }
+  }, 500);
+}
+window.stopTimer = function(){ timerStopped = true; };
+
+// ── FULLSCREEN ──
+window.enterFullscreen = function(){
+  var el = document.documentElement;
+  try{
+    if(el.requestFullscreen) el.requestFullscreen().catch(function(){});
+    else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+  }catch(e){}
+  document.getElementById('fs-overlay').style.display='none';
+};
+
+document.addEventListener('fullscreenchange', function(){
+  if(submitted) return;
+  if(!document.fullscreenElement && !document.webkitFullscreenElement && startTime){
+    fsViolations++;
+    violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');
+    document.getElementById('fs-overlay').style.display='flex';
+  }
+});
+document.addEventListener('webkitfullscreenchange', function(){
+  if(submitted) return;
+  if(!document.fullscreenElement && !document.webkitFullscreenElement && startTime){
+    fsViolations++;
+    document.getElementById('fs-overlay').style.display='flex';
+  }
+});
+
+// ── START EXAM ──
+window.startExam = function(){
+  var name = document.getElementById('inp-name').value.trim();
+  var cls = document.getElementById('inp-class').value.trim();
+  if(!name || !cls){
+    document.getElementById('popup-err').style.display='block';
+    return;
+  }
+  window._studentName = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  startTime = window._testStartTime;
+  document.getElementById('popup-overlay').style.display='none';
+  enterFullscreen();
+  startTimer();
+};
+
+// ── ANTI-CHEAT ──
+document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+document.addEventListener('copy', function(e){ e.preventDefault(); });
+document.addEventListener('paste', function(e){ e.preventDefault(); });
+document.addEventListener('cut', function(e){ e.preventDefault(); });
+document.addEventListener('dragstart', function(e){ e.preventDefault(); });
+document.addEventListener('drop', function(e){ e.preventDefault(); });
+document.addEventListener('keydown', function(e){
+  var bad = ['F12'];
+  if(bad.indexOf(e.key)>=0){ e.preventDefault(); return; }
+  if(e.ctrlKey && ['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){ e.preventDefault(); return; }
+  if(e.ctrlKey && e.shiftKey && ['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){ e.preventDefault(); return; }
+  if(e.key==='Escape' && !submitted){ e.preventDefault(); }
+});
+document.addEventListener('visibilitychange', function(){
+  if(submitted || !startTime) return;
+  if(document.hidden){
+    tabViolations++;
+    violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab (lần '+tabViolations+')');
+    showWarning('⚠ Phát hiện chuyển tab! Vi phạm lần '+tabViolations);
+  }
+});
+window.addEventListener('blur', function(){
+  if(submitted || !startTime) return;
+  focusViolations++;
+  violationLog.push('['+new Date().toLocaleTimeString()+'] Mất focus (lần '+focusViolations+')');
+  showWarning('⚠ Phát hiện rời cửa sổ! Vi phạm lần '+focusViolations);
+});
+
+
+function showWarning(msg){
+  var b = document.getElementById('warning-banner');
+  b.textContent = msg;
+  b.style.display='block';
+  clearTimeout(b._t);
+  b._t = setTimeout(function(){ b.style.display='none'; }, 4000);
+}
+
+// ── SELECTED ANSWER HIGHLIGHT ──
+document.querySelectorAll('input[type="radio"]').forEach(function(inp){
+  inp.addEventListener('change', function(){
+    var name = inp.name;
+    document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){
+      var lbl = r.closest('label');
+      if(lbl) lbl.classList.remove('selected-answer');
+    });
+    var lbl = inp.closest('label');
+    if(lbl && inp.checked) lbl.classList.add('selected-answer');
+  });
+});
+document.querySelectorAll('input[type="checkbox"]').forEach(function(inp){
+  inp.addEventListener('change', function(){
+    var lbl = inp.closest('label');
+    if(lbl){
+      if(inp.checked) lbl.classList.add('selected-answer');
+      else lbl.classList.remove('selected-answer');
+    }
+  });
+});
+
+// ── CHECKBOX LIMIT ──
+function wireCheckLimit(name, max){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    inp.addEventListener('change', function(){
+      if(inp.checked){
+        var n = document.querySelectorAll('input[name="'+name+'"]:checked').length;
+        if(n > max){
+          inp.checked = false;
+          var lbl = inp.closest('label');
+          if(lbl) lbl.classList.remove('selected-answer');
+          showCheckLimit(name, max);
+        }
+      }
+    });
+  });
+}
+function showCheckLimit(name, max){
+  var id = 'chk-limit-'+name;
+  var el = document.getElementById(id);
+  if(!el) return;
+  el.textContent = '⚠ Chỉ được chọn tối đa '+max+' đáp án!';
+  el.style.color='#e74c3c'; el.style.fontWeight='bold'; el.style.fontSize='12px';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.textContent=''; }, 2500);
+}
+wireCheckLimit('q1112', 2);
+wireCheckLimit('q1314', 2);
+
+// ── HELPERS ──
+function getVal(id){ var el=document.getElementById(id); return el?el.value.trim():''; }
+function getRad(name){
+  var checked=document.querySelector('input[name="'+name+'"]:checked');
+  return checked?checked.value:'';
+}
+function getChecked(name){
+  var res=[];
+  document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){ res.push(c.value); });
+  return res;
+}
+function chkText(id, ans){
+  var v = getVal(id).toLowerCase();
+  if(Array.isArray(ans)) return ans.some(function(a){ return v===a.toLowerCase(); });
+  return v===ans.toLowerCase();
+}
+function chkSel(id, ans){ return getVal(id)===ans; }
+function chkRad(name, ans){ return getRad(name)===ans; }
+function chkCheck(name, ans){
+  var chosen = getChecked(name).sort();
+  var correct = ans.slice().sort();
+  return chosen.join(',')===correct.join(',');
+}
+
+// ── SUBMIT ──
+window.askSubmit = function(){
+  if(submitted) return;
+  document.getElementById('confirm-overlay').style.display='flex';
+};
+window.confirmSubmit = function(){
+  if(submitted) return;
+  submitted = true;
+  document.getElementById('confirm-overlay').style.display='none';
+  document.getElementById('overtime-overlay').style.display='none';
+  window.stopTimer();
+  doSubmit();
+};
+
+function doSubmit(){
+  // Lock all inputs
+  document.querySelectorAll('input,select,textarea').forEach(function(el){
+    el.disabled = true;
+  });
+  // Remove selected-answer highlight
+  document.querySelectorAll('.selected-answer').forEach(function(el){
+    el.classList.remove('selected-answer');
+  });
+
+  var p1=0,p2=0,p3=0;
+
+  // Q1-4 select
+  [1,2,3,4].forEach(function(n){
+    var ok = chkSel('q'+n, ANS['q'+n]);
+    markSelect('q'+n, ok, ANS['q'+n]);
+    if(ok) p1++;
+  });
+  // Q5-8 text
+  [5,6,7,8].forEach(function(n){
+    var ok = chkText('q'+n, ANS['q'+n]);
+    markText('q'+n, ok, Array.isArray(ANS['q'+n])?ANS['q'+n][0]:ANS['q'+n]);
+    if(ok) p1++;
+  });
+  // Q9-10 radio
+  [9,10].forEach(function(n){
+    var ok = chkRad('q'+n, ANS['q'+n]);
+    markRadio('q'+n, ok, ANS['q'+n]);
+    if(ok) p1++;
+  });
+  // Q11-12 checkbox
+  (function(){
+    var ok = chkCheck('q1112', ANS['q1112']);
+    markCheckbox('q1112', ANS['q1112']);
+    var chosen = getChecked('q1112');
+    var correct = ANS['q1112'];
+    chosen.forEach(function(v){ if(correct.indexOf(v)>=0) p1++; });
+    var el = document.getElementById('ar1112');
+    if(el) el.textContent = ok ? '' : '✓ Đáp án: '+correct.join(', ');
+  })();
+  // Q13-14 checkbox
+  (function(){
+    var ok = chkCheck('q1314', ANS['q1314']);
+    markCheckbox('q1314', ANS['q1314']);
+    var chosen = getChecked('q1314');
+    var correct = ANS['q1314'];
+    chosen.forEach(function(v){ if(correct.indexOf(v)>=0) p1++; });
+    var el = document.getElementById('ar1314');
+    if(el) el.textContent = ok ? '' : '✓ Đáp án: '+correct.join(', ');
+  })();
+
+  // Q15-21 T/F/NG radio
+  [15,16,17,18,19,20,21].forEach(function(n){
+    var ok = chkRad('q'+n, ANS['q'+n]);
+    markRadio('q'+n, ok, ANS['q'+n]);
+    if(ok) p2++;
+  });
+  // Q22-27 select
+  [22,23,24,25,26,27].forEach(function(n){
+    var ok = chkSel('q'+n, ANS['q'+n]);
+    markSelect('q'+n, ok, ANS['q'+n]);
+    if(ok) p2++;
+  });
+
+  // Q28-32 text
+  [28,29,30,31,32].forEach(function(n){
+    var ok = chkText('q'+n, ANS['q'+n]);
+    markText('q'+n, ok, Array.isArray(ANS['q'+n])?ANS['q'+n][0]:ANS['q'+n]);
+    if(ok) p3++;
+  });
+  // Q33-36 select
+  [33,34,35,36].forEach(function(n){
+    var ok = chkSel('q'+n, ANS['q'+n]);
+    markSelect('q'+n, ok, ANS['q'+n]);
+    if(ok) p3++;
+  });
+  // Q37-40 Y/N/NG
+  [37,38,39,40].forEach(function(n){
+    var ok = chkRad('q'+n, ANS['q'+n]);
+    markRadio('q'+n, ok, ANS['q'+n]);
+    if(ok) p3++;
+  });
+
+  var total = p1+p2+p3;
+  var band = getBand(total);
+
+  showScore(p1,p2,p3,total,band);
+  sendResults(p1,p2,p3,total,band);
+}
+
+// Mark helpers
+function markSelect(id, ok, correct){
+  var el=document.getElementById(id);
+  if(!el) return;
+  el.classList.add(ok?'correct':'wrong');
+  var ar=document.getElementById('ar'+id.replace('q',''));
+  if(ar && !ok) ar.textContent='✓ '+correct;
+}
+function markText(id, ok, correct){
+  var el=document.getElementById(id);
+  if(!el) return;
+  el.classList.add(ok?'correct':'wrong');
+  var ar=document.getElementById('ar'+id.replace('q',''));
+  if(ar && !ok) ar.textContent='✓ '+correct;
+}
+function markRadio(name, ok, correct){
+  var num=name.replace('q','');
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    var lbl=inp.closest('label');
+    if(!lbl) return;
+    if(inp.value===correct) lbl.classList.add('correct');
+    else if(inp.checked && inp.value!==correct) lbl.classList.add('wrong');
+  });
+  var ar=document.getElementById('ar'+num);
+  if(ar && !ok) ar.textContent='✓ '+correct;
+}
+function markCheckbox(name, correct){
+  document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+    var lbl=inp.closest('label');
+    if(!lbl) return;
+    if(correct.indexOf(inp.value)>=0){
+      lbl.classList.add(inp.checked?'correct':'missed');
+    } else if(inp.checked){
+      lbl.classList.add('wrong');
+    }
+  });
+}
+
+function getBand(score){
+  if(score>=39) return 'Band 9';
+  if(score>=37) return 'Band 8.5';
+  if(score>=35) return 'Band 8';
+  if(score>=33) return 'Band 7.5';
+  if(score>=30) return 'Band 7';
+  if(score>=27) return 'Band 6.5';
+  if(score>=23) return 'Band 6';
+  if(score>=19) return 'Band 5.5';
+  if(score>=15) return 'Band 5';
+  if(score>=13) return 'Band 4.5';
+  if(score>=10) return 'Band 4';
+  return 'Dưới Band 4';
+}
+
+function getTimeTaken(){
+  if(!startTime) return 'N/A';
+  var elapsed = Math.floor((Date.now()-startTime)/1000);
+  var m=Math.floor(elapsed/60), s=elapsed%60;
+  return m+' phút '+s+' giây';
+}
+
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var html='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr>';
+  html+='<tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr>';
+  html+='<tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr>';
+  html+='<tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr>';
+  html+='<tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr>';
+  html+='</table>';
+  html+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p>';
+  html+='<p style="color:#555;margin-top:6px">⏱ Thời gian: '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=html;
+  // violations
+  if(tabViolations+focusViolations+fsViolations>0){
+    var vhtml='<strong>📋 Báo cáo vi phạm:</strong><br>';
+    vhtml+='Chuyển tab: '+tabViolations+' lần | Mất focus: '+focusViolations+' lần | Thoát fullscreen: '+fsViolations+' lần<br>';
+    if(violationLog.length) vhtml+='<small>'+violationLog.join('<br>')+'</small>';
+    document.getElementById('violation-report').innerHTML=vhtml;
+  }
+}
+
+function buildDetails(){
+  var parts=[];
+  // Q1-4
+  [1,2,3,4].forEach(function(n){
+    var v=getVal('q'+n); var ok=v===ANS['q'+n]?'✔':'✘';
+    parts.push('Q0'+n+':'+ok+'('+v+')');
+  });
+  // Q5-8
+  [5,6,7,8].forEach(function(n){
+    var v=getVal('q'+n);
+    var ok=chkText('q'+n,ANS['q'+n])?'✔':'✘';
+    parts.push('Q0'+n+':'+ok+'('+v+')');
+  });
+  // Q9-10
+  [9,10].forEach(function(n){
+    var v=getRad('q'+n); var ok=v===ANS['q'+n]?'✔':'✘';
+    parts.push('Q'+n+':'+ok+'('+v+')');
+  });
+  // Q11-12
+  (function(){
+    var chosen=getChecked('q1112');
+    var correct=ANS['q1112'];
+    var ps=chosen.map(function(v){ return v+(correct.indexOf(v)>=0?'✔':'✘'); });
+    var missed=correct.filter(function(v){ return chosen.indexOf(v)<0; }).map(function(v){ return v+'(đáp án)'; });
+    parts.push('Q11-12:['+ps.concat(missed).join(' ')+']');
+  })();
+  // Q13-14
+  (function(){
+    var chosen=getChecked('q1314');
+    var correct=ANS['q1314'];
+    var ps=chosen.map(function(v){ return v+(correct.indexOf(v)>=0?'✔':'✘'); });
+    var missed=correct.filter(function(v){ return chosen.indexOf(v)<0; }).map(function(v){ return v+'(đáp án)'; });
+    parts.push('Q13-14:['+ps.concat(missed).join(' ')+']');
+  })();
+  // Q15-21
+  [15,16,17,18,19,20,21].forEach(function(n){
+    var v=getRad('q'+n); var ok=v===ANS['q'+n]?'✔':'✘';
+    parts.push('Q'+n+':'+ok+'('+v+')');
+  });
+  // Q22-27
+  [22,23,24,25,26,27].forEach(function(n){
+    var v=getVal('q'+n); var ok=v===ANS['q'+n]?'✔':'✘';
+    parts.push('Q'+n+':'+ok+'('+v+')');
+  });
+  // Q28-32
+  [28,29,30,31,32].forEach(function(n){
+    var v=getVal('q'+n);
+    var ok=chkText('q'+n,ANS['q'+n])?'✔':'✘';
+    parts.push('Q'+n+':'+ok+'('+v+')');
+  });
+  // Q33-36
+  [33,34,35,36].forEach(function(n){
+    var v=getVal('q'+n); var ok=v===ANS['q'+n]?'✔':'✘';
+    parts.push('Q'+n+':'+ok+'('+v+')');
+  });
+  // Q37-40
+  [37,38,39,40].forEach(function(n){
+    var v=getRad('q'+n); var ok=v===ANS['q'+n]?'✔':'✘';
+    parts.push('Q'+n+':'+ok+'('+v+')');
+  });
+  return parts.join(' | ');
+}
+
+function sendResults(p1,p2,p3,total,band){
+  var APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+  var payload={
+    action:'save_result',
+    timestamp:new Date().toISOString(),
+    student:(window._studentName||'')+'  —  '+(window._studentClass||''),
+    test:'Reading Test 11',
+    score:total,
+    total:TOTAL_QUESTIONS,
+    band:band,
+    timeTaken:getTimeTaken(),
+    p1score:p1+'/'+P1_COUNT,
+    p2score:p2+'/'+P2_COUNT,
+    p3score:p3+'/'+P3_COUNT,
+    tabViol:tabViolations,
+    focusViol:focusViolations,
+    fsViol:fsViolations,
+    details:buildDetails()
+  };
+  fetch(APPS_SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)}).catch(function(){});
+}
+
+// ── RESIZABLE DIVIDER ──
+(function(){
+  var div=document.getElementById('divider');
+  var left=document.getElementById('left-panel');
+  var dragging=false, startX=0, startW=0;
+  div.addEventListener('mousedown',function(e){ dragging=true; startX=e.clientX; startW=left.offsetWidth; e.preventDefault(); });
+  document.addEventListener('mousemove',function(e){ if(!dragging) return; var w=startW+(e.clientX-startX); left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px'; });
+  document.addEventListener('mouseup',function(){ dragging=false; });
+  div.addEventListener('touchstart',function(e){ dragging=true; startX=e.touches[0].clientX; startW=left.offsetWidth; },{passive:true});
+  document.addEventListener('touchmove',function(e){ if(!dragging) return; var w=startW+(e.touches[0].clientX-startX); left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px'; },{passive:true});
+  document.addEventListener('touchend',function(){ dragging=false; });
+})();
+
+})();
+</script>
+</body>
+</html>
