@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 12</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden;user-select:none}
+input[type="text"],select,textarea{user-select:text}
+@media print{body{display:none!important}}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#2ecc71;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#e67e22;animation:pulse 1s infinite}
+#timer-box.danger{background:#e74c3c;animation:pulse .5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600;transition:transform .1s}
+.hl-btn.active-hl{transform:scale(1.15);outline:2px solid #fff}
+#hl-yellow{background:#FFE066;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%;user-select:text}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1;user-select:text}
+.passage-section{display:none}
+.passage-section.active{display:block}
+.q-section{display:none}
+.q-section.active{display:block}
+.passage-title{font-size:1.15em;font-weight:700;color:#1a3a5c;margin-bottom:8px}
+.passage-subtitle{font-size:1em;font-style:italic;color:#555;margin-bottom:10px}
+.passage-para{margin:8px 0;line-height:1.75}
+.subheading{font-weight:700;color:#1a3a5c}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border:1px solid #e0e0e0}
+.q-num{font-weight:700;color:#1a3a5c}
+.q-instruction{font-style:italic;color:#555;margin:6px 0 10px;line-height:1.5}
+.q-text{margin-bottom:6px;line-height:1.6}
+.radio-label,.check-label{display:block;padding:5px 8px;border-radius:4px;cursor:pointer;margin:3px 0;line-height:1.5}
+.radio-label:hover,.check-label:hover{background:#f0f4ff}
+.radio-label.selected-answer,.check-label.selected-answer{background:#FFD580}
+.radio-label.correct,.check-label.correct{background:#d4edda!important;color:#155724}
+.radio-label.wrong,.check-label.wrong{background:#f8d7da!important;color:#721c24}
+.radio-label.missed{background:#fff3cd!important;border:2px dashed #856404}
+input[type="text"]{border:1px solid #aaa;border-radius:4px;padding:3px 8px;font-size:14px;width:160px}
+input[type="text"].correct{border-color:#28a745;background:#d4edda}
+input[type="text"].wrong{border-color:#dc3545;background:#f8d7da}
+select{border:1px solid #aaa;border-radius:4px;padding:3px 6px;font-size:14px;background:#fff}
+select.correct{border-color:#28a745;background:#d4edda}
+select.wrong{border-color:#dc3545;background:#f8d7da}
+.answer-reveal{color:#e74c3c;font-size:12px;font-weight:600;margin-left:8px}
+.group-box{background:#f8f9fa;border:1px solid #dee2e6;border-radius:6px;padding:10px 14px;margin:10px 0}
+.group-title{font-weight:700;color:#1a3a5c;margin-bottom:6px}
+table.fill-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.fill-table td,table.fill-table th{border:1px solid #ccc;padding:8px 10px;vertical-align:top;line-height:1.6}
+table.fill-table th{background:#e8eaf6;font-weight:700}
+#submit-btn{position:fixed;bottom:24px;right:24px;z-index:200;background:#1a3a5c;color:#fff;border:none;border-radius:8px;padding:12px 24px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+#submit-btn:hover{background:#2a5080}
+.hl-yellow{background:#FFE066}
+.hl-green{background:#90EE90}
+.hl-pink{background:#FFB6C1}
+#popup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:500;display:flex;align-items:center;justify-content:center}
+#popup-box{background:#fff;border-radius:12px;padding:32px 36px;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,.3)}
+#popup-box h2{color:#1a3a5c;margin-bottom:16px;font-size:1.3em}
+#popup-box label{display:block;font-weight:600;margin-bottom:4px;margin-top:12px}
+#popup-box input{width:100%;padding:8px 10px;border:1px solid #aaa;border-radius:6px;font-size:14px;user-select:text}
+#popup-box .err{color:#e74c3c;font-size:12px;margin-top:6px;display:none}
+#start-btn{margin-top:18px;width:100%;background:#1a3a5c;color:#fff;border:none;border-radius:6px;padding:10px;font-size:15px;font-weight:700;cursor:pointer}
+#confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;display:none;align-items:center;justify-content:center}
+#confirm-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#confirm-box p{margin-bottom:18px;font-size:15px;line-height:1.5}
+#confirm-box button{padding:10px 24px;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer;margin:0 8px}
+#btn-confirm-yes{background:#e74c3c;color:#fff}
+#btn-confirm-no{background:#aaa;color:#fff}
+#fs-overlay{position:fixed;inset:0;background:#1a3a5c;z-index:600;display:none;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center}
+#fs-overlay h2{font-size:1.5em;margin-bottom:12px}
+#fs-overlay button{margin-top:16px;padding:10px 28px;background:#FFD580;color:#1a3a5c;border:none;border-radius:6px;font-size:15px;font-weight:700;cursor:pointer}
+#warning-banner{position:fixed;top:80px;left:0;right:0;z-index:300;background:#e74c3c;color:#fff;text-align:center;padding:8px;font-weight:700;display:none}
+#score-panel{display:none;position:fixed;top:80px;left:0;right:0;bottom:0;overflow-y:auto;background:#fff;z-index:250;padding:24px}
+#score-panel h2{color:#1a3a5c;margin-bottom:12px}
+.score-table{border-collapse:collapse;margin:12px 0}
+.score-table td,.score-table th{border:1px solid #ccc;padding:8px 14px}
+.score-table th{background:#e8eaf6}
+#overtime-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:450;display:none;align-items:center;justify-content:center}
+#overtime-box{background:#fff;border-radius:10px;padding:28px 32px;max-width:380px;width:90%;text-align:center}
+#overtime-box p{margin-bottom:16px;font-size:15px}
+#overtime-box button{padding:10px 24px;background:#e74c3c;color:#fff;border:none;border-radius:6px;font-size:14px;font-weight:700;cursor:pointer}
+@media(max-width:768px){
+  #main{flex-direction:column}
+  #left-panel,#right-panel{width:100%!important;height:50vh}
+  #divider{display:none}
+  .tab-btn{padding:4px 8px;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div id="popup-overlay">
+  <div id="popup-box">
+    <h2>🎓 IELTS Reading – Test 12</h2>
+    <p style="color:#555;font-size:13px;margin-top:4px">Vui lòng nhập thông tin trước khi bắt đầu làm bài</p>
+    <label>Họ và tên</label>
+    <input type="text" id="inp-name" placeholder="Nguyễn Văn A">
+    <label>Lớp</label>
+    <input type="text" id="inp-class" placeholder="IELTS 5.0">
+    <div class="err" id="popup-err">⚠ Vui lòng điền đầy đủ Họ tên và Lớp!</div>
+    <button id="start-btn" onclick="startExam()">Bắt đầu làm bài →</button>
+  </div>
+</div>
+
+<div id="confirm-overlay" style="display:none;align-items:center;justify-content:center">
+  <div id="confirm-box">
+    <p>Bạn có chắc muốn nộp bài?<br>Sau khi nộp sẽ không thể sửa lại.</p>
+    <button id="btn-confirm-yes" onclick="confirmSubmit()">Xác nhận nộp</button>
+    <button id="btn-confirm-no" onclick="document.getElementById('confirm-overlay').style.display='none'">Quay lại làm bài</button>
+  </div>
+</div>
+
+<div id="fs-overlay">
+  <h2>⚠ Vui lòng ở chế độ toàn màn hình</h2>
+  <p>Bạn đã thoát khỏi toàn màn hình. Bấm nút bên dưới để tiếp tục.</p>
+  <button onclick="enterFullscreen()">Vào toàn màn hình</button>
+</div>
+
+<div id="overtime-overlay">
+  <div id="overtime-box">
+    <p>⏰ Hết 60 phút! Bạn có thêm 5 phút để hoàn thành.<br>Bài sẽ tự nộp sau 5 phút.</p>
+    <button onclick="confirmSubmit()">Nộp bài ngay</button>
+  </div>
+</div>
+
+<div id="warning-banner"></div>
+
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" id="tab1" onclick="switchTab(1)">Passage 1</button>
+    <button class="tab-btn" id="tab2" onclick="switchTab(2)">Passage 2</button>
+    <button class="tab-btn" id="tab3" onclick="switchTab(3)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#ccc;font-size:12px;margin-right:4px">Highlight:</span>
+    <button class="hl-btn active-hl" id="hl-yellow" onclick="setHL('yellow')">🟡 Vàng</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">🟢 Xanh</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">🩷 Hồng</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">🧹 Tẩy</button>
+  </div>
+</div>
+
+<div id="main">
+  <div id="left-panel">
+
+    <!-- Passage 1 -->
+    <div class="passage-section active" id="pass1">
+      <div class="passage-title">READING PASSAGE 1</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 1–13 which are based on Reading Passage 1 below.</div>
+      <div class="passage-title" style="margin-top:12px">Undersea Movement</div>
+      <div class="passage-para"><span class="subheading">A</span> The underwater world holds many challenges. The most basic of these is movement. The density of water makes it difficult for animals to move. Forward movement is a complex interaction of underwater forces. Additionally, water itself has movement. Strong currents carry incredible power that can easily sweep creatures away. The challenges to aquatic movement result in a variety of swimming methods, used by a wide range of animals. The result is a dazzling underwater ballet.</div>
+      <div class="passage-para"><span class="subheading">B</span> Fish rely on their skeleton, fins, and muscles to move. The primary function of the skeleton is to aid movement of other parts. Their skull acts as a fulcrum and their vertebrae act as levers. The vertebral column consists of a series of vertebrae held together by ligaments, but not so tightly as to prevent slight sideways movement between each pair of vertebrae. The whole spine is, therefore, flexible. The skull is the only truly fixed part of a fish. It does not move in and of itself but acts as a point of stability for other bones. These other bones act as levers that cause movement of the fish's body.</div>
+      <div class="passage-para"><span class="subheading">C</span> While the bones provide the movement, the muscles supply the power. A typical fish has hundreds of muscles running in all directions around its body. This is why a fish can turn and twist and change directions quickly. The muscles on each side of the spine contract in a series from head to tail and down each side alternately, causing a wave-like movement to pass down the body. Such a movement may be very pronounced in fish such as eels, but hardly perceptible in others, e.g. mackerel. The frequency of the waves varies from about 50/min in the dogfish to 170/min in the mackerel. The sideways and backward thrust of the head and body against the water results in the resistance of the water pushing the fish sideways and forwards in a direction opposed to the thrust. When the corresponding set of muscles on the other side contracts, the fish experiences a similar force from the water on that side. The two sideways forces are equal and opposite unless the fish is making a turn, so they cancel out, leaving the sum of the two forward forces.</div>
+      <div class="passage-para"><span class="subheading">D</span> The muscles involved in swimming are of two main types. The bulk of a fish's body is composed of the so-called white muscle, while the much smaller areas at the roots of the fins and in a strip along the centre of each flank comprise red muscle. The red muscle receives a good supply of blood and contains ample quantities of fat and glycogen, the storage form of glucose, which is used for most day-to-day swimming movements. In contrast, the white muscle has a poor blood supply and few energy stores, and it is used largely for short-term, fast swimming. It might seem odd that the body of an animal which has adapted so efficiently to its environment should be composed almost entirely of a type of muscle it rarely uses. However, this huge auxiliary power pack carried by a fish is of crucial significance if the life of the fish is threatened – by a predator, for instance – because it enables the fish to swim rapidly away from danger.</div>
+      <div class="passage-para"><span class="subheading">E</span> The fins are the most distinctive features of a fish, composed of bony spines protruding from the body with skin covering them and joining them together, either in a webbed fashion, as seen in most bony fish, or more similar to a flipper, as seen in sharks. These usually serve as a means for the fish to swim. But it must be emphasised that the swimming movements are produced by the whole of the muscular body, and in only a few fish do the fins contribute any propulsive force! Their main function is to control the stability and direction of the fish: as water passes over its body, a fish uses its fins to thrust in the direction it wishes to go.</div>
+      <div class="passage-para"><span class="subheading">F</span> Fins located in different places on a fish serve different purposes, such as moving forward, turning, and keeping an upright position. The tail fin, in its final lash may contribute as much as 40 per cent of the forward thrust. The median fins, that is, the dorsal, anal and ventral fins, control the rolling and yawing movements of the fish by increasing the vertical surface area presented to the water. The paired fins, pectoral and pelvic, act as hydroplanes and control the pitch of the fish, causing it to swim downwards or upwards according to the angle to the water at which they are held by their muscles. The pectoral fins lie in front of the centre of gravity and, being readily mobile, are chiefly responsible for sending the fish up or down. The paired fins are also the means by which the fish slows down and stops.</div>
+      <div class="passage-para"><span class="subheading">G</span> The swimming speed of fish is not so fast as one would expect from watching their rapid movements in aquaria or ponds. Tuna seems to be the fastest at 44 mph, trout are recorded as doing 23 mph, pike 20 mph for short bursts and roach about 10 mph, while the majority of small fish probably do not exceed 2 or 3 mph. Many people have attempted to make accurate measurements of the speed at which various fish swim, either by timing them over known distances in their natural environment or by determining their performance in man-made swimming channels. From these studies, we can broadly categorise fish into four groups: "sneakers", such as eels that are only capable of slow speeds but possess some staying power; "stayers", that can swim quite fast over long periods; "sprinters" that can generate fast bursts of speed (e.g. pike); and "crawlers" that are sluggish swimmers, although they can accelerate slightly (bream, for example).</div>
+      <div class="passage-para"><span class="subheading">H</span> One type of sailfish is considered to be the fastest species of fish over short distances, achieving 68 mph over a three-second period, and anglers have recorded speeds in excess of 40 mph over longer periods for several species of tuna. One is likely to consider a fish's swimming capabilities in relation to its size. However, it is generally true that a small fish is a more able swimmer than a much larger one. On the other hand, in terms of speed in miles per hour, a big fish will, all other things being equal, be able to swim faster than a smaller fish.</div>
+    </div>
+
+    <!-- Passage 2 -->
+    <div class="passage-section" id="pass2">
+      <div class="passage-title">READING PASSAGE 2</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 14–27 which are based on Reading Passage 2 below.</div>
+      <div class="passage-title" style="margin-top:12px">Knowledge in Medicine</div>
+      <div class="passage-para"><span class="subheading">A</span> What counts as knowledge? What do we mean when we say that we know something? What is the status of different kinds of knowledge? In order to explore these questions, we are going to focus on one particular area of knowledge – medicine.</div>
+      <div class="passage-para"><span class="subheading">B</span> How do you know when you are ill? This may seem to be an absurd question. You know you are ill because you feel ill; your body tells you that you are ill. You may know that you feel pain or discomfort but knowing you are ill is a bit more complex. At times, people experience the symptoms of illness, but in fact, they are simply tired or over-worked or they may just have a hangover. At other times, people may be suffering from a disease and fail to be aware of the illness until it has reached a late stage in its development. So how do we know we are ill, and what counts as knowledge?</div>
+      <div class="passage-para"><span class="subheading">C</span> Think about this example. You feel unwell. You have a bad cough and always seem to be tired. Perhaps it could be stress at work, or maybe you should give up smoking. You feel worse. You visit the doctor who listens to your chest and heart, takes your temperature and blood pressure, and then finally prescribes antibiotics for your cough.</div>
+      <div class="passage-para"><span class="subheading">D</span> Things do not improve but you struggle on thinking you should pull yourself together; perhaps things will ease off at work soon. A return visit to your doctor shocks you. This time the doctor, drawing on years of training and experience, diagnoses pneumonia. This means that you will need bed rest and a considerable time off work. The scenario is transformed. Although you still have the same symptoms, you no longer think that these are caused by pressure at work. You now have proof that you are ill. This is the result of the combination of your own subjective experience and the diagnosis of someone who has the status of a medical expert. You have a medically authenticated diagnosis and it appears that you are seriously ill; you know you are ill and have the evidence upon which to base this knowledge.</div>
+      <div class="passage-para"><span class="subheading">E</span> This scenario shows many different sources of knowledge. For example, you decide to consult the doctor in the first place because you feel unwell – this is personal knowledge about your own body. However, the doctor's expert diagnosis is based on experience and training, with sources of knowledge as diverse as other experts, laboratory reports, medical textbooks and years of experience.</div>
+      <div class="passage-para"><span class="subheading">F</span> One source of knowledge is the experience of our own bodies; the personal knowledge we have of changes that might be significant, as well as the subjective experiences are mediated by other forms of knowledge such as the words we have available to describe our experience, and the common sense of our families and friends as well as that drawn from popular culture. Over the past decade, for example, Western culture has seen a significant emphasis on stress-related illness in the media. Reference to being 'stressed out' has become a common response in daily exchanges in the workplace and has become part of popular common-sense knowledge. It is thus not surprising that we might seek such an explanation of physical symptoms of discomfort.</div>
+      <div class="passage-para"><span class="subheading">G</span> We might also rely on the observations of others who know us. Comments from friends and family such as 'you do look ill' or 'that's a bad cough' might be another source of knowledge. Complementary health practices, such as holistic medicine, produce their own sets of knowledge upon which we might also draw in deciding the nature and degree of our ill health and about possible treatments.</div>
+      <div class="passage-para"><span class="subheading">H</span> Perhaps the most influential and authoritative source of knowledge is the medical knowledge provided by the general practitioner. We expect the doctor to have access to expert knowledge. This is socially sanctioned. It would not be acceptable to notify our employer that we simply felt too unwell to turn up for work or that our faith healer, astrologer, therapist or even our priest thought it was not a good idea. We need an expert medical diagnosis in order to obtain the necessary certificate if we need to be off work for more than the statutory self-certification period. The knowledge of the medical sciences is privileged in this respect in contemporary Western culture. Medical practitioners are also seen as having the required expert knowledge that permits them legally to prescribe drugs and treatment to which patients would not otherwise have access. However, there is a range of different knowledge upon which we draw when making decisions about our own state of health.</div>
+      <div class="passage-para"><span class="subheading">I</span> However, there is more than existing knowledge in this little story; new knowledge is constructed within it. Given the doctor's medical training and background, she may hypothesize 'is this now pneumonia?' and then proceed to look for evidence about it. She will use observations and instruments to assess the evidence and – critically – interpret it in light of her training and experience. This results in new knowledge and new experience both for you and for the doctor. This will then be added to the doctor's medical knowledge and may help in the future diagnosis of pneumonia.</div>
+    </div>
+
+    <!-- Passage 3 -->
+    <div class="passage-section" id="pass3">
+      <div class="passage-title">READING PASSAGE 3</div>
+      <div class="q-instruction">You should spend about 20 minutes on Questions 28–40 which are based on Reading Passage 3 below.</div>
+      <div class="passage-title" style="margin-top:12px">Spider Silk</div>
+      <div class="passage-subtitle">A strong, light bio-material made by genes from spiders could transform construction and industry</div>
+      <div class="passage-para"><span class="subheading">A</span> Scientists have succeeded in copying the silk-producing genes of the Golden Orb Weaver spider and are using them to create a synthetic material which they believe is the model for a new generation of advanced bio-materials. The new material, biosilk, which has been spun for the first time by researchers at DuPont, has an enormous range of potential uses in construction and manufacturing.</div>
+      <div class="passage-para"><span class="subheading">B</span> The attraction of the silk spun by the spider is a combination of great strength and enormous elasticity, which man-made fibres have been unable to replicate. On an equal-weight basis, spider silk is far stronger than steel and it is estimated that if a single strand could be made about 10m in diameter, it would be strong enough to stop a jumbo jet in flight. A third important factor is that it is extremely light. Army scientists are already looking at the possibilities of using it for lightweight, bulletproof vests and parachutes.</div>
+      <div class="passage-para"><span class="subheading">C</span> For some time, biochemists have been trying to synthesise the drag-line silk of the Golden Orb Weaver. The drag-line silk, which forms the radial arms of the web, is stronger than the other parts of the web and some biochemists believe a synthetic version could prove to be as important a material as nylon, which has been around for 50 years, since the discoveries of Wallace Carothers and his team ushered in the age of polymers.</div>
+      <div class="passage-para"><span class="subheading">D</span> To recreate the material, scientists, including Randolph Lewis at the University of Wyoming, first examined the silk-producing gland of the spider. 'We took out the glands that produce the silk and looked at the coding for the protein material they make, which is spun into a web. We then went looking for clones with the right DNA,' he says.</div>
+      <div class="passage-para"><span class="subheading">E</span> At DuPont, researchers have used both yeast and bacteria as hosts to grow the raw material, which they have spun into fibres. Robert Dorsch, DuPont's director of biochemical development, says the globules of protein, comparable with marbles in an egg, are harvested and processed. 'We break open the bacteria, separate out the globules of protein and use them as the raw starting material. With yeast, the gene system can be designed so that the material excretes the protein outside the yeast for better access,' he says.</div>
+      <div class="passage-para"><span class="subheading">F</span> 'The bacteria and the yeast produce the same protein, equivalent to that which the spider uses in the draglines of the web. The spider mixes the protein into a water-based solution and then spins it into a solid fibre in one go. Since we are not as clever as the spider and we are not using such sophisticated organisms, we substituted man-made approaches and dissolved the protein in chemical solvents, which are then spun to push the material through small holes to form the solid fibre.'</div>
+      <div class="passage-para"><span class="subheading">G</span> Researchers at DuPont say they envisage many possible uses for a new biosilk material. They say that earthquake-resistant suspension bridges hung from cables of synthetic spider silk fibres may become a reality. Stronger ropes, safer seat belts, shoe soles that do not wear out so quickly and tough new clothing are among the other applications. Biochemists such as Lewis see the potential range of uses of biosilk as almost limitless. 'It is very strong and retains elasticity: there are no man-made materials that can mimic both these properties. It is also a biological material with all the advantages that have over petrochemicals,' he says.</div>
+      <div class="passage-para"><span class="subheading">H</span> At DuPont's laboratories, Dorsch is excited by the prospect of new super-strong materials but he warns they are many years away. 'We are at an early stage but theoretical predictions are that we will wind up with a very strong, tough material, with an ability to absorb shock, which is stronger and tougher than the man-made materials that are conventionally available to us,' he says.</div>
+      <div class="passage-para"><span class="subheading">I</span> The spider is not the only creature that has aroused the interest of material scientists. They have also become envious of the natural adhesive secreted by the sea mussel. It produces a protein adhesive to attach itself to rocks. It is tedious and expensive to extract the protein from the mussel, so researchers have already produced a synthetic gene for use in surrogate bacteria.</div>
+    </div>
+  </div>
+
+  <div id="divider"></div>
+
+  <div id="right-panel">
+
+    <!-- Q1-13 Passage 1 -->
+    <div class="q-section active" id="qs1">
+      <div class="passage-title" style="margin-bottom:10px">Questions 1–13 — Passage 1</div>
+
+      <!-- Q1-6 Matching paragraphs -->
+      <div class="q-block">
+        <div class="q-num">Questions 1–6</div>
+        <div class="q-instruction">The passage has 8 paragraphs A–H. Which paragraph contains the following information? Write the appropriate letter, A–H, in boxes 1–6.</div>
+        <div class="q-text"><span class="q-num">Q.01.TEST012</span> Categorizations of fish by swimming speed
+          <select id="q1"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar1"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.02.TEST012</span> An example of fish capable of maintaining fast swimming for a long time
+          <select id="q2"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar2"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.03.TEST012</span> How fish control stability
+          <select id="q3"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar3"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.04.TEST012</span> Frequency of the muscle movement of fish
+          <select id="q4"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar4"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.05.TEST012</span> A mechanical model of fish skeleton
+          <select id="q5"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar5"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.06.TEST012</span> Energy storage devices in a fish
+          <select id="q6"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option></select>
+          <span class="answer-reveal" id="ar6"></span>
+        </div>
+      </div>
+
+      <!-- Q7-10 Diagram completion -->
+      <div class="q-block">
+        <div class="q-num">Questions 7–10</div>
+        <div class="q-instruction">The diagram below gives information about fish fins and their purposes. Complete with <strong>NO MORE THAN THREE WORDS</strong> from the passage for each blank.</div>
+        <table class="fill-table">
+          <tr><th>Fin</th><th>Purpose</th></tr>
+          <tr><td>Tail fin</td><td>Q.07.TEST012: <input type="text" id="q7" placeholder="answer"> <span class="answer-reveal" id="ar7"></span></td></tr>
+          <tr><td>Median fins (dorsal, anal, ventral)</td><td>Q.08.TEST012: <input type="text" id="q8" placeholder="answer"> <span class="answer-reveal" id="ar8"></span></td></tr>
+          <tr><td>Paired fins (pectoral &amp; pelvic)</td><td>Q.09.TEST012: <input type="text" id="q9" placeholder="answer"> — control pitch <span class="answer-reveal" id="ar9"></span></td></tr>
+          <tr><td>Pectoral fins</td><td>send fish up or down</td></tr>
+          <tr><td>Paired fins</td><td>Q.10.TEST012: <input type="text" id="q10" placeholder="answer"> <span class="answer-reveal" id="ar10"></span></td></tr>
+        </table>
+      </div>
+
+      <!-- Q11-13 Summary -->
+      <div class="q-block">
+        <div class="q-num">Questions 11–13</div>
+        <div class="q-instruction">Complete the summary below using <strong>NO MORE THAN THREE WORDS</strong> from the passage for each blank.</div>
+        <p class="passage-para">Two types of muscles are involved in fish swimming. The majority of a fish's body comprises the <span class="q-num">Q.11.TEST012</span> <input type="text" id="q11" placeholder="answer"> <span class="answer-reveal" id="ar11"></span>, and the red muscle is found only at the roots of the fins and in a strip along the centre of each flank. For most of its routine movements, the fish uses a lot of its <span class="q-num">Q.12.TEST012</span> <input type="text" id="q12" placeholder="answer"> <span class="answer-reveal" id="ar12"></span>, saved in body, and white muscle is mostly used for short-term, fast swimming, such as escaping from <span class="q-num">Q.13.TEST012</span> <input type="text" id="q13" placeholder="answer"> <span class="answer-reveal" id="ar13"></span>.</p>
+      </div>
+    </div>
+
+    <!-- Q14-27 Passage 2 -->
+    <div class="q-section" id="qs2">
+      <div class="passage-title" style="margin-bottom:10px">Questions 14–27 — Passage 2</div>
+
+      <!-- Q14-19 Table completion -->
+      <div class="q-block">
+        <div class="q-num">Questions 14–19</div>
+        <div class="q-instruction">Complete the table. Choose <strong>NO MORE THAN THREE WORDS</strong> from the passage for each answer.</div>
+        <table class="fill-table">
+          <tr><th>Source of knowledge</th><th>Examples</th></tr>
+          <tr>
+            <td>Personal experience</td>
+            <td>
+              Symptoms of a Q.14.TEST012 <input type="text" id="q14" placeholder="answer"> <span class="answer-reveal" id="ar14"></span> and tiredness<br><br>
+              Doctor's measurement by taking Q.15.TEST012 <input type="text" id="q15" placeholder="answer"> <span class="answer-reveal" id="ar15"></span> and temperature<br><br>
+              Common judgement from Q.16.TEST012 <input type="text" id="q16" placeholder="answer"> <span class="answer-reveal" id="ar16"></span> around you
+            </td>
+          </tr>
+          <tr>
+            <td>Scientific evidence</td>
+            <td>
+              Medical knowledge from the general Q.17.TEST012 <input type="text" id="q17" placeholder="answer"> <span class="answer-reveal" id="ar17"></span>, e.g. doctor's medical Q.18.TEST012 <input type="text" id="q18" placeholder="answer"> <span class="answer-reveal" id="ar18"></span><br><br>
+              Examine the medical hypothesis with the previous drill and Q.19.TEST012 <input type="text" id="q19" placeholder="answer"> <span class="answer-reveal" id="ar19"></span>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Q20-27 Matching paragraphs -->
+      <div class="q-block">
+        <div class="q-num">Questions 20–27</div>
+        <div class="q-instruction">The reading passage has nine paragraphs A–I. Which paragraph contains the following information? Write the appropriate letter, A–I.</div>
+        <div class="q-text"><span class="q-num">Q.20.TEST012</span> The contrast between the nature of personal judgment and the nature of doctor's diagnosis
+          <select id="q20"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar20"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.21.TEST012</span> A reference of culture about pressure
+          <select id="q21"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar21"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.22.TEST012</span> Sick leave will not be permitted without the professional diagnosis
+          <select id="q22"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar22"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.23.TEST012</span> How doctors' opinions are regarded in society
+          <select id="q23"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar23"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.24.TEST012</span> The illness of patients can become part of new knowledge
+          <select id="q24"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar24"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.25.TEST012</span> A description of knowledge drawn from non-specialized sources other than personal knowledge
+          <select id="q25"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar25"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.26.TEST012</span> An example of collective judgment from personal experience and professional doctor
+          <select id="q26"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar26"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.27.TEST012</span> A reference that some people do not realize they are ill
+          <select id="q27"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar27"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q28-40 Passage 3 -->
+    <div class="q-section" id="qs3">
+      <div class="passage-title" style="margin-bottom:10px">Questions 28–40 — Passage 3</div>
+
+      <!-- Q28-32 Matching paragraphs -->
+      <div class="q-block">
+        <div class="q-num">Questions 28–32</div>
+        <div class="q-instruction">Reading passage has nine paragraphs, A–I. Which paragraph contains the following information? Write the appropriate letter, A–I.</div>
+        <div class="q-text"><span class="q-num">Q.28.TEST012</span> A comparison of the ways two materials are used to replace silk-producing glands
+          <select id="q28"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar28"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.29.TEST012</span> Predictions regarding the availability of the synthetic silk
+          <select id="q29"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar29"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.30.TEST012</span> Ongoing research into other synthetic materials
+          <select id="q30"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar30"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.31.TEST012</span> The research into the part of the spider that manufactures silk
+          <select id="q31"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar31"></span>
+        </div>
+        <div class="q-text"><span class="q-num">Q.32.TEST012</span> The possible application of the silk in civil engineering
+          <select id="q32"><option value="">--</option><option>A</option><option>B</option><option>C</option><option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option></select>
+          <span class="answer-reveal" id="ar32"></span>
+        </div>
+      </div>
+
+      <!-- Q33-37 Flow-chart -->
+      <div class="q-block">
+        <div class="q-num">Questions 33–37</div>
+        <div class="q-instruction">Complete the flow-chart below. Choose <strong>NO MORE THAN TWO WORDS</strong> from the passage for each answer.</div>
+        <div style="margin:10px 0;line-height:2">
+          <div>• Synthetic gene grown in Q.33.TEST012 <input type="text" id="q33" placeholder="answer"> <span class="answer-reveal" id="ar33"></span> or Q.34.TEST012 <input type="text" id="q34" placeholder="answer"> <span class="answer-reveal" id="ar34"></span></div>
+          <div>↓</div>
+          <div>• Globules of Q.35.TEST012 <input type="text" id="q35" placeholder="answer"> <span class="answer-reveal" id="ar35"></span></div>
+          <div>↓</div>
+          <div>• Dissolved in Q.36.TEST012 <input type="text" id="q36" placeholder="answer"> <span class="answer-reveal" id="ar36"></span></div>
+          <div>↓</div>
+          <div>• Passed through Q.37.TEST012 <input type="text" id="q37" placeholder="answer"> <span class="answer-reveal" id="ar37"></span></div>
+          <div>↓</div>
+          <div>• To produce a solid fibre</div>
+        </div>
+      </div>
+
+      <!-- Q38-40 T/F/NG -->
+      <div class="q-block">
+        <div class="q-num">Questions 38–40</div>
+        <div class="q-instruction">Do the following statements agree with the information given in Reading Passage 3?<br>
+        Write <strong>TRUE</strong> if the statement agrees with the information<br>
+        <strong>FALSE</strong> if the statement contradicts the information<br>
+        <strong>NOT GIVEN</strong> if there is no information on this</div>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.38.TEST012</span> Biosilk has already replaced nylon in parachute manufacture.</div>
+        <label class="radio-label"><input type="radio" name="q38" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q38" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q38" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar38"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.39.TEST012</span> The spider produces silk of varying strengths.</div>
+        <label class="radio-label"><input type="radio" name="q39" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q39" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q39" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar39"></span>
+
+        <div class="q-text" style="margin-top:10px"><span class="q-num">Q.40.TEST012</span> Lewis and Dorsch co-operated in the synthetic production of silk.</div>
+        <label class="radio-label"><input type="radio" name="q40" value="TRUE"> TRUE</label>
+        <label class="radio-label"><input type="radio" name="q40" value="FALSE"> FALSE</label>
+        <label class="radio-label"><input type="radio" name="q40" value="NOT GIVEN"> NOT GIVEN</label>
+        <span class="answer-reveal" id="ar40"></span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<button id="submit-btn" onclick="askSubmit()">Nộp bài</button>
+
+<div id="score-panel">
+  <h2>📊 Kết quả – IELTS Reading Test 12</h2>
+  <div id="score-content"></div>
+  <div id="violation-report" style="margin-top:16px;color:#c0392b;font-size:13px"></div>
+</div>
+
+<script>
+(function(){
+'use strict';
+var ANS={
+  q1:'G',q2:'H',q3:'E',q4:'C',q5:'B',q6:'D',
+  q7:['forward thrust','the forward thrust'],
+  q8:['rolling and yawing','rolling and yawing movements'],
+  q9:['pectoral and pelvic','pectoral and pelvic fins'],
+  q10:['slows and stops','slows down and stops'],
+  q11:['white muscle','the white muscle'],
+  q12:['fats and glycogen','fat and glycogen'],
+  q13:['predator','a predator'],
+  q14:['bad cough','a bad cough'],
+  q15:['blood pressure'],
+  q16:['families and friends'],
+  q17:['practitioner','general practitioner'],
+  q18:['diagnosis'],
+  q19:['background'],
+  q20:'E',q21:'F',q22:'H',q23:'H',q24:'I',q25:'G',q26:'D',q27:'B',
+  q28:'E',q29:'H',q30:'I',q31:'D',q32:'G',
+  q33:['yeast'],q34:['bacteria'],q35:['protein'],
+  q36:['chemical','chemical solvents'],q37:['holes','small holes'],
+  q38:'FALSE',q39:'TRUE',q40:'NOT GIVEN'
+};
+var TOTAL_QUESTIONS=40, P1_COUNT=13, P2_COUNT=14, P3_COUNT=13;
+var currentTab=1,hlMode='yellow',timerStopped=false,submitted=false;
+var tabViolations=0,focusViolations=0,fsViolations=0,violationLog=[];
+var startTime=null,timerInterval=null,overtimeFired=false;
+
+// Highlight
+function setHL(m){hlMode=m;['hl-yellow','hl-green','hl-pink','hl-clear'].forEach(function(id){var b=document.getElementById(id);if(b)b.classList.remove('active-hl');});var t=m==='clear'?'hl-clear':'hl-'+m;var e=document.getElementById(t);if(e)e.classList.add('active-hl');}
+window.setHL=setHL;
+var hlColors={yellow:'hl-yellow',green:'hl-green',pink:'hl-pink'};
+function applyHL(container){var sel=window.getSelection();if(!sel||sel.rangeCount===0||sel.isCollapsed)return;var range=sel.getRangeAt(0);if(!container.contains(range.commonAncestorContainer))return;if(hlMode==='clear'){sel.removeAllRanges();return;}try{var span=document.createElement('span');span.className=hlColors[hlMode];var frag=range.extractContents();span.appendChild(frag);range.insertNode(span);}catch(e){}sel.removeAllRanges();}
+function handleErase(e,container){if(hlMode!=='clear')return;var t=e.target;while(t&&t!==container){if(t.tagName==='SPAN'&&(t.classList.contains('hl-yellow')||t.classList.contains('hl-green')||t.classList.contains('hl-pink'))){var p=t.parentNode;while(t.firstChild)p.insertBefore(t.firstChild,t);p.removeChild(t);p.normalize();break;}t=t.parentNode;}}
+['left-panel','right-panel'].forEach(function(pid){var panel=document.getElementById(pid);if(!panel)return;panel.addEventListener('mouseup',function(){applyHL(panel);});panel.addEventListener('click',function(e){handleErase(e,panel);});});
+
+// Tab
+function switchTab(n){currentTab=n;[1,2,3].forEach(function(i){document.getElementById('pass'+i).classList.toggle('active',i===n);document.getElementById('qs'+i).classList.toggle('active',i===n);document.getElementById('tab'+i).classList.toggle('active',i===n);});document.getElementById('left-panel').scrollTop=0;document.getElementById('right-panel').scrollTop=0;}
+window.switchTab=switchTab;
+
+// Timer
+function startTimer(){var box=document.getElementById('timer-box');timerInterval=setInterval(function(){if(timerStopped){clearInterval(timerInterval);box.style.display='none';return;}if(!startTime)return;var elapsed=Math.floor((Date.now()-startTime)/1000);var remaining=3600-elapsed;if(remaining<=0&&!overtimeFired){overtimeFired=true;box.textContent='00:00';document.getElementById('overtime-overlay').style.display='flex';setTimeout(function(){if(!submitted)confirmSubmit();},300000);return;}if(remaining>0){var m=Math.floor(remaining/60),s=remaining%60;box.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;if(remaining<=120){box.className='';box.classList.add('danger');}else if(remaining<=600){box.className='';box.classList.add('warn');}else{box.className='';}}},500);}
+window.stopTimer=function(){timerStopped=true;};
+
+// Fullscreen
+window.enterFullscreen=function(){var el=document.documentElement;try{if(el.requestFullscreen)el.requestFullscreen().catch(function(){});else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}catch(e){}document.getElementById('fs-overlay').style.display='none';};
+document.addEventListener('fullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Thoát fullscreen');document.getElementById('fs-overlay').style.display='flex';}});
+document.addEventListener('webkitfullscreenchange',function(){if(submitted)return;if(!document.fullscreenElement&&!document.webkitFullscreenElement&&startTime){fsViolations++;document.getElementById('fs-overlay').style.display='flex';}});
+
+// Start
+window.startExam=function(){var name=document.getElementById('inp-name').value.trim();var cls=document.getElementById('inp-class').value.trim();if(!name||!cls){document.getElementById('popup-err').style.display='block';return;}window._studentName=name;window._studentClass=cls;window._testStartTime=Date.now();startTime=window._testStartTime;document.getElementById('popup-overlay').style.display='none';enterFullscreen();startTimer();};
+
+// Anti-cheat
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){if(e.key==='F12'){e.preventDefault();return;}if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}if(e.ctrlKey&&e.shiftKey&&['i','j','c','k'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();return;}if(e.key==='Escape'&&!submitted){e.preventDefault();}});
+document.addEventListener('visibilitychange',function(){if(submitted||!startTime)return;if(document.hidden){tabViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Chuyển tab');showWarning('⚠ Phát hiện chuyển tab! Vi phạm lần '+tabViolations);}});
+window.addEventListener('blur',function(){if(submitted||!startTime)return;focusViolations++;violationLog.push('['+new Date().toLocaleTimeString()+'] Mất focus');showWarning('⚠ Phát hiện rời cửa sổ! Vi phạm lần '+focusViolations);});
+// Selected answer highlight
+document.querySelectorAll('input[type="radio"]').forEach(function(inp){inp.addEventListener('change',function(){var name=inp.name;document.querySelectorAll('input[name="'+name+'"]').forEach(function(r){var l=r.closest('label');if(l)l.classList.remove('selected-answer');});var l=inp.closest('label');if(l&&inp.checked)l.classList.add('selected-answer');});});
+
+// Helpers
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getRad(name){var c=document.querySelector('input[name="'+name+'"]:checked');return c?c.value:'';}
+function chkText(id,ans){var v=getVal(id).toLowerCase();if(Array.isArray(ans))return ans.some(function(a){return v===a.toLowerCase();});return v===ans.toLowerCase();}
+function chkSel(id,ans){return getVal(id)===ans;}
+function chkRad(name,ans){return getRad(name)===ans;}
+
+// Submit
+window.askSubmit=function(){if(submitted)return;document.getElementById('confirm-overlay').style.display='flex';};
+window.confirmSubmit=function(){if(submitted)return;submitted=true;document.getElementById('confirm-overlay').style.display='none';document.getElementById('overtime-overlay').style.display='none';window.stopTimer();doSubmit();};
+
+function doSubmit(){
+  document.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true;});
+  document.querySelectorAll('.selected-answer').forEach(function(el){el.classList.remove('selected-answer');});
+  var p1=0,p2=0,p3=0;
+  // Q1-6 select
+  [1,2,3,4,5,6].forEach(function(n){var ok=chkSel('q'+n,ANS['q'+n]);markSelect('q'+n,ok,ANS['q'+n]);if(ok)p1++;});
+  // Q7-10 text
+  [7,8,9,10].forEach(function(n){var ok=chkText('q'+n,ANS['q'+n]);markText('q'+n,ok,Array.isArray(ANS['q'+n])?ANS['q'+n][0]:ANS['q'+n]);if(ok)p1++;});
+  // Q11-13 text
+  [11,12,13].forEach(function(n){var ok=chkText('q'+n,ANS['q'+n]);markText('q'+n,ok,Array.isArray(ANS['q'+n])?ANS['q'+n][0]:ANS['q'+n]);if(ok)p1++;});
+  // Q14-19 text
+  [14,15,16,17,18,19].forEach(function(n){var ok=chkText('q'+n,ANS['q'+n]);markText('q'+n,ok,Array.isArray(ANS['q'+n])?ANS['q'+n][0]:ANS['q'+n]);if(ok)p2++;});
+  // Q20-27 select
+  [20,21,22,23,24,25,26,27].forEach(function(n){var ok=chkSel('q'+n,ANS['q'+n]);markSelect('q'+n,ok,ANS['q'+n]);if(ok)p2++;});
+  // Q28-32 select
+  [28,29,30,31,32].forEach(function(n){var ok=chkSel('q'+n,ANS['q'+n]);markSelect('q'+n,ok,ANS['q'+n]);if(ok)p3++;});
+  // Q33-37 text
+  [33,34,35,36,37].forEach(function(n){var ok=chkText('q'+n,ANS['q'+n]);markText('q'+n,ok,Array.isArray(ANS['q'+n])?ANS['q'+n][0]:ANS['q'+n]);if(ok)p3++;});
+  // Q38-40 radio
+  [38,39,40].forEach(function(n){var ok=chkRad('q'+n,ANS['q'+n]);markRadio('q'+n,ok,ANS['q'+n]);if(ok)p3++;});
+  var total=p1+p2+p3;
+  var band=getBand(total);
+  showScore(p1,p2,p3,total,band);
+  sendResults(p1,p2,p3,total,band);
+}
+
+function markSelect(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var num=id.replace('q','');var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markText(id,ok,correct){var el=document.getElementById(id);if(!el)return;el.classList.add(ok?'correct':'wrong');var num=id.replace('q','');var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+function markRadio(name,ok,correct){var num=name.replace('q','');document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){var lbl=inp.closest('label');if(!lbl)return;if(inp.value===correct)lbl.classList.add('correct');else if(inp.checked&&inp.value!==correct)lbl.classList.add('wrong');});var ar=document.getElementById('ar'+num);if(ar&&!ok)ar.textContent='✓ '+correct;}
+
+function getBand(score){if(score>=39)return'Band 9';if(score>=37)return'Band 8.5';if(score>=35)return'Band 8';if(score>=33)return'Band 7.5';if(score>=30)return'Band 7';if(score>=27)return'Band 6.5';if(score>=23)return'Band 6';if(score>=19)return'Band 5.5';if(score>=15)return'Band 5';if(score>=13)return'Band 4.5';if(score>=10)return'Band 4';return'Dưới Band 4';}
+function getTimeTaken(){if(!startTime)return'N/A';var e=Math.floor((Date.now()-startTime)/1000);return Math.floor(e/60)+' phút '+(e%60)+' giây';}
+
+function showScore(p1,p2,p3,total,band){
+  document.getElementById('score-panel').style.display='block';
+  var html='<table class="score-table"><tr><th>Passage</th><th>Đúng</th><th>Tổng</th></tr>';
+  html+='<tr><td>Passage 1</td><td>'+p1+'</td><td>'+P1_COUNT+'</td></tr>';
+  html+='<tr><td>Passage 2</td><td>'+p2+'</td><td>'+P2_COUNT+'</td></tr>';
+  html+='<tr><td>Passage 3</td><td>'+p3+'</td><td>'+P3_COUNT+'</td></tr>';
+  html+='<tr><th>Tổng</th><th>'+total+'</th><th>'+TOTAL_QUESTIONS+'</th></tr></table>';
+  html+='<p style="font-size:1.2em;font-weight:700;color:#1a3a5c;margin-top:12px">🏆 Band ước tính: '+band+'</p>';
+  html+='<p style="color:#555;margin-top:6px">⏱ Thời gian: '+getTimeTaken()+'</p>';
+  document.getElementById('score-content').innerHTML=html;
+  if(tabViolations+focusViolations+fsViolations>0){var v='<strong>📋 Báo cáo vi phạm:</strong><br>Chuyển tab: '+tabViolations+' | Mất focus: '+focusViolations+' | Thoát fullscreen: '+fsViolations+'<br><small>'+violationLog.join('<br>')+'</small>';document.getElementById('violation-report').innerHTML=v;}
+}
+
+function buildDetails(){
+  var parts=[];
+  [1,2,3,4,5,6].forEach(function(n){var v=getVal('q'+n);parts.push('Q0'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  [7,8,9,10,11,12,13].forEach(function(n){var v=getVal('q'+n);parts.push('Q'+n+':'+(chkText('q'+n,ANS['q'+n])?'✔':'✘')+'('+v+')');});
+  [14,15,16,17,18,19].forEach(function(n){var v=getVal('q'+n);parts.push('Q'+n+':'+(chkText('q'+n,ANS['q'+n])?'✔':'✘')+'('+v+')');});
+  [20,21,22,23,24,25,26,27].forEach(function(n){var v=getVal('q'+n);parts.push('Q'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  [28,29,30,31,32].forEach(function(n){var v=getVal('q'+n);parts.push('Q'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  [33,34,35,36,37].forEach(function(n){var v=getVal('q'+n);parts.push('Q'+n+':'+(chkText('q'+n,ANS['q'+n])?'✔':'✘')+'('+v+')');});
+  [38,39,40].forEach(function(n){var v=getRad('q'+n);parts.push('Q'+n+':'+(v===ANS['q'+n]?'✔':'✘')+'('+v+')');});
+  return parts.join(' | ');
+}
+
+function sendResults(p1,p2,p3,total,band){
+  var URL='https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+  fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',timestamp:new Date().toISOString(),student:(window._studentName||'')+'  —  '+(window._studentClass||''),test:'Reading Test 12',score:total,total:TOTAL_QUESTIONS,band:band,timeTaken:getTimeTaken(),p1score:p1+'/'+P1_COUNT,p2score:p2+'/'+P2_COUNT,p3score:p3+'/'+P3_COUNT,tabViol:tabViolations,focusViol:focusViolations,fsViol:fsViolations,details:buildDetails()})}).catch(function(){});
+}
+
+// Divider
+(function(){var div=document.getElementById('divider');var left=document.getElementById('left-panel');var dragging=false,startX=0,startW=0;div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';});document.addEventListener('mouseup',function(){dragging=false;});div.addEventListener('touchstart',function(e){dragging=true;startX=e.touches[0].clientX;startW=left.offsetWidth;},{passive:true});document.addEventListener('touchmove',function(e){if(!dragging)return;var w=startW+(e.touches[0].clientX-startX);left.style.width=Math.max(200,Math.min(w,window.innerWidth-200))+'px';},{passive:true});document.addEventListener('touchend',function(){dragging=false;});})();
+})();
+</script>
+</body>
+</html>
