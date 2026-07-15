@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOEIC Placement Test — Reading</title>
+<style>
+*{box-sizing:border-box;}
+body{font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:#eef1f5;color:#222;
+     user-select:none;-webkit-user-select:none;}
+input[type="text"], textarea, select{user-select:text;-webkit-user-select:text;}
+.qtext, .doc-body, .doc-header{user-select:text;-webkit-user-select:text;}
+@media print{ body{display:none !important;} }
+
+/* ---- Name popup ---- */
+#namePopup{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;display:flex;
+  align-items:center;justify-content:center;}
+#namePopup .box{background:#fff;border-radius:10px;padding:28px 32px;max-width:420px;width:90%;
+  box-shadow:0 8px 30px rgba(0,0,0,.3);}
+#namePopup h2{margin-top:0;color:#1a5276;font-size:20px;}
+#namePopup input{width:100%;padding:10px;margin:8px 0;border:1px solid #ccc;border-radius:6px;
+  font-size:14px;user-select:text;}
+#namePopup button{margin-top:12px;width:100%;padding:11px;background:#1a5276;color:#fff;border:none;
+  border-radius:6px;font-size:15px;cursor:pointer;font-weight:bold;}
+#namePopup button:hover{background:#154360;}
+#nameError{color:#e74c3c;font-size:13px;margin-top:4px;display:none;}
+
+/* ---- Header / Timer ---- */
+#topbar{position:sticky;top:0;background:#1a5276;color:#fff;padding:10px 16px;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+#topbar .title{font-weight:bold;font-size:16px;}
+#timerBox{background:#154360;padding:6px 14px;border-radius:6px;font-size:18px;font-weight:bold;
+  font-variant-numeric:tabular-nums;}
+#timerBox.warn{background:#e67e22;animation:blink 1s infinite;}
+#timerBox.danger{background:#c0392b;animation:blink .5s infinite;}
+@keyframes blink{50%{opacity:.4;}}
+#audioWrap{padding:10px 16px;background:#d6eaf8;text-align:center;}
+#audioWrap audio{width:100%;max-width:640px;}
+
+/* ---- Violation banner ---- */
+#violBanner{position:fixed;top:0;left:0;right:0;background:#c0392b;color:#fff;text-align:center;
+  padding:10px;font-weight:bold;z-index:9998;display:none;}
+
+/* ---- Fullscreen overlay ---- */
+#fsOverlay{position:fixed;inset:0;background:rgba(0,0,0,.85);color:#fff;z-index:9997;display:none;
+  align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;}
+#fsOverlay button{margin-top:16px;padding:12px 24px;background:#e67e22;color:#fff;border:none;
+  border-radius:6px;font-size:16px;cursor:pointer;font-weight:bold;}
+
+/* ---- Layout ---- */
+#container{max-width:960px;margin:0 auto;padding:16px;}
+.part-title{background:#1a5276;color:#fff;padding:10px 16px;border-radius:6px;margin:24px 0 12px;
+  font-size:17px;font-weight:bold;}
+.part-dir{background:#fdf2e3;border-left:4px solid #e67e22;padding:10px 14px;margin-bottom:16px;
+  font-size:13.5px;color:#555;font-style:italic;}
+.doc-header{background:#f4f6f7;border:1px dashed #aaa;padding:8px 12px;font-size:12.5px;
+  color:#555;margin-bottom:6px;white-space:pre-wrap;}
+.doc-body{background:#f9f9f9;border:1px solid #ddd;padding:14px 16px;margin-bottom:10px;
+  line-height:1.55;font-size:14px;border-radius:4px;}
+.group-box{background:#fff;border:1px solid #d5d8dc;border-radius:8px;padding:14px 16px;
+  margin-bottom:18px;}
+.qbox{padding:10px 0;border-bottom:1px solid #eee;}
+.qbox:last-child{border-bottom:none;}
+.qtext{font-size:14.5px;margin-bottom:8px;line-height:1.5;}
+.opt-row{display:block;padding:6px 10px;margin:4px 0;border-radius:5px;cursor:pointer;font-size:14px;
+  border:1px solid transparent;}
+.opt-row:hover{background:#f1f4f7;}
+.opt-row input{margin-right:8px;}
+.opt-row.opt-letter-only{display:inline-block;width:auto;margin-right:10px;padding:8px 16px;
+  border:1px solid #ccc;}
+.letter-group{display:flex;gap:10px;flex-wrap:wrap;}
+.selected-answer{background:#FFD580 !important;}
+.opt-correct{background:#d4efdf !important;border-color:#27ae60 !important;font-weight:bold;}
+.opt-wrong{background:#fadbd8 !important;border-color:#c0392b !important;}
+.img-box{text-align:center;margin:10px 0;}
+.img-box img{max-width:100%;max-height:320px;border:1px solid #ccc;border-radius:4px;}
+.graphic-box{background:#f4f6f7;border:1px solid #ccc;border-radius:6px;padding:10px 14px;
+  margin:10px 0;font-size:13px;}
+.graphic-table{width:100%;border-collapse:collapse;margin-top:6px;font-size:12.5px;}
+.graphic-table th{background:#1a5276;color:#fff;padding:5px 8px;text-align:left;}
+.graphic-table td{padding:5px 8px;border:1px solid #d5d8dc;}
+.insertion-box{background:#eaf2f8;border:1px solid #aed6f1;border-radius:6px;padding:12px 14px;
+  margin-top:10px;}
+.ins-marker{background:#f9e79f;color:#7d6608;font-weight:bold;padding:1px 4px;border-radius:3px;}
+
+#submitBtn{position:fixed;bottom:22px;right:22px;background:#c0392b;color:#fff;border:none;
+  padding:14px 26px;border-radius:30px;font-size:15px;font-weight:bold;cursor:pointer;z-index:600;
+  box-shadow:0 4px 14px rgba(0,0,0,.3);}
+#submitBtn:hover{background:#a93226;}
+
+#confirmPopup, #resultPopup{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9999;
+  display:none;align-items:center;justify-content:center;}
+#confirmPopup .box{background:#fff;border-radius:10px;padding:24px 28px;max-width:380px;text-align:center;}
+#confirmPopup button{margin:10px 6px 0;padding:10px 20px;border:none;border-radius:6px;font-weight:bold;
+  cursor:pointer;font-size:14px;}
+#confirmYes{background:#c0392b;color:#fff;}
+#confirmNo{background:#ccc;color:#222;}
+
+#resultBox{max-width:960px;margin:20px auto;background:#fff;border-radius:10px;padding:20px 24px;
+  box-shadow:0 4px 20px rgba(0,0,0,.15);display:none;}
+#resultBox h2{color:#1a5276;}
+.score-grid{display:flex;gap:16px;flex-wrap:wrap;margin:14px 0;}
+.score-card{background:#f4f6f7;border-radius:8px;padding:14px 20px;flex:1;min-width:140px;text-align:center;}
+.score-card .num{font-size:26px;font-weight:bold;color:#1a5276;}
+.score-card .lbl{font-size:12.5px;color:#666;}
+.viol-line{font-size:13px;color:#c0392b;margin-top:8px;}
+</style>
+
+</head>
+<body>
+
+<div id="namePopup">
+  <div class="box">
+    <h2>TOEIC Placement Test — Reading</h2>
+    <p style="font-size:13.5px;color:#555;">Vui long nhap ho ten va lop de bat dau lam bai. Bai thi se chuyen sang che do toan man hinh.</p>
+    <input type="text" id="stuName" placeholder="Ho va ten" autocomplete="off">
+    <input type="text" id="stuClass" placeholder="Lop" autocomplete="off">
+    <div id="nameError">Vui long nhap day du ho ten va lop.</div>
+    <button onclick="startExam()">Bat dau lam bai</button>
+  </div>
+</div>
+
+<div id="fsOverlay">
+  <p style="font-size:16px;max-width:420px;">Ban da thoat che do toan man hinh. Vui long quay lai toan man hinh de tiep tuc lam bai.</p>
+  <button id="fsBtn">Vao toan man hinh</button>
+</div>
+
+<div id="violBanner"></div>
+
+<div id="topbar">
+  <div class="title">TOEIC Placement Test — Reading</div>
+  <div id="timerBox">--:--</div>
+</div>
+
+
+<div id="container">
+<div class="part-title">PART 5 — Incomplete Sentences (Cau 101-130)</div>
+<div class="part-dir">Directions: A word or phrase is missing in each of the sentences below. Select the best answer to complete the sentence.</div>
+<div class="group-box">
+<div class="qbox" id="q101_box">
+<div class="qtext"><b>101.</b> Ms. Swinton will return from vacation tomorrow, but the project-planning committee will not meet with _____ until next week.</div>
+<label class="opt-row"><input type="radio" name="q101" value="A"> <b>A.</b> she</label><label class="opt-row"><input type="radio" name="q101" value="B"> <b>B.</b> her</label><label class="opt-row"><input type="radio" name="q101" value="C"> <b>C.</b> hers</label><label class="opt-row"><input type="radio" name="q101" value="D"> <b>D.</b> herself</label>
+</div>
+<div class="qbox" id="q102_box">
+<div class="qtext"><b>102.</b> When it comes to purchases, Topfield Electronics assures its customers that they will receive their items _____ two business days.</div>
+<label class="opt-row"><input type="radio" name="q102" value="A"> <b>A.</b> through</label><label class="opt-row"><input type="radio" name="q102" value="B"> <b>B.</b> within</label><label class="opt-row"><input type="radio" name="q102" value="C"> <b>C.</b> around</label><label class="opt-row"><input type="radio" name="q102" value="D"> <b>D.</b> behind</label>
+</div>
+<div class="qbox" id="q103_box">
+<div class="qtext"><b>103.</b> Anyone who wants to _____ in the upcoming seminar should fill out a registration card.</div>
+<label class="opt-row"><input type="radio" name="q103" value="A"> <b>A.</b> complete</label><label class="opt-row"><input type="radio" name="q103" value="B"> <b>B.</b> attend</label><label class="opt-row"><input type="radio" name="q103" value="C"> <b>C.</b> participate</label><label class="opt-row"><input type="radio" name="q103" value="D"> <b>D.</b> release</label>
+</div>
+<div class="qbox" id="q104_box">
+<div class="qtext"><b>104.</b> The owner of Sophie Amalie Repair strives to provide the best possible service to _____ customers.</div>
+<label class="opt-row"><input type="radio" name="q104" value="A"> <b>A.</b> he</label><label class="opt-row"><input type="radio" name="q104" value="B"> <b>B.</b> his</label><label class="opt-row"><input type="radio" name="q104" value="C"> <b>C.</b> him</label><label class="opt-row"><input type="radio" name="q104" value="D"> <b>D.</b> himself</label>
+</div>
+<div class="qbox" id="q105_box">
+<div class="qtext"><b>105.</b> If Charlie Cox Designers does not deliver your items _____ Friday, we will take 10 percent off the purchasing cost.</div>
+<label class="opt-row"><input type="radio" name="q105" value="A"> <b>A.</b> by</label><label class="opt-row"><input type="radio" name="q105" value="B"> <b>B.</b> in</label><label class="opt-row"><input type="radio" name="q105" value="C"> <b>C.</b> at</label><label class="opt-row"><input type="radio" name="q105" value="D"> <b>D.</b> to</label>
+</div>
+<div class="qbox" id="q106_box">
+<div class="qtext"><b>106.</b> The senior manager, Mr. Redmayne, _____ all of the statistics that were needed for the report.</div>
+<label class="opt-row"><input type="radio" name="q106" value="A"> <b>A.</b> provided</label><label class="opt-row"><input type="radio" name="q106" value="B"> <b>B.</b> provide</label><label class="opt-row"><input type="radio" name="q106" value="C"> <b>C.</b> to provide</label><label class="opt-row"><input type="radio" name="q106" value="D"> <b>D.</b> providing</label>
+</div>
+<div class="qbox" id="q107_box">
+<div class="qtext"><b>107.</b> Mr. Armitage has requested that _____ related to the upcoming charity bazaar be reported separately.</div>
+<label class="opt-row"><input type="radio" name="q107" value="A"> <b>A.</b> expensed</label><label class="opt-row"><input type="radio" name="q107" value="B"> <b>B.</b> expensively</label><label class="opt-row"><input type="radio" name="q107" value="C"> <b>C.</b> expensive</label><label class="opt-row"><input type="radio" name="q107" value="D"> <b>D.</b> expenses</label>
+</div>
+<div class="qbox" id="q108_box">
+<div class="qtext"><b>108.</b> Only _____ merchandise is subject to conditions in the return policy within 14 days of invoice date.</div>
+<label class="opt-row"><input type="radio" name="q108" value="A"> <b>A.</b> deliberate</label><label class="opt-row"><input type="radio" name="q108" value="B"> <b>B.</b> untrue</label><label class="opt-row"><input type="radio" name="q108" value="C"> <b>C.</b> defective</label><label class="opt-row"><input type="radio" name="q108" value="D"> <b>D.</b> unavailable</label>
+</div>
+<div class="qbox" id="q109_box">
+<div class="qtext"><b>109.</b> Sending a letter of apology, promptly after a customer&#x27;s complaint, is a highly recommended _____.</div>
+<label class="opt-row"><input type="radio" name="q109" value="A"> <b>A.</b> practice</label><label class="opt-row"><input type="radio" name="q109" value="B"> <b>B.</b> reference</label><label class="opt-row"><input type="radio" name="q109" value="C"> <b>C.</b> plot</label><label class="opt-row"><input type="radio" name="q109" value="D"> <b>D.</b> resource</label>
+</div>
+<div class="qbox" id="q110_box">
+<div class="qtext"><b>110.</b> Many regional relief facilities will be receiving _____ of canned foods and other necessities from wealthy businessmen.</div>
+<label class="opt-row"><input type="radio" name="q110" value="A"> <b>A.</b> donating</label><label class="opt-row"><input type="radio" name="q110" value="B"> <b>B.</b> donate</label><label class="opt-row"><input type="radio" name="q110" value="C"> <b>C.</b> donations</label><label class="opt-row"><input type="radio" name="q110" value="D"> <b>D.</b> donated</label>
+</div>
+<div class="qbox" id="q111_box">
+<div class="qtext"><b>111.</b> The company offers the most _____ collection of auto parts and accessories in the industry.</div>
+<label class="opt-row"><input type="radio" name="q111" value="A"> <b>A.</b> extensive</label><label class="opt-row"><input type="radio" name="q111" value="B"> <b>B.</b> distracted</label><label class="opt-row"><input type="radio" name="q111" value="C"> <b>C.</b> spacious</label><label class="opt-row"><input type="radio" name="q111" value="D"> <b>D.</b> occasional</label>
+</div>
+<div class="qbox" id="q112_box">
+<div class="qtext"><b>112.</b> The speech by the CEO clearly disrupted the office by _____ the employees from their work.</div>
+<label class="opt-row"><input type="radio" name="q112" value="A"> <b>A.</b> refusing</label><label class="opt-row"><input type="radio" name="q112" value="B"> <b>B.</b> distracting</label><label class="opt-row"><input type="radio" name="q112" value="C"> <b>C.</b> experiencing</label><label class="opt-row"><input type="radio" name="q112" value="D"> <b>D.</b> comprising</label>
+</div>
+<div class="qbox" id="q113_box">
+<div class="qtext"><b>113.</b> Our new power and energy solutions will reduce our customers&#x27; energy expenses _____.</div>
+<label class="opt-row"><input type="radio" name="q113" value="A"> <b>A.</b> signify</label><label class="opt-row"><input type="radio" name="q113" value="B"> <b>B.</b> to signify</label><label class="opt-row"><input type="radio" name="q113" value="C"> <b>C.</b> significant</label><label class="opt-row"><input type="radio" name="q113" value="D"> <b>D.</b> significantly</label>
+</div>
+<div class="qbox" id="q114_box">
+<div class="qtext"><b>114.</b> _____ the weather improves this afternoon, we will have to cancel the workshop and seminar.</div>
+<label class="opt-row"><input type="radio" name="q114" value="A"> <b>A.</b> Without</label><label class="opt-row"><input type="radio" name="q114" value="B"> <b>B.</b> Unless</label><label class="opt-row"><input type="radio" name="q114" value="C"> <b>C.</b> As a result of</label><label class="opt-row"><input type="radio" name="q114" value="D"> <b>D.</b> While</label>
+</div>
+<div class="qbox" id="q115_box">
+<div class="qtext"><b>115.</b> After _____ herself to the clients, Mary Evans started the presentation on the new sewer management system.</div>
+<label class="opt-row"><input type="radio" name="q115" value="A"> <b>A.</b> introducing</label><label class="opt-row"><input type="radio" name="q115" value="B"> <b>B.</b> introduced</label><label class="opt-row"><input type="radio" name="q115" value="C"> <b>C.</b> introduces</label><label class="opt-row"><input type="radio" name="q115" value="D"> <b>D.</b> introduce</label>
+</div>
+<div class="qbox" id="q116_box">
+<div class="qtext"><b>116.</b> Ms. Sanders _____ a formal contract to hire Ms. Collins as an assistant to support her work last week.</div>
+<label class="opt-row"><input type="radio" name="q116" value="A"> <b>A.</b> sign</label><label class="opt-row"><input type="radio" name="q116" value="B"> <b>B.</b> signs</label><label class="opt-row"><input type="radio" name="q116" value="C"> <b>C.</b> signed</label><label class="opt-row"><input type="radio" name="q116" value="D"> <b>D.</b> has signed</label>
+</div>
+<div class="qbox" id="q117_box">
+<div class="qtext"><b>117.</b> We should take several factors into _____ before we put the new summer line on the market.</div>
+<label class="opt-row"><input type="radio" name="q117" value="A"> <b>A.</b> considering</label><label class="opt-row"><input type="radio" name="q117" value="B"> <b>B.</b> considerable</label><label class="opt-row"><input type="radio" name="q117" value="C"> <b>C.</b> considerate</label><label class="opt-row"><input type="radio" name="q117" value="D"> <b>D.</b> consideration</label>
+</div>
+<div class="qbox" id="q118_box">
+<div class="qtext"><b>118.</b> Apple iPad has proven to be surprisingly _____ even in such a volatile market.</div>
+<label class="opt-row"><input type="radio" name="q118" value="A"> <b>A.</b> profiting</label><label class="opt-row"><input type="radio" name="q118" value="B"> <b>B.</b> profitable</label><label class="opt-row"><input type="radio" name="q118" value="C"> <b>C.</b> profit</label><label class="opt-row"><input type="radio" name="q118" value="D"> <b>D.</b> profited</label>
+</div>
+<div class="qbox" id="q119_box">
+<div class="qtext"><b>119.</b> In the past year, the Royal Charter for Lawyers has been implementing _____ that are in keeping with the association&#x27;s ethics.</div>
+<label class="opt-row"><input type="radio" name="q119" value="A"> <b>A.</b> to measure</label><label class="opt-row"><input type="radio" name="q119" value="B"> <b>B.</b> measure</label><label class="opt-row"><input type="radio" name="q119" value="C"> <b>C.</b> measuring</label><label class="opt-row"><input type="radio" name="q119" value="D"> <b>D.</b> measures</label>
+</div>
+<div class="qbox" id="q120_box">
+<div class="qtext"><b>120.</b> While Oldham Bridge is closed for _____ repairs, business owners on Worcester high street can access the alternative route through the Enoch town center.</div>
+<label class="opt-row"><input type="radio" name="q120" value="A"> <b>A.</b> structuralize</label><label class="opt-row"><input type="radio" name="q120" value="B"> <b>B.</b> structural</label><label class="opt-row"><input type="radio" name="q120" value="C"> <b>C.</b> structurally</label><label class="opt-row"><input type="radio" name="q120" value="D"> <b>D.</b> structured</label>
+</div>
+<div class="qbox" id="q121_box">
+<div class="qtext"><b>121.</b> All trains bound for the Ghana International Bus Terminal _____ until further notice.</div>
+<label class="opt-row"><input type="radio" name="q121" value="A"> <b>A.</b> will be postponed</label><label class="opt-row"><input type="radio" name="q121" value="B"> <b>B.</b> postponing</label><label class="opt-row"><input type="radio" name="q121" value="C"> <b>C.</b> are postponing</label><label class="opt-row"><input type="radio" name="q121" value="D"> <b>D.</b> should postpone</label>
+</div>
+<div class="qbox" id="q122_box">
+<div class="qtext"><b>122.</b> Even after two decades, the dinosaur displays at the Wallboys Ice Age Exhibition _____ thousands of tourists every year.</div>
+<label class="opt-row"><input type="radio" name="q122" value="A"> <b>A.</b> attend</label><label class="opt-row"><input type="radio" name="q122" value="B"> <b>B.</b> explore</label><label class="opt-row"><input type="radio" name="q122" value="C"> <b>C.</b> attract</label><label class="opt-row"><input type="radio" name="q122" value="D"> <b>D.</b> remain</label>
+</div>
+<div class="qbox" id="q123_box">
+<div class="qtext"><b>123.</b> Safevale Manufacturer has become more _____ focused on sustainable packaging in the past few months.</div>
+<label class="opt-row"><input type="radio" name="q123" value="A"> <b>A.</b> narrowly</label><label class="opt-row"><input type="radio" name="q123" value="B"> <b>B.</b> narrows</label><label class="opt-row"><input type="radio" name="q123" value="C"> <b>C.</b> narrowing</label><label class="opt-row"><input type="radio" name="q123" value="D"> <b>D.</b> narrower</label>
+</div>
+<div class="qbox" id="q124_box">
+<div class="qtext"><b>124.</b> _____ Krane Pharmaceuticals opens a new research center in Hong Kong or not depends on the cost implications of purchasing a new site.</div>
+<label class="opt-row"><input type="radio" name="q124" value="A"> <b>A.</b> While</label><label class="opt-row"><input type="radio" name="q124" value="B"> <b>B.</b> Although</label><label class="opt-row"><input type="radio" name="q124" value="C"> <b>C.</b> Whether</label><label class="opt-row"><input type="radio" name="q124" value="D"> <b>D.</b> Despite</label>
+</div>
+<div class="qbox" id="q125_box">
+<div class="qtext"><b>125.</b> The launch of the new MP3 player was far more successful than originally _____.</div>
+<label class="opt-row"><input type="radio" name="q125" value="A"> <b>A.</b> anticipated</label><label class="opt-row"><input type="radio" name="q125" value="B"> <b>B.</b> anticipates</label><label class="opt-row"><input type="radio" name="q125" value="C"> <b>C.</b> anticipating</label><label class="opt-row"><input type="radio" name="q125" value="D"> <b>D.</b> anticipation</label>
+</div>
+<div class="qbox" id="q126_box">
+<div class="qtext"><b>126.</b> The board of directors agreed _____ to adopt the new marketing plan at the meeting yesterday.</div>
+<label class="opt-row"><input type="radio" name="q126" value="A"> <b>A.</b> miscellaneously</label><label class="opt-row"><input type="radio" name="q126" value="B"> <b>B.</b> unanimously</label><label class="opt-row"><input type="radio" name="q126" value="C"> <b>C.</b> currently</label><label class="opt-row"><input type="radio" name="q126" value="D"> <b>D.</b> beneficially</label>
+</div>
+<div class="qbox" id="q127_box">
+<div class="qtext"><b>127.</b> Research articles intended for publication must include descriptive statistics _____ an informed reader may accurately interpret and evaluate the findings.</div>
+<label class="opt-row"><input type="radio" name="q127" value="A"> <b>A.</b> in order</label><label class="opt-row"><input type="radio" name="q127" value="B"> <b>B.</b> therefore</label><label class="opt-row"><input type="radio" name="q127" value="C"> <b>C.</b> so that</label><label class="opt-row"><input type="radio" name="q127" value="D"> <b>D.</b> whereas</label>
+</div>
+<div class="qbox" id="q128_box">
+<div class="qtext"><b>128.</b> _____ the new agreement, 10 percent of the profits generated by the book will go to the author.</div>
+<label class="opt-row"><input type="radio" name="q128" value="A"> <b>A.</b> According to</label><label class="opt-row"><input type="radio" name="q128" value="B"> <b>B.</b> In case of</label><label class="opt-row"><input type="radio" name="q128" value="C"> <b>C.</b> Resulting in</label><label class="opt-row"><input type="radio" name="q128" value="D"> <b>D.</b> Away from</label>
+</div>
+<div class="qbox" id="q129_box">
+<div class="qtext"><b>129.</b> The minimum hourly wage approved by the board of directors _____ as planned starting on September 1.</div>
+<label class="opt-row"><input type="radio" name="q129" value="A"> <b>A.</b> has been implementing</label><label class="opt-row"><input type="radio" name="q129" value="B"> <b>B.</b> to implement</label><label class="opt-row"><input type="radio" name="q129" value="C"> <b>C.</b> had implemented</label><label class="opt-row"><input type="radio" name="q129" value="D"> <b>D.</b> will be implemented</label>
+</div>
+<div class="qbox" id="q130_box">
+<div class="qtext"><b>130.</b> Unless _____ instructed, take this medicine three times daily after meals.</div>
+<label class="opt-row"><input type="radio" name="q130" value="A"> <b>A.</b> instead</label><label class="opt-row"><input type="radio" name="q130" value="B"> <b>B.</b> somewhat</label><label class="opt-row"><input type="radio" name="q130" value="C"> <b>C.</b> otherwise</label><label class="opt-row"><input type="radio" name="q130" value="D"> <b>D.</b> rather</label>
+</div>
+</div>
+<div class="part-title">PART 6 — Text Completion (Cau 131-146)</div>
+<div class="part-dir">Directions: Read the texts that follow. A word, phrase, or sentence is missing in parts of each text. Select the best answer to complete the text.</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 131-134 refer to the following memo.</p>
+<div class="doc-header">From: Elizabeth Manning
+Subject: Promotion
+Date: April 21</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Robert,<br>This is Elizabeth Manning from the Human Resources Department. I would like to inform you that your promotion has been — <span class="ins-marker">[131]</span> — by our department.</p><p style='margin:0 0 10px;'>Effective on May 1, your new title will be the Director of Sales, and you will be transferred to our headquarters in Salt Lake City.<br>— <span class="ins-marker">[132]</span> —. I will send you an e-mail with an attached file which will include the official description of your new — <span class="ins-marker">[133]</span> — as Director of Sales.</p><p style='margin:0 0 10px;'>I will be more than happy to answer any questions you may have, so please don&#x27;t hesitate to contact me.<br>We look forward to the additional — <span class="ins-marker">[134]</span> — you will be making for our company.</p><p style='margin:0 0 10px;'>Sincerely,</p><p style='margin:0 0 10px;'>Elizabeth Manning<br>Director, Human Resources</p></div>
+<div class="qbox" id="q131_box">
+<div class="qtext"><b>131.</b></div>
+<label class="opt-row"><input type="radio" name="q131" value="A"> <b>A.</b> notified</label><label class="opt-row"><input type="radio" name="q131" value="B"> <b>B.</b> applied</label><label class="opt-row"><input type="radio" name="q131" value="C"> <b>C.</b> approved</label><label class="opt-row"><input type="radio" name="q131" value="D"> <b>D.</b> cited</label>
+</div>
+<div class="qbox" id="q132_box">
+<div class="qtext"><b>132.</b></div>
+<label class="opt-row"><input type="radio" name="q132" value="A"> <b>A.</b> Our disappointment in your work is not only due to your poor sales record.</label><label class="opt-row"><input type="radio" name="q132" value="B"> <b>B.</b> The correction will be reflected in your June credit statement, which was sent to you today.</label><label class="opt-row"><input type="radio" name="q132" value="C"> <b>C.</b> Beginning on May 25, your paycheck will reflect a 15-percent pay increase.</label><label class="opt-row"><input type="radio" name="q132" value="D"> <b>D.</b> Hoping that termination could be avoided, we invested in additional training for you.</label>
+</div>
+<div class="qbox" id="q133_box">
+<div class="qtext"><b>133.</b></div>
+<label class="opt-row"><input type="radio" name="q133" value="A"> <b>A.</b> examples</label><label class="opt-row"><input type="radio" name="q133" value="B"> <b>B.</b> responsibilities</label><label class="opt-row"><input type="radio" name="q133" value="C"> <b>C.</b> foundation</label><label class="opt-row"><input type="radio" name="q133" value="D"> <b>D.</b> knowledge</label>
+</div>
+<div class="qbox" id="q134_box">
+<div class="qtext"><b>134.</b></div>
+<label class="opt-row"><input type="radio" name="q134" value="A"> <b>A.</b> contributions</label><label class="opt-row"><input type="radio" name="q134" value="B"> <b>B.</b> contributors</label><label class="opt-row"><input type="radio" name="q134" value="C"> <b>C.</b> contributed</label><label class="opt-row"><input type="radio" name="q134" value="D"> <b>D.</b> contributes</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 135-138 refer to the following e-mail.</p>
+<div class="doc-header">To: Ruth Noble &lt;ruth@quickerway.com&gt;
+From: Sue Lightfoot &lt;slight@quickerway.com&gt;
+Subject: Expense Report
+Date: June 15</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Mr. Noble,<br>Thank you for submitting your expense report for your business trip to Osaka in May. However, I am afraid that I have to remind you of a few — <span class="ins-marker">[135]</span> — that you must follow when you write an expense report.<br>First, please note that you should not have signed the report on your own. — <span class="ins-marker">[136]</span> —, your immediate supervisor must sign the paper in order for the approval of reimbursements to be processed. — <span class="ins-marker">[137]</span> —.<br>If you wish to receive the — <span class="ins-marker">[138]</span> — amount of reimbursement, please make sure to include all receipts to prove the actual amount you&#x27;ve claimed during your trip.<br>I kindly ask you to make the necessary changes and to resubmit the report no later than June 18.<br>Thank you in advance for your cooperation.</p><p style='margin:0 0 10px;'>Sincerely,<br>Sue Lightfoot</p></div>
+<div class="qbox" id="q135_box">
+<div class="qtext"><b>135.</b></div>
+<label class="opt-row"><input type="radio" name="q135" value="A"> <b>A.</b> charges</label><label class="opt-row"><input type="radio" name="q135" value="B"> <b>B.</b> propositions</label><label class="opt-row"><input type="radio" name="q135" value="C"> <b>C.</b> contradictions</label><label class="opt-row"><input type="radio" name="q135" value="D"> <b>D.</b> policies</label>
+</div>
+<div class="qbox" id="q136_box">
+<div class="qtext"><b>136.</b></div>
+<label class="opt-row"><input type="radio" name="q136" value="A"> <b>A.</b> Instead</label><label class="opt-row"><input type="radio" name="q136" value="B"> <b>B.</b> Likewise</label><label class="opt-row"><input type="radio" name="q136" value="C"> <b>C.</b> Unless</label><label class="opt-row"><input type="radio" name="q136" value="D"> <b>D.</b> Whereas</label>
+</div>
+<div class="qbox" id="q137_box">
+<div class="qtext"><b>137.</b></div>
+<label class="opt-row"><input type="radio" name="q137" value="A"> <b>A.</b> When you hand in your reimbursement requests, please list your car rental expenses.</label><label class="opt-row"><input type="radio" name="q137" value="B"> <b>B.</b> Also, you must submit expense reports within 30 days of returning from our trip.</label><label class="opt-row"><input type="radio" name="q137" value="C"> <b>C.</b> Besides, you submitted all receipts for travel expenses reimbursed.</label><label class="opt-row"><input type="radio" name="q137" value="D"> <b>D.</b> In addition, your report is missing the receipt for a taxi fare listed on May 13.</label>
+</div>
+<div class="qbox" id="q138_box">
+<div class="qtext"><b>138.</b></div>
+<label class="opt-row"><input type="radio" name="q138" value="A"> <b>A.</b> full</label><label class="opt-row"><input type="radio" name="q138" value="B"> <b>B.</b> fuller</label><label class="opt-row"><input type="radio" name="q138" value="C"> <b>C.</b> fills</label><label class="opt-row"><input type="radio" name="q138" value="D"> <b>D.</b> filling</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 139-142 refer to the following letter.</p>
+<div class="doc-header">To whom it may concern,</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>On July 27th, I — <span class="ins-marker">[139]</span> — High Skies Flight 725 from Glasgow, Scotland to Rio de Janeiro, Brazil. The flight itself was very pleasant.<br>Upon arrival in Rio de Janeiro, I went through immigration and then went to collect my baggage. However, I was extremely — <span class="ins-marker">[140]</span> — to learn that my luggage was missing. I reported to your service desk that my baggage was missing. Then, I spent my whole week in Brazil without any luggage. — <span class="ins-marker">[141]</span> —.<br>Since my luggage seems to have disappeared, I am submitting the enclosed list of what was lost in the luggage for reimbursement.<br>I hope to hear from you — <span class="ins-marker">[142]</span> — the next few days. Thank you for your attention to this matter.</p><p style='margin:0 0 10px;'>Sincerely,<br>David Hoffman</p></div>
+<div class="qbox" id="q139_box">
+<div class="qtext"><b>139.</b></div>
+<label class="opt-row"><input type="radio" name="q139" value="A"> <b>A.</b> took</label><label class="opt-row"><input type="radio" name="q139" value="B"> <b>B.</b> taking</label><label class="opt-row"><input type="radio" name="q139" value="C"> <b>C.</b> will take</label><label class="opt-row"><input type="radio" name="q139" value="D"> <b>D.</b> have taken</label>
+</div>
+<div class="qbox" id="q140_box">
+<div class="qtext"><b>140.</b></div>
+<label class="opt-row"><input type="radio" name="q140" value="A"> <b>A.</b> satisfied</label><label class="opt-row"><input type="radio" name="q140" value="B"> <b>B.</b> informed</label><label class="opt-row"><input type="radio" name="q140" value="C"> <b>C.</b> disappointed</label><label class="opt-row"><input type="radio" name="q140" value="D"> <b>D.</b> relieved</label>
+</div>
+<div class="qbox" id="q141_box">
+<div class="qtext"><b>141.</b></div>
+<label class="opt-row"><input type="radio" name="q141" value="A"> <b>A.</b> After the airplane landed, I claimed my luggage.</label><label class="opt-row"><input type="radio" name="q141" value="B"> <b>B.</b> I checked in my luggage and found seats in the departure lounge.</label><label class="opt-row"><input type="radio" name="q141" value="C"> <b>C.</b> I still have not received my personal belongings.</label><label class="opt-row"><input type="radio" name="q141" value="D"> <b>D.</b> My flight was overbooked and I couldn&#x27;t get a seat.</label>
+</div>
+<div class="qbox" id="q142_box">
+<div class="qtext"><b>142.</b></div>
+<label class="opt-row"><input type="radio" name="q142" value="A"> <b>A.</b> within</label><label class="opt-row"><input type="radio" name="q142" value="B"> <b>B.</b> until</label><label class="opt-row"><input type="radio" name="q142" value="C"> <b>C.</b> since</label><label class="opt-row"><input type="radio" name="q142" value="D"> <b>D.</b> from</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 143-146 refer to the following notice.</p>
+<div class="doc-header">TO: All Newly Promoted Managers</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>This is to let you — <span class="ins-marker">[143]</span> — that the orientation for new managers will take place on Tuesday, September 8th.</p><p style='margin:0 0 10px;'>All newly promoted managers are — <span class="ins-marker">[144]</span> — to attend unless they have made other arrangements. The orientation will address topics — <span class="ins-marker">[145]</span> — benefits, the performance-review process, and confidential policies.</p><p style='margin:0 0 10px;'>A new employee ID and a parking permit will be provided. Please come to the conference room 5 on the twelfth floor of the Jefferson Building by 10:00 A.M.<br>— <span class="ins-marker">[146]</span> —.</p><p style='margin:0 0 10px;'>You are welcome to contact me if you have any questions.</p><p style='margin:0 0 10px;'>Sincerely,<br>Emily Burris<br>Human Resources</p></div>
+<div class="qbox" id="q143_box">
+<div class="qtext"><b>143.</b></div>
+<label class="opt-row"><input type="radio" name="q143" value="A"> <b>A.</b> know</label><label class="opt-row"><input type="radio" name="q143" value="B"> <b>B.</b> to know</label><label class="opt-row"><input type="radio" name="q143" value="C"> <b>C.</b> knowing</label><label class="opt-row"><input type="radio" name="q143" value="D"> <b>D.</b> known</label>
+</div>
+<div class="qbox" id="q144_box">
+<div class="qtext"><b>144.</b></div>
+<label class="opt-row"><input type="radio" name="q144" value="A"> <b>A.</b> required</label><label class="opt-row"><input type="radio" name="q144" value="B"> <b>B.</b> compared</label><label class="opt-row"><input type="radio" name="q144" value="C"> <b>C.</b> included</label><label class="opt-row"><input type="radio" name="q144" value="D"> <b>D.</b> reported</label>
+</div>
+<div class="qbox" id="q145_box">
+<div class="qtext"><b>145.</b></div>
+<label class="opt-row"><input type="radio" name="q145" value="A"> <b>A.</b> so that</label><label class="opt-row"><input type="radio" name="q145" value="B"> <b>B.</b> besides</label><label class="opt-row"><input type="radio" name="q145" value="C"> <b>C.</b> likewise</label><label class="opt-row"><input type="radio" name="q145" value="D"> <b>D.</b> such as</label>
+</div>
+<div class="qbox" id="q146_box">
+<div class="qtext"><b>146.</b></div>
+<label class="opt-row"><input type="radio" name="q146" value="A"> <b>A.</b> The orientation will promote the understanding of the managerial position.</label><label class="opt-row"><input type="radio" name="q146" value="B"> <b>B.</b> Apart from the orientation session, all employees are asked to fill out the survey.</label><label class="opt-row"><input type="radio" name="q146" value="C"> <b>C.</b> Those people who fail to attend the orientation will be disqualified.</label><label class="opt-row"><input type="radio" name="q146" value="D"> <b>D.</b> The supervisor will give an orientation on the revised employment manual.</label>
+</div>
+</div>
+<div class="part-title">PART 7 — Reading Comprehension (Cau 147-200)</div>
+<div class="part-dir">Directions: Read a selection of texts and answer several questions about each text or set of texts.</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 147-148 refer to the following document.</p>
+<div class="doc-body"><p style='margin:0 0 10px;'>MISSION STATEMENT</p><p style='margin:0 0 10px;'>Vortec&#x27;s mission is to deliver electricity and natural gas in a reliable, efficient, affordable, and environmentally sound manner. We aim to be the best in the public utilities industry and are committed to achieving operational excellence, superb customer satisfaction and strong financial performance for our shareholders.</p><p style='margin:0 0 10px;'>Vortec Incorporated</p></div>
+<div class="qbox" id="q147_box">
+<div class="qtext"><b>147.</b> What is Vortec Incorporated?</div>
+<label class="opt-row"><input type="radio" name="q147" value="A"> <b>A.</b> An Investment Bank</label><label class="opt-row"><input type="radio" name="q147" value="B"> <b>B.</b> A Law Firm</label><label class="opt-row"><input type="radio" name="q147" value="C"> <b>C.</b> A Utility Company</label><label class="opt-row"><input type="radio" name="q147" value="D"> <b>D.</b> An Accounting Firm</label>
+</div>
+<div class="qbox" id="q148_box">
+<div class="qtext"><b>148.</b> What is NOT indicated as a goal of Vortec Incorporated?</div>
+<label class="opt-row"><input type="radio" name="q148" value="A"> <b>A.</b> Making money for its investors</label><label class="opt-row"><input type="radio" name="q148" value="B"> <b>B.</b> Expanding its business internationally</label><label class="opt-row"><input type="radio" name="q148" value="C"> <b>C.</b> Making customers happy</label><label class="opt-row"><input type="radio" name="q148" value="D"> <b>D.</b> Being environmentally conscious</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 149-150 refer to the following text message chain.</p>
+<div class="doc-body"><p style='margin:0 0 10px;'>[Gregory - 5:35] I need a help.<br>[Singapore Airline - 5:35] Good afternoon, sir. How can I help you?<br>[Gregory - 5:38] I have reserved a flight ticket for Germany for this Friday, but I&#x27;d like to change it to Tuesday or Wednesday.<br>[Singapore Airline - 5:40] Well, I need to see if there are any available seats left, but you know, it&#x27;s already Sunday. Even if the seat is available this week, it will cost you.<br>[Singapore Airline - 5:45] Oh, we have a seat on Wednesday early in the morning, but it&#x27;s business class. Will that be alright with you?<br>[Gregory - 5:47] That&#x27;s good! I&#x27;ll do whatever it takes. I have an urgent business contract to sign on Wednesday afternoon.</p></div>
+<div class="qbox" id="q149_box">
+<div class="qtext"><b>149.</b> What problem does the Wednesday ticket have?</div>
+<label class="opt-row"><input type="radio" name="q149" value="A"> <b>A.</b> Gregory has to pay more.</label><label class="opt-row"><input type="radio" name="q149" value="B"> <b>B.</b> Gregory has to use economy class.</label><label class="opt-row"><input type="radio" name="q149" value="C"> <b>C.</b> The flight time is in the afternoon.</label><label class="opt-row"><input type="radio" name="q149" value="D"> <b>D.</b> Gregory cannot return on the designated day.</label>
+</div>
+<div class="qbox" id="q150_box">
+<div class="qtext"><b>150.</b> At 5:47, what does Gregory mean when he writes, &quot;I&#x27;ll do whatever it takes&quot;?</div>
+<label class="opt-row"><input type="radio" name="q150" value="A"> <b>A.</b> He can give a hand to her.</label><label class="opt-row"><input type="radio" name="q150" value="B"> <b>B.</b> He must take a seat for an upcoming event.</label><label class="opt-row"><input type="radio" name="q150" value="C"> <b>C.</b> He never has to change the reservation.</label><label class="opt-row"><input type="radio" name="q150" value="D"> <b>D.</b> He wants to have a seat upgraded.</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 151-152 refer to the following advertisement.</p>
+<div class="doc-body"><p style='margin:0 0 10px;'>You&#x27;re too busy to cook!<br>Let Stella&#x27;s do it for you!</p><p style='margin:0 0 10px;'>Stella&#x27;s Bistro has opened a new restaurant in Winchester, Located across the street from the Federal Courthouse. Mention this ad at Stella&#x27;s and receive 10% off your total purchase!</p><p style='margin:0 0 10px;'>Visit us today!<br>Offer good only at the Winchester location.<br>Stella&#x27;s Bistro<br>1404 West First Street<br>Winchester, TX 76839</p></div>
+<div class="qbox" id="q151_box">
+<div class="qtext"><b>151.</b> What is indicated about Stella&#x27;s Bistro?</div>
+<label class="opt-row"><input type="radio" name="q151" value="A"> <b>A.</b> It has more than one location.</label><label class="opt-row"><input type="radio" name="q151" value="B"> <b>B.</b> It is next door to a courthouse.</label><label class="opt-row"><input type="radio" name="q151" value="C"> <b>C.</b> It requires reservations.</label><label class="opt-row"><input type="radio" name="q151" value="D"> <b>D.</b> It has a brand new menu.</label>
+</div>
+<div class="qbox" id="q152_box">
+<div class="qtext"><b>152.</b> What will customers receive?</div>
+<label class="opt-row"><input type="radio" name="q152" value="A"> <b>A.</b> A coupon for free delivery</label><label class="opt-row"><input type="radio" name="q152" value="B"> <b>B.</b> A half price entree</label><label class="opt-row"><input type="radio" name="q152" value="C"> <b>C.</b> A discount on food</label><label class="opt-row"><input type="radio" name="q152" value="D"> <b>D.</b> A complimentary dessert</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 153-155 refer to the following e-mail.</p>
+<div class="doc-header">To: Michael Whitfield &lt;mwhitfield@alcova.com&gt;
+From: Gregory Lee &lt;glee@alcova.com&gt;
+Subject: Travel Plans
+Date: April 4</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Michael,<br>Thanks again for hosting that training session last week. — <span class="ins-marker">[1]</span> —. Anyway, I was wondering when you are arriving in Philadelphia for the National Sales Awards. — <span class="ins-marker">[2]</span> —. I was planning to arrive on May 11, but Nancy Bonner, our account manager for Vivatech, has asked me to accompany her to Boston to assist her with a presentation on our new products that are coming out next month. — <span class="ins-marker">[3]</span> —. I wouldn&#x27;t miss the possibility of seeing you winning Sales Manager of the year! I look forward to seeing you there. — <span class="ins-marker">[4]</span> —.</p><p style='margin:0 0 10px;'>Regards,<br>Gregory Lee<br>Alcova, Inc.</p></div>
+<div class="qbox" id="q153_box">
+<div class="qtext"><b>153.</b> Who is Nancy Bonner?</div>
+<label class="opt-row"><input type="radio" name="q153" value="A"> <b>A.</b> An employee at Alcova, Inc.</label><label class="opt-row"><input type="radio" name="q153" value="B"> <b>B.</b> A manager at Vivatech</label><label class="opt-row"><input type="radio" name="q153" value="C"> <b>C.</b> A travel agent for Mr. Lee</label><label class="opt-row"><input type="radio" name="q153" value="D"> <b>D.</b> A presenter at an awards ceremony</label>
+</div>
+<div class="qbox" id="q154_box">
+<div class="qtext"><b>154.</b> What is the purpose of Mr. Whitfield&#x27;s trip to Philadelphia?</div>
+<label class="opt-row"><input type="radio" name="q154" value="A"> <b>A.</b> He is visiting a client.</label><label class="opt-row"><input type="radio" name="q154" value="B"> <b>B.</b> He is relocating to a different office.</label><label class="opt-row"><input type="radio" name="q154" value="C"> <b>C.</b> He is attending an awards banquet.</label><label class="opt-row"><input type="radio" name="q154" value="D"> <b>D.</b> He is making a presentation.</label>
+</div>
+<div class="qbox insertion-box" id="q155_box">
+<div class="qtext"><b>155.</b> In which of the positions marked [1], [2], [3] and [4] does the following sentence best belong?<br><i>“Therefore, I will not be arriving until the morning of the 12th.”</i></div>
+<label class="opt-row"><input type="radio" name="q155" value="A"> <b>A.</b> [1]</label><label class="opt-row"><input type="radio" name="q155" value="B"> <b>B.</b> [2]</label><label class="opt-row"><input type="radio" name="q155" value="C"> <b>C.</b> [3]</label><label class="opt-row"><input type="radio" name="q155" value="D"> <b>D.</b> [4]</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 156-157 refer to the following e-mail.</p>
+<div class="doc-header">To: Roberto Garcia
+From: Linda Silverman
+Subject: Internship Position at Synergy Financial</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Thank you for attending the Career Fair at Whitehall University last week. After reviewing all of the resumes we collected, we have placed you on our list of potential candidates for the Summer Internship Program at Synergy Financial. We have tentatively scheduled you for an interview this Friday, January 7th at 10:00 A.M. at our new 9th Street location.<br>Please bring a copy of your academic records.<br>Below are the directions to our office on the 9th Street. If you have any questions or need to reschedule this meeting, feel free to call me at 714-869-8080.<br>Linda Silverman<br>District Manager<br>Synergy Financial, Inc.<br>Directions to Synergy Financial: Take Interstate 80 south to Exit 14, Washington St. Stay in the right lane and turn right at the first light onto Lincoln Ave. Go 4 blocks and turn left onto Adams St. (You will see the post office on the corner). Proceed 2 kilometers, passing the police station on the left and turn right onto Grant Ave. Go straight 2 more blocks to the Riverfront Tower. Enter the parking garage of the Tower and park in visitor&#x27;s parking area. Take the elevator to the 5th floor.</p></div>
+<div class="qbox" id="q156_box">
+<div class="qtext"><b>156.</b> Why is Ms. Silverman writing to Mr. Garcia?</div>
+<label class="opt-row"><input type="radio" name="q156" value="A"> <b>A.</b> To apply for an internship</label><label class="opt-row"><input type="radio" name="q156" value="B"> <b>B.</b> To invite him for a job interview</label><label class="opt-row"><input type="radio" name="q156" value="C"> <b>C.</b> To ask him to send his resume</label><label class="opt-row"><input type="radio" name="q156" value="D"> <b>D.</b> To invite him to a career fair</label>
+</div>
+<div class="qbox" id="q157_box">
+<div class="qtext"><b>157.</b> What is NOT mentioned in the directions?</div>
+<label class="opt-row"><input type="radio" name="q157" value="A"> <b>A.</b> A post office</label><label class="opt-row"><input type="radio" name="q157" value="B"> <b>B.</b> A police office</label><label class="opt-row"><input type="radio" name="q157" value="C"> <b>C.</b> A gas station</label><label class="opt-row"><input type="radio" name="q157" value="D"> <b>D.</b> A parking garage</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 158-160 refer to the following brochure.</p>
+<div class="doc-body"><p style='margin:0 0 10px;'>Planning your next vacation? Check out Gecko International Travel!</p><p style='margin:0 0 10px;'>Gecko International Travel is an Australian based travel agency offering outstanding vacation packages to a wide variety of destinations. We also have relationships with a number of hotel chains and can help you find the best deals in the best locations. The following packages are some of our most popular and are being offered at a discounted price for the summer season:</p><p style='margin:0 0 10px;'>A Taste of the Orient: Spend 7 days and 6 nights touring the exquisite far east aboard the Princess cruise ship. The ship departs from Shanghai and docks for special day trips in Fukuoka and Nagasaki, Japan, and Busan, South Korea.</p><p style='margin:0 0 10px;'>New Zealand Adventure: Take a trip to the extreme sports capital of the world! This 6 days, 5 nights tour gives you the opportunity to try the exciting activities New Zealand has to offer including hiking, rafting, and cycling. And if you&#x27;re brave enough, you can even sky dive or bungee jump! The package includes roundtrip airfare, daily activities, as well as hotel stays.</p><p style='margin:0 0 10px;'>Southeast Asian Adventure: Explore the famous temples of Southeast Asia on this exclusive 2-week trip. Dr. Nomatamin Suleeja, a well known scholar on the history of the region, will lead travelers on a tour of ancient temples of Cambodia and Thailand including the world famous temples of Angkor Wat. Travelers will enjoy the beautiful scenery, unique cultures, and delicious foods of the region. This package includes roundtrip airfare, hotel stays, bus fares, and visa fees.</p><p style='margin:0 0 10px;'>In addition to offering vacation packages and booking flights, Gecko also offers assistance in renting vehicles.</p></div>
+<div class="qbox" id="q158_box">
+<div class="qtext"><b>158.</b> What has changed at Gecko International Travel?</div>
+<label class="opt-row"><input type="radio" name="q158" value="A"> <b>A.</b> New vacation options have been made.</label><label class="opt-row"><input type="radio" name="q158" value="B"> <b>B.</b> Additional tour agents have been hired.</label><label class="opt-row"><input type="radio" name="q158" value="C"> <b>C.</b> Prices on vacation packages have been reduced.</label><label class="opt-row"><input type="radio" name="q158" value="D"> <b>D.</b> A new office has been opened.</label>
+</div>
+<div class="qbox" id="q159_box">
+<div class="qtext"><b>159.</b> Where is Gecko International Travel&#x27;s main office?</div>
+<label class="opt-row"><input type="radio" name="q159" value="A"> <b>A.</b> Australia</label><label class="opt-row"><input type="radio" name="q159" value="B"> <b>B.</b> China</label><label class="opt-row"><input type="radio" name="q159" value="C"> <b>C.</b> Thailand</label><label class="opt-row"><input type="radio" name="q159" value="D"> <b>D.</b> Japan</label>
+</div>
+<div class="qbox" id="q160_box">
+<div class="qtext"><b>160.</b> What is NOT stated about Gecko International Travel?</div>
+<label class="opt-row"><input type="radio" name="q160" value="A"> <b>A.</b> It collaborates with hotel chains.</label><label class="opt-row"><input type="radio" name="q160" value="B"> <b>B.</b> It helps people reserve rental cars.</label><label class="opt-row"><input type="radio" name="q160" value="C"> <b>C.</b> It offers travel insurance.</label><label class="opt-row"><input type="radio" name="q160" value="D"> <b>D.</b> It reserves airline tickets.</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 161-163 refer to the following letter.</p>
+<div class="doc-header">First Choice Bank, 625 Parham Road, Melbourne, Victoria 3000, Australia
+February 17 — Mr. Peter Kuhn, 707 Row Street, Melbourne, Victoria 4500</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Mr. Kuhn,</p><p style='margin:0 0 10px;'>Thank you for your interest in First Choice Bank. — <span class="ins-marker">[1]</span> —. We received your online application and resume for the Branch Manager position in Heidelburg. — <span class="ins-marker">[2]</span> —. However, I was impressed with your resume and think that you would be a good candidate for an Assistant Branch Manager position. — <span class="ins-marker">[3]</span> —. We currently have a need for one at our Deer Park branch. I forwarded your resume to the District Manager of that branch, but you will also need to submit a new application online. — <span class="ins-marker">[4]</span> —. You should expect to hear from that manager within the week. Thank you again for your application and I hope this opportunity is of interest to you.</p><p style='margin:0 0 10px;'>Sincerely,<br>Leslie Fishburne<br>Human Resources Representative</p></div>
+<div class="qbox" id="q161_box">
+<div class="qtext"><b>161.</b> What does Ms. Fishburne suggest that Mr. Kuhn do?</div>
+<label class="opt-row"><input type="radio" name="q161" value="A"> <b>A.</b> Apply in person at the Deer Park branch</label><label class="opt-row"><input type="radio" name="q161" value="B"> <b>B.</b> Fill out a new application</label><label class="opt-row"><input type="radio" name="q161" value="C"> <b>C.</b> Send an e-mail to the hiring manager at the Deer Park branch</label><label class="opt-row"><input type="radio" name="q161" value="D"> <b>D.</b> Enroll in First Choice Bank&#x27;s management training program</label>
+</div>
+<div class="qbox" id="q162_box">
+<div class="qtext"><b>162.</b> What is the main purpose of the letter?</div>
+<label class="opt-row"><input type="radio" name="q162" value="A"> <b>A.</b> To inform an applicant that he is qualified for another position</label><label class="opt-row"><input type="radio" name="q162" value="B"> <b>B.</b> To let an applicant know that the job he applied for is no longer vacant</label><label class="opt-row"><input type="radio" name="q162" value="C"> <b>C.</b> To arrange an interview with an applicant</label><label class="opt-row"><input type="radio" name="q162" value="D"> <b>D.</b> To ask an applicant to provide additional pictures</label>
+</div>
+<div class="qbox insertion-box" id="q163_box">
+<div class="qtext"><b>163.</b> In which of the positions marked [1], [2], [3] and [4] does the following sentence best belong?<br><i>“Unfortunately, we require 2 years of previous managerial experience for that position.”</i></div>
+<label class="opt-row"><input type="radio" name="q163" value="A"> <b>A.</b> [1]</label><label class="opt-row"><input type="radio" name="q163" value="B"> <b>B.</b> [2]</label><label class="opt-row"><input type="radio" name="q163" value="C"> <b>C.</b> [3]</label><label class="opt-row"><input type="radio" name="q163" value="D"> <b>D.</b> [4]</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 164-167 refer to the following advertisement.</p>
+<div class="doc-body"><p style='margin:0 0 10px;'>Active Life<br>Invites you to activate your life!<br>Let us help you get in shape, increase your energy, and feel better about yourself!</p><p style='margin:0 0 10px;'>- All new members get the first month free!<br>- Afraid of an annual commitment? Don&#x27;t worry, our membership renews quarterly.<br>- Choose from a broad selection of classes including aerobics, spinning, yoga, and more.<br>- We offer family plans at discounted rates.<br>- Bring your kids too! Let our childcare specialists supervise your children in our new playroom ($10/hour).</p><p style='margin:0 0 10px;'>This Month&#x27;s Special!<br>Join Us This Month and Save 50% off the $200 Enrollment Fee.<br>1086 Patterson Ave, Houston, TX 84873     832-565-4538</p></div>
+<div class="qbox" id="q164_box">
+<div class="qtext"><b>164.</b> What kind of business is Active Life?</div>
+<label class="opt-row"><input type="radio" name="q164" value="A"> <b>A.</b> A fitness club</label><label class="opt-row"><input type="radio" name="q164" value="B"> <b>B.</b> A vitamin store</label><label class="opt-row"><input type="radio" name="q164" value="C"> <b>C.</b> A sporting goods store</label><label class="opt-row"><input type="radio" name="q164" value="D"> <b>D.</b> A travel agency</label>
+</div>
+<div class="qbox" id="q165_box">
+<div class="qtext"><b>165.</b> How frequently are memberships renewed?</div>
+<label class="opt-row"><input type="radio" name="q165" value="A"> <b>A.</b> Once every two weeks</label><label class="opt-row"><input type="radio" name="q165" value="B"> <b>B.</b> Once a month</label><label class="opt-row"><input type="radio" name="q165" value="C"> <b>C.</b> Once every three months</label><label class="opt-row"><input type="radio" name="q165" value="D"> <b>D.</b> Once a year</label>
+</div>
+<div class="qbox" id="q166_box">
+<div class="qtext"><b>166.</b> What can new members receive for free?</div>
+<label class="opt-row"><input type="radio" name="q166" value="A"> <b>A.</b> Child care services</label><label class="opt-row"><input type="radio" name="q166" value="B"> <b>B.</b> Vitamins and nutritional supplements</label><label class="opt-row"><input type="radio" name="q166" value="C"> <b>C.</b> One month membership</label><label class="opt-row"><input type="radio" name="q166" value="D"> <b>D.</b> Membership for their family</label>
+</div>
+<div class="qbox" id="q167_box">
+<div class="qtext"><b>167.</b> What is the original enrollment fee for the current month?</div>
+<label class="opt-row"><input type="radio" name="q167" value="A"> <b>A.</b> $50</label><label class="opt-row"><input type="radio" name="q167" value="B"> <b>B.</b> $100</label><label class="opt-row"><input type="radio" name="q167" value="C"> <b>C.</b> $150</label><label class="opt-row"><input type="radio" name="q167" value="D"> <b>D.</b> $200</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 168-171 refer to the following invitation.</p>
+<div class="doc-body"><p style='margin:0 0 10px;'>YEBA (Young Entrepreneurs Business Association)</p><p style='margin:0 0 10px;'>This year marks the 10th anniversary of the founding of the Young Entrepreneurs Business Association. — <span class="ins-marker">[1]</span> — In order to acknowledge this special occasion we&#x27;re inviting all past and present members to come and celebrate together on Saturday, October 17, from 11 A.M. to 4 P.M. in Banquet Hall A of the Middlebrook Hotel. — <span class="ins-marker">[2]</span> —. All current and former members are welcome to bring their friends and family.</p><p style='margin:0 0 10px;'>A wide variety of food and beverages will be provided by some of the finest caterers in all of Middlebrook. Events will include a variety of games and activities for children and adults of all ages. — <span class="ins-marker">[3]</span> —.</p><p style='margin:0 0 10px;'>Admission is $20 for adults, $10 for children under the age of 12, and $15 for senior citizens. Tickets can be purchased at our main office at 85 Liverpool Drive. Those unable to buy tickets in person can call 817-885-9311 before Tuesday, October 12 and pay by credit card. — <span class="ins-marker">[4]</span> —. You have the option of having your tickets mailed to you or you can pick them up at the door. Tickets will not be sold at the door as we need to get an idea in advance of how many people plan on attending. For more information, please go to the YEBA website at www.yeba.com and click on the upcoming events link.</p></div>
+<div class="qbox" id="q168_box">
+<div class="qtext"><b>168.</b> To whom is the invitation most likely directed?</div>
+<label class="opt-row"><input type="radio" name="q168" value="A"> <b>A.</b> Parents of young children</label><label class="opt-row"><input type="radio" name="q168" value="B"> <b>B.</b> Past and present members of an organization</label><label class="opt-row"><input type="radio" name="q168" value="C"> <b>C.</b> All residents of Middlebrook</label><label class="opt-row"><input type="radio" name="q168" value="D"> <b>D.</b> Anyone interested in becoming a caterer</label>
+</div>
+<div class="qbox" id="q169_box">
+<div class="qtext"><b>169.</b> Why is the event being held?</div>
+<label class="opt-row"><input type="radio" name="q169" value="A"> <b>A.</b> To celebrate an anniversary</label><label class="opt-row"><input type="radio" name="q169" value="B"> <b>B.</b> To celebrate an opening of a new office</label><label class="opt-row"><input type="radio" name="q169" value="C"> <b>C.</b> To introduce new food and drink products</label><label class="opt-row"><input type="radio" name="q169" value="D"> <b>D.</b> To present awards to distinguished business leaders</label>
+</div>
+<div class="qbox" id="q170_box">
+<div class="qtext"><b>170.</b> How can tickets for the event be obtained?</div>
+<label class="opt-row"><input type="radio" name="q170" value="A"> <b>A.</b> By visiting the Middlebrook hotel</label><label class="opt-row"><input type="radio" name="q170" value="B"> <b>B.</b> By calling the Middlebrook hotel</label><label class="opt-row"><input type="radio" name="q170" value="C"> <b>C.</b> By contacting the YEBA office</label><label class="opt-row"><input type="radio" name="q170" value="D"> <b>D.</b> By accessing the YEBA website</label>
+</div>
+<div class="qbox insertion-box" id="q171_box">
+<div class="qtext"><b>171.</b> In which of the positions marked [1], [2], [3] and [4] does the following sentence best belong?<br><i>“We&#x27;re also planning a live performance from a surprise guest.”</i></div>
+<label class="opt-row"><input type="radio" name="q171" value="A"> <b>A.</b> [1]</label><label class="opt-row"><input type="radio" name="q171" value="B"> <b>B.</b> [2]</label><label class="opt-row"><input type="radio" name="q171" value="C"> <b>C.</b> [3]</label><label class="opt-row"><input type="radio" name="q171" value="D"> <b>D.</b> [4]</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 172-175 refer to the following letter.</p>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Mr. Sanchez,</p><p style='margin:0 0 10px;'>In our meeting last week with you and your fiancee, you expressed an interest in reserving our largest banquet hall for your wedding reception on August 18. At the time, I made a tentative reservation and sent a contract to you. — <span class="ins-marker">[1]</span> — I requested that the contract be signed and returned to my attention within ten business days. — <span class="ins-marker">[2]</span> —.</p><p style='margin:0 0 10px;'>I need to know if you still intend to make use of our facilities as soon as possible. If not, we have another couple that is interested in the same banquet hall and is prepared to make a deposit. — <span class="ins-marker">[3]</span> —. If I do not hear from you within the next 48 hours, I&#x27;m going to assume that you&#x27;re no longer interested and will cancel the reservation. — <span class="ins-marker">[4]</span> —. If you want to keep the reservation, please contact me as soon as possible. Should you no longer have the original contract, I would be more than happy to send you another copy. I look forward to your response.</p><p style='margin:0 0 10px;'>Sheila Brown<br>Event Coordinator</p></div>
+<div class="qbox" id="q172_box">
+<div class="qtext"><b>172.</b> Why is this e-mail written?</div>
+<label class="opt-row"><input type="radio" name="q172" value="A"> <b>A.</b> To invite a friend to a wedding</label><label class="opt-row"><input type="radio" name="q172" value="B"> <b>B.</b> To apologize for a clerical mistake</label><label class="opt-row"><input type="radio" name="q172" value="C"> <b>C.</b> To request a response from a customer</label><label class="opt-row"><input type="radio" name="q172" value="D"> <b>D.</b> To complain about poor service</label>
+</div>
+<div class="qbox" id="q173_box">
+<div class="qtext"><b>173.</b> What does the letter suggest about Ms. Brown?</div>
+<label class="opt-row"><input type="radio" name="q173" value="A"> <b>A.</b> She has cancelled a reservation.</label><label class="opt-row"><input type="radio" name="q173" value="B"> <b>B.</b> She is getting married.</label><label class="opt-row"><input type="radio" name="q173" value="C"> <b>C.</b> She has spoken to Mr. Sanchez previously.</label><label class="opt-row"><input type="radio" name="q173" value="D"> <b>D.</b> She forgot to send the contract.</label>
+</div>
+<div class="qbox" id="q174_box">
+<div class="qtext"><b>174.</b> The word &quot;intend&quot; in paragraph 2, line 1 is closest in meaning to</div>
+<label class="opt-row"><input type="radio" name="q174" value="A"> <b>A.</b> finish</label><label class="opt-row"><input type="radio" name="q174" value="B"> <b>B.</b> plan</label><label class="opt-row"><input type="radio" name="q174" value="C"> <b>C.</b> reserve</label><label class="opt-row"><input type="radio" name="q174" value="D"> <b>D.</b> communicate</label>
+</div>
+<div class="qbox insertion-box" id="q175_box">
+<div class="qtext"><b>175.</b> In which of the positions marked [1], [2], [3] and [4] does the following sentence best belong?<br><i>“As of this morning, I have not yet received the executed contract.”</i></div>
+<label class="opt-row"><input type="radio" name="q175" value="A"> <b>A.</b> [1]</label><label class="opt-row"><input type="radio" name="q175" value="B"> <b>B.</b> [2]</label><label class="opt-row"><input type="radio" name="q175" value="C"> <b>C.</b> [3]</label><label class="opt-row"><input type="radio" name="q175" value="D"> <b>D.</b> [4]</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 176-180 refer to the following letter and e-mail.</p>
+<div class="doc-header">Letter</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Mr. Hudson,<br>According to our records, you leased a car from us a year ago. With winter fast approaching, you might consider having the vehicle brought in for its regular maintenance inspection. We would recommend that you call or email to schedule a time for you to bring the car to our service center. The car you leased from us has a five-year warranty which includes annual maintenance checks to ensure that the car is running smoothly and any defects are repaired.<br>You should consider having your car inspected now even if it seems to be working perfectly. Simple equipment check-ups made now can save a great deal of money in repairs and replacements in the long run. Furthermore, you should not wait until the middle of winter to have your vehicle checked. It may take longer for us to schedule a service because so many others will be making similar appointments.<br>Linda Anderson</p></div>
+<div class="doc-header">E-mail
+To: landerson@apexcars.com
+From: khudson@unitedinsurance.com
+Date: November 3
+Subject: car inspection</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Ms. Anderson,<br>I received your letter regarding the car inspection. With the exception of routine oil changes, the vehicle has not been looked at since I signed the lease just over a year ago. So now would definitely be a good time to have it serviced. The car does not seem to be running as efficiently as before. I believe the brake pads in particular need to be looked into and possibly replaced. Will you be able to schedule an appointment sometime within the next ten days?<br>I would also like to look into replacing the all-season tires with some winter tires. Could you please provide a quote for how much this would cost, including installation? Please contact me at 718-555-2369 to confirm a specific time for my appointment.<br>Thank you.<br>Ken Hudson<br>Human Resources Director, United Insurance</p></div>
+<div class="qbox" id="q176_box">
+<div class="qtext"><b>176.</b> What is the purpose of the letter?</div>
+<label class="opt-row"><input type="radio" name="q176" value="A"> <b>A.</b> To inquire about a warranty claim</label><label class="opt-row"><input type="radio" name="q176" value="B"> <b>B.</b> To recommend a service</label><label class="opt-row"><input type="radio" name="q176" value="C"> <b>C.</b> To report inspection results</label><label class="opt-row"><input type="radio" name="q176" value="D"> <b>D.</b> To confirm an appointment</label>
+</div>
+<div class="qbox" id="q177_box">
+<div class="qtext"><b>177.</b> According to Ms. Anderson, why should the inspection be scheduled promptly?</div>
+<label class="opt-row"><input type="radio" name="q177" value="A"> <b>A.</b> It will be difficult to schedule an inspection later on</label><label class="opt-row"><input type="radio" name="q177" value="B"> <b>B.</b> Winter cold can be hard on vehicles</label><label class="opt-row"><input type="radio" name="q177" value="C"> <b>C.</b> A manufacturing error has been detected</label><label class="opt-row"><input type="radio" name="q177" value="D"> <b>D.</b> Warranty will expire in the middle of the winter</label>
+</div>
+<div class="qbox" id="q178_box">
+<div class="qtext"><b>178.</b> When did the car have its last inspection?</div>
+<label class="opt-row"><input type="radio" name="q178" value="A"> <b>A.</b> Five years ago</label><label class="opt-row"><input type="radio" name="q178" value="B"> <b>B.</b> One week ago</label><label class="opt-row"><input type="radio" name="q178" value="C"> <b>C.</b> One month ago</label><label class="opt-row"><input type="radio" name="q178" value="D"> <b>D.</b> One year ago</label>
+</div>
+<div class="qbox" id="q179_box">
+<div class="qtext"><b>179.</b> What is suggested about Mr. Hudson&#x27;s vehicle?</div>
+<label class="opt-row"><input type="radio" name="q179" value="A"> <b>A.</b> It was inspected recently.</label><label class="opt-row"><input type="radio" name="q179" value="B"> <b>B.</b> It is broken.</label><label class="opt-row"><input type="radio" name="q179" value="C"> <b>C.</b> It is in perfect condition.</label><label class="opt-row"><input type="radio" name="q179" value="D"> <b>D.</b> It was quite efficient about 12 months ago.</label>
+</div>
+<div class="qbox" id="q180_box">
+<div class="qtext"><b>180.</b> In the e-mail, the phrase &quot;looked at&quot; in paragraph 1, line 2 is closest in meaning to</div>
+<label class="opt-row"><input type="radio" name="q180" value="A"> <b>A.</b> hold onto</label><label class="opt-row"><input type="radio" name="q180" value="B"> <b>B.</b> examined</label><label class="opt-row"><input type="radio" name="q180" value="C"> <b>C.</b> purchased</label><label class="opt-row"><input type="radio" name="q180" value="D"> <b>D.</b> appointed</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 181-185 refer to the following e-mails.</p>
+<div class="doc-header">From: Glenn Harris &lt;gharris@zmail.com&gt;
+To: Marie Jackson &lt;mariejs@unet.com&gt;
+Date: Wednesday, September 14, 11:52 AM
+Subject: Hospitality and Tourism Conference</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Marie,<br>I&#x27;m glad that you have agreed to take my place and attend the annual Hospitality and Tourism Conference next month in Dallas. I really enjoyed the conference last year in Minneapolis and made some new contacts in the industry. I regret not being able to attend this year because some of my overseas clients will be in town that week and I need to meet with them here in the San Francisco Office. I&#x27;ve spoken with our travel department and informed them to change all of the reservations from my name to yours. Your flight will leave San Francisco on Sunday, November 5 at 12:00 P.M. and arrive in Dallas at 2:45 P.M. local time. The flight, rental car and hotel room will be paid in advance by Royal Resorts, Inc. You will also receive a daily allowance to cover the costs of your meals, but you will not be reimbursed until you return. Please be sure to save all of your receipts and submit an expense report when you get back.<br>The schedule for the conference seminars is as follows,</p><p style='margin:0 0 10px;'>On Monday<br>9:30 A.M. - 12:00 P.M.: International Tourism<br>1:30 P.M. - 4:00 P.M.: Hospitality Marketing</p><p style='margin:0 0 10px;'>On Tuesday<br>9:30 A.M. - 12:00 P.M.: Food Service Management<br>1:30 P.M. - 4:00 P.M.: Lodging Service</p><p style='margin:0 0 10px;'>Have a safe trip and enjoy the seminars!</p></div>
+<div class="doc-header">From: Marie Jackson &lt;mariejs@unet.com&gt;
+To: Glenn Harris &lt;gharris@zmail.com&gt;
+Date: Thursday, Nov. 20, 10:18 A.M.</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>I just returned from Dallas yesterday and you were absolutely right. I thoroughly enjoyed the conference. It gave me some great ideas that we can try to implement at Royal Resorts and I made some new contacts in the industry. I took notes and summarized each seminar for your reference and they are attached to this e-mail.<br>By the way, the seminar on Food Service that was scheduled for Tuesday morning was cancelled due to the small number of attendees.<br>Thank you again for the opportunity to go and please let me know if you want to discuss anything from the conference.</p><p style='margin:0 0 10px;'>Marie Jackson<br>Operations</p></div>
+<div class="qbox" id="q181_box">
+<div class="qtext"><b>181.</b> Why did Glenn Harris write to Marie Jackson?</div>
+<label class="opt-row"><input type="radio" name="q181" value="A"> <b>A.</b> To ask her to meet with some international clients</label><label class="opt-row"><input type="radio" name="q181" value="B"> <b>B.</b> To request that she make travel reservations</label><label class="opt-row"><input type="radio" name="q181" value="C"> <b>C.</b> To give her the information about a trip</label><label class="opt-row"><input type="radio" name="q181" value="D"> <b>D.</b> To tell her about changes to the conference schedule</label>
+</div>
+<div class="qbox" id="q182_box">
+<div class="qtext"><b>182.</b> What does Glenn Harris imply about the annual conference?</div>
+<label class="opt-row"><input type="radio" name="q182" value="A"> <b>A.</b> The conference is always held in Dallas.</label><label class="opt-row"><input type="radio" name="q182" value="B"> <b>B.</b> He has gone to the conference for many years.</label><label class="opt-row"><input type="radio" name="q182" value="C"> <b>C.</b> The conference is a good place to develop business relationships.</label><label class="opt-row"><input type="radio" name="q182" value="D"> <b>D.</b> Some clients from overseas will be attending the conference.</label>
+</div>
+<div class="qbox" id="q183_box">
+<div class="qtext"><b>183.</b> What will Royal Resorts, Inc. NOT pay for in advance?</div>
+<label class="opt-row"><input type="radio" name="q183" value="A"> <b>A.</b> Airline flights</label><label class="opt-row"><input type="radio" name="q183" value="B"> <b>B.</b> Dining expenses</label><label class="opt-row"><input type="radio" name="q183" value="C"> <b>C.</b> Hotel rooms</label><label class="opt-row"><input type="radio" name="q183" value="D"> <b>D.</b> Car rentals</label>
+</div>
+<div class="qbox" id="q184_box">
+<div class="qtext"><b>184.</b> What seminar was canceled at the conference?</div>
+<label class="opt-row"><input type="radio" name="q184" value="A"> <b>A.</b> International Tourism</label><label class="opt-row"><input type="radio" name="q184" value="B"> <b>B.</b> Hospitality Marketing</label><label class="opt-row"><input type="radio" name="q184" value="C"> <b>C.</b> Food Service Management</label><label class="opt-row"><input type="radio" name="q184" value="D"> <b>D.</b> Lodging Service</label>
+</div>
+<div class="qbox" id="q185_box">
+<div class="qtext"><b>185.</b> For what department does Marie work?</div>
+<label class="opt-row"><input type="radio" name="q185" value="A"> <b>A.</b> Operations</label><label class="opt-row"><input type="radio" name="q185" value="B"> <b>B.</b> Sales</label><label class="opt-row"><input type="radio" name="q185" value="C"> <b>C.</b> Accounts</label><label class="opt-row"><input type="radio" name="q185" value="D"> <b>D.</b> Human Resources</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 186-190 refer to the following memo, notice and web pages.</p>
+<div class="doc-header">Memo — Collins &amp; Walsh Company
+To: All employees of Collins &amp; Walsh
+From: Claire Shepard
+Subject: Upcoming Conference
+Date: March 28</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Employees,</p><p style='margin:0 0 10px;'>I am pleased to announce an opportunity for career development. The California Design Association is hosting a conference on the weekend of May 5-6 that should be well worth attending, especially for those of you in the R&amp;D and Engineering Departments. I am especially proud that one of our colleagues, Jane Selden, will be a featured speaker.</p><p style='margin:0 0 10px;'>Please see the notice posted in the 1st floor mail room and inform me after you have registered for the session that you plan to attend. If you cannot attend, you are still encouraged to sign up for a membership with the California Design Association. All employees will be reimbursed for the membership and registration fees, lunch and transportation.</p><p style='margin:0 0 10px;'>I hope many of you will be able to attend since it is imperative that we stay on the cutting edge of our field.</p></div>
+<div class="doc-header">Notice — Design Research Conference</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>When: May 5-6, 9 A.M. - 5 P.M.<br>Where: California Institute of Design, 6400 Lincoln Ave., Berkley, California, USA<br>Cost: Members - $50 per day or $75 for both days. Non-members - $80 per day or $150 for both days (complimentary daily lunch included for all registrants)<br>Membership: $100 per year (includes subscription to CDA monthly newsletter)<br>Registration: Visit the CDA website at www.californiadesignassociation.com and register online by April 20th</p><p style='margin:0 0 10px;'>Featured speakers:<br>Mr. Travis Nightlinger &quot;21st Century Approach to Speed and Innovation&quot; (Saturday 9 A.M.)<br>Mr. Julio Cueto &quot;Design Research as a Shared Platform&quot; (Saturday 11 A.M.)<br>Ms. Jane Selden &quot;Envisioning Breakthrough Ideas&quot; (Sunday 1 P.M.)<br>Ms. Mikyung Jung &quot;Design Research Tools for the Physical World&quot; (Sunday 3 P.M.)</p></div>
+<div class="doc-header">Web page — www.californiadesignassociation.com/membership/register</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Name: Sarah Chang<br>Company: Collins &amp; Walsh<br>Department: Research and development<br>E-mail: schang@collinsnwaksh.com<br>Phone: 234-1245-298<br>Please select which session you are attending:<br>__ 21st Century Approach to Speed and Innovation<br>__ Design Research as a Shared Platform<br>__ Envisioning Breakthrough Ideas<br>__ Design Research Tools for the Physical World<br>[x] Not able to attend</p></div>
+<div class="qbox" id="q186_box">
+<div class="qtext"><b>186.</b> What is the purpose of this memo?</div>
+<label class="opt-row"><input type="radio" name="q186" value="A"> <b>A.</b> To encourage employees to attend a conference</label><label class="opt-row"><input type="radio" name="q186" value="B"> <b>B.</b> To recognize the R&amp;D staff</label><label class="opt-row"><input type="radio" name="q186" value="C"> <b>C.</b> To notify the employees of a new trade organization</label><label class="opt-row"><input type="radio" name="q186" value="D"> <b>D.</b> To remind the staff of upcoming project deadlines</label>
+</div>
+<div class="qbox" id="q187_box">
+<div class="qtext"><b>187.</b> When would the employees notify Ms. Shepard about attending the convention?</div>
+<label class="opt-row"><input type="radio" name="q187" value="A"> <b>A.</b> In the afternoon on May 5th</label><label class="opt-row"><input type="radio" name="q187" value="B"> <b>B.</b> After registering online</label><label class="opt-row"><input type="radio" name="q187" value="C"> <b>C.</b> After signing up on the list in the mail room</label><label class="opt-row"><input type="radio" name="q187" value="D"> <b>D.</b> Before registering for a membership</label>
+</div>
+<div class="qbox" id="q188_box">
+<div class="qtext"><b>188.</b> In the memo, the word &quot;imperative&quot; in paragraph 3, line 1 is closest in meaning to</div>
+<label class="opt-row"><input type="radio" name="q188" value="A"> <b>A.</b> negligible</label><label class="opt-row"><input type="radio" name="q188" value="B"> <b>B.</b> essential</label><label class="opt-row"><input type="radio" name="q188" value="C"> <b>C.</b> superior</label><label class="opt-row"><input type="radio" name="q188" value="D"> <b>D.</b> moral</label>
+</div>
+<div class="qbox" id="q189_box">
+<div class="qtext"><b>189.</b> Which presentation will be delivered by an employee of Collins &amp; Walsh?</div>
+<label class="opt-row"><input type="radio" name="q189" value="A"> <b>A.</b> 21st Century Approach to Speed and Innovation</label><label class="opt-row"><input type="radio" name="q189" value="B"> <b>B.</b> Design Research as a Shared Platform</label><label class="opt-row"><input type="radio" name="q189" value="C"> <b>C.</b> Envisioning Breakthrough Ideas</label><label class="opt-row"><input type="radio" name="q189" value="D"> <b>D.</b> Design Research Tools for the Physical World</label>
+</div>
+<div class="qbox" id="q190_box">
+<div class="qtext"><b>190.</b> What is mentioned about Ms. Chang?</div>
+<label class="opt-row"><input type="radio" name="q190" value="A"> <b>A.</b> She can have enough time to attend seminars on weekends.</label><label class="opt-row"><input type="radio" name="q190" value="B"> <b>B.</b> She has participated in a seminar of design research.</label><label class="opt-row"><input type="radio" name="q190" value="C"> <b>C.</b> She is eligible for repayment.</label><label class="opt-row"><input type="radio" name="q190" value="D"> <b>D.</b> She wants to take 2 more courses.</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 191-195 refer to the following e-mail, schedule and form.</p>
+<div class="doc-header">From: Kathryn Perez
+To: All department managers
+Subject: Leadership Training Courses and Seminars
+Date: August 11</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Annually, all the department managers here at Boardex Inc. are required to attend a series of training courses and seminars for them to attain proficiency in directing their responsible groups. This year, we have invited renowned speakers from outside our company. Attendance of two or more sessions is mandatory for all managers, and those who fail to follow through will have to be present at a make-up session on August 30. A feedback form is attached to this mail that you need to complete and turn in to Kevin Jacobs at the end of all sessions.</p><p style='margin:0 0 10px;'>Additionally, enclosed is the complete schedule of all sessions in this e-mail. Please consult the information and I hope that this session will be informative and helpful for your management. See you that day.</p><p style='margin:0 0 10px;'>Thank you,<br>Kathryn Perez<br>Human Resources</p></div>
+<div class="doc-header">Leadership Training Courses and Seminars — Schedule</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Session: Critical Thinking | Presenter: Steve Uejio | Date and Time: August 17, 12:30 P.M.-1:15 P.M.<br>Session: Situational Leadership | Presenter: Jerry Hoffman | Date and Time: August 23, 11:50 A.M.-12:45 P.M.<br>Session: Collaborative Leadership | Presenter: Tanner James | Date and Time: August 19, 1:15 P.M.-2:10 P.M.<br>Session: Leadership for Women | Presenter: Lindsay Parks | Date and Time: August 25, 11:50 A.M.-12:30 P.M.</p><p style='margin:0 0 10px;'>Note that the time listed may change within the range of five minutes, so please plan accordingly.<br>All the sessions will take place in Marcus Hall.<br>Refreshments will be provided at courses that begin in the afternoon.</p></div>
+<div class="doc-header">Leadership Training Feedback Form</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Name: Dane Green<br>Sessions attended: [x] Critical Thinking   [ ] Situational Leadership   [x] Collaborative Leadership   [ ] Leadership for Women</p><p style='margin:0 0 10px;'>Which session did you find the most helpful? Why?<br>Not only the critical thinking was the most effective of all sessions but it was also very entertaining as the speaker allowed me to think out of the box with the lateral thinking questions listed on the sheet he gave us. This session was especially helpful for me since creative thinking is an essential skill in advertising, and I also learned about new ways to approach problems that may occur in my department.</p><p style='margin:0 0 10px;'>How could the courses be improved?<br>It was mentioned in the schedule that we may be let go just a bit past the scheduled time, but the session on August 19 ended fifteen minutes late. I ended up showing up late at a meeting I scheduled for 2:20. If the speaker does not exceed their given time, it would be much more helpful.</p></div>
+<div class="qbox" id="q191_box">
+<div class="qtext"><b>191.</b> Why was the email written?</div>
+<label class="opt-row"><input type="radio" name="q191" value="A"> <b>A.</b> To invite all employees to leadership training courses</label><label class="opt-row"><input type="radio" name="q191" value="B"> <b>B.</b> To recommend the managers to participate in an annual event</label><label class="opt-row"><input type="radio" name="q191" value="C"> <b>C.</b> To notify the schedule of a series of informative sessions</label><label class="opt-row"><input type="radio" name="q191" value="D"> <b>D.</b> To announce the change in a meeting location</label>
+</div>
+<div class="qbox" id="q192_box">
+<div class="qtext"><b>192.</b> What is true about the sessions?</div>
+<label class="opt-row"><input type="radio" name="q192" value="A"> <b>A.</b> Employees who attend them will receive snacks.</label><label class="opt-row"><input type="radio" name="q192" value="B"> <b>B.</b> Department managers are required to attend all of them.</label><label class="opt-row"><input type="radio" name="q192" value="C"> <b>C.</b> They will begin in the afternoon.</label><label class="opt-row"><input type="radio" name="q192" value="D"> <b>D.</b> Their schedules is subject to change.</label>
+</div>
+<div class="qbox" id="q193_box">
+<div class="qtext"><b>193.</b> What is suggested about Mr. Green?</div>
+<label class="opt-row"><input type="radio" name="q193" value="A"> <b>A.</b> He works under the supervision of Kathryn Perez.</label><label class="opt-row"><input type="radio" name="q193" value="B"> <b>B.</b> He left a session early to attend a meeting.</label><label class="opt-row"><input type="radio" name="q193" value="C"> <b>C.</b> He is the manager of the advertising department.</label><label class="opt-row"><input type="radio" name="q193" value="D"> <b>D.</b> He was able to show up to all the courses.</label>
+</div>
+<div class="qbox" id="q194_box">
+<div class="qtext"><b>194.</b> Who distributed a sheet of paper during a session?</div>
+<label class="opt-row"><input type="radio" name="q194" value="A"> <b>A.</b> Steve Uejio</label><label class="opt-row"><input type="radio" name="q194" value="B"> <b>B.</b> Jerry Hoffman</label><label class="opt-row"><input type="radio" name="q194" value="C"> <b>C.</b> Tanner James</label><label class="opt-row"><input type="radio" name="q194" value="D"> <b>D.</b> Lindsay Parks</label>
+</div>
+<div class="qbox" id="q195_box">
+<div class="qtext"><b>195.</b> From what session did Mr. Green leave late?</div>
+<label class="opt-row"><input type="radio" name="q195" value="A"> <b>A.</b> The critical thinking session</label><label class="opt-row"><input type="radio" name="q195" value="B"> <b>B.</b> The leadership for women session</label><label class="opt-row"><input type="radio" name="q195" value="C"> <b>C.</b> The situational leadership session</label><label class="opt-row"><input type="radio" name="q195" value="D"> <b>D.</b> The collaborative leadership session</label>
+</div>
+</div>
+<div class="group-box">
+<p style="font-style:italic;color:#555;font-size:13px;">Questions 196-200 refer to the following notice, information, and letter.</p>
+<div class="doc-header">Notice</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Renew your Augusta Science Museum Membership Now</p><p style='margin:0 0 10px;'>If you haven&#x27;t been to the Augusta Science Museum recently, you will notice some upgrades to our facility upon your next visit: our lobby has been renovated, new seats have been installed in the dome theater, and we&#x27;ve added a cafe. As a past member of the museum, you know that our memberships offer great benefits. So if you want to enjoy the more newly upgraded experiences, please renew your membership at this moment. Basic benefits of membership include a year of unlimited free admission, the opportunity to purchase tickets in advance for special exhibitions, a 20% discount at the gift shop, and subscription to our Science and Technology Magazine. For more details, you can visit our website and sign up for this service.</p></div>
+<div class="doc-header">Membership Level</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Individual - $60: Includes all basic benefits for one person.<br>Individual Plus - $100: Includes all basic benefits and free admission for all lectures for one person. Also includes 2 guest passes for museum admission.<br>Family - $120: Includes all basic benefits and free admission for all lectures for 4 people. Also includes 4 guest passes for museum admission.<br>Family Plus - $200: Includes all benefits of the family membership plus 6 guest passes. Also, basic benefits of membership include a 20% discount at the gift shop, the opportunity to purchase tickets in advance for special exhibitions, and a private tour of one special exhibition of your choice.</p><p style='margin:0 0 10px;'>Note: Next year&#x27;s first special exhibition &quot;Inventions of Benjamin Franklin&quot; will run from Jan. 5 to Feb. 28. Tickets go on sale for members beginning on Nov 15 and for non-members beginning on Dec. 1.</p></div>
+<div class="doc-header">Letter
+Augusta Science Museum
+Mr. Todd Pollard, 725 Lauderdale Drive, Augusta, GA 47816</div>
+<div class="doc-body"><p style='margin:0 0 10px;'>Dear Mr. Pollard:</p><p style='margin:0 0 10px;'>Thank you for renewing your Augusta Science Museum membership. Your membership helps to support the museum and its programs. Your new membership card and six guest passes are enclosed.<br>Please note that there is an update to the information that was included in the membership renewal notice that was sent to you. The opening date of the special exhibition &quot;Inventions of Benjamin Franklin&quot; has been changed to January 15. We apologize for any inconvenience that this may cause.<br>We hope you enjoy your membership, and we look forward to seeing you at the museum soon.</p><p style='margin:0 0 10px;'>Sincerely,<br>Beth Lennon</p></div>
+<div class="qbox" id="q196_box">
+<div class="qtext"><b>196.</b> What is indicated about Augusta Science Museum?</div>
+<label class="opt-row"><input type="radio" name="q196" value="A"> <b>A.</b> It was closed to public for its renovations.</label><label class="opt-row"><input type="radio" name="q196" value="B"> <b>B.</b> It has a special exhibition every month.</label><label class="opt-row"><input type="radio" name="q196" value="C"> <b>C.</b> It has a cafe exclusively for members.</label><label class="opt-row"><input type="radio" name="q196" value="D"> <b>D.</b> It publishes a magazine.</label>
+</div>
+<div class="qbox" id="q197_box">
+<div class="qtext"><b>197.</b> What is NOT mentioned about benefits of Family Plus membership?</div>
+<label class="opt-row"><input type="radio" name="q197" value="A"> <b>A.</b> Members will receive a discount when they make a purchase at the gift shop.</label><label class="opt-row"><input type="radio" name="q197" value="B"> <b>B.</b> Members receive six tickets to the dome theater.</label><label class="opt-row"><input type="radio" name="q197" value="C"> <b>C.</b> Members receive a private tour of a special exhibition.</label><label class="opt-row"><input type="radio" name="q197" value="D"> <b>D.</b> Members can have a chance to purchase tickets in advance.</label>
+</div>
+<div class="qbox" id="q198_box">
+<div class="qtext"><b>198.</b> When will the Benjamin Franklin exhibition open?</div>
+<label class="opt-row"><input type="radio" name="q198" value="A"> <b>A.</b> November 15</label><label class="opt-row"><input type="radio" name="q198" value="B"> <b>B.</b> December 1</label><label class="opt-row"><input type="radio" name="q198" value="C"> <b>C.</b> January 5</label><label class="opt-row"><input type="radio" name="q198" value="D"> <b>D.</b> January 15</label>
+</div>
+<div class="qbox" id="q199_box">
+<div class="qtext"><b>199.</b> What is stated in the letter?</div>
+<label class="opt-row"><input type="radio" name="q199" value="A"> <b>A.</b> The beginning date of the exhibition has been changed.</label><label class="opt-row"><input type="radio" name="q199" value="B"> <b>B.</b> The membership Mr. Pollard was going to renew is no longer available.</label><label class="opt-row"><input type="radio" name="q199" value="C"> <b>C.</b> The membership fee should be paid by January 15.</label><label class="opt-row"><input type="radio" name="q199" value="D"> <b>D.</b> The guest passes should be picked up at the museum membership office.</label>
+</div>
+<div class="qbox" id="q200_box">
+<div class="qtext"><b>200.</b> At which level did Mr. Pollard renew his membership?</div>
+<label class="opt-row"><input type="radio" name="q200" value="A"> <b>A.</b> Individual</label><label class="opt-row"><input type="radio" name="q200" value="B"> <b>B.</b> Individual Plus</label><label class="opt-row"><input type="radio" name="q200" value="C"> <b>C.</b> Family</label><label class="opt-row"><input type="radio" name="q200" value="D"> <b>D.</b> Family Plus</label>
+</div>
+</div>
+</div>
+
+<button id="submitBtn">Nop bai</button>
+
+<div id="confirmPopup">
+  <div class="box">
+    <p style="font-size:15px;">Ban co chac muon nop bai? Sau khi nop se khong the sua lai.</p>
+    <button id="confirmYes">Xac nhan nop</button>
+    <button id="confirmNo">Quay lai lam bai</button>
+  </div>
+</div>
+
+<div id="resultBox"></div>
+
+
+<script>
+(function(){
+'use strict';
+
+var TOTAL_Q = 100;
+var TIME_LIMIT_MS = 80 * 60 * 1000;
+var TEST_LABEL = "TOEIC Placement Reading";
+var APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec";
+var ANS = {"q101": "B", "q102": "B", "q103": "C", "q104": "B", "q105": "A", "q106": "A", "q107": "D", "q108": "C", "q109": "A", "q110": "C", "q111": "A", "q112": "B", "q113": "D", "q114": "B", "q115": "A", "q116": "C", "q117": "D", "q118": "B", "q119": "D", "q120": "B", "q121": "A", "q122": "C", "q123": "A", "q124": "C", "q125": "A", "q126": "B", "q127": "C", "q128": "A", "q129": "D", "q130": "C", "q131": "C", "q132": "C", "q133": "B", "q134": "A", "q135": "D", "q136": "A", "q137": "D", "q138": "A", "q139": "A", "q140": "C", "q141": "C", "q142": "A", "q143": "A", "q144": "A", "q145": "D", "q146": "A", "q147": "C", "q148": "B", "q149": "A", "q150": "C", "q151": "A", "q152": "C", "q153": "A", "q154": "C", "q155": "C", "q156": "B", "q157": "C", "q158": "C", "q159": "A", "q160": "C", "q161": "B", "q162": "A", "q163": "B", "q164": "A", "q165": "C", "q166": "C", "q167": "D", "q168": "B", "q169": "A", "q170": "C", "q171": "C", "q172": "C", "q173": "C", "q174": "B", "q175": "B", "q176": "B", "q177": "A", "q178": "D", "q179": "D", "q180": "B", "q181": "C", "q182": "C", "q183": "B", "q184": "C", "q185": "A", "q186": "A", "q187": "B", "q188": "B", "q189": "C", "q190": "C", "q191": "C", "q192": "D", "q193": "C", "q194": "A", "q195": "D", "q196": "D", "q197": "B", "q198": "D", "q199": "A", "q200": "D"};
+
+var submitted = false;
+var timerStopped = false;
+var startTime = null;
+var tabViolations = 0, focusViolations = 0, fsViolations = 0;
+var violLog = [];
+
+function startExam(){
+  var name = document.getElementById("stuName").value.trim();
+  var cls = document.getElementById("stuClass").value.trim();
+  var err = document.getElementById("nameError");
+  if(!name || !cls){
+    err.style.display = "block";
+    return;
+  }
+  err.style.display = "none";
+  window._studentName = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById("namePopup").style.display = "none";
+  enterFullscreen();
+  startTimer();
+}
+window.startExam = startExam;
+
+window.enterFullscreen = function(){
+  var el = document.documentElement;
+  try{
+    if(el.requestFullscreen){ el.requestFullscreen().catch(function(){}); }
+    else if(el.webkitRequestFullscreen){ el.webkitRequestFullscreen(); }
+  }catch(e){}
+  document.getElementById("fsOverlay").style.display = "none";
+};
+
+function isFullscreen(){
+  return !!(document.fullscreenElement || document.webkitFullscreenElement);
+}
+
+function onFsChange(){
+  if(submitted) return;
+  if(!window._testStartTime) return;
+  if(!isFullscreen()){
+    fsViolations++;
+    violLog.push("Thoat fullscreen luc " + new Date().toLocaleTimeString());
+    document.getElementById("fsOverlay").style.display = "flex";
+  }
+}
+document.addEventListener("fullscreenchange", onFsChange);
+document.addEventListener("webkitfullscreenchange", onFsChange);
+
+function showBanner(msg){
+  var b = document.getElementById("violBanner");
+  b.textContent = msg;
+  b.style.display = "block";
+  clearTimeout(b._t);
+  b._t = setTimeout(function(){ b.style.display = "none"; }, 4000);
+}
+
+document.addEventListener("visibilitychange", function(){
+  if(submitted || !window._testStartTime) return;
+  if(document.hidden){
+    tabViolations++;
+    violLog.push("Chuyen tab luc " + new Date().toLocaleTimeString());
+    showBanner("Ban vua chuyen sang tab/cua so khac! Vi pham da ghi nhan.");
+  }
+});
+window.addEventListener("blur", function(){
+  if(submitted || !window._testStartTime) return;
+  focusViolations++;
+  violLog.push("Mat focus cua so luc " + new Date().toLocaleTimeString());
+});
+
+document.addEventListener("contextmenu", function(e){ e.preventDefault(); });
+document.addEventListener("keydown", function(e){
+  var k = e.key;
+  var ctrl = e.ctrlKey || e.metaKey;
+  if(k === "F12") { e.preventDefault(); return; }
+  if(ctrl && ["c","C","a","A","s","S","u","U","p","P","v","V"].indexOf(k) !== -1){ e.preventDefault(); return; }
+  if(ctrl && e.shiftKey && ["i","I","j","J","c","C","k","K"].indexOf(k) !== -1){ e.preventDefault(); return; }
+  if(k === "Escape"){ e.preventDefault(); return; }
+});
+document.addEventListener("copy", function(e){ e.preventDefault(); });
+document.addEventListener("paste", function(e){ e.preventDefault(); });
+document.addEventListener("cut", function(e){ e.preventDefault(); });
+document.addEventListener("dragstart", function(e){ e.preventDefault(); });
+document.addEventListener("drop", function(e){ e.preventDefault(); });
+
+var timerEl, extraWarned = false;
+function fmtTime(ms){
+  if(ms < 0) ms = 0;
+  var totalSec = Math.floor(ms/1000);
+  var m = Math.floor(totalSec/60);
+  var s = totalSec % 60;
+  return (m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+}
+function startTimer(){
+  timerEl = document.getElementById("timerBox");
+  tick();
+}
+window.stopTimer = function(){ timerStopped = true; };
+function tick(){
+  if(timerStopped) return;
+  if(!startTime){
+    if(!window._testStartTime){ setTimeout(tick,300); return; }
+    startTime = window._testStartTime;
+  }
+  var elapsed = Date.now() - startTime;
+  var remain = TIME_LIMIT_MS - elapsed;
+  if(remain <= 0){
+    timerEl.textContent = "00:00";
+    timerEl.className = "danger";
+    if(!extraWarned){
+      extraWarned = true;
+      showAutoSubmitWarning();
+    }
+  } else {
+    timerEl.textContent = fmtTime(remain);
+    if(remain < 60000){ timerEl.className = "danger"; }
+    else if(remain < 5*60000){ timerEl.className = "warn"; }
+    else { timerEl.className = ""; }
+  }
+  if(!submitted) setTimeout(tick, 500);
+}
+var autoSubmitTimeout = null;
+function showAutoSubmitWarning(){
+  var pop = document.createElement("div");
+  pop.id = "autoSubPop";
+  pop.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9999;display:flex;align-items:center;justify-content:center;";
+  pop.innerHTML = "<div style=\"background:#fff;border-radius:10px;padding:24px 28px;max-width:380px;text-align:center;\"><h3 style=\"color:#c0392b;margin-top:0;\">Da het gio lam bai!</h3><p style=\"font-size:14px;\">Bai se tu dong nop sau 5 phut nua. Ban co the nop ngay bay gio.</p><button id=\"autoSubBtn\" style=\"padding:10px 22px;background:#c0392b;color:#fff;border:none;border-radius:6px;font-weight:bold;cursor:pointer;\">Nop bai ngay</button></div>";
+  document.body.appendChild(pop);
+  document.getElementById("autoSubBtn").addEventListener("click", function(){
+    pop.remove();
+    doSubmit();
+  });
+  autoSubmitTimeout = setTimeout(function(){
+    if(!submitted) doSubmit();
+  }, 5*60*1000);
+}
+
+document.addEventListener("change", function(e){
+  if(e.target && e.target.type === "radio"){
+    var name = e.target.name;
+    document.querySelectorAll('input[name="'+name+'"]').forEach(function(inp){
+      var lbl = inp.closest(".opt-row");
+      if(lbl) lbl.classList.remove("selected-answer");
+    });
+    var cur = e.target.closest(".opt-row");
+    if(cur) cur.classList.add("selected-answer");
+  }
+});
+
+document.getElementById("submitBtn").addEventListener("click", function(){
+  document.getElementById("confirmPopup").style.display = "flex";
+});
+document.getElementById("confirmNo").addEventListener("click", function(){
+  document.getElementById("confirmPopup").style.display = "none";
+});
+document.getElementById("confirmYes").addEventListener("click", function(){
+  document.getElementById("confirmPopup").style.display = "none";
+  doSubmit();
+});
+
+function getRadioVal(name){
+  var el = document.querySelector('input[name="'+name+'"]:checked');
+  return el ? el.value : null;
+}
+
+function doSubmit(){
+  if(submitted) return;
+  submitted = true;
+  if(autoSubmitTimeout) clearTimeout(autoSubmitTimeout);
+  window.stopTimer();
+  document.getElementById("timerBox").style.display = "none";
+  if(window._audioEl){ try{ window._audioEl.pause(); }catch(e){} }
+
+  var score = 0;
+  var detailsParts = [];
+  var qkeys = Object.keys(ANS).sort(function(a,b){
+    return parseInt(a.slice(1),10) - parseInt(b.slice(1),10);
+  });
+  for(var qi=0; qi<qkeys.length; qi++){
+    var qname = qkeys[qi];
+    var qnumLabel = qname.slice(1);
+    var correct = ANS[qname];
+    var chosen = getRadioVal(qname);
+    var qbox = document.getElementById(qname+"_box");
+    var ok = (chosen !== null && chosen === correct);
+    if(ok) score++;
+    if(qbox){
+      var rows = qbox.querySelectorAll(".opt-row");
+      rows.forEach(function(row){
+        var inp = row.querySelector("input");
+        if(!inp) return;
+        if(inp.value === correct) row.classList.add("opt-correct");
+        if(chosen && inp.value === chosen && chosen !== correct) row.classList.add("opt-wrong");
+        inp.disabled = true;
+      });
+    }
+    detailsParts.push("Q"+qnumLabel+":"+(ok?"D":"S")+"("+(chosen||"-")+")");
+  }
+  document.querySelectorAll("input, select, textarea").forEach(function(el){ el.disabled = true; });
+
+  var elapsedMs = Date.now() - (window._testStartTime || Date.now());
+  var elapsedMin = Math.floor(elapsedMs/60000);
+  var elapsedSec = Math.floor((elapsedMs%60000)/1000);
+  var timeTaken = elapsedMin + " phut " + elapsedSec + " giay";
+
+  showResult(score, detailsParts.join(" | "), timeTaken);
+
+  var payload = {
+    action: "save_result",
+    timestamp: new Date().toISOString(),
+    student: (window._studentName||"") + " - " + (window._studentClass||""),
+    test: TEST_LABEL,
+    score: score,
+    total: qkeys.length,
+    band: toeicLevel(score, qkeys.length),
+    timeTaken: timeTaken,
+    tabViol: tabViolations,
+    focusViol: focusViolations,
+    fsViol: fsViolations,
+    details: detailsParts.join(" | ")
+  };
+  fetch(APPS_SCRIPT_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload)
+  }).catch(function(){});
+}
+window.getViolationLog = function(){
+  submitted = true;
+  return { tabViol: tabViolations, focusViol: focusViolations, fsViol: fsViolations, log: violLog };
+};
+
+function toeicLevel(score, total){
+  var ratio = score/total;
+  var scaled = Math.round(5 + ratio*490);
+  if(scaled > 495) scaled = 495;
+  if(scaled < 5) scaled = 5;
+  scaled = Math.round(scaled/5)*5;
+  var label = "";
+  if(ratio >= 0.90) label = "Advanced";
+  else if(ratio >= 0.75) label = "Upper-Intermediate";
+  else if(ratio >= 0.55) label = "Intermediate";
+  else if(ratio >= 0.35) label = "Pre-Intermediate";
+  else if(ratio >= 0.20) label = "Elementary";
+  else label = "Beginner";
+  return scaled + " diem (uoc tinh) - " + label;
+}
+
+function showResult(score, details, timeTaken){
+  var box = document.getElementById("resultBox");
+  var total = Object.keys(ANS).length;
+  var pct = Math.round((score/total)*1000)/10;
+  box.innerHTML =
+    "<h2>Ket qua " + TEST_LABEL + "</h2>" +
+    "<div class=\"score-grid\">" +
+      "<div class=\"score-card\"><div class=\"num\">" + score + "/" + total + "</div><div class=\"lbl\">Cau dung</div></div>" +
+      "<div class=\"score-card\"><div class=\"num\">" + pct + "%</div><div class=\"lbl\">Ty le dung</div></div>" +
+      "<div class=\"score-card\"><div class=\"num\">" + toeicLevel(score,total) + "</div><div class=\"lbl\">Muc do (tham khao)</div></div>" +
+      "<div class=\"score-card\"><div class=\"num\">" + timeTaken + "</div><div class=\"lbl\">Thoi gian lam bai</div></div>" +
+    "</div>" +
+    "<div class=\"viol-line\">Vi pham: chuyen tab " + tabViolations + " lan, mat focus " + focusViolations + " lan, thoat fullscreen " + fsViolations + " lan.</div>" +
+    "<p style=\"font-size:12.5px;color:#888;margin-top:10px;\">Diem quy doi TOEIC chi la uoc tinh tuyen tinh de tham khao xep lop, khong phai diem TOEIC chinh thuc cua ETS.</p>";
+  box.style.display = "block";
+  box.scrollIntoView({behavior:"smooth"});
+}
+
+document.getElementById("fsBtn").addEventListener("click", function(){ window.enterFullscreen(); });
+
+})();
+</script>
+
+</body>
+</html>
