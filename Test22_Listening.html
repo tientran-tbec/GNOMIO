@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IELTS Listening Test 1</title>
+<title>IELTS Listening Test 22</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: Arial, sans-serif; background: #f4f6f9; color: #222; }
@@ -72,6 +72,11 @@
   }
   select.correct { border-color: #27ae60; background: #eafaf1; color: #27ae60; }
   select.wrong { border-color: #e74c3c; background: #fdf0ef; color: #e74c3c; }
+
+  /* Diagram image */
+  .diagram-box { text-align: center; margin: 10px 0 16px; }
+  .diagram-box img { max-width: 100%; border: 1px solid #ccc; border-radius: 6px; }
+  .diagram-note { font-size: 0.8em; color: #888; margin-top: 6px; font-style: italic; }
 
   /* Submit */
   .submit-section { text-align: center; margin-top: 36px; }
@@ -195,7 +200,7 @@
 <!-- POPUP NHẬP TÊN -->
 <div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
   <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
-    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">🎧 IELTS Listening Test 1</h2>
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">🎧 IELTS Listening Test 22</h2>
     <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
     <div style="text-align:left;margin-bottom:14px;">
       <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
@@ -229,14 +234,14 @@
 
 <div class="container">
 
-  <h1>IELTS LISTENING — TEST 1</h1>
+  <h1>IELTS LISTENING — TEST 22</h1>
   <p class="subtitle">Điền vào chỗ trống hoặc chọn đáp án đúng. Bấm <strong>Submit</strong> để xem kết quả.</p>
 
   <!-- AUDIO -->
   <div class="audio-section">
-    <p>🎧 Audio — Listening Test 1</p>
+    <p>🎧 Audio — Listening Test 22</p>
     <audio controls>
-      <source src="Audio test 1.mp3" type="audio/mpeg">
+      <source src="Audio test 22.mp3" type="audio/mpeg">
       Trình duyệt của bạn không hỗ trợ audio.
     </audio>
   </div>
@@ -245,94 +250,76 @@
   <div class="part">
     <div class="part-title">PART 1 &nbsp;|&nbsp; Questions 1–10</div>
 
-    <!-- Q1-6: Note Completion -->
+    <!-- Q1-5: Form completion -->
     <div class="question-block">
-      <p class="instruction">Questions 1–6: Complete the notes below. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
-
+      <p class="instruction">Questions 1–5: Complete the form below. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
       <div class="notes-box">
-        <h3>School Excursion</h3>
-
+        <h3>Car Hire Booking Form</h3>
         <div class="note-row">
-          <span class="note-label">Day:</span>
-          <span class="note-static">Wednesday</span>
-        </div>
-        <div class="note-row">
-          <span class="note-label">Destination:</span>
-          <span class="qid-tag">Q.01.TEST001</span>
-          <input type="text" id="q1" placeholder="answer..." data-answer="animal park">
+          <span class="note-label">Customer's surname:</span>
+          <span class="qid-tag">Q.01.TEST022</span>
+          <input type="text" id="q1" placeholder="answer..." data-answer="Waddell">
           <span class="answer-reveal" id="r1"></span>
         </div>
         <div class="note-row">
-          <span class="note-label">Weather:</span>
-          <span class="qid-tag">Q.02.TEST001</span>
-          <input type="text" id="q2" placeholder="answer..." data-answer="cold and cloudy">
+          <span class="note-label">Delivery address:</span>
+          <span class="qid-tag">Q.02.TEST022</span>
+          <input type="text" id="q2" placeholder="answer..." data-answer="Robyn Place">
           <span class="answer-reveal" id="r2"></span>
         </div>
         <div class="note-row">
-          <span class="note-label">Arrival time:</span>
-          <span class="qid-tag">Q.03.TEST001</span>
-          <input type="text" id="q3" placeholder="answer..." data-answer="10.15 am">
+          <span class="note-label">Contact phone number:</span>
+          <span class="qid-tag">Q.03.TEST022</span>
+          <input type="text" id="q3" placeholder="answer..." data-answer="263 8666">
           <span class="answer-reveal" id="r3"></span>
         </div>
         <div class="note-row">
-          <span class="note-label">Activities planned — See:</span>
-          <span class="qid-tag">Q.04.TEST001</span>
-          <input type="text" id="q4" placeholder="answer..." data-answer="birds of prey">
+          <span class="note-label">Method of payment:</span>
+          <span class="qid-tag">Q.04.TEST022</span>
+          <input type="text" id="q4" placeholder="answer..." data-answer="Visa">
           <span class="answer-reveal" id="r4"></span>
         </div>
         <div class="note-row">
-          <span class="note-label">Eat:</span>
-          <span class="note-static">Catered lunch</span>
-        </div>
-        <div class="note-row">
-          <span class="note-label">Attend:</span>
-          <span class="qid-tag">Q.05.TEST001</span>
-          <input type="text" id="q5" placeholder="answer..." data-answer="reptile display">
+          <span class="note-label">Number of days needed:</span>
+          <span class="qid-tag">Q.05.TEST022</span>
+          <input type="text" id="q5" placeholder="answer..." data-answer="10">
           <span class="answer-reveal" id="r5"></span>
-        </div>
-        <div class="note-row">
-          <span class="note-label">Return time:</span>
-          <span class="qid-tag">Q.06.TEST001</span>
-          <input type="text" id="q6" placeholder="answer..." data-answer="6.30 pm">
-          <span class="answer-reveal" id="r6"></span>
         </div>
       </div>
     </div>
 
-    <!-- Q7-10: Table Completion -->
+    <!-- Q6-10: Sentence answers -->
     <div class="question-block">
-      <p class="instruction">Questions 7–10: Complete the table below. Write ONE WORD only for each answer.</p>
+      <p class="instruction">Questions 6–10: Answer the following questions using NO MORE THAN TWO WORDS OR A NUMBER.</p>
       <div class="notes-box">
-        <table>
-          <thead>
-            <tr><th>Nationality</th><th>%</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="left"><span class="qid-tag">Q.07.TEST001</span><input type="text" id="q7" placeholder="answer..." data-answer="chinese"></td>
-              <td>26</td>
-            </tr>
-            <tr>
-              <td class="left"><span class="qid-tag">Q.08.TEST001</span><input type="text" id="q8" placeholder="answer..." data-answer="japanese"></td>
-              <td>25</td>
-            </tr>
-            <tr>
-              <td class="left"><span class="qid-tag">Q.09.TEST001</span><input type="text" id="q9" placeholder="answer..." data-answer="koreans"></td>
-              <td>16</td>
-            </tr>
-            <tr><td class="left">Indonesia</td><td>15</td></tr>
-            <tr>
-              <td class="left"><span class="qid-tag">Q.10.TEST001</span><input type="text" id="q10" placeholder="answer..." data-answer="thai"></td>
-              <td>8</td>
-            </tr>
-            <tr><td class="left">Saudi</td><td>7</td></tr>
-            <tr><td class="left">Other</td><td>3</td></tr>
-          </tbody>
-        </table>
-        <div style="margin-top:8px;">
+        <div class="note-row">
+          <span class="note-value">How much is the car per day?</span>
+          <span class="qid-tag">Q.06.TEST022</span>
+          <input type="text" id="q6" placeholder="answer..." data-answer="$35">
+          <span class="answer-reveal" id="r6"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">What does the price include?</span>
+          <span class="qid-tag">Q.07.TEST022</span>
+          <input type="text" id="q7" placeholder="answer..." data-answer="Unlimited kilometres" style="width:200px">
           <span class="answer-reveal" id="r7"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Who will he be visiting?</span>
+          <span class="qid-tag">Q.08.TEST022</span>
+          <input type="text" id="q8" placeholder="answer..." data-answer="Relatives">
           <span class="answer-reveal" id="r8"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">What kind of car does the agent recommend?</span>
+          <span class="qid-tag">Q.09.TEST022</span>
+          <input type="text" id="q9" placeholder="answer..." data-answer="(An) automatic" style="width:170px">
           <span class="answer-reveal" id="r9"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">What does he need to collect the car?</span>
+          <span class="qid-tag">Q.10.TEST022</span>
+          <input type="text" id="q10" placeholder="answer..." data-answer="Driving license" style="width:170px">
           <span class="answer-reveal" id="r10"></span>
         </div>
       </div>
@@ -342,50 +329,61 @@
   <!-- ==================== PART 2 ==================== -->
   <div class="part">
     <div class="part-title">PART 2 &nbsp;|&nbsp; Questions 11–20</div>
+
+    <!-- Q11-15: Table completion -->
     <div class="question-block">
-      <p class="instruction">Questions 11–20: Complete the timetable below. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+      <p class="instruction">Questions 11–15: Complete the tables below. If there is no information given, write X. Write NO MORE THAN TWO WORDS AND/OR A NUMBER for each answer.</p>
       <div class="notes-box">
-        <h3>Park Arts Center</h3>
         <table>
           <thead>
-            <tr><th>Dates</th><th>Times</th><th>Event</th><th>Notes</th></tr>
+            <tr><th>Route</th><th>Distance / km</th><th>Highlight</th><th>Time / hours</th></tr>
           </thead>
           <tbody>
             <tr>
-              <td>18 – 24 Feb</td>
-              <td>
-                <span class="qid-tag">Q.11.TEST001</span>
-                <input type="text" id="q11" placeholder="time..." data-answer="2.30/7.30 pm" style="width:110px">
-              </td>
-              <td>Folk music concert</td>
-              <td>Can get a <span class="qid-tag">Q.12.TEST001</span><input type="text" id="q12" placeholder="..." data-answer="cd" style="width:60px"> in shop</td>
+              <td class="left">Overlander</td>
+              <td><span class="qid-tag">Q.11.TEST022</span><input type="text" id="q11" placeholder="..." data-answer="681" style="width:60px"></td>
+              <td class="left">3 volcanoes</td>
+              <td>11</td>
             </tr>
             <tr>
-              <td>1 – 8 Feb</td>
-              <td>See the <span class="qid-tag">Q.13.TEST001</span><input type="text" id="q13" placeholder="..." data-answer="separate programme" style="width:110px"></td>
-              <td>Annual <span class="qid-tag">Q.14.TEST001</span><input type="text" id="q14" placeholder="..." data-answer="dance festival" style="width:100px"></td>
-              <td>Groups from <span class="qid-tag">Q.15.TEST001</span><input type="text" id="q15" placeholder="..." data-answer="4 continents" style="width:90px"></td>
+              <td class="left">TranzAlpine</td>
+              <td>223</td>
+              <td class="left">16 <span class="qid-tag">Q.12.TEST022</span><input type="text" id="q12" placeholder="..." data-answer="Tunnels" style="width:90px"></td>
+              <td><span class="qid-tag">Q.13.TEST022</span><input type="text" id="q13" placeholder="..." data-answer="5" style="width:50px"></td>
             </tr>
             <tr>
-              <td><span class="qid-tag">Q.16.TEST001</span><input type="text" id="q16" placeholder="date..." data-answer="14-20 march" style="width:100px"></td>
-              <td>8 pm</td>
-              <td>Film: <span class="qid-tag">Q.17.TEST001</span><input type="text" id="q17" placeholder="..." data-answer="love and hope" style="width:100px"></td>
-              <td>Talk by the <span class="qid-tag">Q.18.TEST001</span><input type="text" id="q18" placeholder="..." data-answer="producer" style="width:80px"></td>
-            </tr>
-            <tr>
-              <td>2 April</td>
-              <td>To be confirmed</td>
-              <td><span class="qid-tag">Q.19.TEST001</span><input type="text" id="q19" placeholder="..." data-answer="singing competition" style="width:120px"></td>
-              <td>It will be <span class="qid-tag">Q.20.TEST001</span><input type="text" id="q20" placeholder="..." data-answer="shown on tv" style="width:90px"></td>
+              <td class="left">TranzCoastal</td>
+              <td><span class="qid-tag">Q.14.TEST022</span><input type="text" id="q14" placeholder="..." data-answer="X" style="width:50px"></td>
+              <td class="left"><span class="qid-tag">Q.15.TEST022</span><input type="text" id="q15" placeholder="..." data-answer="Whale watching" style="width:120px"></td>
+              <td>5</td>
             </tr>
           </tbody>
         </table>
         <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
           <span class="answer-reveal" id="r11"></span><span class="answer-reveal" id="r12"></span>
           <span class="answer-reveal" id="r13"></span><span class="answer-reveal" id="r14"></span>
-          <span class="answer-reveal" id="r15"></span><span class="answer-reveal" id="r16"></span>
-          <span class="answer-reveal" id="r17"></span><span class="answer-reveal" id="r18"></span>
-          <span class="answer-reveal" id="r19"></span><span class="answer-reveal" id="r20"></span>
+          <span class="answer-reveal" id="r15"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q16-20: Summary completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 16–20: Complete the summary below using NO MORE THAN TWO WORDS OR A NUMBER.</p>
+      <div class="notes-box">
+        <div class="note-row">
+          <span class="note-value">
+            Taking three days to complete, the
+            <span class="qid-tag">Q.16.TEST022</span><input type="text" id="q16" placeholder="..." data-answer="Indian Pacific" style="width:120px"><span class="answer-reveal" id="r16"></span>
+            is one of the world's longest train journeys. The Ghan is shorter, passing through towns built by the
+            <span class="qid-tag">Q.17.TEST022</span><input type="text" id="q17" placeholder="..." data-answer="Earlier settlers" style="width:130px"><span class="answer-reveal" id="r17"></span>.
+            There is also a sculpture designed to mark the laying of the
+            <span class="qid-tag">Q.18.TEST022</span><input type="text" id="q18" placeholder="..." data-answer="1 millionth" style="width:110px"><span class="answer-reveal" id="r18"></span>
+            concrete sleeper. The Overland was the first train to travel between the capital cities in two
+            <span class="qid-tag">Q.19.TEST022</span><input type="text" id="q19" placeholder="..." data-answer="States" style="width:90px"><span class="answer-reveal" id="r19"></span>
+            and it is also the oldest journey of its kind on
+            <span class="qid-tag">Q.20.TEST022</span><input type="text" id="q20" placeholder="..." data-answer="The continent" style="width:110px"><span class="answer-reveal" id="r20"></span>.
+          </span>
         </div>
       </div>
     </div>
@@ -395,119 +393,98 @@
   <div class="part">
     <div class="part-title">PART 3 &nbsp;|&nbsp; Questions 21–30</div>
 
-    <!-- Q21-26: MCQ -->
+    <!-- Q21-25: MCQ -->
     <div class="question-block">
-      <p class="instruction">Questions 21–26: Choose the correct letter A, B or C.</p>
+      <p class="instruction">Questions 21–25: Circle the correct letter A–C.</p>
 
       <div class="mcq-question">
-        <p><span class="qid-tag">Q.21.TEST001</span> 21. What kind of research method does the professor recommend?</p>
+        <p><span class="qid-tag">Q.21.TEST022</span> 21. Lyn is having difficulty completing her project because</p>
         <div class="mcq-options">
-          <label><input type="radio" name="q21" value="A"> A &nbsp; interview</label>
-          <label><input type="radio" name="q21" value="B"> B &nbsp; observation</label>
-          <label><input type="radio" name="q21" value="C"> C &nbsp; questionnaire</label>
+          <label><input type="radio" name="q21" value="A"> A &nbsp; she doesn't have enough information.</label>
+          <label><input type="radio" name="q21" value="B"> B &nbsp; she can't organise her presentation.</label>
+          <label><input type="radio" name="q21" value="C"> C &nbsp; she doesn't have enough time.</label>
         </div>
         <span class="answer-reveal" id="r21"></span>
       </div>
 
       <div class="mcq-question">
-        <p><span class="qid-tag">Q.22.TEST001</span> 22. What is the project based on?</p>
+        <p><span class="qid-tag">Q.22.TEST022</span> 22. Her presentation is going to focus on</p>
         <div class="mcq-options">
-          <label><input type="radio" name="q22" value="A"> A &nbsp; a study they did before in Australia</label>
-          <label><input type="radio" name="q22" value="B"> B &nbsp; a similar angle someone has done before</label>
-          <label><input type="radio" name="q22" value="C"> C &nbsp; an Australian study</label>
+          <label><input type="radio" name="q22" value="A"> A &nbsp; solar power in America.</label>
+          <label><input type="radio" name="q22" value="B"> B &nbsp; solar-powered water heaters.</label>
+          <label><input type="radio" name="q22" value="C"> C &nbsp; alternative energy technology.</label>
         </div>
         <span class="answer-reveal" id="r22"></span>
       </div>
 
       <div class="mcq-question">
-        <p><span class="qid-tag">Q.23.TEST001</span> 23. What does the professor advise Douglas to do about the formation of the focus groups?</p>
+        <p><span class="qid-tag">Q.23.TEST022</span> 23. Why does Lyn think we should be looking for alternative sources of energy?</p>
         <div class="mcq-options">
-          <label><input type="radio" name="q23" value="A"> A &nbsp; strengthen the group in size</label>
-          <label><input type="radio" name="q23" value="B"> B &nbsp; reduce the number of children in each group</label>
-          <label><input type="radio" name="q23" value="C"> C &nbsp; build more than 3 groups</label>
+          <label><input type="radio" name="q23" value="A"> A &nbsp; Fossil fuels are expensive.</label>
+          <label><input type="radio" name="q23" value="B"> B &nbsp; Fossil fuels have an impact on the environment.</label>
+          <label><input type="radio" name="q23" value="C"> C &nbsp; Fossil fuels are limited.</label>
         </div>
         <span class="answer-reveal" id="r23"></span>
       </div>
 
       <div class="mcq-question">
-        <p><span class="qid-tag">Q.24.TEST001</span> 24. To do the project best, the professor suggests the students</p>
+        <p><span class="qid-tag">Q.24.TEST022</span> 24. Solar power is a good form of alternative energy because</p>
         <div class="mcq-options">
-          <label><input type="radio" name="q24" value="A"> A &nbsp; interview various people or sectors.</label>
-          <label><input type="radio" name="q24" value="B"> B &nbsp; not be too ambitious.</label>
-          <label><input type="radio" name="q24" value="C"> C &nbsp; work hard enough.</label>
+          <label><input type="radio" name="q24" value="A"> A &nbsp; it can be harnessed with simple technology.</label>
+          <label><input type="radio" name="q24" value="B"> B &nbsp; it is infinite.</label>
+          <label><input type="radio" name="q24" value="C"> C &nbsp; it can be applied equally well in any country.</label>
         </div>
         <span class="answer-reveal" id="r24"></span>
       </div>
 
       <div class="mcq-question">
-        <p><span class="qid-tag">Q.25.TEST001</span> 25. To gather data, the professor asks Jane</p>
+        <p><span class="qid-tag">Q.25.TEST022</span> 25. Which graph best indicates what Lyn is describing?</p>
         <div class="mcq-options">
-          <label><input type="radio" name="q25" value="A"> A &nbsp; to replace other people's advice.</label>
-          <label><input type="radio" name="q25" value="B"> B &nbsp; to simplify the textbook.</label>
-          <label><input type="radio" name="q25" value="C"> C &nbsp; to practice using the date table.</label>
+          <label><input type="radio" name="q25" value="A"> A</label>
+          <label><input type="radio" name="q25" value="B"> B</label>
+          <label><input type="radio" name="q25" value="C"> C</label>
         </div>
         <span class="answer-reveal" id="r25"></span>
       </div>
-
-      <div class="mcq-question">
-        <p><span class="qid-tag">Q.26.TEST001</span> 26. The reason why Douglas hasn't read enough reference books is that</p>
-        <div class="mcq-options">
-          <label><input type="radio" name="q26" value="A"> A &nbsp; he doesn't have enough time.</label>
-          <label><input type="radio" name="q26" value="B"> B &nbsp; he thinks there are too many books to read.</label>
-          <label><input type="radio" name="q26" value="C"> C &nbsp; he hasn't spent time in the library.</label>
-        </div>
-        <span class="answer-reveal" id="r26"></span>
-      </div>
     </div>
 
-    <!-- Q27-30: Matching -->
+    <!-- Q26-30: Label the diagram -->
     <div class="question-block">
-      <p class="instruction">Questions 27–30: What do the students decide about the following parts of the project? Write the correct letter A, B or C next to questions 27–30.</p>
-      <div class="matching-key">
-        <p><strong>A</strong> — Jane will do</p>
-        <p><strong>B</strong> — Douglas will do</p>
-        <p><strong>C</strong> — They will do together</p>
+      <p class="instruction">Questions 26–30: Label the following diagram using NO MORE THAN TWO WORDS AND/OR A NUMBER.</p>
+      <div class="diagram-box">
+        <img src="Test22_ListeningDiagram.png" alt="Solar water heater tank diagram">
       </div>
-
-      <div class="matching-row">
-        <span><span class="qid-tag">Q.27.TEST001</span> 27. final report</span>
-        <select id="q27" data-answer="C">
-          <option value="">-- select --</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-        </select>
-        <span class="answer-reveal" id="r27"></span>
-      </div>
-      <div class="matching-row">
-        <span><span class="qid-tag">Q.28.TEST001</span> 28. sheet preparation</span>
-        <select id="q28" data-answer="B">
-          <option value="">-- select --</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-        </select>
-        <span class="answer-reveal" id="r28"></span>
-      </div>
-      <div class="matching-row">
-        <span><span class="qid-tag">Q.29.TEST001</span> 29. letter</span>
-        <select id="q29" data-answer="A">
-          <option value="">-- select --</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-        </select>
-        <span class="answer-reveal" id="r29"></span>
-      </div>
-      <div class="matching-row">
-        <span><span class="qid-tag">Q.30.TEST001</span> 30. transcript</span>
-        <select id="q30" data-answer="C">
-          <option value="">-- select --</option>
-          <option value="A">A</option>
-          <option value="B">B</option>
-          <option value="C">C</option>
-        </select>
-        <span class="answer-reveal" id="r30"></span>
+      <div class="notes-box">
+        <div class="note-row">
+          <span class="note-value">Minimum tank capacity:</span>
+          <span class="qid-tag">Q.26.TEST022</span>
+          <input type="text" id="q26" placeholder="..." data-answer="40 litres" style="width:110px">
+          <span class="answer-reveal" id="r26"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Coil at the bottom of the tank:</span>
+          <span class="qid-tag">Q.27.TEST022</span>
+          <input type="text" id="q27" placeholder="..." data-answer="Solar coil" style="width:100px">
+          <span class="answer-reveal" id="r27"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Temperature of bottom layer (below the coil):</span>
+          <span class="qid-tag">Q.28.TEST022</span>
+          <input type="text" id="q28" placeholder="..." data-answer="20" style="width:60px"> degrees
+          <span class="answer-reveal" id="r28"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Temperature of top layer (above the 40-degree middle layer):</span>
+          <span class="qid-tag">Q.29.TEST022</span>
+          <input type="text" id="q29" placeholder="..." data-answer="65" style="width:60px"> degrees
+          <span class="answer-reveal" id="r29"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">80mm layer around tank:</span>
+          <span class="qid-tag">Q.30.TEST022</span>
+          <input type="text" id="q30" placeholder="..." data-answer="Rigid foam" style="width:110px"> insulation
+          <span class="answer-reveal" id="r30"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -516,90 +493,65 @@
   <div class="part">
     <div class="part-title">PART 4 &nbsp;|&nbsp; Questions 31–40</div>
     <div class="question-block">
-      <p class="instruction">Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.</p>
+      <p class="instruction">Questions 31–40: Complete the sentences below using NO MORE THAN TWO WORDS OR A NUMBER.</p>
 
       <div class="notes-box">
-        <h3>History of Ancient Aztecs</h3>
-
-        <p style="font-weight:bold; margin-bottom:8px; color:#1a3a5c;">History of Aztec Origins:</p>
+        <h3>Lecture on Services Marketing</h3>
         <div class="note-row">
-          <span class="note-value">The great Aztec civilization was discovered by Heman Cortez.</span>
-        </div>
-        <div class="note-row">
-          <span class="note-value">The Aztec group was originated in the Northwestern
-            <span class="qid-tag">Q.31.TEST001</span>
-            <input type="text" id="q31" placeholder="..." data-answer="plains">
-            <span class="answer-reveal" id="r31"></span>
-            of Mexico, then moved to the South.
+          <span class="note-value">
+            Lecture on
+            <span class="qid-tag">Q.31.TEST022</span><input type="text" id="q31" placeholder="..." data-answer="Services marketing" style="width:140px"><span class="answer-reveal" id="r31"></span>
           </span>
         </div>
         <div class="note-row">
-          <span class="note-value">They created various advances in science, specialized in the fields of
-            <span class="qid-tag">Q.32.TEST001</span>
-            <input type="text" id="q32" placeholder="..." data-answer="astronomy">
-            <span class="answer-reveal" id="r32"></span>
-            and pharmacy.
-          </span>
-        </div>
-
-        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Farming Practices:</p>
-        <div class="note-row">
-          <span class="note-value">Increasing productivity by irrigation, fertilizer, and
-            <span class="qid-tag">Q.33.TEST001</span>
-            <input type="text" id="q33" placeholder="..." data-answer="terraces">
-            <span class="answer-reveal" id="r33"></span>
-            built on mount to protect landslide.
+          <span class="note-value">
+            Examples: tourism and
+            <span class="qid-tag">Q.32.TEST022</span><input type="text" id="q32" placeholder="..." data-answer="Legal advice" style="width:120px"><span class="answer-reveal" id="r32"></span>
           </span>
         </div>
         <div class="note-row">
-          <span class="note-value">Gardens float on swamps made by digging
-            <span class="qid-tag">Q.34.TEST001</span>
-            <input type="text" id="q34" placeholder="..." data-answer="canals">
-            <span class="answer-reveal" id="r34"></span>
-            between marshes and swamps.
+          <span class="note-value">
+            Common misconception is that marketing points to
+            <span class="qid-tag">Q.33.TEST022</span><input type="text" id="q33" placeholder="..." data-answer="Weakness" style="width:110px"><span class="answer-reveal" id="r33"></span>
+            in what is being provided.
           </span>
         </div>
         <div class="note-row">
-          <span class="note-value">The chinapas were kept firmly in place to plant main crops like
-            <span class="qid-tag">Q.35.TEST001</span>
-            <input type="text" id="q35" placeholder="..." data-answer="corns">
-            <span class="answer-reveal" id="r35"></span>
-            and vegetables.
-          </span>
-        </div>
-
-        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Field of Sciences:</p>
-        <div class="note-row">
-          <span class="note-value">Aztec's Calendar Stone was manufactured from 1427 to
-            <span class="qid-tag">Q.36.TEST001</span>
-            <input type="text" id="q36" placeholder="..." data-answer="1479">
-            <span class="answer-reveal" id="r36"></span>.
-            Dimension: 3-feet thickness, 12-feet
-            <span class="qid-tag">Q.37.TEST001</span>
-            <input type="text" id="q37" placeholder="..." data-answer="diameter">
-            <span class="answer-reveal" id="r37"></span>,
-            24-ton weight.
+          <span class="note-value">
+            Marketing is actually essential in maintaining
+            <span class="qid-tag">Q.34.TEST022</span><input type="text" id="q34" placeholder="..." data-answer="Customer numbers" style="width:150px"><span class="answer-reveal" id="r34"></span>
           </span>
         </div>
         <div class="note-row">
-          <span class="note-value">The "Nemontemi" called
-            <span class="qid-tag">Q.38.TEST001</span>
-            <input type="text" id="q38" placeholder="..." data-answer="sacrificial">
-            <span class="answer-reveal" id="r38"></span>
-            days, added to the calendar.
+          <span class="note-value">
+            Selling a product is easier because it is
+            <span class="qid-tag">Q.35.TEST022</span><input type="text" id="q35" placeholder="..." data-answer="Tangible" style="width:100px"><span class="answer-reveal" id="r35"></span>
+            and customers do not have such different
+            <span class="qid-tag">Q.36.TEST022</span><input type="text" id="q36" placeholder="..." data-answer="Expectations" style="width:130px"><span class="answer-reveal" id="r36"></span>
           </span>
         </div>
-
-        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Field of Medicine:</p>
         <div class="note-row">
-          <span class="note-value">The Aztec believed ailments were derived from God and the wrong signs of
-            <span class="qid-tag">Q.39.TEST001</span>
-            <input type="text" id="q39" placeholder="..." data-answer="birth">
-            <span class="answer-reveal" id="r39"></span>.
-            Illness was treated by praying and killing
-            <span class="qid-tag">Q.40.TEST001</span>
-            <input type="text" id="q40" placeholder="..." data-answer="animals">
-            <span class="answer-reveal" id="r40"></span>.
+          <span class="note-value">
+            Aim: offer service beyond hopes of
+            <span class="qid-tag">Q.37.TEST022</span><input type="text" id="q37" placeholder="..." data-answer="Clients" style="width:100px"><span class="answer-reveal" id="r37"></span>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">
+            Important to: (a) keep informed &amp; (b)
+            <span class="qid-tag">Q.38.TEST022</span><input type="text" id="q38" placeholder="..." data-answer="Constantly improve" style="width:150px"><span class="answer-reveal" id="r38"></span>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">
+            One way to achieve this:
+            <span class="qid-tag">Q.39.TEST022</span><input type="text" id="q39" placeholder="..." data-answer="(Conduct) surveys" style="width:150px"><span class="answer-reveal" id="r39"></span>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">
+            <span class="qid-tag">Q.40.TEST022</span><input type="text" id="q40" placeholder="..." data-answer="A representative" style="width:150px"><span class="answer-reveal" id="r40"></span>
+            must always be available for any queries or problems.
           </span>
         </div>
       </div>
@@ -639,14 +591,10 @@ function startExam() {
   window._studentClass = cls;
   window._testStartTime = Date.now();
 
-  // Đóng popup
   document.getElementById('studentPopup').style.display = 'none';
 
-  // Bắt đầu vào fullscreen sau khi đóng popup
   setTimeout(function() { if (window.enterFullscreen) window.enterFullscreen(); }, 300);
 }
-
-// _testStartTime được ghi nhận trong startExam() — không ghi ở đây
 
 // ===================== CHỐNG GIAN LẬN (tab độc lập - GitHub Pages) =====================
 (function() {
@@ -664,7 +612,6 @@ function startExam() {
   addLog('Bắt đầu làm bài');
 
   var tabWarningEl = document.getElementById('tabWarning');
-  var tabCountEl   = document.getElementById('tabCount');
 
   function showWarning(msg) {
     if (submitted) return;
@@ -673,7 +620,6 @@ function startExam() {
     setTimeout(function() { tabWarningEl.classList.remove('show'); }, 4000);
   }
 
-  // 1. Phát hiện chuyển tab
   document.addEventListener('visibilitychange', function() {
     if (document.hidden && !submitted) {
       tabViolations++;
@@ -682,7 +628,6 @@ function startExam() {
     }
   });
 
-  // 2. Phát hiện mất focus cửa sổ (window.blur hoạt động đúng ở tab độc lập)
   window.addEventListener('blur', function() {
     if (submitted) return;
     focusViolations++;
@@ -690,7 +635,6 @@ function startExam() {
     showWarning('⚠️ CẢNH BÁO: Bạn vừa rời khỏi cửa sổ thi! Hành vi đã được ghi lại. (Tổng vi phạm: ' + (tabViolations + focusViolations) + ' lần)');
   });
 
-  // 3. Fullscreen bắt buộc
   function enterFullscreen() {
     var el = document.documentElement;
     if (el.requestFullscreen)       el.requestFullscreen();
@@ -700,9 +644,6 @@ function startExam() {
   }
   window.enterFullscreen = enterFullscreen;
 
-  // Fullscreen được kích hoạt từ startExam() sau khi đóng popup
-
-  // Phát hiện thoát fullscreen
   document.addEventListener('fullscreenchange', function() {
     if (!document.fullscreenElement && !submitted) {
       fsViolations++;
@@ -718,10 +659,8 @@ function startExam() {
     }
   });
 
-  // 4. Chặn chuột phải
   document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
 
-  // 5. Chặn phím tắt
   document.addEventListener('keydown', function(e) {
     if (e.key === 'F12') { e.preventDefault(); return false; }
     if (e.ctrlKey && ['c','a','s','u','p','v'].includes(e.key.toLowerCase())) {
@@ -730,21 +669,17 @@ function startExam() {
     if (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(e.key.toLowerCase())) {
       e.preventDefault(); return false;
     }
-    // Escape thoát fullscreen — chặn
     if (e.key === 'Escape') { e.preventDefault(); return false; }
   });
 
-  // 6. Chặn copy & paste
   document.addEventListener('copy',  function(e) { e.preventDefault(); return false; });
   document.addEventListener('paste', function(e) { e.preventDefault(); return false; });
   document.addEventListener('cut',   function(e) { e.preventDefault(); return false; });
 
-  // 7. Chặn drag & drop
   document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
   document.addEventListener('drop',      function(e) { e.preventDefault(); return false; });
 
 
-  // Export
   window.getViolationLog = function() {
     submitted = true;
     return { tabViolations: tabViolations, focusViolations: focusViolations, fsViolations: fsViolations, log: log };
@@ -756,7 +691,7 @@ function startExam() {
   var MAIN_MS  = 40 * 60 * 1000;
   var EXTRA_MS =  5 * 60 * 1000;
 
-  var startTime    = null;   // set from window._testStartTime when first tick runs
+  var startTime    = null;
   var inExtraTime  = false;
   var extraStart   = null;
   var timerStopped = false;
@@ -776,7 +711,6 @@ function startExam() {
   function tick() {
     if (timerStopped) return;
     if (!startTime) {
-      // Wait until student has started the exam
       if (!window._testStartTime) return;
       startTime = window._testStartTime;
     }
@@ -814,66 +748,66 @@ function startExam() {
 
 // Answer keys (lowercase, trimmed for comparison)
 const answers = {
-  q1:  ["animal park"],
-  q2:  ["cold and cloudy"],
-  q3:  ["10.15 am","10:15 am","10.15am"],
-  q4:  ["birds of prey"],
-  q5:  ["reptile display"],
-  q6:  ["6.30 pm","6:30 pm","6.30pm"],
-  q7:  ["chinese"],
-  q8:  ["japanese"],
-  q9:  ["koreans","korean"],
-  q10: ["thai"],
-  q11: ["2.30/7.30 pm","2.30 / 7.30 pm","2:30/7:30 pm","2.30 and 7.30 pm"],
-  q12: ["cd"],
-  q13: ["separate programme","separate program"],
-  q14: ["dance festival"],
-  q15: ["4 continents","four continents"],
-  q16: ["14-20 march","14–20 march","march 14-20","march 14–20"],
-  q17: ["love and hope"],
-  q18: ["producer"],
-  q19: ["singing competition"],
-  q20: ["shown on tv","shown on television"],
-  q21: ["a"],
-  q22: ["c"],
-  q23: ["b"],
-  q24: ["b"],
-  q25: ["c"],
-  q26: ["a"],
-  q27: ["c"],
-  q28: ["b"],
-  q29: ["a"],
-  q30: ["c"],
-  q31: ["plains","plain"],
-  q32: ["astronomy"],
-  q33: ["terraces","terrace"],
-  q34: ["canals","canal"],
-  q35: ["corns","corn"],
-  q36: ["1479"],
-  q37: ["diameter"],
-  q38: ["sacrificial"],
-  q39: ["birth"],
-  q40: ["animals","animal"]
+  q1:  ["waddell"],
+  q2:  ["robyn place"],
+  q3:  ["263 8666"],
+  q4:  ["visa"],
+  q5:  ["10"],
+  q6:  ["$35","35"],
+  q7:  ["unlimited kilometres","unlimited kilometers"],
+  q8:  ["relatives"],
+  q9:  ["(an) automatic","an automatic","automatic"],
+  q10: ["driving license","driving licence","drivers license","driver's license"],
+  q11: ["681"],
+  q12: ["tunnels","tunnel"],
+  q13: ["5"],
+  q14: ["x"],
+  q15: ["whale watching"],
+  q16: ["indian pacific"],
+  q17: ["earlier settlers","early settlers"],
+  q18: ["1 millionth","one millionth","1,000,000th"],
+  q19: ["states"],
+  q20: ["the continent","continent"],
+  q21: ["b"],
+  q22: ["b"],
+  q23: ["c"],
+  q24: ["a"],
+  q25: ["a"],
+  q26: ["40 litres","40 liters"],
+  q27: ["solar coil"],
+  q28: ["20"],
+  q29: ["65"],
+  q30: ["rigid foam"],
+  q31: ["services marketing"],
+  q32: ["legal advice"],
+  q33: ["weakness"],
+  q34: ["customer numbers"],
+  q35: ["tangible"],
+  q36: ["expectations"],
+  q37: ["clients"],
+  q38: ["constantly improve"],
+  q39: ["(conduct) surveys","conduct surveys","surveys"],
+  q40: ["a representative","representative"]
 };
 
 function normalize(str) {
-  let _nz = String(str).toLowerCase().trim();
-  _nz = _nz.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
-  _nz = _nz.replace(/(\d),(?=\d)/g, '$1');
-  var _noWeekday = _nz.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
-  if (_noWeekday.length > 0) _nz = _noWeekday;
-  _nz = _nz.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
-  _nz = _nz.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
-  _nz = _nz.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
-  _nz = _nz.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
-  _nz = _nz.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
-  _nz = _nz.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
-  _nz = _nz.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
-  var _months = 'january|february|march|april|may|june|july|august|september|october|november|december';
-  var _monthDay = new RegExp('\\b(' + _months + ')\\s+(\\d{1,2})\\b');
-  _nz = _nz.replace(_monthDay, function(m, mo, d) { return d + ' ' + mo; });
-  _nz = _nz.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
-  return _nz;
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
 }
 
 function submitTest() {
@@ -886,9 +820,8 @@ function submitTest() {
     const correctList = answers[qId];
     const revealEl = document.getElementById(rId);
 
-    // Text inputs (Q1-20, Q31-40)
     const inputEl = document.getElementById(qId);
-    if (inputEl && inputEl.tagName === 'INPUT') {
+    if (inputEl && inputEl.tagName === 'INPUT' && inputEl.type === 'text') {
       const userAns = normalize(inputEl.value);
       const isCorrect = correctList.some(a => normalize(a) === userAns);
       inputEl.classList.remove('correct','wrong');
@@ -902,15 +835,14 @@ function submitTest() {
         revealEl.style.color = '#e74c3c';
       }
       revealEl.classList.add('show');
+      continue;
     }
 
-    // Radio (Q21-26)
     const radioEls = document.querySelectorAll('input[name="' + qId + '"]');
     if (radioEls.length > 0) {
       let userAns = '';
       radioEls.forEach(r => { if (r.checked) userAns = r.value; });
       const isCorrect = correctList.some(a => normalize(a) === normalize(userAns));
-      // highlight labels
       radioEls.forEach(r => {
         const lbl = r.parentElement;
         lbl.classList.remove('correct-label','wrong-label');
@@ -927,27 +859,8 @@ function submitTest() {
       }
       revealEl.classList.add('show');
     }
-
-    // Select (Q27-30)
-    const selectEl = document.getElementById(qId);
-    if (selectEl && selectEl.tagName === 'SELECT') {
-      const userAns = normalize(selectEl.value);
-      const isCorrect = correctList.some(a => normalize(a) === userAns);
-      selectEl.classList.remove('correct','wrong');
-      selectEl.classList.add(isCorrect ? 'correct' : 'wrong');
-      if (isCorrect) {
-        score++;
-        revealEl.innerHTML = '✔';
-        revealEl.style.color = '#27ae60';
-      } else {
-        revealEl.innerHTML = '✘ &rarr; <strong>' + correctList[0].toUpperCase() + '</strong>';
-        revealEl.style.color = '#e74c3c';
-      }
-      revealEl.classList.add('show');
-    }
   }
 
-  // Show score
   const board = document.getElementById('scoreBoard');
   board.style.display = 'block';
   document.getElementById('scoreNum').textContent = score + ' / ' + total;
@@ -961,7 +874,6 @@ function submitTest() {
 
   board.scrollIntoView({ behavior: 'smooth' });
 
-  // ===================== ĐỌC CHI TIẾT TỪNG CÂU (TRƯỚC KHI KHÓA INPUT) =====================
   var _details = [];
   for (var di = 1; di <= 40; di++) {
     var dqId  = 'q' + di;
@@ -969,18 +881,13 @@ function submitTest() {
     var dVal  = '';
     var dOk   = '✘';
 
-    // Text input
     var dEl = document.getElementById(dqId);
     if (dEl && dEl.tagName === 'INPUT' && dEl.type === 'text') {
       dVal = dEl.value || '';
       dOk  = dEl.classList.contains('correct') ? '✔' : '✘';
-
-    // Select
     } else if (dEl && dEl.tagName === 'SELECT') {
       dVal = dEl.value || '';
       dOk  = dEl.classList.contains('correct') ? '✔' : '✘';
-
-    // Radio
     } else {
       var dRadios = document.querySelectorAll('input[name="' + dqId + '"]');
       if (dRadios.length > 0) {
@@ -995,23 +902,19 @@ function submitTest() {
   }
   window._submittedDetails = _details;
 
-  // Khóa toàn bộ input sau khi nộp
   document.querySelectorAll('input[type="text"], input[type="radio"], select').forEach(function(el) {
     el.disabled = true;
   });
   document.getElementById('submitBtn').disabled = true;
   document.getElementById('submitBtn').textContent = '✅ Đã nộp bài';
 
-  // Dừng timer
   if (window.stopTimer) window.stopTimer();
   var timerBox = document.getElementById('timerBox');
   if (timerBox) timerBox.style.display = 'none';
 
-  // Dừng audio
   var audioEl = document.querySelector('audio');
   if (audioEl) { audioEl.pause(); }
 
-  // Hiện log vi phạm
   var v = window.getViolationLog ? window.getViolationLog() : null;
   var totalV = 0;
   if (v) {
@@ -1033,11 +936,9 @@ function submitTest() {
     document.getElementById('scoreMsg').innerHTML += logSummary;
   }
 
-  // ===================== GỬI KẾT QUẢ LÊN GOOGLE SHEETS =====================
   (function() {
     var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
 
-    // Tính thời gian làm bài
     var endTime   = Date.now();
     var startTime = window._testStartTime || endTime;
     var elapsed   = Math.floor((endTime - startTime) / 1000);
@@ -1045,17 +946,14 @@ function submitTest() {
     var ss = elapsed % 60;
     var timeTaken = mm + ' phút ' + ss + ' giây';
 
-    // Chi tiết từng câu — đã đọc trước khi khóa input
     var details = window._submittedDetails || [];
 
-    // Band
     var bandEl = document.getElementById('scoreMsg');
     var band   = bandEl ? bandEl.textContent.replace(/⚠️.*|✅.*/g,'').trim() : '';
 
-    // Payload
     var payload = {
       student:    (window._studentName || 'Ẩn danh') + ' — ' + (window._studentClass || ''),
-      test:       'Listening Test 1',
+      test:       'Listening Test 22',
       score:      score,
       total:      total,
       band:       band,
@@ -1066,7 +964,6 @@ function submitTest() {
       details:    details.join(' | ')
     };
 
-    // Gửi lên Google Sheets
     fetch(SHEET_URL, {
       method:  'POST',
       mode:    'no-cors',

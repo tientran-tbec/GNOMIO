@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 21</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 21</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">Money Transfers by Mobile</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">The ping of a text message has never sounded so sweet. In what is being touted as a world first, Kenya’s biggest mobile operator is allowing subscribers to send cash to other phone users by SMS. Known as M-Pesa, or mobile money, the service is expected to revolutionise banking in a country where more than 80% of people are excluded from the formal financial sector. Apart from transferring cash - a service much in demand among urban Kenyans supporting relatives in rural areas - customers of the Safaricom network will be able to keep up to 50,000 shillings (£370) in a “virtual account” on their handsets.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Developed by Vodafone, which holds a 35% share in Safaricom, M-Pesa was formally launched in Kenya two weeks ago. More than 10,000 people have signed up for the service, with around 8 million shillings transferred so far, mostly in tiny denominations. Safaricom’s executives are confident that growth will be strong in Kenya, and later across Africa. “We are effectively giving people ATM cards without them ever having to open a real bank account,” said Michael Joseph, chief executive of Safaricom, who called the money transfer concept the “next big thing” in mobile telephony.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">M-Pesa’s is simple. There is no need for a new handset or SIM card. To send money, you hand over the cash to a registered agent - typically a retailer - who credits your virtual account. You then send between 100 shillings (74p) and 35,000 shillings (£259) via text message to the desired recipient - even someone on a different mobile network - who cashes it at an agent by entering a secret code and showing ID. A commission of up to 170 shillings (£1.25) is paid by the recipient but it compares favourably with fees levied by the major banks, whose services are too expensive for most of the population.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">Mobile phone growth in Kenya, as in most of Africa, has been remarkable, even among the rural poor. In June 1999, Kenya had 15,000 mobile subscribers. Today, it has nearly 8 million out of a population of 35 million, and the two operators’ networks are as extensive as the access to banks is limited. Safaricom says it is not so much competing with financial services companies as filling a void. In time, M-Pesa will allow people to borrow and repay money, and make purchases. Companies will be able to pay salaries directly into workers’ phones - something that has already attracted the interest of larger employers, such as the tea companies, whose workers often have to be paid in cash as they do not have bank accounts. There are concerns about security, but Safaricom insists that even if someone’s phone is stolen, the PIN system prevents unauthorised withdrawals. Mr. Joseph said the only danger is sending cash to the wrong mobile number and the recipient redeeming it straight away.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">The project is being watched closely by mobile operators around the world as a way of targeting the multibillion pound international cash transfer industry long dominated by companies such as Western Union and Moneygram. Remittances sent from nearly 200 million migrant workers to developing countries totalled £102 billion last year, according to the World Bank. The GSM Association, which represents more than 700 mobile operators worldwide, believes this could quadruple by 2012 if transfers by SMS become the norm. Vodafone has entered a partnership with Citigroup that will soon allow Kenyans in the UK to send money home via text message. The charge for sending £50 is expected to be about £3, less than a third of what some traditional services charge.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Park the Car Permanently</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">More than a million people are likely to be disappointed by their experience of the Government's attempts to improve the democratic process. They may have signed an online petition against road pricing, but ministers are determined to push ahead with plans to make it more expensive to drive. The Government is convinced that this is the only way to reduce congestion and the environmental damage caused by motoring.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Why wait until you are forced off the road by costly charges? You may enjoy the convenience of your car, but the truth is that for huge numbers of people, owning a car makes little financial sense. You'd be far better off giving it up and relying on other forms of transport. "I'm 47 and I've never owned a car, despite having a job that requires me to travel all over the South-East to visit clients," says Donnachadh McCarthy, an environmental expert who specialises in advising people how to be greener. "A car is a huge financial commitment, as well as being a psychological addiction. Not owning a vehicle is far more practical than most people realise."</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">It may seem as if cars have never been cheaper. After all, it is now possible to buy a brand new car for less than £4,800 - the Perodua Kelisa, if you're interested. There are plenty of decent vehicles you can buy straight from the showroom for between £5,000 and £7,000. Of course, if you buy second-hand, the prices will be even lower. However, the falling purchase price of cars masks the fact that it has never been more expensive to own and run a vehicle. The estimate is that the cost of running a car rose by more than ten per cent last year alone. The annual cost of running your own vehicle is put at an average of £5,539, or £107 a week. While drivers who do less or more than the average mileage each year will spend correspondingly less or more, many of the costs of car ownership are fixed - and therefore unavoidable.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">Depreciation - the fact that your vehicle loses a large chunk of its resale value each year - is one problem, accounting for £2,420 a year. The cost of finance packages, which most people have to resort to to pay for at least part of the price of a new car, has also been rising - to an average of £1,040 a year. Then there's insurance, maintenance, tax, and breakdown insurance, all of which will cost you broadly the same amount, however many miles you do. Only fuel costs are truly variable. While petrol prices are the most visible indicator of the cost of running a car, for the typical driver they account for less than one fifth of the real costs each year. In other words, leaving aside all the practical and psychological barriers to giving up your car, in financial terms, doing so makes sense for many people.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">Take the cost of public transport, for example. In London, the most expensive city in the UK, the most expensive annual travel card, allowing travel in any zone at any time, costs just over £1,700. You could give up your car and still have thousands of pounds to spare to spend on occasional car hire. In fact, assuming that you have the most expensive travel card in London, you could hire a cheap car from a company, such as easyCar for about 30 weeks a year, and still be better off overall than if you own your own vehicle. Not that car hire is necessarily the most cost-effective option for people who are prepared to do without a car but may still need to drive occasionally.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">Streetcar, one of several "car clubs" with growing numbers of members, reckons that using its vehicles twice a week, every week, for a year, would cost you just £700. Streetcar's model works very similarly to those of its main rivals, Citycarclub and Whizzgo. These three companies, which now operate in 20 of Britain's towns and cities, charge their members a refundable deposit - £150 at Streetcar - and then provide them with an electronic smart card. This enables members to get into the vehicles, which are left parked in set locations, and the keys are then found in the glove compartment. Members pay an hourly rate for the car - £4.95 is the cost at Streetcar - and return it to the same spot, or to a different designated parking place.</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">Car sharing is an increasingly popular option for people making the same journeys regularly - to and from work, for example. Many companies run schemes that help colleagues who live near to each other and work in the same place to contact each other so they can share the journey to work. Liftshare and Carshare are two national organisations that maintain online databases of people who would be prepared to team up. Other people may be able to replace part or all of their journey to work - or any journeys, for that matter - with low-cost transport such as a bicycle, or even by just walking. The more you can reduce your car use, however you gain access to it, the more you will save.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">Low-Cost Lamps Light Rural India</div>
+      <div class="passage-para">Until three months ago, life in this humble village without electricity would come to a halt after sunset. Inside his mud-and-clay home, Ganpat Jadhav's three children used to study in the dim, smoky glow of a kerosene lamp, when their monthly fuel quota of four litres dried up in just a fortnight, they had to strain their eyes using the light from a cooking fire. That all changed with the installation of low-cost, energy-efficient lamps that are powered entirely by the sun. The lights were installed by the Grameen Surya Bijli Foundation (GSBF), an Indian non-governmental organisation focused on bringing light to rural India. Some 100,000 Indian villages do not yet have electricity. The GSBF lamps use LEDs - light emitting diodes - that are four times more efficient than a normal bulb. After a $55 installation cost, solar energy lights the lamp free of charge. LED lighting, like cell phones, is another example of a technology whose low cost could allow the rural poor to leap into the 21st century.</div>
+      <div class="passage-para">As many as 1.5 billion people - nearly 80 million in India alone - light their houses using kerosene as the primary lighting media. The fuel is dangerous, dirty, and - despite being subsidised - consumes nearly four per cent of a typical rural Indian household’s budget. A recent report by the Intermediate Technology Development Group suggests that indoor air pollution from such lighting media results in 1.6 million deaths worldwide every year. LED lamps, or more specifically white LEDs, are believed to produce nearly 200 times more useful light than a kerosene lamp and almost 50 times the amount of useful light of a conventional bulb. "This technology can light an entire rural village with less energy than that used by a single conventional 100-watt light bulb,” says Dave Irvine-Halliday, a professor of electrical engineering at the University of Calgary, Canada and the founder of Light up the World Foundation (LUTW). Founded in 1997, LUTW has used LED technology to bring light to nearly 10,000 homes in remote and disadvantaged corners of some 27 countries like India, Nepal, Sri Lanka, Bolivia, and the Philippines.</div>
+      <div class="passage-para">The technology, which is not yet widely known in India, faces some scepticism here. “LED systems are revolutionising rural lighting, but this isn’t a magic solution to the world’s energy problems,” says Ashok Jhunjhunwala, head of the electrical engineering department at the Indian Institute of Technology, Madras. In a scenario in which nearly 60 per cent of India’s rural population uses 180 million tons of biomass per year for cooking via primitive wood stoves - which are smoky and provide only 10-15 per cent efficiency in cooking -Jhunjhunwala emphasises the need for a clean energy source, not just for lighting but for other domestic purposes as well. The Indian government in April launched an ambitious project to bring electricity to 112,000 rural villages in the next decade. However, the remote locations of the village will make reaching this goal difficult. A. K. Lakhina, the chairman of India’s Rural Electrification Corporation, says the Indian government recognises the potential of LED lighting powered by solar technology, but expressed reservations about its high costs. “If only LEDs weren't imported but manufactured locally,” he says, “and in bulk.”</div>
+      <div class="passage-para">The lamps installed in nearly 300 homes by GSBF cost nearly half the price of other solar lighting systems. Jasjeet Singh Chaddha, the founder of the NGO, currently imports his LEDs from China. He wants to set up an LED manufacturing unit and a solar panel manufacturing unit in India. If manufactured locally, the cost of his LED lamp could plummet to $22, as they will not incur heavy import duties. “We need close to $5 million for this,” he says. Mr. Chaddha says he has also asked the government to exempt the lamps from such duties, but to no avail. An entrepreneur who made his money in plastics, Chaddha, has poured his own money into the project, providing the initial installations free of charge. As he looks to make the project self-sustainable, he recognises that it is only urban markets -which have also shown an avid interest in LED lighting - that can pay. The rural markets in India cannot afford it, he says, until the prices are brought down. The rural markets would be able to afford it, says Mr. Irvine-Halliday, if they had access to microcredit. He says that in Tembisa, a shanty town in Johannesburg, he found that almost 10,000 homes spent more than $60 each on candles and paraffin every year. As calculations revealed, these families can afford to purchase a solid state lighting system in just over a year of paying per week what they would normally spend on candles and paraffin - if they have access to microcredit. LUTW is in the process of creating such a microcredit facility for South Africa.</div>
+      <div class="passage-para">In villages near Khadakwadi, the newly installed LED lamps are a subject of envy, even for those connected to the grid. Those connected to the grid have to face power cuts up to 6 or 7 hours a day. Constant energy shortages and blackouts are a common problem due to a lack of power plants, transmission, and distribution losses caused by old technology and illegal stealing of electricity from the grid. LED systems require far less maintenance, a longer life, and as villagers jokingly say, “no electricity bills”. The lamps provided by GSBF have enough power to provide just four hours of light a day. However, that is enough for people to get their work done in the early hours of the night, and is more reliable than light generated off India’s electrical grid. Villagers are educated by GSBF officials to make the most of the new lamps. An official from GSBF instructs Jadhav and his family to clean the lamp regularly. “Its luminosity and life will diminish if you let the dust settle on it,” he warns them.</div>
+    </div>
+
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1-4: The text has 5 paragraphs (A - E). Which paragraph contains each of the following pieces of information?</div>
+      <div class="q-block">
+        <div class="q-label">Q1. A possible security problem</div>
+        <div class="tfng-row">
+          <select id="q1" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. The cost of M-Pesa</div>
+        <div class="tfng-row">
+          <select id="q2" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. An international service similar to M-Pesa</div>
+        <div class="tfng-row">
+          <select id="q3" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. The fact that most Kenyans do not have a bank account</div>
+        <div class="tfng-row">
+          <select id="q4" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 5-8: Complete the following sentences using NO MORE THAN THREE WORDS from the text for each gap.</div>
+      <div class="q-block">
+        <div class="passage-para">Safaricom is the <b>5.</b> <input type="text" id="q5" oninput="markTxt(this)" placeholder="answer"> mobile phone company in Kenya. An M-Pesa account needs to be credited by <b>6.</b> <input type="text" id="q6" oninput="markTxt(this)" placeholder="answer">. <b>7.</b> <input type="text" id="q7" oninput="markTxt(this)" placeholder="answer"> companies are particularly interested in using M-Pesa. Companies like Moneygram and Western Union have <b>8.</b> <input type="text" id="q8" oninput="markTxt(this)" placeholder="answer"> the international money transfer market.</div>
+        <div class="q-result" id="r5"></div><div class="q-result" id="r6"></div>
+        <div class="q-result" id="r7"></div><div class="q-result" id="r8"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 9-13: Do the statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q9. Most Kenyans working in urban areas have relatives in rural areas.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q9" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q9" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q9" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r9"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q10. So far, most of the people using M-Pesa have used it to send small amounts of money.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q10" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q10" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q10" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r10"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q11. M-Pesa can only be used by people using one phone network.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q11" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q11" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q11" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. M-Pesa can be used to buy products and services.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q12" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q12" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q12" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. The GSM Association is a consumer organisation.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q13" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q13" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q13" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14-17: The text has 7 paragraphs (A - G). Which paragraph does each of the following headings best fit?</div>
+      <div class="q-block">
+        <div class="q-label">Q14. Don't wait!</div>
+        <div class="tfng-row">
+          <select id="q14" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. Team up</div>
+        <div class="tfng-row">
+          <select id="q15" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. Join a club</div>
+        <div class="tfng-row">
+          <select id="q16" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. Use public transport</div>
+        <div class="tfng-row">
+          <select id="q17" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 18-22: According to the text, FIVE of the following statements are true. Write the corresponding letters in answer boxes 18 to 22 in any order. (Choose FIVE letters, A-H)</div>
+      <div class="q-block">
+        <label class="check-opt"><input type="checkbox" name="q1822" value="A" onchange="wireLimit1822()"> A &nbsp; McCarthy claims people can become addicted to using cars.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="B" onchange="wireLimit1822()"> B &nbsp; The cost of using a car rose by over ten per cent last year.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="C" onchange="wireLimit1822()"> C &nbsp; Most British people borrow money to help buy cars.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="D" onchange="wireLimit1822()"> D &nbsp; Many people need cars to drive in London occasionally.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="E" onchange="wireLimit1822()"> E &nbsp; Streetcar operates in over 20 cities in Britain.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="F" onchange="wireLimit1822()"> F &nbsp; Streetcar's cars must be left at specific locations.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="G" onchange="wireLimit1822()"> G &nbsp; Car sharing is becoming more popular with people who live and work near each other.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="H" onchange="wireLimit1822()"> H &nbsp; The government wants to encourage people to go to work on foot or by bicycle.</label>
+        <div class="q-result" id="r18"></div><div class="q-result" id="r19"></div><div class="q-result" id="r20"></div><div class="q-result" id="r21"></div><div class="q-result" id="r22"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 23-26: For each question, only ONE of the choices is correct. Write the corresponding letter in the appropriate box on your answer sheet.</div>
+      <div class="q-block">
+        <div class="q-label">Q23. According to the information given in the text, choose the correct answer or answers from the choices given. The government has decided</div>
+        <label class="radio-opt"><input type="radio" name="q23" value="A" onchange="markRad(this)"> A &nbsp; not to follow protestors' suggestions.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="B" onchange="markRad(this)"> B &nbsp; to become more democratic.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="C" onchange="markRad(this)"> C &nbsp; to go ahead with charging drivers to use roads.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="D" onchange="markRad(this)"> D &nbsp; Both A and C</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="E" onchange="markRad(this)"> E &nbsp; Both B and C</label>
+        <div class="q-result" id="r23"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q24. Cars are often</div>
+        <label class="radio-opt"><input type="radio" name="q24" value="A" onchange="markRad(this)"> A &nbsp; relatively cheap in Britain.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="B" onchange="markRad(this)"> B &nbsp; relatively expensive to operate in Britain.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="C" onchange="markRad(this)"> C &nbsp; sold second-hand in Britain.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="D" onchange="markRad(this)"> D &nbsp; Both A and C</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="E" onchange="markRad(this)"> E &nbsp; Both A and B</label>
+        <div class="q-result" id="r24"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q25. Fuel costs</div>
+        <label class="radio-opt"><input type="radio" name="q25" value="A" onchange="markRad(this)"> A &nbsp; make up about 20% of the cost of running a car.</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="B" onchange="markRad(this)"> B &nbsp; are related to the amount drivers pay for their cars.</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="C" onchange="markRad(this)"> C &nbsp; depend on how far you drive.</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="D" onchange="markRad(this)"> D &nbsp; Both A and C</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="E" onchange="markRad(this)"> E &nbsp; Both B and C</label>
+        <div class="q-result" id="r25"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q26. Using public transport</div>
+        <label class="radio-opt"><input type="radio" name="q26" value="A" onchange="markRad(this)"> A &nbsp; will save money for British motorists, except in London.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="B" onchange="markRad(this)"> B &nbsp; and renting a car part of the time can save money.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="C" onchange="markRad(this)"> C &nbsp; costs Londoners about £1,700 a year.</label>
+        <div class="q-result" id="r26"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27-30: For each question, only ONE of the choices is correct. Write the corresponding letter in the appropriate box on your answer sheet.</div>
+      <div class="q-block">
+        <div class="q-label">Q27. The GSBF lamps</div>
+        <label class="radio-opt"><input type="radio" name="q27" value="A" onchange="markRad(this)"> A &nbsp; provide light for 100,000 Indian villages.</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="B" onchange="markRad(this)"> B &nbsp; are very expensive to install.</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="C" onchange="markRad(this)"> C &nbsp; are powered by the sun.</label>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. More than half of India's population uses</div>
+        <label class="radio-opt"><input type="radio" name="q28" value="A" onchange="markRad(this)"> A &nbsp; kerosene as a cooking fuel.</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="B" onchange="markRad(this)"> B &nbsp; biomass as a cooking fuel.</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="C" onchange="markRad(this)"> C &nbsp; solar power as a cooking fuel.</label>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. In India, the GSBF lamps are too expensive for most people</div>
+        <label class="radio-opt"><input type="radio" name="q29" value="A" onchange="markRad(this)"> A &nbsp; in rural areas.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="B" onchange="markRad(this)"> B &nbsp; in urban areas.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="C" onchange="markRad(this)"> C &nbsp; in all areas.</label>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. The GSBF lamps</div>
+        <label class="radio-opt"><input type="radio" name="q30" value="A" onchange="markRad(this)"> A &nbsp; are not as reliable as electricity from the national power grid.</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="B" onchange="markRad(this)"> B &nbsp; require skill to use.</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="C" onchange="markRad(this)"> C &nbsp; only provide four hours of light a day.</label>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 31-35: Complete the following sentences using NO MORE THAN THREE WORDS from the text for each gap.</div>
+      <div class="q-block">
+        <div class="passage-para">Another example of cheap technology helping poor people in the countryside is <b>31.</b> <input type="text" id="q31" oninput="markTxt(this)" placeholder="answer">. Kerosene lamps and conventional bulbs give off less <b>32.</b> <input type="text" id="q32" oninput="markTxt(this)" placeholder="answer"> than GSBF lamps. It is unlikely that the Indian government will achieve its aim of connecting 112,000 villages to electricity because many villages are <b>33.</b> <input type="text" id="q33" oninput="markTxt(this)" placeholder="answer">. GSBF lamps would be cheaper if it weren't for <b>34.</b> <input type="text" id="q34" oninput="markTxt(this)" placeholder="answer">. Users need to wipe <b>35.</b> <input type="text" id="q35" oninput="markTxt(this)" placeholder="answer"> from the LED in order to keep it working well.</div>
+        <div class="q-result" id="r31"></div><div class="q-result" id="r32"></div><div class="q-result" id="r33"></div><div class="q-result" id="r34"></div><div class="q-result" id="r35"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 36-40: Do the following statements agree with the information given in Reading Passage 3? Write TRUE, FALSE or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q36. Ganpat Jadhav's monthly ration of kerosene was insufficient.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q36" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q36" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q36" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q37. Kerosene causes many fires in homes in developing countries.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q37" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q37" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q37" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. LED systems could solve the world's energy problems.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q38" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q38" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q38" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. Chaddha has so far funded the GSBF lamp project himself.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q39" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q39" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q39" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. Microcredit would help to get more people to use LED lamps.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q40" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q40" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q40" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r40"></div>
+      </div>
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// CHECKBOX GIỚI HẠN CHỌN 2 (Q17-18)
+function showCheckLimit(name, max) {
+  var id = 'chk-limit-' + name;
+  var el = document.getElementById(id);
+  if (!el) {
+    el = document.createElement('div');
+    el.id = id;
+    el.style.cssText = 'color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;';
+    var grp = document.querySelector('input[name="' + name + '"]');
+    if (grp && grp.parentNode) grp.parentNode.appendChild(el);
+  }
+  el.textContent = '⚠ Chỉ được chọn tối đa ' + max + ' đáp án!';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.textContent = ''; }, 2500);
+}
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getChecked(name){var out=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){out.push(c.value);});return out;}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSelAny(id,ansArr){var v=getVal(id).toUpperCase();return ansArr.some(function(a){return a.toUpperCase()===v;})?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+function wireLimit1822(){}
+document.querySelectorAll('input[name="q1822"]').forEach(function(inp) {
+  inp.addEventListener('change', function() {
+    var lbl = inp.closest('.check-opt');
+    if (lbl) lbl.classList.toggle('selected-answer', inp.checked);
+    if (inp.checked) {
+      var n = document.querySelectorAll('input[name="q1822"]:checked').length;
+      if (n > 5) { inp.checked = false; if(lbl) lbl.classList.remove('selected-answer'); showCheckLimit('q1822', 5); }
+    }
+  });
+});
+
+// ANSWER KEY
+var ANS={
+  q1:'D',q2:'C',q3:'E',q4:'A',
+  q5:['biggest'],q6:['an agent','a registered agent'],q7:['tea'],q8:['long dominated'],
+  q9:'NOT GIVEN',q10:'TRUE',q11:'FALSE',q12:'FALSE',q13:'FALSE',
+  q14:'B',q15:'G',q16:'F',q17:'E',
+  q1822:['A','B','C','F','G'],
+  q23:'D',q24:'E',q25:'D',q26:'B',
+  q27:'C',q28:'B',q29:'A',q30:'C',
+  q31:['cell phones'],q32:['useful light'],q33:['remote'],q34:['heavy import duties','import duties'],q35:['dust'],
+  q36:'TRUE',q37:'NOT GIVEN',q38:'FALSE',q39:'TRUE',q40:'TRUE'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+
+  // Q1-4 select
+  for(var i=1;i<=4;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q5-8 text
+  for(var i=5;i<=8;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q9-13 radio TFNG
+  for(var i=9;i<=13;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q14-17 select
+  for(var i=14;i<=17;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q18-22 checkbox group (choose FIVE)
+  (function(){
+    var chosen=getChecked('q1822');
+    var correct=ANS['q1822'];
+    for(var k=0;k<5;k++){
+      var qn=18+k;
+      var ok=chosen.indexOf(correct[k])>=0?1:0;
+      score+=ok;
+      document.getElementById('r'+qn).innerHTML=ok?'<span class="correct-label">✓ Correct ('+correct[k]+')</span>':'<span class="wrong-label">✗ Missing: '+correct[k]+'</span>';
+    }
+  })();
+  // Q23-26 radio (own option sets)
+  for(var i=23;i<=26;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q27-30 radio
+  for(var i=27;i<=30;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q31-35 text
+  for(var i=31;i<=35;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q36-40 radio TFNG
+  for(var i=36;i<=40;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  var detailsParts=[];
+  for(var i=1;i<=4;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=5;i<=8;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=9;i<=13;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=17;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  (function(){
+    var chosen=getChecked('q1822');var correct=ANS['q1822'];
+    for(var k=0;k<5;k++){
+      var qn=18+k;
+      var ok=chosen.indexOf(correct[k])>=0?'✔':'✘';
+      detailsParts.push('Q'+qn+':'+ok+'('+chosen.join('+')+')');
+    }
+  })();
+  for(var i=23;i<=26;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=27;i<=30;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=31;i<=35;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=36;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 21',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>

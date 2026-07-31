@@ -475,11 +475,6 @@
   document.addEventListener('paste', function(e){ e.preventDefault(); pasteViolations++; showBanner('⚠ Paste bị chặn! Lần: '+pasteViolations); });
   document.addEventListener('dragstart', function(e){ e.preventDefault(); });
   document.addEventListener('drop',      function(e){ e.preventDefault(); });
-  setInterval(function() {
-    if (window.outerWidth-window.innerWidth>160 || window.outerHeight-window.innerHeight>160) {
-      document.getElementById('devWarning').style.display = 'flex';
-    }
-  }, 1500);
 
   // ── Exports ──
   window.stopTimer = function() { timerStopped = true; };

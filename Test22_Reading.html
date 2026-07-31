@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 22</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 22</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">Secret of Thailand's Success?</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">It is a question officials here in Asia are being posed more and more: Why are your economies so vibrant? Answers include young and swelling populations, decreased debt, growing cities, emerging middle-class consumer sectors, evolving markets and, of course, China's rise. Add this to that list: Women and their increasing role in Asia's economies. The idea is that the more opportunities women have, the more vibrant economies are and, consequently, the less need there is to amass a huge public debt to boost growth. It is an idea bolstered by a new survey by MasterCard International Inc., which compares the socio-economic level of women with men in Asia-Pacific nations. The gauge uses four key indicators: participation in the labour force, college education, managerial positions, and above-median income.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Which Asian nation is doing host when it comes to women's advancement? Thailand. It scored 92.3 of a possible 100, and according to MasterCard's index, 100 equals gender equality. The survey was based on interviews with 300 to 350 women in thirteen nations and national statistics. Malaysia came in second with a score of 86.2, while China came in third with 68.4. The average score in Asia was 67.7. At the bottom of the list is South Korea (45.5), followed by Indonesia (52.5), and Japan (54.5). Perhaps it is a bizarre coincidence, yet MasterCard's findings fit quite neatly with two important issues in Asia: economic leadership and debt. Thailand, Malaysia, and China are three economies widely seen as the future of Asia. Thailand's economic boom in recent years has prompted many leaders in the region to look at its growth strategy. Malaysia, which has a female central bank governor, is one of Asia's rising economic powers. China, of course, is the world's hottest economy, and one that is shaking up trade patterns and business decisions everywhere.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">Something all three economies have in common is an above-average level of female participation. What the three worst ranked economies share are severe long-term economic challenges of high levels of debt and a female workforce that is being neglected. Research in economic history is very conclusive on the role of women in economic growth and development, says Yuwa Hedrick-Wong, an economic adviser to MasterCard. The more extensive women's participation at all areas of economic activities, the higher the probability for stronger economic growth. That, Hedrick-Wong says, means societies and economies that consistently fail to fully incorporate women's ability and talent in businesses, and the workplace will suffer the consequences. Take Korea, which has been walking in place economically in recent years. Immediately following the 1997— 1998 Asian financial crisis, Korea became a regional role model as growth boomed and unemployment fell. Yet a massive increase in household debt left consumers overexposed and growth slowed.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">Maybe it is a just coincidence that Korea also ranks low on measures of gender equality published by the United Nations. As of 2003, for example, it ranked below Honduras, Paraguay, Mauritius, and Ukraine in terms of women's economic and political empowerment. Utilising more of its female workforce would deepen Korea's labour pool and increase potential growth rates in the economy. The same goes for Japan. The reluctance of Asia's biggest economy to increase female participation and let more women into the executive suite exacerbates its biggest long-term challenge: a declining birth rate. In 2003, the number of children per Japanese woman fell to a record low of 1.29 versus about 2 in the early 1970s. Preliminary government statistics suggest the rate declined further in 2004. The trend is nothing short of a crisis for a highly indebted nation of 126 million that has yet to figure out how to fund the national pension system down the road. Yet Japan has been slow to realise that for many women, the decision to delay childbirth is a form of rebellion against societal expectations to have children and become housewives,</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">It may be 2005, yet having children is a career-ending decision for millions of bright, ambitions, and well-educated Japanese, Until corrected, Japan's birth rate will drop and economic growth will lag, UN Secretary General Kofi Annan was absolutely right earlier this month when he said no other policy is as likely to raise economic productivity than the empowerment of women. Here, in Thailand, the government is getting some decent marks in this regard, and the economy's 6 per cent-plus growth rate may be a direct result. Thailand still has a long way to go. Yet the Bank of Thailand's deputy governor, Tarisa Watanagase, is a woman, as are seven of nine assistant governors. Then there's Jada Wattanasiritham, who runs Siam Commercial Bank Plc, Thailand's fourth-biggest lender. How many female chief executives can you name in Japan or Korea? Looked at broadly in Asia, MasterCard's survey is on to something. It is that giving women more opportunities to contribute to an economy is not just about fairness, but dollars and sense, too.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Patients Are a Virtue</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">Despite conference jeers, job cuts, and a financial crisis, health secretary Patricia Hewitt may find a reason to smile this week, as the NHS (British National Health Service) was named one of the top places to work by students. Among engineering, science, and IT students, the health service was ranked second in this year's Univer-sum UK graduate survey of ideal employers, a leap of 54 places from last year. The annual survey, conducted in the UK since 1997, canvassed the opinions of more than 7,700 final and penultimate-year students studying for degrees in business, engineering, science, IT, and the humanities, at 39 universities, between January and March this year.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Each student was presented with a list of 130 employers, nominated by students through a separate process, from which they selected the five they considered to be ideal employers. The Universum list is based on the frequency of an organisation being selected as an ideal employer, following a weighting process. This year, government departments and public sector organisations dominated the top spots, with the BBC ranked first among humanities, engineering, science, and IT students, retaining its place from last year, and coming third for those studying business. Among humanities students, the BBC was followed closely by the Foreign and Commonwealth Office and the Civil Service fast stream. The Cabinet Office and the Ministry of Defence were not far behind, ranked fifth and sixth respectively. As well as the NHS, engineering, science, and IT students favoured the Environment Agency, which leapt 83 places, from 86 in 2005 to number three this year. Meanwhile, business students voted accountancy giants PricewaterhouseCoopers (PwC) as their favoured employer, followed by HSBC.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">At a London awards ceremony sponsored by the Guardian, Foluke Ajayi, head of NHS careers at NHS employers, said its success this year reflected the reality of the health service, which is the third largest employer in the world and the largest in Europe. "We employ people in other clinical areas, such as health care. We employ IT managers, engineers, architects," she said, adding that the health service is no longer seen as a "second choice" career. "People recognise that they can give something back to the community, but still develop a worthwhile career."</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">Sarah Churchman, director of student recruitment and diversity at PwC, said her company's success is down to a good campus presence, its commitment to invest in its employees and, with offices around the world, the chance to travel, something which just under half of the students polled said was an important factor when it came to looking for work. One of the big four accountancy firms, PwC is not into gimmicks, and it does not offer freebies but, said Churchman, it does offer "a solid foundation" for anyone wanting a career in business. "We sell our people skills, so we are interested in building skills. We're not selling something, we invest in our people," she added.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">Further down the rankings, but still with reason to celebrate, was John Lewis, which matched bumper sales this year with a leap from 111th place in 2005 to 26th among this year's humanities students. Sky found itself in 12th place, up from 104th last year, and the Environment Agency also proved popular among this student group, rising from 138th in 2005 to 7th this year. Among the business fraternity, shell saw a reversal of fortunes, rising to 30th place after last year's 76th position. There were a few dramatic drops in the rankings. The Bank of England fell from 14th in 2005 to 27th this year among humanities students, although it retained its mid-table position among those studying business. British Airways also saw a slight dip, as did McKinsey &amp; Co, which dropped from 11th to 22nd among business undergraduates.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">Perhaps more surprisingly, this year was the first appearance in the rankings of Teach First, a small charity launched three years ago that aims to create the "leaders of the future" by encouraging top graduates who would not normally consider a career in teaching to commit to work in "challenging" secondary schools for at least two years. The organisation came straight in at number eight among humanities students and was voted 22nd by those studying engineering, science, and IT. James Darley, director of graduate recruitment at Teach First, said he was "bowled over" by the news. "We were not expecting this. We're a registered charity, only able to physically go to 15 universities."</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">The scheme, based on one run in the US, has the backing of more than 80 businesses, including Deloitte and HSBC. During their two years, candidates undertake leadership training and emerge from the programme with a range of skills and experiences. "We hope in the long term they will be our ambassadors, as we call them, in politics, industry, charities, who will have done it and continue to support the educationally disadvantaged," adds Darley. This year, 260 graduates are expected to take up the Teach First challenge in schools in London and Manchester, More are expected over the coming years, as the scheme expands to Birmingham and three other cities by 2008. Of the first set of recruits to complete the programme, half have gone on to work for "some amazing companies", while the other half have chosen to stay on in their schools for a further year - 20% in leadership roles.</div>
+      <div class="section-label">H</div>
+      <div class="passage-para">While more than half of students were concerned about achieving a good work life balance, a third said they wanted a job that would challenge them. Although male Students tended to focus more on the practical aspects of work, such as "building a sound financial base", women, particularly those studying for humanities degrees, had a more idealistic outlook, saying making a contribution to society was a key career goal. Almost half of all students said that paid overtime was a key part of any company compensation package, However, business students said that the most important compensation, apart from salary, was performance-related bonuses, while important considerations for humanities students were retirement plans. Working overseas also scored highly among those surveyed this year, with 45% of business students, and 44% of humanities students, listing it as a priority. Ethical considerations and corporate social responsibilities were also mentioned, with a large percentage of humanities and engineering, science and IT students saying it was a key consideration when it came to choosing an employer.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">Rise of the Robots</div>
+      <div class="passage-para">If you are into technology, you are living in wonderful times. Things are developing in leaps and bounds, especially gadgets. Let us look at the technology that is set to break through.</div>
+      <div class="section-label">CELESTRON SKYSCOUT</div>
+      <div class="passage-para">Backyard stargazing goes seriously hi-tech with the Celestron SkyScout, which was judged to be the Best of Innovations at the New York Consumer Electronics Show press preview event in November. It is not difficult to see why. The SkyScout is a hand-held viewing device that is capable of finding and identifying more than 6,000 celestial objects visible to the naked eye, thus transforming the night sky into your own personal planetarium. Using GPS technology and a substantial celestial database, the camcorder-sized SkyScout enables stargazers to point the device at any visible object in the sky, press a button, and then listen to a commentary. For the truly celestially challenged, if you want to view a star or planet but do not have a clue which bit of the heavens to look in, do not despair; the SkyScout's "locate" feature will guide you to it using illuminated arrows in the viewfinder.</div>
+      <div class="section-label">NOKIA N91</div>
+      <div class="passage-para">This amazing mobile jukebox is due out early in 2006. Nokia's N91 looks set to be in a class of its own as a multimedia mobile phone. It will play music, take photos, surf the web and download videos, store contact details, and generally organise your life. The robust little phone, resplendent in its stainless steel case, is the first Nokia to be equipped with a hard drive (4Gb), which means that it can store up to 3,000 songs. The N91, which has a hi-fi quality headset and remote control, supports a wide range of digital music formats, including MP3, Real, WAV, and WMA. It uses wireless technology to allow users to find and buy music from the operator's music store. You can also drag and drop music from your PC to the N91 and manage and share playlists. If you can find the time, you can get on the blower, too.</div>
+      <div class="section-label">SEIKO SPECTRUM E-PAPER WATCH</div>
+      <div class="passage-para">The Seiko Spectrum is no ordinary wristwatch. At first glance, it is an attractive and futuristic bracelet-style watch. Look closer, however, and you will notice that its display is unlike any you have seen before. Rather than the usual LCD screen, the display is made of "e-paper" - from the electronic paper pioneers E Ink Corp - and shows a constantly changing mosaic pattern along with the time. Because e-paper is so flexible and thin, it allows the display to curve round the wrist along with the watch band - something conventional liquid-crystal displays cannot do, as they have to be flat. Seiko says the e-paper display not only produces far better contrast than an LCD screen, but requires no power to retain an image, so the batteries last longer. Seiko is releasing only 500 of the watches next month, priced at about £1,250 - so you'd better lose no time.</div>
+      <div class="section-label">HIGH-DEFINITION TV</div>
+      <div class="passage-para">HDTV, already available in the United States, Japan, and Australia, will hit the UK in 2006. When you watch a programme filmed in the HD format, you will see a much sharper, clearer and more vibrant image. This is due partly to the way a programme is filmed, but also to the high-definition TV set itself, which uses either 720 or 1,080 visible rows of pixels (depending on which format the individual HDTV uses) to display images, compared to the 576 rows of pixels used in current sets.</div>
+      <div class="section-label">ELECTROLUX TRILOBITE 2.0 ROBOT VACUUM CLEANER</div>
+      <div class="passage-para">Next time you are expecting visitors, do not bother to vacuum first - wait until they arrive, and then entertain them with this little gadget. The Electrolux Trilobite 2.0 is a robotic vacuum cleaner that navigates its way around your floors using ultrasound, just like a bat. It pings out ultrasound vibrations at surfaces to create a map of the room, which it remembers for future cleaning assignments. The Trilobite has no problem avoiding collision with things placed on the floor. Special magnetic strips are placed in doorways, near stairs and other openings. These act as a wall, keeping the Trilobite in the room. You can also programme it to glide round when you're at work or after you've gone to bed. When Electrolux introduced the original Trilobite in 2001, it was voted among the 100 most innovative designs (though whether the judges were dedicated couch potatoes, and thus biased, we were not able to discover). The name comes from the hard-shelled sea creature from the Paleozoic era (between 250 million and 560 million years ago) that roamed the ocean floor feeding on particles and small animals.</div>
+      <div class="section-label">HONDA ASIMO ROBOT</div>
+      <div class="passage-para">Need an extra pair of hands around the office? Look no further; this month, the Honda Motor Company showcased its second-generation humanoid robot, Asimo. The machine has come a long way since its first incarnation five years ago. The 1.3 metre-tall droid is now capable of performing a variety of office tasks, including reception duties, serving drinks and acting as an information guide, as well as making deliveries. Using multiple sensors, Asimo has the ability to recognise the surrounding environment and interact with people using integrated circuit tags. It can walk and run at a fair pace, and push a cart. Honda plans to start using Asimo's receptionist functions at its Wako Building in Japan early in 2006, and it is hoped it will become available for leasing afterwards. It could soon be pushing a cart at an office near you.</div>
+    </div>
+
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1-4: The text has 5 paragraphs (A - E). Which paragraph contains each of the following pieces of information?</div>
+      <div class="q-block">
+        <div class="q-label">Q1. The fact that a woman runs one of Thailand's biggest banks</div>
+        <div class="tfng-row">
+          <select id="q1" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. The number of countries included in the survey</div>
+        <div class="tfng-row">
+          <select id="q2" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. The fact that Japan's birth rate is falling quickly</div>
+        <div class="tfng-row">
+          <select id="q3" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. The criteria used to get a score for each country</div>
+        <div class="tfng-row">
+          <select id="q4" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 5-8: Complete the following sentences using NO MORE THAN THREE WORDS from the text for each gap.</div>
+      <div class="q-block">
+        <div class="passage-para">Higher consumption in the <b>5.</b> <input type="text" id="q5" oninput="markTxt(this)" placeholder="answer"> sector of the market is one reason that Asia's economies are doing well. The scores were decided through a combination of interviews and <b>6.</b> <input type="text" id="q6" oninput="markTxt(this)" placeholder="answer">. Higher <b>7.</b> <input type="text" id="q7" oninput="markTxt(this)" placeholder="answer"> has created an economic problem for Korea. Japanese politicians have not yet decided how to get money for the <b>8.</b> <input type="text" id="q8" oninput="markTxt(this)" placeholder="answer">.</div>
+        <div class="q-result" id="r5"></div><div class="q-result" id="r6"></div>
+        <div class="q-result" id="r7"></div><div class="q-result" id="r8"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 9-13: Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q9. Other countries are looking at the example of Thailand to see if its policies can help their economies.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q9" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q9" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q9" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r9"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q10. Higher female participation in an economy always leads to greater economic growth.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q10" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q10" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q10" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r10"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q11. Female participation in the economy is lower in Japan than in most other developed economies.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q11" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q11" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q11" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. Most of the Bank of Thailand's assistant governors are female.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q12" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q12" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q12" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. The writer considers 'fairness' to be a bad reason for giving women top jobs.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q13" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q13" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q13" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14-17: The text has 8 paragraphs (A - H). Which paragraph does each of the following headings best fit?</div>
+      <div class="q-block">
+        <div class="q-label">Q14. Most popular employers for different students</div>
+        <div class="tfng-row">
+          <select id="q14" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. Students' expectations</div>
+        <div class="tfng-row">
+          <select id="q15" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. Give and develop with the NHS</div>
+        <div class="tfng-row">
+          <select id="q16" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. Reason for the NHS to be happy</div>
+        <div class="tfng-row">
+          <select id="q17" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 18-22: According to the text, FIVE of the following statements are true. Write the corresponding letters in answer boxes 18 to 22 in any order. (Choose FIVE letters, A-H)</div>
+      <div class="q-block">
+        <label class="check-opt"><input type="checkbox" name="q1822" value="A" onchange="wireLimit1822()"> A &nbsp; In the survey, students could only rate employers on a given list.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="B" onchange="wireLimit1822()"> B &nbsp; The Environment Agency rose the most places in this year's survey.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="C" onchange="wireLimit1822()"> C &nbsp; The NHS offers a variety of careers outside health care.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="D" onchange="wireLimit1822()"> D &nbsp; British Airways fell in popularity amongst business students.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="E" onchange="wireLimit1822()"> E &nbsp; James Darley was surprised by his organisation's performance in the survey.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="F" onchange="wireLimit1822()"> F &nbsp; Most Teach First teachers continue in a teaching career after two years.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="G" onchange="wireLimit1822()"> G &nbsp; Most students want to achieve a good work/life balance.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="H" onchange="wireLimit1822()"> H &nbsp; Most business students were concerned about working for an ethical company.</label>
+        <div class="q-result" id="r18"></div><div class="q-result" id="r19"></div><div class="q-result" id="r20"></div><div class="q-result" id="r21"></div><div class="q-result" id="r22"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 23-24: According to the information given in the text, choose the correct answer or answers from the choices given.</div>
+      <div class="q-block">
+        <div class="q-label">Q23. The survey covered students</div>
+        <label class="radio-opt"><input type="radio" name="q23" value="A" onchange="markRad(this)"> A &nbsp; from all British universities.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="B" onchange="markRad(this)"> B &nbsp; studying a variety of subjects.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="C" onchange="markRad(this)"> C &nbsp; who were in their last year of studies only.</label>
+        <div class="q-result" id="r23"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q24. The BBC</div>
+        <label class="radio-opt"><input type="radio" name="q24" value="A" onchange="markRad(this)"> A &nbsp; was first choice in most categories.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="B" onchange="markRad(this)"> B &nbsp; was unpopular with business students.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="C" onchange="markRad(this)"> C &nbsp; employs more graduates than most other organisations and companies.</label>
+        <div class="q-result" id="r24"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 25-26: According to the information given in the text, choose the correct answer or answers from the choices given. Sarah Churchman says PwC did well in the survey because it (Choose TWO letters, A-C)</div>
+      <div class="q-block">
+        <label class="check-opt"><input type="checkbox" name="q2526" value="A" onchange="wireLimit2526()"> A &nbsp; often goes to universities to meet students.</label>
+        <label class="check-opt"><input type="checkbox" name="q2526" value="B" onchange="wireLimit2526()"> B &nbsp; provides many scholarships for students.</label>
+        <label class="check-opt"><input type="checkbox" name="q2526" value="C" onchange="wireLimit2526()"> C &nbsp; offers many opportunities to travel.</label>
+        <div class="q-result" id="r25"></div><div class="q-result" id="r26"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27-30: For each question, only ONE of the choices is correct. Write the corresponding letter in the appropriate box on your answer sheet.</div>
+      <div class="q-block">
+        <div class="q-label">Q27. The Celestron SkyScout can</div>
+        <label class="radio-opt"><input type="radio" name="q27" value="A" onchange="markRad(this)"> A &nbsp; tell you information about the stars.</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="B" onchange="markRad(this)"> B &nbsp; tell you where in the world you are.</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="C" onchange="markRad(this)"> C &nbsp; find objects in the sky that are not normally visible.</label>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. The Seiko Spectrum e-paper watch</div>
+        <label class="radio-opt"><input type="radio" name="q28" value="A" onchange="markRad(this)"> A &nbsp; cannot be bent.</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="B" onchange="markRad(this)"> B &nbsp; can be used for surfing the Internet.</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="C" onchange="markRad(this)"> C &nbsp; is being produced as a limited edition.</label>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. The Electrolux Trilobite 2.0 robot vacuum cleaner</div>
+        <label class="radio-opt"><input type="radio" name="q29" value="A" onchange="markRad(this)"> A &nbsp; asks permission before moving from room to room.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="B" onchange="markRad(this)"> B &nbsp; uses lasers to help it avoid objects.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="C" onchange="markRad(this)"> C &nbsp; is programmable.</label>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. The Honda Asimo robot</div>
+        <label class="radio-opt"><input type="radio" name="q30" value="A" onchange="markRad(this)"> A &nbsp; has two pairs of hands.</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="B" onchange="markRad(this)"> B &nbsp; uses lasers to help it recognise its surroundings.</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="C" onchange="markRad(this)"> C &nbsp; can run.</label>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 31-35: Complete the following sentences using NO MORE THAN THREE WORDS from the text for each gap.</div>
+      <div class="q-block">
+        <div class="passage-para">
+          The SkyScout uses GPS and <b>31.</b> <input type="text" id="q31" oninput="markTxt(this)" placeholder="answer"> to help you find a star.<br>
+          The Seiko Spectrum does not need batteries to power the <b>32.</b> <input type="text" id="q32" oninput="markTxt(this)" placeholder="answer"><br>
+          HDTV uses more <b>33.</b> <input type="text" id="q33" oninput="markTxt(this)" placeholder="answer"> than conventional TV.<br>
+          The Trilobite 2.0 could be used to <b>34.</b> <input type="text" id="q34" oninput="markTxt(this)" placeholder="answer"> guests.<br>
+          Asimo first appeared <b>35.</b> <input type="text" id="q35" oninput="markTxt(this)" placeholder="answer">
+        </div>
+        <div class="q-result" id="r31"></div><div class="q-result" id="r32"></div><div class="q-result" id="r33"></div><div class="q-result" id="r34"></div><div class="q-result" id="r35"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 36-40: Do the following statements agree with the information given in Reading Passage 3? Write TRUE, FALSE or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q36. The Nokia N91 is strong.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q36" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q36" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q36" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q37. E-paper can be torn easily.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q37" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q37" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q37" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. HDTV is filmed differently to conventional TV.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q38" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q38" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q38" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. The Trilobite 2.0 looks just like the original design.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q39" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q39" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q39" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. Asimo is available for export.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q40" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q40" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q40" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r40"></div>
+      </div>
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// CHECKBOX GIỚI HẠN CHỌN 2 (Q17-18)
+function showCheckLimit(name, max) {
+  var id = 'chk-limit-' + name;
+  var el = document.getElementById(id);
+  if (!el) {
+    el = document.createElement('div');
+    el.id = id;
+    el.style.cssText = 'color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;';
+    var grp = document.querySelector('input[name="' + name + '"]');
+    if (grp && grp.parentNode) grp.parentNode.appendChild(el);
+  }
+  el.textContent = '⚠ Chỉ được chọn tối đa ' + max + ' đáp án!';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.textContent = ''; }, 2500);
+}
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getChecked(name){var out=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){out.push(c.value);});return out;}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSelAny(id,ansArr){var v=getVal(id).toUpperCase();return ansArr.some(function(a){return a.toUpperCase()===v;})?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+function wireLimit1822(){}
+document.querySelectorAll('input[name="q1822"]').forEach(function(inp) {
+  inp.addEventListener('change', function() {
+    var lbl = inp.closest('.check-opt');
+    if (lbl) lbl.classList.toggle('selected-answer', inp.checked);
+    if (inp.checked) {
+      var n = document.querySelectorAll('input[name="q1822"]:checked').length;
+      if (n > 5) { inp.checked = false; if(lbl) lbl.classList.remove('selected-answer'); showCheckLimit('q1822', 5); }
+    }
+  });
+});
+function wireLimit2526(){}
+document.querySelectorAll('input[name="q2526"]').forEach(function(inp) {
+  inp.addEventListener('change', function() {
+    var lbl = inp.closest('.check-opt');
+    if (lbl) lbl.classList.toggle('selected-answer', inp.checked);
+    if (inp.checked) {
+      var n = document.querySelectorAll('input[name="q2526"]:checked').length;
+      if (n > 2) { inp.checked = false; if(lbl) lbl.classList.remove('selected-answer'); showCheckLimit('q2526', 2); }
+    }
+  });
+});
+
+// ANSWER KEY
+var ANS={
+  q1:'E',q2:'B',q3:'D',q4:'A',
+  q5:['middle-class','middle class consumer','middle-class consumer'],q6:['national statistics'],q7:['household debt'],q8:['national pension system'],
+  q9:'TRUE',q10:'FALSE',q11:'NOT GIVEN',q12:'TRUE',q13:'NOT GIVEN',
+  q14:'B',q15:'H',q16:'C',q17:'A',
+  q1822:['A','C','D','E','G'],
+  q23:'B',q24:'A',
+  q2526:['A','C'],
+  q27:'A',q28:'C',q29:'C',q30:'C',
+  q31:['illuminated arrows'],q32:['e-paper display'],q33:['rows of pixels'],q34:['entertain'],q35:['five years ago'],
+  q36:'TRUE',q37:'NOT GIVEN',q38:'TRUE',q39:'NOT GIVEN',q40:'NOT GIVEN'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+
+  for(var i=1;i<=4;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=5;i<=8;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  for(var i=9;i<=13;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=14;i<=17;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  (function(){
+    var chosen=getChecked('q1822');var correct=ANS['q1822'];
+    for(var k=0;k<5;k++){var qn=18+k;var ok=chosen.indexOf(correct[k])>=0?1:0;score+=ok;
+      document.getElementById('r'+qn).innerHTML=ok?'<span class="correct-label">✓ Correct ('+correct[k]+')</span>':'<span class="wrong-label">✗ Missing: '+correct[k]+'</span>';}
+  })();
+  for(var i=23;i<=24;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  (function(){
+    var chosen=getChecked('q2526');var correct=ANS['q2526'];
+    var ok25=chosen.indexOf(correct[0])>=0?1:0;var ok26=chosen.indexOf(correct[1])>=0?1:0;
+    score+=ok25+ok26;
+    document.getElementById('r25').innerHTML=ok25?'<span class="correct-label">✓ Correct ('+correct[0]+')</span>':'<span class="wrong-label">✗ Missing: '+correct[0]+'</span>';
+    document.getElementById('r26').innerHTML=ok26?'<span class="correct-label">✓ Correct ('+correct[1]+')</span>':'<span class="wrong-label">✗ Missing: '+correct[1]+'</span>';
+  })();
+  for(var i=27;i<=30;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=31;i<=35;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  for(var i=36;i<=40;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  var detailsParts=[];
+  for(var i=1;i<=4;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=5;i<=8;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=9;i<=13;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=17;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  (function(){
+    var chosen=getChecked('q1822');var correct=ANS['q1822'];
+    for(var k=0;k<5;k++){var qn=18+k;var ok=chosen.indexOf(correct[k])>=0?'✔':'✘';detailsParts.push('Q'+qn+':'+ok+'('+chosen.join('+')+')');}
+  })();
+  for(var i=23;i<=24;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  (function(){
+    var chosen=getChecked('q2526');var correct=ANS['q2526'];
+    var ok25=chosen.indexOf(correct[0])>=0?'✔':'✘';var ok26=chosen.indexOf(correct[1])>=0?'✔':'✘';
+    detailsParts.push('Q25:'+ok25+'('+chosen.join('+')+')');
+    detailsParts.push('Q26:'+ok26+'('+chosen.join('+')+')');
+  })();
+  for(var i=27;i<=30;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=31;i<=35;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=36;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 22',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>

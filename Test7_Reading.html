@@ -326,6 +326,15 @@ input[type=text].q-input.wrong{background:#ffcdd2;border-color:#e53935}
 window._studentName  = '';
 window._studentClass = '';
 
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
 function startExam() {
   var name  = document.getElementById('studentName').value.trim();
   var cls   = document.getElementById('studentClass').value.trim();
@@ -338,6 +347,7 @@ function startExam() {
   window._studentClass = cls;
   window._testStartTime = Date.now();
   document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
 }
 
 var ANS={
@@ -392,13 +402,10 @@ wireRadio(document.getElementById('rightPanel'));
 (function(){var div=document.getElementById('divider'),left=document.getElementById('leftPanel'),right=document.getElementById('rightPanel');var dragging=false,startX,startLeft,startRight;div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startLeft=left.offsetWidth;startRight=right.offsetWidth;document.body.style.cursor='col-resize';document.body.style.userSelect='none';});document.addEventListener('mousemove',function(e){if(!dragging)return;var dx=e.clientX-startX;var total=startLeft+startRight;var newLeft=Math.max(200,Math.min(total-200,startLeft+dx));left.style.flex='none';right.style.flex='none';left.style.width=newLeft+'px';right.style.width=(total-newLeft)+'px';});document.addEventListener('mouseup',function(){dragging=false;document.body.style.cursor='';document.body.style.userSelect='';});})();
 document.addEventListener('contextmenu',function(e){e.preventDefault();});
 document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&['u','s','p','a'].includes(e.key.toLowerCase()))||(e.ctrlKey&&e.shiftKey&&['i','j','c'].includes(e.key.toLowerCase()))){e.preventDefault();warnUser();}});
-document.addEventListener('visibilitychange',function(){if(document.hidden&&!submitted)warnUser();});
-window.addEventListener('blur',function(){if(!submitted)warnUser();});
+document.addEventListener('visibilitychange',function(){if(document.hidden&&!submitted&&_examStarted)warnUser();});
+window.addEventListener('blur',function(){if(!submitted&&_examStarted)warnUser();});
 function warnUser(){warnCount++;var w=document.getElementById('fsWarning');w.style.display='block';w.textContent='⚠ Warning '+warnCount+': Do not leave the exam!';setTimeout(function(){w.style.display='none';},3000);}
-setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160)warnUser();},1000);
-function tryFullscreen(){var el=document.documentElement;if(el.requestFullscreen)el.requestFullscreen();else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}
-document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&!submitted){warnUser();setTimeout(tryFullscreen,1500);}});
-window.addEventListener('load',function(){setTimeout(tryFullscreen,500);});
+
 function showModal(title,msg){document.getElementById('modalTitle').textContent=title;document.getElementById('modalMsg').textContent=msg;document.getElementById('overlay').classList.add('show');}
 function closeModal(){document.getElementById('overlay').classList.remove('show');}
 function confirmSubmit(){if(submitted)return;showModal('Submit Answers','Are you sure? Click OK to confirm.');document.querySelector('#modal button').onclick=function(){closeModal();doSubmit();};}
@@ -407,7 +414,27 @@ function getRadio(name){var r=document.querySelector('input[name='+name+']:check
 function doSubmit(){
   if(submitted)return;submitted=true;clearInterval(timerInterval);
   var score=0;
-  function chkText(id,ans){return getVal(id).toLowerCase()===ans.toLowerCase()?1:0;}
+  function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,ans){var v=normalize(getVal(id));if(!Array.isArray(ans))ans=[ans];return ans.some(function(a){return v===normalize(a);})?1:0;}
   function chkSel(id,ans){return getVal(id)===ans?1:0;}
   function chkRad(name,ans){return getRadio(name)===ans?1:0;}
   for(var i=1;i<=5;i++)score+=chkText('q'+i,ANS['q'+i]);

@@ -417,7 +417,25 @@ var ANS={
   q39:['exercise'],q40:['transport museum']
 };
 
-function normalize(s){return(s||'').toLowerCase().trim().replace(/\s+/g,' ');}
+function normalize(s){
+  let _nz = String(s).toLowerCase().trim();
+  _nz = _nz.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  _nz = _nz.replace(/(\d),(?=\d)/g, '$1');
+  var _noWeekday = _nz.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (_noWeekday.length > 0) _nz = _noWeekday;
+  _nz = _nz.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  _nz = _nz.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  _nz = _nz.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  _nz = _nz.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  _nz = _nz.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  _nz = _nz.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  _nz = _nz.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var _months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var _monthDay = new RegExp('\\b(' + _months + ')\\s+(\\d{1,2})\\b');
+  _nz = _nz.replace(_monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  _nz = _nz.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return _nz;
+}
 function checkAns(key,val){var v=normalize(val);return ANS[key].some(function(a){return normalize(a)===v;});}
 
 window.submitTest=function(){if(submitted)return;document.getElementById('confirmOverlay').classList.add('show');};

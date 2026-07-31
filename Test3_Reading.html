@@ -287,6 +287,15 @@ select.selected-answer{background:#FFD580}
 window._studentName  = '';
 window._studentClass = '';
 
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
 function startExam() {
   var name  = document.getElementById('studentName').value.trim();
   var cls   = document.getElementById('studentClass').value.trim();
@@ -299,16 +308,17 @@ function startExam() {
   window._studentClass = cls;
   window._testStartTime = Date.now();
   document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
 }
 
 var warned=0;
 function doWarn(){if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated.</h2>';}}
-document.addEventListener('visibilitychange',function(){if(document.hidden)doWarn();});
-window.addEventListener('blur',doWarn);
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
 document.addEventListener('contextmenu',function(e){e.preventDefault();});
 document.addEventListener('keydown',function(e){if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();});
-(function(){setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160)doWarn();},2000);})();
-try{document.documentElement.requestFullscreen();}catch(e){}
+
+
 var endTime=Date.now()+60*60*1000,graceEnd=null;
 function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
 var timerEl=document.getElementById('timer-box');

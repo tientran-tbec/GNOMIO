@@ -450,6 +450,15 @@ Antarctica was not always cold. The slow break-up of the super-continent Gondwan
 window._studentName  = '';
 window._studentClass = '';
 
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
 function startExam() {
   var name  = document.getElementById('studentName').value.trim();
   var cls   = document.getElementById('studentClass').value.trim();
@@ -462,6 +471,7 @@ function startExam() {
   window._studentClass = cls;
   window._testStartTime = Date.now();
   document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
 }
 
 var ANS={
@@ -564,19 +574,16 @@ document.addEventListener('contextmenu',function(e){e.preventDefault();});
 document.addEventListener('keydown',function(e){
   if(e.key==='F12'||(e.ctrlKey&&['u','s','p','a'].includes(e.key.toLowerCase()))||(e.ctrlKey&&e.shiftKey&&['i','j','c'].includes(e.key.toLowerCase()))){e.preventDefault();warnUser();}
 });
-document.addEventListener('visibilitychange',function(){if(document.hidden&&!submitted)warnUser();});
-window.addEventListener('blur',function(){if(!submitted)warnUser();});
+document.addEventListener('visibilitychange',function(){if(document.hidden&&!submitted&&_examStarted)warnUser();});
+window.addEventListener('blur',function(){if(!submitted&&_examStarted)warnUser();});
 function warnUser(){
   warnCount++;
   var w=document.getElementById('fsWarning');
   w.style.display='block';w.textContent='⚠ Warning '+warnCount+': Do not leave the exam page!';
   setTimeout(function(){w.style.display='none';},3000);
 }
-setInterval(function(){if(window.outerWidth-window.innerWidth>160||window.outerHeight-window.innerHeight>160)warnUser();},1000);
-
-function tryFullscreen(){var el=document.documentElement;if(el.requestFullscreen)el.requestFullscreen();else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}
 document.addEventListener('fullscreenchange',function(){if(!document.fullscreenElement&&!submitted){warnUser();setTimeout(tryFullscreen,1500);}});
-window.addEventListener('load',function(){setTimeout(tryFullscreen,500);});
+
 
 function showModal(title,msg){document.getElementById('modalTitle').textContent=title;document.getElementById('modalMsg').textContent=msg;document.getElementById('overlay').classList.add('show');}
 function closeModal(){document.getElementById('overlay').classList.remove('show');}
@@ -597,7 +604,27 @@ function doSubmit(){
   var score=0;
   function chkRadio(name,ans){return getRadio(name)===ans?1:0;}
   function chkSelect(id,ans){return getVal(id)===ans?1:0;}
-  function chkText(id,ans){return getVal(id).toLowerCase()===ans.toLowerCase()?1:0;}
+  function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,ans){var v=normalize(getVal(id));if(!Array.isArray(ans))ans=[ans];return ans.some(function(a){return v===normalize(a);})?1:0;}
 
   // Q1-5 T/F/NG
   for(var i=1;i<=5;i++)score+=chkRadio('q'+i,ANS['q'+i]);
