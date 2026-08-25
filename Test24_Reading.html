@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 24</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 24</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">Spot the Difference</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">Taxonomic history has been made this week, at least according In the World Wildlife Fund (WWF), a conservation group. Scientists have described a new species of clouded leopard from the tropical forests of Indonesia with spots (or "clouds", as they are poetically known) smaller than those of other clouded leopards, with fur a little darker and with a double as opposed to a "partial double" stripe down its back.</div>
+
+      <div class="section-label">B</div>
+      <div class="passage-para">However, no previously unknown beast has suddenly leapt out from the forest. Instead, some scientists have proposed a change in the official taxonomic accounting system of clouded leopards. Where there were four subspecies there will likely now be two species. A genetic analysis and a closer inspection of museum specimens' coats published in Current Biology has found no relevant difference between three subspecies described 50 years ago from continental Asia and from the Hainan and Taiwan islands. The 5,000-11,000 clouded leopards on Borneo, the 3,000-7,000 on Sumatra, and the remaining few on the nearby Batu islands can now, the authors say, claim a more elevated distinction as a species.</div>
+
+      <div class="section-label">C</div>
+      <div class="passage-para">What this actually means is fuzzy and whether it is scientifically important is questionable. In any case, biologists do not agree what species and subspecies are. Creatures are given Latin first and second names (corresponding to a genus and species) according to the convention of Carl von Linné, who was born 300 years ago this May. But Linneaus, as he is more commonly known, thought of species as perfectly discrete units created by God. Darwinism has them as mutable things, generated gradually over time by natural selection. So, delineating when enough variation has evolved to justify a new category is largely a matter of taste.</div>
+
+      <div class="section-label">D</div>
+      <div class="passage-para">Take ants and butterflies. Ant experts have recently been waging a war against all types of species subdivision. Lepidopterists, on the other hand, cling to the double barrel second names from their discipline's 19th-century tradition, and categorise many local subclasses within species found over wide areas. Thus, it would be futile — if one were so inclined — to attempt to compare the diversity of ant and butterfly populations.</div>
+
+      <div class="section-label">E</div>
+      <div class="passage-para">The traditional way around the problem is to call a species all members of a group that share the same gene pool. They can mate together and produce fertile offspring. Whether Indonesian clouded leopards can make cubs with continental ones remains unknown but seems probable. Instead, the claim this week is that genetics and slight differences in fur patterning are enough to justify rebranding the clouded leopard as two significant types. Genetically, that makes sense if many DNA variations correlate perfectly between members of the two groups. The authors did find some correlation, but they looked for it in only three Indonesian animals. A larger sample would have been more difficult.</div>
+
+      <div class="section-label">F</div>
+      <div class="passage-para">One thing is abundantly clear: conservationists who are trying to stop the destruction of the leopards' habitat in Borneo and Sumatra see the announcement of a new species of big cat as a means to gain publicity and political capital. Upgrading subspecies to species is a strategy which James Mallet, of University College London, likes to call species inflation. It is a common by-product of genetic analysis, which can reveal differences between populations that the eye cannot. Creating ever more detailed genetic categories means creating smaller and increasingly restricted populations of more species. The trouble is that risks devaluing the importance of the term "species".</div>
+
+      <div class="section-label">G</div>
+      <div class="passage-para">The problem of redefining species by genetics is the creation of taxonomic confusion, a potentially serious difficulty for conservationists and others. The recent proposal to add the polar bear to the list of animals protected under America's Endangered Species Act is an example. That seems all well and good. However, study the genetics and it transpires that polar bears are closer to some brown bears, than some brown bears are to each other. Go by the genes and it seems that the polar bear would not count as a species in its own right (and thus might not enjoy the protection afforded to species) but should be labelled a subspecies of the brown bear.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">The Fertility Bust</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">Falling populations — the despair of state pension systems — are often regarded with calmness, even a secret satisfaction, by ordinary people. Europeans no longer need large families to gather the harvest or to look after parents. They have used their good fortune to have fewer children, thinking this will make their lives better. Much of Europe is too crowded as it is. Is this all that is going on? Germans have been agonising about recent European Union estimates suggesting that 30% of German women are, and will remain, childless. The number is a guess: Germany does not collect figures like this. Even if the share is 25%, as other surveys suggest, it is by far the highest in Europe.</div>
+
+      <div class="section-label">B</div>
+      <div class="passage-para">Germany is something of an oddity in this. In most countries with low fertility, young women have their first child late, and stop at one. In Germany, women with children often have two or three, but many have none at all. Germany is also odd in experiencing low fertility for such a long time. Europe is demographically polarised. Countries in the north and west saw fertility fall early, in the 1960s. Recently, they have seen it stabilise or rise back towards replacement level (i.e. 2.1 births per woman). Countries in the south and east, on the other hand, saw fertility rates fall much faster, more recently (often to below 1.3, a rate at which the population falls by half every 45 years). Germany combines both. Its fertility rate fell below 2 in 1971. However, it has stayed low and is still only just above 1.3. This challenges the notion that European fertility is likely to stabilise at tolerable levels. It raises questions about whether the low birth rates of Italy and Poland, say, really are, as some have argued, merely temporary.</div>
+
+      <div class="section-label">C</div>
+      <div class="passage-para">The list of explanations for why German fertility has not rebounded is long. Michael Teitelbaum, a demographer at the Sloan Foundation in New York ticks them off: poor childcare; unusually extended higher education; inflexible labour laws; high youth unemployment; and non-economic or cultural factors. One German writer, Gunter Grass, wrote a novel, "Headbirths", in 1982, about Harm and Dorte Peters, "a model couple" who disport themselves on the beaches of Asia rather than invest time and trouble in bringing up a baby. "They keep a cat," writes Mr. Grass, "and still have no child." The novel is subtitled "The Germans Are Dying Out". With the exception of this cultural factor, none of these features is peculiar to Germany. If social and economic explanations account for persistent low fertility there, then they may well produce the same persistence elsewhere.</div>
+
+      <div class="section-label">D</div>
+      <div class="passage-para">The reason for hoping otherwise is that the initial decline in southern and eastern Europe was drastic, and may be reversible. In the Mediterranean, demographic decline was associated with freeing young women from the constraints of traditional Catholicism, which encouraged large families. In eastern Europe, it was associated with the collapse in living standards and the ending of pro-birth policies. In both regions, as such temporary factors fade, fertility rates might, in principle, be expected to rise. Indeed, they may already be stabilising in Italy and Spain. Germany tells you that reversing these trends can be hard. There, and elsewhere, fertility rates did not merely fall; they went below what people said they wanted. In 1979, Eurobarometer asked Europeans how many children they would like. Almost everywhere, the answer was two: the traditional two-child ideal persisted even when people were not delivering it. This may have reflected old habits of mind. Or people may really be having fewer children than they claim to want.</div>
+
+      <div class="section-label">E</div>
+      <div class="passage-para">A recent paper suggests how this might come about. If women postpone their first child past their mid-30s, it may be too late to have a second even if they want one (the average age of first births in most of Europe is now 30). If everyone does the same, one child becomes the norm: a one-child policy by example rather than coercion, as it were. If women wait to start a family until they are established at work, they may end up postponing children longer than they might otherwise have chosen. When birth rates began to fall in Europe, this was said to be a simple matter of choice. That was true, but it is possible that fertility may overshoot below what people might naturally have chosen. For many years, politicians have argued that southern Europe will catch up from its fertility decline because women, having postponed their first child, will quickly have a second and third. The overshoot theory suggests there may be only partial recuperation. Postponement could permanently lower fertility, not just redistribute it across time.</div>
+
+      <div class="section-label">F</div>
+      <div class="passage-para">There is a twist. If people have fewer children than they claim to want, how they see the family may change, too. Research by Tomas Sobotka of the Vienna Institute of Demography suggests that, after decades of low fertility, a quarter of young German men and a fifth of young women say they have no intention of having children and think that this is fine. When Eurobarometer repeated its poll about ideal family size in 2001, support for the two-child model had fallen everywhere. Parts of Europe, then, may be entering a new demographic trap. People restrict family size from choice. Social, economic, and cultural factors then cause this natural fertility decline to overshoot. This changes expectations, to which people respond by having even fewer children. That does not necessarily mean that birth rates will fall even more: there may yet be some natural floor, but it could mean that recovery from very low fertility rates proves to be slow or even non-existent.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">Teens Try to Change the World, One Purchase at a Time</div>
+      <div class="passage-para">When classes adjourn here at the Fayerweather Street School, eighth-graders ignore the mall down the street and go straight to the place they consider much cooler: the local natural-foods grocer's. There, they gather in groups of ten or more sometimes, smitten by a marketing atmosphere that links attractiveness to eating well. When time comes to buy something even as small as a chocolate treat, they feel good knowing a farmer somewhere probably received a good price. "Food is something you need to stay alive," says eighth-grader Emma Lewis. "Paying farmers well is really important because if we didn't have any unprocessed food, we'd all be living on candy."</div>
+      <div class="passage-para">Eating morally, as some describe it, is becoming a priority for teenagers as well as adults in their early 20s. What began a decade ago as a concern on college campuses to shun clothing made in overseas sweatshops has given birth to a parallel phenomenon in the food and beverage industries. Here, youthful shoppers are leveraging their dollars in a bid to reduce pesticide usage, limit deforestation, and make sure farmers are not left with a pittance on payday. Once again, college campuses are setting the pace. Students at 30 colleges have helped persuade administrators to make sure all cafeteria coffee comes with a "Fair Trade" label, which means bean pickers in Latin America and Africa were paid higher than the going rates. Their peers on another 300 campuses are pushing to follow suit, according to Students United for Fair Trade in Washington, D.C.</div>
+      <div class="passage-para">Coffee is just the beginning. Bon Appetit, an institutional food-service provider based in California, relies on organic and locally grown produce. In each year since 2001, more than 25 colleges have asked the company to bid on their food-service contracts. Though Bon Appetit intentionally limits its growth, its collegiate client list has grown from 58 to 71 in that period. "It's really just been in the last five years that we've seen students become concerned with where their food was coming from," says Maisie Ganzler, Bon Appetit's director of strategic initiatives. "Prior to that, students were excited to be getting sugared cereal."</div>
+      <div class="passage-para">To reach a younger set that often does not drink coffee, Fair Trade importer Equal Exchange rolled out a line of cocoa in 2003 and chocolate bars in 2004. Profits in both sectors have justified the project, says Equal Exchange co-president Rob Everts. What is more, dozens of schools have contacted the firm to use its products in fundraisers and as classroom teaching tools. "Kids often are the ones who agitate in the family" for recycling and other eco-friendly practices, Mr. Everts says. "So, it's a ripe audience."</div>
+      <div class="passage-para">Concerns of today's youthful food shoppers seem to reflect in some ways the idealism that inspired prior generations to join boycotts in solidarity with farm workers. Today's efforts are distinct in that youthful consumers say they do not want to make sacrifices. They want high-quality, competitively priced goods that do not require exploitation of workers or the environment. They will gladly reward companies that deliver. One activist who shares this sentiment and hears it repeatedly from her peers is Summer Rayne Oakes, a recent college graduate and fashion model who promotes stylish Fair Trade clothing. "I'm not going to buy something that can't stand on its own or looks bad just because it's socially responsible," Ms. Oakes says. "My generation has come to terms with the fact that we're all consumers, and we all buy something. So, if I do have to buy food, what are the consequences?"</div>
+      <div class="passage-para">Wanting to ameliorate the world's big problems can be frustrating, especially for those who feel ineffective because they are young. Marketers are figuring out that teenagers resent this feeling of powerlessness and are pushing products that make young buyers feel as though they are making a difference, says Michael Wood, vice president of Teenage Research Unlimited. His example: Ethos Water from Starbucks, which contributes five cents from every bottle sold to water-purification centres in developing countries. "This is a very easy way for young people to contribute. All they have to do is buy bottled water," Mr. Wood says. "Buying products or supporting companies that give them ways to support global issues is one way for them to get involved, and they really appreciate that."</div>
+      <div class="passage-para">Convenience is also driving consumer activism. Joe Curnow, national coordinator of United Students for Fair Trade, says she first got involved about five years ago as a high schooler when she spent time hanging out in cafes. Buying coffee with an eco-friendly label "was a very easy way for me to express what I believed in", she says. For young teens, consumption is their first foray into activism. At the Fayerweather Street School, Emma Lewis teamed up with classmates Kayla Kleinman and Therese LaRue to sell Fair Trade chocolate, cocoa, and other products at a school fundraiser in November. When the tally reached $8,000, they realised they were striking a chord.</div>
+      <div class="passage-para">Some adults hasten to point out the limitations of ethical consumption as a tool for doing good deeds and personal growth. Gary Lindsay, director of Children's Ministries, encourages Fair Trade purchases, but he also organises children to collect toys for foster children and save coins for a playground-construction project in Tanzania. He says it helps them learn to enjoy helping others even when they are not getting anything tangible in return. "When we're benefiting, how much are we really giving? Is it really sacrifice?" Mr. Lindsay asks. Of Fair Trade products, he says: "Those things are great when we're given opportunities like that once in a while, but I think for us to expect that we should get something out of everything we do is a very selfish attitude to have."</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1–4: The text has 7 paragraphs (A–G). Which paragraph contains each of the following pieces of information?</div>
+      <div class="q-block">
+        <div class="q-label">Q1. How it is generally accepted that different species are named</div>
+        <div class="tfng-row">
+          <select id="q1" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. The reason that conservationists are happy with the apparent discovery of a new species of leopard</div>
+        <div class="tfng-row">
+          <select id="q2" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. How genes could cause a potential problem for conservationists</div>
+        <div class="tfng-row">
+          <select id="q3" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. Some scientists want to change the way clouded leopards are classified into species and subspecies.</div>
+        <div class="tfng-row">
+          <select id="q4" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 5–8: Complete the following sentences using NO MORE THAN TWO WORDS from the text for each gap.</div>
+      <div class="q-block">
+        <div class="passage-para">It is difficult to decide exactly when there is enough <b>5.</b> <input type="text" id="q5" oninput="markTxt(this)" placeholder="answer"> to say an animal is a new species. It is <b>6.</b> <input type="text" id="q6" oninput="markTxt(this)" placeholder="answer"> to compare the number of species of ant and butterfly. Generally, animals of the same species can make <b>7.</b> <input type="text" id="q7" oninput="markTxt(this)" placeholder="answer"> together. Some scientists claim that genetics has led to <b>8.</b> <input type="text" id="q8" oninput="markTxt(this)" placeholder="answer"> rather than the actual discovery of new species.</div>
+        <div class="q-result" id="r5"></div><div class="q-result" id="r6"></div>
+        <div class="q-result" id="r7"></div><div class="q-result" id="r8"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 9–13: Do the following statements agree with the information given in Reading Passage 1? Write TRUE, FALSE or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q9. The possible new species of leopard appears different in two ways.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q9" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q9" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q9" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r9"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q10. Darwinism created a problem with how species are defined.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q10" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q10" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q10" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r10"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q11. Lepidopterists study ants.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q11" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q11" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q11" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. Scientists are going to study more clouded leopards in Indonesia.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q12" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q12" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q12" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. The writer believes that polar bears are not a species in their own right.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q13" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q13" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q13" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14–17: The text has 6 paragraphs (A–F). Which paragraph does each of the following headings best fit?</div>
+      <div class="q-block">
+        <div class="q-label">Q14. Even further falls?</div>
+        <div class="tfng-row">
+          <select id="q14" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. One-child policy</div>
+        <div class="tfng-row">
+          <select id="q15" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. Germany differs</div>
+        <div class="tfng-row">
+          <select id="q16" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. Possible reasons</div>
+        <div class="tfng-row">
+          <select id="q17" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 18–22: According to the text, FIVE of the following statements are true. Choose FIVE letters, A–H.</div>
+      <div class="q-block">
+        <label class="check-opt"><input type="checkbox" name="q1822" value="A" onchange="wireLimit1822()"> A &nbsp; Germany has the highest percentage of childless women.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="B" onchange="wireLimit1822()"> B &nbsp; Italy and Poland have high birth rates.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="C" onchange="wireLimit1822()"> C &nbsp; Most of the reasons given by Michael Teitelbaum are not unique to Germany.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="D" onchange="wireLimit1822()"> D &nbsp; Governments in eastern Europe encouraged people to have children.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="E" onchange="wireLimit1822()"> E &nbsp; In 1979, most families had one or two children.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="F" onchange="wireLimit1822()"> F &nbsp; European women who have a child later usually have more soon after.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="G" onchange="wireLimit1822()"> G &nbsp; In 2001, people wanted fewer children than in 1979, according to Eurobarometer research.</label>
+        <label class="check-opt"><input type="checkbox" name="q1822" value="H" onchange="wireLimit1822()"> H &nbsp; There may be a natural level at which birth rates stop declining.</label>
+        <div class="q-result" id="r18"></div><div class="q-result" id="r19"></div>
+        <div class="q-result" id="r20"></div><div class="q-result" id="r21"></div><div class="q-result" id="r22"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 23–26: People may have fewer children than they want because... (choose the correct letter A, B or C for each question)</div>
+      <div class="q-block">
+        <div class="q-label">Q23. One general reason given for smaller families across Europe as a whole is that people feel:</div>
+        <label class="radio-opt"><input type="radio" name="q23" value="A" onchange="markRad(this)"> A &nbsp; less labour is needed to farm land.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="B" onchange="markRad(this)"> B &nbsp; Europe is too crowded.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="C" onchange="markRad(this)"> C &nbsp; a general dislike of children.</label>
+        <div class="q-result" id="r23"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q24. According to Michael Teitelbaum, one specific reason why Germany's fertility has not rebounded is:</div>
+        <label class="radio-opt"><input type="radio" name="q24" value="A" onchange="markRad(this)"> A &nbsp; poor childcare facilities.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="B" onchange="markRad(this)"> B &nbsp; longer working hours.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="C" onchange="markRad(this)"> C &nbsp; high unemployment amongst young adults.</label>
+        <div class="q-result" id="r24"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q25. In southern and eastern Europe, the initial fall in fertility is linked to:</div>
+        <label class="radio-opt"><input type="radio" name="q25" value="A" onchange="markRad(this)"> A &nbsp; the reduced influence of the Catholic church.</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="B" onchange="markRad(this)"> B &nbsp; lower standards of living.</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="C" onchange="markRad(this)"> C &nbsp; governments encouraged smaller families.</label>
+        <div class="q-result" id="r25"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q26. According to the "overshoot theory", women may end up having fewer children than intended because:</div>
+        <label class="radio-opt"><input type="radio" name="q26" value="A" onchange="markRad(this)"> A &nbsp; women are having children at a later age.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="B" onchange="markRad(this)"> B &nbsp; they are following the example of other people.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="C" onchange="markRad(this)"> C &nbsp; politicians want them to.</label>
+        <div class="q-result" id="r26"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27–30: For each question, only ONE of the choices is correct.</div>
+      <div class="q-block">
+        <div class="q-label">Q27. Trying to change the world through what people purchase began with</div>
+        <label class="radio-opt"><input type="radio" name="q27" value="A" onchange="markRad(this)"> A &nbsp; chocolate</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="B" onchange="markRad(this)"> B &nbsp; clothing</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="C" onchange="markRad(this)"> C &nbsp; coffee</label>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. Bon Appetit had _______ colleges using its services in 2006.</div>
+        <label class="radio-opt"><input type="radio" name="q28" value="A" onchange="markRad(this)"> A &nbsp; 25</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="B" onchange="markRad(this)"> B &nbsp; 58</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="C" onchange="markRad(this)"> C &nbsp; 71</label>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. Buying Ethos Water helps provide money for</div>
+        <label class="radio-opt"><input type="radio" name="q29" value="A" onchange="markRad(this)"> A &nbsp; poor people in Africa.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="B" onchange="markRad(this)"> B &nbsp; poor farmers.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="C" onchange="markRad(this)"> C &nbsp; clean water projects.</label>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. Joe Curnow first got involved with consumer activism through buying</div>
+        <label class="radio-opt"><input type="radio" name="q30" value="A" onchange="markRad(this)"> A &nbsp; coffee</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="B" onchange="markRad(this)"> B &nbsp; cocoa</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="C" onchange="markRad(this)"> C &nbsp; water</label>
+        <div class="q-result" id="r30"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 31–35: Complete the following sentences using NO MORE THAN ONE WORD from the text for each gap.</div>
+      <div class="q-block">
+        <div class="passage-para">Eighth-graders from Fayerweather Street School go to the natural-foods grocer's rather than the <b>31.</b> <input type="text" id="q31" oninput="markTxt(this)" placeholder="answer">. Bon Appetit limits its growth <b>32.</b> <input type="text" id="q32" oninput="markTxt(this)" placeholder="answer">. Previously, young generations were <b>33.</b> <input type="text" id="q33" oninput="markTxt(this)" placeholder="answer"> to make sacrifices. Young people can feel frustrated and <b>34.</b> <input type="text" id="q34" oninput="markTxt(this)" placeholder="answer"> because of their age. Gary Lindsay <b>35.</b> <input type="text" id="q35" oninput="markTxt(this)" placeholder="answer"> people to buy products that make use of Fair Trade.</div>
+        <div class="q-result" id="r31"></div><div class="q-result" id="r32"></div>
+        <div class="q-result" id="r33"></div><div class="q-result" id="r34"></div><div class="q-result" id="r35"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 36–40: Do the following statements agree with the information given in Reading Passage 3? Write TRUE, FALSE or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q36. Fair Trade coffee is more expensive than usual coffee.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q36" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q36" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q36" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q37. Bon Appetit used to sell sugared cereal.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q37" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q37" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q37" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. Hob Everts thinks that kids do not understand about protecting the environment.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q38" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q38" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q38" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. Summer Rayne Oakes will wear clothes that do not look so good as long as they promote Fair Trade.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q39" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q39" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q39" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. Gary Lindsay thinks people should do more than just consume ethically.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q40" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q40" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q40" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r40"></div>
+      </div>
+
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+window._studentName  = '';
+window._studentClass = '';
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+function showCheckLimit(name, max) {
+  var id = 'chk-limit-' + name;
+  var el = document.getElementById(id);
+  if (!el) {
+    el = document.createElement('div');
+    el.id = id;
+    el.style.cssText = 'color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;';
+    var grp = document.querySelector('input[name="' + name + '"]');
+    if (grp && grp.parentNode) grp.parentNode.appendChild(el);
+  }
+  el.textContent = '⚠ Chỉ được chọn tối đa ' + max + ' đáp án!';
+  clearTimeout(el._t);
+  el._t = setTimeout(function(){ el.textContent = ''; }, 2500);
+}
+
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getChecked(name){var out=[];document.querySelectorAll('input[name="'+name+'"]:checked').forEach(function(c){out.push(c.value);});return out;}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+function wireLimit1822(){}
+document.querySelectorAll('input[name="q1822"]').forEach(function(inp) {
+  inp.addEventListener('change', function() {
+    var lbl = inp.closest('.check-opt');
+    if (lbl) lbl.classList.toggle('selected-answer', inp.checked);
+    if (inp.checked) {
+      var n = document.querySelectorAll('input[name="q1822"]:checked').length;
+      if (n > 5) { inp.checked = false; if(lbl) lbl.classList.remove('selected-answer'); showCheckLimit('q1822', 5); }
+    }
+  });
+});
+
+var ANS={
+  q1:'C',q2:'F',q3:'G',q4:'B',
+  q5:['variation','difference'],q6:['futile'],q7:['fertile offspring'],q8:['species inflation'],
+  q9:'FALSE',q10:'TRUE',q11:'FALSE',q12:'NOT GIVEN',q13:'NOT GIVEN',
+  q14:'F',q15:'E',q16:'B',q17:'C',
+  q1822:['A','C','D','G','H'],
+  q23:'A',q24:'C',q25:'A',q26:'A',
+  q27:'B',q28:'C',q29:'C',q30:'A',
+  q31:['mall'],q32:['intentionally'],q33:['inspired'],q34:['ineffective'],q35:['encourages'],
+  q36:'NOT GIVEN',q37:'NOT GIVEN',q38:'FALSE',q39:'FALSE',q40:'TRUE'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+
+  for(var i=1;i<=4;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=5;i<=8;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  for(var i=9;i<=13;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=14;i<=17;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  (function(){
+    var chosen=getChecked('q1822');var correct=ANS['q1822'];
+    for(var k=0;k<5;k++){var qn=18+k;var ok=chosen.indexOf(correct[k])>=0?1:0;score+=ok;
+      document.getElementById('r'+qn).innerHTML=ok?'<span class="correct-label">✓ Correct ('+correct[k]+')</span>':'<span class="wrong-label">✗ Missing: '+correct[k]+'</span>';}
+  })();
+  for(var i=23;i<=26;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=27;i<=30;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=31;i<=35;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  for(var i=36;i<=40;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  var detailsParts=[];
+  for(var i=1;i<=4;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=5;i<=8;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=9;i<=13;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=17;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  (function(){
+    var chosen=getChecked('q1822');var correct=ANS['q1822'];
+    for(var k=0;k<5;k++){var qn=18+k;var ok=chosen.indexOf(correct[k])>=0?'✔':'✘';detailsParts.push('Q'+qn+':'+ok+'('+chosen.join('+')+')');}
+  })();
+  for(var i=23;i<=26;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=27;i<=30;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=31;i<=35;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=36;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 24',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
