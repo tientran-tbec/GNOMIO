@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 32</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 32</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">PLEASE HOLD THE LINE</div>
+      <div class="passage-para">Nearly all of us know what it&rsquo;s like to be put on &lsquo;musical hold&rsquo;. Call almost any customer service number, and you can expect to hear at least a few bars of boring elevator music before an operator picks up. The question is: do you hang up or do you keep holding? That may depend on your gender and what type of music is playing, according to research reported by University of Cincinnati Associate Professor of Marketing, James Kellaris.</div>
+      <div class="passage-para">Kellaris, who has studied the effects of music on consumers for more than 12 years, teamed with Sigma Research Management Group to evaluate the effects of &lsquo;hold music&rsquo; for a company that operates a customer service line.</div>
+      <div class="passage-para">The researchers tested four types of &lsquo;on-hold&rsquo; music with 71 of the company&rsquo;s clients, 30 of them women. Light jazz, classical, rock and the company&rsquo;s current format of adult alternative (a mix of contemporary styles) were all tested. The sample included individual consumers, small business and large business segments. Participants were asked to imagine calling a customer assistance line and being placed on hold. They were then exposed to &lsquo;on-hold&rsquo; music via headsets and asked to estimate how long it played. Their reactions and comments were also solicited and quantified by the researchers.</div>
+      <div class="passage-para">Service providers, of course don&rsquo;t want you to have to wait on hold, but if you do, they want it to be a pleasant experience for you. But Kellaris&rsquo; conclusions may hold some distressing news for companies. No matter what music was played, the time spent &lsquo;on hold&rsquo; was generally overestimated. The actual wait in the study was 6 minutes, but the average estimate was 7 minutes and 6 seconds.</div>
+      <div class="passage-para">He did find some good news for the client who hired him. The kind of music they&rsquo;re playing now, alternative, is probably their best choice. Two things made it a good choice. First, it did not produce significantly more positive or negative reactions in people. Second, males and females were less polarised in their reactions to this type of music.</div>
+      <div class="passage-para">Kellaris&rsquo; other findings, however, make the state of musical hold a little less firm: time spent &lsquo;on hold&rsquo; seemed slightly shorter when light jazz was played, but the effect of music format differed for men and women. Among the males, the wait seemed shortest when classical music was played. Among the females, the wait seemed longest when classical music was played. This may be related to differences in attention levels and musical preferences.</div>
+      <div class="passage-para">In general, classical music evoked the most positive reactions among males; light jazz evoked the most positive reactions (and shortest waiting time estimates) among females. Rock was the least preferred across both gender groups and produced the longest waiting time estimates. &lsquo;The rock music&rsquo;s driving beat kind of aggravates people calling customer assistance with a problem,&rsquo; said Kellaris. &lsquo;The more positive the reaction to the music, the shorter the waiting time seemed to be. So maybe time does tend to fly when you&rsquo;re having fun, even if you&rsquo;re on musical hold,&rsquo; Kellaris joked.</div>
+      <div class="passage-para">But unfortunately for companies operating on-hold lines, men and women have different ideas about what music is &lsquo;fun&rsquo;. &lsquo;The possible solution,&rsquo; Kellaris joked, &lsquo;might be for the recorded message to say: if you&rsquo;re a male, please press one; if you&rsquo;re a female, please press two. If you are in a bad mood, please hang up and try later.&rsquo;</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Did tea and beer bring about industrialisation?</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">Alan Macfarlane thinks he could rewrite history. The professor of anthropological science at King&rsquo;s College, Cambridge has, like other historians, spent decades trying to understand the enigma of the Industrial Revolution. Why did this particular important event - the world-changing birth of industry - happen in Britain? And why did it happen at the end of the 18th century?</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Macfarlane compares the question to a puzzle. He claims that there were about 20 different factors and all of them needed to be present before the revolution could happen. The chief conditions are to be found in history textbooks. For industry to &lsquo;take off, there needed to be the technology and power to drive factories, large urban populations to provide cheap labour, easy transport to move goods around, an affluent middle-class willing to buy mass-produced objects, a market-driven economy, and a political system that allowed this to happen. While this was the case for England, other nations, such as Japan, Holland and France also met some of these criteria. All these factors must have been necessary but not sufficient to cause the revolution. Holland had everything except coal, while China also had many of these factors. Most historians, however, are convinced that one or two missing factors are needed to solve the puzzle.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">The missing factors, he proposes, are to be found in every kitchen cupboard. Tea and beer, two of the nation&rsquo;s favourite drinks, drove the revolution. Tannin, the active ingredient in tea, and hops, used in making beer, both contain antiseptic properties. This, plus the fact that both are made with boiled water, helped prevent epidemics of waterborne diseases, such as dysentery, in densely populated urban areas.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">Historians had noticed one interesting factor around the mid-18th century that required explanation. Between about 1650 and 1740, the population was static. But then there was a burst in population. The infant mortality rate halved in the space of 20 years, and this happened in both rural areas and cities, and across all classes. Four possible causes have been suggested. There could have been a sudden change in the viruses and bacteria present at that time, but this is unlikely. Was there a revolution in medical science? But this was a century before Lister introduced antiseptic surgery. Was there a change in environmental conditions? There were improvements in agriculture that wiped out malaria, but these were small gains. Sanitation did not become widespread until the 19th century. The only option left was food. But the height and weight statistics show a decline. So the food got worse. Efforts to explain this sudden reduction in child deaths appeared to draw a blank.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">This population burst seemed to happen at just the right time to provide labour for the Industrial Revolution. But why? When the Industrial Revolution started, it was economically efficient to have people crowded together forming towns and cities. But with crowded living conditions comes disease, particularly from human waste. Some research in the historical records revealed that there was a change in the incidence of waterborne disease at that time, especially dysentery. Macfarlane deduced that whatever the British were drinking must have been important in controlling disease. They drank beer and ale. For a long time, the English were protected by the strong antibacterial agent in hops, which were added to make beer last. But in the late 17th century a tax was introduced on malt. The poor turned to water and gin, and in the 1720s the mortality rate began to rise again. Then it suddenly dropped again. What was the cause?</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">Macfarlane looked to Japan, which was also developing large cities about the same time, and also had no sanitation. Waterborne diseases in the Japanese population were far fewer than those in Britain. Could it be the prevalence of tea in their culture? That was when Macfarlane thought about the role of tea in Britain. The history of tea in Britain provided an extraordinary coincidence of dates. Tea was relatively expensive until Britain started direct trade with China in the early 18th century. By the 1740s, about the time that infant mortality was falling, the drink was common. Macfarlane guesses that the fact that water had to be boiled, together with the stomach-purifying properties of tea so eloquently described in Buddhist texts, meant that the breast milk provided by mothers was healthier than it had ever been. No other European nation drank tea so often as the British, which, by Macfarlane&rsquo;s logic, pushed the other nations out of the race for the Industrial Revolution.</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">But, if tea is a factor in the puzzle, why didn&rsquo;t this cause an industrial revolution in Japan? Macfarlane notes that in the 17th century, Japan had large cities, high literacy rates and even a futures market. However, Japan decided against a work-based revolution, by giving up labour-saving devices, even animals, to avoid putting people out of work. Astonishingly, the nation that we now think of as one of the most technologically advanced, entered the 19th century having almost abandoned the wheel. While Britain was undergoing the Industrial Revolution, Macfarlane notes wryly, Japan was undergoing an industrious one.</div>
+      <div class="section-label">H</div>
+      <div class="passage-para">The Cambridge academic considers the mystery solved. He adds that he thinks the UN should encourage aid agencies to take tea to the world&rsquo;s troublespots, along with rehydration sachets and food rations.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">TEAM-BASED LEARNING</div>
+      <div class="passage-para">With the globalisation of information technology (IT) and worldwide access to the Internet, people from all areas of learning are finding themselves using some form of information technology in the workplace. The corporate world has seen a boom in the use of IT tools, but conversely, not enough people with IT skills that can enter the workplace and be productive with minimal on-the-job training.</div>
+      <div class="passage-para">A recent issue of the New York Times reports that many companies are looking for smart students who may have a budding interest in IT. Some companies, trying to encourage students to attend interviews, provide good salary packages and challenging work environments. For example, one American IT consulting company offers high salaries, annual bonuses, and immediate stock options to potential recruits. It also brings in 25 to 40 prospective applicants at a time for a two-day visit to the company. This time includes interviews, team exercises and social events. The idea behind the team exercises is that the applicants get to see that they will be working with other smart people doing really interesting things, rather than sitting alone writing code.</div>
+      <div class="passage-para">In the past 10 years, employers have seen marked benefits from collaborative projects in product development. Apart from the work environment, there is also a similar body of research indicating that small team-based instruction can lead to different kinds of desirable educational results. In order to prepare IT graduates to meet these workplace requirements, colleges and universities are also beginning to include team-based educational models.</div>
+      <div class="passage-para">One of the leaders in promoting team-based education is the American Intercontinental University (AIU), which has campuses worldwide. AIU offers programs in IT with a major portion of the curriculum based on team projects. AIU has a large body of international students and students from different educational backgrounds. This team-based learning gives the students a sense of social and technical support within the group, and allows students firsthand experience of both potential successes and of inherent problems encountered when working with others.</div>
+      <div class="passage-para">Team-oriented instruction has not been the common mode of delivery in traditional college settings. However, since most college graduates who choose to go into an IT work environment will encounter some form of teamwork at work, it is to their advantage that they are educated using collaborative learning and that they are taught the tools needed to work with different people in achieving common goals or objectives.</div>
+      <div class="passage-para">In team-based learning, students spend a large part of their in-class time working in permanent and heterogeneous teams. Most teams are made up of individuals with different socio-cultural backgrounds and varying skill levels. Team activities concentrate on using rather than just learning concepts, whilst student grades are a combination of overall team performance and peer evaluation of individual team members.</div>
+      <div class="passage-para">In a team-based environment, the teacher takes on the role of a facilitator and manager of learning, instead of just providing information to passive students. The facilitator/teacher also guides the team in identifying their goals and establishing standards of team performance. Team exercises then help the students to improve their problem-solving skills by applying theory to simulated real-world situations. Working as a team allows students to adopt new roles and empowers them to control their own learning. Students in teams are taught to use each other as resources and accept the responsibility of managing tasks.</div>
+      <div class="passage-para">Team members must also study assigned material individually to ensure their preparation for classes. There are individual assessment tests to measure if students have not only read the assigned material, but also understand the concepts of the module, and can apply them to given problems. Additional team assessment tests present a problem for discussion and require consensus, helping students learn critical communication skills. This also enables them to deal with conflicts between members before they escalate to crises. Team presentations (written or verbal) allow the team to focus and build cohesion, with team members sharing the responsibility for presenting and persuading the audience to accept their viewpoint. Feedback on how the team is functioning with task management, team dynamics and overall work is given by the facilitator. Team exercises that are application-oriented help students experience the practical application of concepts and learn from other students&rsquo; perspectives.</div>
+      <div class="passage-para">Team-based classrooms are especially beneficial in colleges with international students. Since this type of learning encourages people to listen and communicate with others, share problems, resolve personal conflicts, and manage their time and resources, it is a great environment for students who are in a new social situation. Since social interaction plays an important role during teamwork, team learning has an added advantage for students who are not comfortable in traditional classroom settings. It allows students from different cultures to understand their differences and use them productively. This type of learning environment also allows students to express themselves freely in a team context, rather than feeling singled out as when answering questions in a traditional classroom.</div>
+      <div class="passage-para">This learning model was designed to better prepare students for today&rsquo;s global workplace. Students are encouraged to explore ideas together, to build communication skills and achieve superior results. It is likely that employers will increasingly seek out students with these skills as we move into the future.</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1-2: Choose the correct letter A-D.</div>
+      <div class="q-block">
+        <div class="q-label">Q1. 1. The researchers concluded that ...</div>
+        <label class="radio-opt"><input type="radio" name="q1" value="A" onchange="markRad(this)"> A &nbsp;subjects underestimated the time spent 'on hold'.</label>
+        <label class="radio-opt"><input type="radio" name="q1" value="B" onchange="markRad(this)"> B &nbsp;it is better for companies not to use any 'on-hold' music.</label>
+        <label class="radio-opt"><input type="radio" name="q1" value="C" onchange="markRad(this)"> C &nbsp;light jazz was the most acceptable music overall.</label>
+        <label class="radio-opt"><input type="radio" name="q1" value="D" onchange="markRad(this)"> D &nbsp;both gender and type of music influence callers' reaction.</label>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. 2. The researchers recommended that ...</div>
+        <label class="radio-opt"><input type="radio" name="q2" value="A" onchange="markRad(this)"> A &nbsp;their client continue to play alternative music.</label>
+        <label class="radio-opt"><input type="radio" name="q2" value="B" onchange="markRad(this)"> B &nbsp;four types of music should be offered to people 'on hold'.</label>
+        <label class="radio-opt"><input type="radio" name="q2" value="C" onchange="markRad(this)"> C &nbsp;advertising is preferable to music.</label>
+        <label class="radio-opt"><input type="radio" name="q2" value="D" onchange="markRad(this)"> D &nbsp;women can be kept waiting for longer than men.</label>
+        <div class="q-result" id="r2"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 3-7: Choose the type of music from the list A-D below which corresponds to the findings of the study.</div>
+      <div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px">
+        <b>A</b> light jazz &nbsp;|&nbsp; <b>B</b> alternative &nbsp;|&nbsp; <b>C</b> classical &nbsp;|&nbsp; <b>D</b> rock<br>
+        <em>Example: longest waiting time estimate for women &mdash; Answer: C</em>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. 3. music preferred by men</div>
+        <div class="tfng-row">
+          <select id="q3" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. 4. longest waiting time estimate (both sexes)</div>
+        <div class="tfng-row">
+          <select id="q4" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. 5. music to avoid on telephone hold</div>
+        <div class="tfng-row">
+          <select id="q5" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r5"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q6. 6. music to use if clients are mostly women</div>
+        <div class="tfng-row">
+          <select id="q6" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. 7. best choice of 'on-hold' music overall</div>
+        <div class="tfng-row">
+          <select id="q7" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r7"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 8-13: Do the following statements agree with the claims of the writer? Write: YES. if the statement agrees with the views of the writer NO. if the statement contradicts the views of the writer NOT GIVEN. if there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q8. Businesses want to minimise the time spent 'on hold'.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q8" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q8" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q8" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r8"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q9. The research sample consisted of real clients of a company.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q9" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q9" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q9" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r9"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q10. The sample consisted of equal numbers of men and women.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q10" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q10" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q10" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r10"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q11. Advertising is considered a poor alternative to 'on-hold' music.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q11" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q11" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q11" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. The consumer service company surveyed was playing classical music.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q12" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q12" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q12" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. Researchers asked subjects only to estimate the length of time they waited 'on hold'.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q13" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q13" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q13" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14-18: The passage has 8 sections A-H. Choose the most suitable headings for paragraphs B-F from the list of headings below. Write the appropriate numbers (i-x). There are more headings than sections so you will not use all of them.</div>
+      <div class="word-box">
+<span>i. The significance of tea drinking</span><span>ii. Possible solution to the puzzle</span><span>iii. Industry in Holland and France</span><span>iv. Significant population increase</span><span>v. The relationship between drinks and disease</span><span>vi. Gin drinking and industrialisation</span><span>vii. Dysentery prevention in Japan and Holland</span><span>viii. Japan's waterborne diseases</span><span>ix. Preconditions necessary for Industrial Revolution</span><span>x. Introduction</span>
+      </div>
+      <div style="font-size:13px;color:#555;margin-bottom:10px"><em>Example: Section A &mdash; Answer: x</em></div>
+      <div class="q-block">
+        <div class="q-label">Q14. Section B</div>
+        <div class="tfng-row">
+          <select id="q14" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option><option value="x">x</option>
+          </select>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. Section C</div>
+        <div class="tfng-row">
+          <select id="q15" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option><option value="x">x</option>
+          </select>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. Section D</div>
+        <div class="tfng-row">
+          <select id="q16" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option><option value="x">x</option>
+          </select>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. Section E</div>
+        <div class="tfng-row">
+          <select id="q17" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option><option value="x">x</option>
+          </select>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. Section F</div>
+        <div class="tfng-row">
+          <select id="q18" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option><option value="x">x</option>
+          </select>
+        </div>
+        <div class="q-result" id="r18"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 19-22: Complete the table using NO MORE THAN THREE WORDS.</div>
+      <table class="q-table">
+        <thead><tr><th>CENTURY</th><th>SOCIAL CHANGE IN BRITAIN</th><th>REASON</th><th>EFFECT ON POPULATION</th></tr></thead>
+        <tbody>
+          <tr><td>mid-17th century</td><td>main drinks were still beer and ale (example)</td><td>Imps helped to make beer last longer</td><td>no significant change</td></tr>
+          <tr><td>late 17th century</td><td>gin becomes more popular, especially with poor people</td><td>beer becomes expensive because of <b>19.</b> <input type="text" id="q19" oninput="markTxt(this)" placeholder="answer"></td><td>mortality rate goes up</td></tr>
+          <tr><td>early 18th century</td><td><b>20.</b> <input type="text" id="q20" oninput="markTxt(this)" placeholder="answer"> drinking starts to become widespread</td><td>Britain starts trade with China</td><td>mortality rate goes down</td></tr>
+          <tr><td>mid-18th century</td><td>decline in urban deaths caused by <b>21.</b> <input type="text" id="q21" oninput="markTxt(this)" placeholder="answer"></td><td><b>22.</b> <input type="text" id="q22" oninput="markTxt(this)" placeholder="answer"> water used for tea and beer; antibacterial qualities of tannin</td><td>infant mortality rate goes down by half</td></tr>
+        </tbody>
+      </table>
+      <div class="q-result" id="r19"></div><div class="q-result" id="r20"></div><div class="q-result" id="r21"></div><div class="q-result" id="r22"></div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 23-25: Choose the correct letter A-D.</div>
+      <div class="q-block">
+        <div class="q-label">Q23. 23. In 1740 there was a population explosion in Britain because ...</div>
+        <label class="radio-opt"><input type="radio" name="q23" value="A" onchange="markRad(this)"> A &nbsp;large numbers of people moved to live in cities.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="B" onchange="markRad(this)"> B &nbsp;larger quantities of beer were drunk.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="C" onchange="markRad(this)"> C &nbsp;of the health protecting qualities of beer and tea.</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="D" onchange="markRad(this)"> D &nbsp;of the Industrial Revolution.</label>
+        <div class="q-result" id="r23"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q24. 24. According to the author, the Japanese did not industrialise because they didn't ...</div>
+        <label class="radio-opt"><input type="radio" name="q24" value="A" onchange="markRad(this)"> A &nbsp;like drinking beer.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="B" onchange="markRad(this)"> B &nbsp;It want animals to work.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="C" onchange="markRad(this)"> C &nbsp;Iike using wheels.</label>
+        <label class="radio-opt"><input type="radio" name="q24" value="D" onchange="markRad(this)"> D &nbsp;want unemployment.</label>
+        <div class="q-result" id="r24"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q25. 25. Macfarlane thinks he has discovered why ...</div>
+        <label class="radio-opt"><input type="radio" name="q25" value="A" onchange="markRad(this)"> A &nbsp;the British drink beer and tea</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="B" onchange="markRad(this)"> B &nbsp;industrialisation happened in Britain when if did.</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="C" onchange="markRad(this)"> C &nbsp;the Japanese did not drink beet.</label>
+        <label class="radio-opt"><input type="radio" name="q25" value="D" onchange="markRad(this)"> D &nbsp;sanitation wasn't widespread until the 19th century.</label>
+        <div class="q-result" id="r25"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 26-32: Complete the summary below. Choose your answers from the box below the summary. There are more words than you will need to fill the gaps.</div>
+      <div class="word-box">
+<span>A exceeds</span><span>B extracts</span><span>C choices</span><span>D candidates</span><span>E employees</span><span>F admiration</span><span>G previous</span><span>H financial</span><span>I employment</span><span>J regularity</span><span>K advantages</span><span>L employers</span><span>M environment</span><span>N activities</span><span>O current</span>
+      </div>
+      <div class="q-block">
+        <div class="passage-para">Although IT is one of the leading career choice (example) made by graduates today, the industry&rsquo;s demand for qualified applicants
+<select id="q26" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option><option value="O">O</option></select> <b>(26)</b>
+<select id="q27" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option><option value="O">O</option></select> <b>(27)</b>
+<select id="q28" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option><option value="O">O</option></select> <b>(28)</b>
+<select id="q29" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option><option value="O">O</option></select> <b>(29)</b>
+<select id="q30" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option><option value="O">O</option></select> <b>(30)</b>
+<select id="q31" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option><option value="O">O</option></select> <b>(31)</b>
+<select id="q32" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option><option value="O">O</option></select> <b>(32)</b>
+
+        the supply of skilled IT personnel. Despite the widespread use of computer technology in all areas of life, face difficulties recruiting people whose education has equipped them to commence working productively without further training. Several business organisations now offer income and other inducements to potential employees. They also include group activities in their selection procedures, often inviting up to forty candidates to their company for the two-day visit. In this way the company can demonstrate the reality of the working environment which is more likely to involve challenging co-operative projects than individualised tasks.</div>
+        <div class="q-result" id="r26"></div><div class="q-result" id="r27"></div><div class="q-result" id="r28"></div><div class="q-result" id="r29"></div><div class="q-result" id="r30"></div><div class="q-result" id="r31"></div><div class="q-result" id="r32"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 33-37: Do the following statements reflect the views of the writer of the passage? Write: YES. if the statement agrees with the views of the writer NO. if the statement contradicts the views of the writer NOT GIVEN. if there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q33. The American Intercontinental University includes team-based learning in all its courses on all its campuses.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q33" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q33" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q33" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. The composition of teams is changed regularly.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q34" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q34" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q34" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r34"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q35. Theoretical problems are the most important team activity.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q35" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q35" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q35" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r35"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q36. The team members participate in assessment of other team members.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q36" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q36" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q36" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q37. International students prefer traditional classroom learning to team-based learning.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q37" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q37" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q37" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 38-40: Choose one phrase from the list of phrases A-H below to complete each of the following sentences. There are more phrases than questions so you will not use all of them.</div>
+      <div class="word-box">
+        <span>A. to compete with other teams as judged by the facilitator.</span>
+        <span>B. by individual tests and exams.</span>
+        <span>C. to see who has the strongest point of view in the group.</span>
+        <span>D. individually, by their peers and as a team.</span>
+        <span>E. in the development of communication skills.</span>
+        <span>F. to practise working as a group while putting theory into practice.</span>
+        <span>G. to assist international and non-traditional students.</span>
+        <span>H. in getting to know new friends and colleagues.</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. 38. Students' work is assessed ...</div>
+        <div class="tfng-row">
+          <select id="q38" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. 39. The teams make a joint presentation ...</div>
+        <div class="tfng-row">
+          <select id="q39" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. 40. The need to achieve consensus assists ...</div>
+        <div class="tfng-row">
+          <select id="q40" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+          </select>
+        </div>
+        <div class="q-result" id="r40"></div>
+      </div>
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+// ANSWER KEY
+var ANS={
+  q1:'D',q2:'A',
+  q3:'A',q4:'D',q5:'D',q6:'A',q7:'B',
+  q8:'YES',q9:'YES',q10:'NO',q11:'NOT GIVEN',q12:'NO',q13:'NO',
+  q14:'ix',q15:'ii',q16:'iv',q17:'v',q18:'i',
+  q19:['tax/tax on malt/malt tax','tax on malt','malt tax','tax'],
+  q20:['tea'],
+  q21:['waterborne diseases/dysentery','waterborne diseases','dysentery'],
+  q22:['boiled'],
+  q23:'C',q24:'D',q25:'B',
+  q26:'A',
+  q27:'O',
+  q28:'L',
+  q29:'H',
+  q30:'N',
+  q31:'D',
+  q32:'M',
+  q33:'NO',q34:'NO',q35:'NO',q36:'YES',q37:'NOT GIVEN',
+  q38:'D',q39:'F',q40:'E'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  for(var i=1;i<=2;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=3;i<=7;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=8;i<=13;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=14;i<=18;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=19;i<=22;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  for(var i=23;i<=25;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=26;i<=32;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=33;i<=37;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=38;i<=40;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  var detailsParts=[];
+  for(var i=1;i<=2;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=3;i<=7;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=8;i<=13;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=18;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=19;i<=22;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=23;i<=25;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=26;i<=32;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=33;i<=37;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=38;i<=40;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 32',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
