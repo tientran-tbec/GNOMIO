@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 31</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 31</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">Survivor from the sky</div>
+      <div class="passage-para">In a remarkable documentary, Wings of Hope, German director Werner Herzog re-counts the true story of an eighteen-year-old girl, the sole survivor of a plane crash in the Amazon jungle in 1971. Twenty-nine years later, Herzog returns to the jungle with Juliane Koepke, now a 46-year-old biologist, and she tells her amazing story on film.</div>
+      <div class="passage-para">Juliane had just graduated from high school in Lima, Peru and, with her mother, was flying out to spend Christmas at her father&rsquo;s research station in the jungle. A half hour into the flight they encountered a horrific storm. In the midst of wild turbulence, the plane was struck by lightning and fell into a nosedive. Passengers screamed as baggage flew around the compartment. Then the plane broke into pieces and suddenly Juliane found herself outside free-falling 30,000 feet. &lsquo;I was suspended in mid-air, still in my scat. It wasn&rsquo;t so much that I had left the plane but that the plane had left me. It simply wasn&rsquo;t there any more. I was all alone with my row of seats,&rsquo; says Juliane. &lsquo;I sailed on through the air, then I tumbled into a fall. The seatbelt squeezed my stomach and I couldn&rsquo;t breathe any more.&rsquo; Before she lost consciousness, Juliane saw the dense jungle below, &lsquo;a deep green, like broccoli&rsquo;, with no clearings for hundreds of miles.</div>
+      <div class="passage-para">Somehow, miraculously, Juliane survived that fall from the sky. In the film, she speculates on a number of factors which may have combined to save her. First, the storm had produced a strong updraft from the thunder clouds. Secondly, being strapped into a row of seats, she was aware of falling in a spiralling movement, like a maple seed pod. Then, hitting the canopy of trees, she tumbled through a maze of vines which slowed her landing in deep mud.</div>
+      <div class="passage-para">But surviving the fall, though miraculous in itself, was just the beginning. When Juliane awoke hours later, wet and covered with mud, she was still strapped to her seat. Staggering to her feet, she assessed her injuries: a fractured bone in the neck, concussion and deep cuts in her leg and back. She was also in shock, lost and totally alone in the Amazon jungle.</div>
+      <div class="passage-para">No doubt it was her familiarity with the wilderness that enabled her to cope. Her parents were biologists and Juliane had grown up in the jungle. She realised her only hope was to follow a little stream of water nearby, trusting that it would eventually lead to a larger river and rescue. With no provisions, dressed in the miniskirt she had worn on the plane and wearing just one shoe, she set off through the jungle. She passed broken fragments from the plane - a wheel, an engine. &lsquo;Initially, I saw planes circling above me, but after a few days I realised the search had been called off,&rsquo; she said.</div>
+      <div class="passage-para">Surprisingly she felt no hunger but as the days passed her health was deteriorating rapidly. The gash in her shoulder, where flies had laid their eggs was now crawling with maggots. &lsquo;I knew I&rsquo;d perish in the jungle so I stayed in the water.&rsquo; Walking in the stream, however, presented one risk more serious than any others. Before each step she had to poke ahead in the sand with a stick, to avoid treading on poisonous sting rays, lying hidden on the bottom.</div>
+      <div class="passage-para">As the stream grew into a river, swimming was the only option. However, here in deeper water, there were new threats. Crocodiles basking on the shores slipped silently into the water as she passed. Juliane trusted that they feared humans and were entering the water to hide. She swam on. On the tenth day, starving and barely conscious, she spotted a hut and a canoe. They belonged to three woodcutters working nearby. Rescue was at hand.</div>
+      <div class="passage-para">For this 46-year-old woman, re-living such a traumatic experience on film must have been a great challenge. But she shows little emotion. Flying back into the jungle, she sits in the same seat (19F) as on that fateful day. She is dispassionate, unemotional in describing the flight. On the ground, when they finally locate the crash site, in dense jungle, Juliane is scientific in her detachment, looking through the debris, now buried under dense vegetation. She examines a girl&rsquo;s purse, the skeleton of a suitcase. Walking along the stream, she spots the engine which she remembers passing on the third day. Her arms and legs are covered with mosquitoes, but she seems to ignore all discomfort. Then, back in the town, standing in front of a monument erected in memory of the victims of the crash, entitled Alas de Esperanza (Wings of Hope), Juliane comments simply, 'I emerged, as the sole embodiment of hope from this disaster.'</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">The race to make spider silk</div>
+      <div class="passage-para">The strength, toughness, and elasticity of silk continue to fascinate scientists, who wonder what gives this natural material its unusual qualities. Finer than human hair, lighter than cotton, and ounce for ounce stronger than steel, silk is of special interest to materials researchers. They are trying to duplicate its properties and synthesise it for large-scale production. Silk holds the promise of wear-resistant shoes and clothes; stronger ropes, nets, seatbelts and parachutes; rustfree panels and bumpers for automobiles; improved sutures and bandages; artificial tendons and ligaments; supports for weakened blood vessels as well as bulletproof vests.</div>
+      <div class="passage-para">Many insects secrete silks of varying quality. Best known is the moth bombyx mori, whose caterpillar is commonly known as the silkworm. It spins its cocoon from a single thread between 300 and 900 metres long and has been used for centuries to make fine garments. But the focus of scientific attention today is on spider silk: tougher, stretchier, and more waterproof than silkworm strands. Spiders make as many as seven different types of silk, but one spider and two types of silk are at the centre of intense interest. The spider is the golden orb-weaving spider, nephila clavipes. Its two silks under investigation go by the evocative names &lsquo;dragline&rsquo; and &lsquo;capture&rsquo;.</div>
+      <div class="passage-para">Dragline is the silk which forms the frame for the wheel-shaped webs and enables the dangling spider to drop down and grab its prey. This silk exhibits a combination of strength and toughness unmatched by high-performance synthetic fibre.</div>
+      <div class="passage-para">Capture silk is the resilient substance at the centre of the web. To catch a speeding insect, it may stretch to almost three times its original length. Insects get entangled in the sticky web because the stretchiness of capture silk lets the web move back and forth after the insect hits it. If the web were stiff, the insect might just bounce off. Whereas dragline is stronger, capture silk is more flexible, five times more flexible in fact.</div>
+      <div class="passage-para">Because the orb weaver&rsquo;s survival depends on its silk, some 400 million years of evolution have fine-tuned a remarkably tough and versatile material. Now, research groups all over the world are competing to spin the first artificial spider silk, a job that requires a three-step approach: to determine the fibre&rsquo;s molecular architecture, to understand the genes that yield silk proteins, and then to learn how to spin the raw material into threads.</div>
+      <div class="passage-para">The first two steps are well underway. The molecular structure for both dragline and capture silk is known and now researchers have cloned several genes for the silks and unravelled their protein structure.</div>
+      <div class="passage-para">The next step is to find hosts for the artificial genes. Plants and fungi, as well as bacteria, are being considered. If a hardy plant could express a dragline silk gene, silk proteins could eventually be harvested in large quantities, processed into a liquid, polymer, and spun in factories, A different experimental approach is to insert the web gene into goats in order to collect the protein from the goats&rsquo; milk. Goats are being used instead of the simpler and much cheaper bacteria, because the secret of the protein&rsquo;s strength lies in how the molecules cross-link with one another. When bacteria is used to make artificial web, the protein folds in a way that prevents it. from cross-linking properly, resulting in hard while lumps. The spider makes protein in a manner similar to the way mammals make milk, so the researchers hope that the protein made in the goats&rsquo; mammary glands will be able to cross-link properly. Once the protein is extracted from the goats&rsquo; milk, the next step is to find a way to spin it.</div>
+      <div class="passage-para">Spiders make their silk in environmentally friendly ways. They process proteins from water-based solutions which, from a manufacturing point of view, is very attractive. The process of making synthetic fibres like nylon, on the other hand, requires petroleum products or organic solvents and results in pollution. So bio-technologists arc motivated by both the practical and economic potential of generating artificial spider silk. Globally, as much as 60 per cent of the threads used to weave clothing come from natural fibre, including cotton, wool, and silk. The aim is to offer substitutes for natural fibres that arc free of the problems of poor wash-wear performance: stretching, wrinkling arid shrinkage. They are seeking a better-than-natural alternative fibre for which there is a major market. Bio-inspired materials are providing a new frontier for the fibre business.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">Map wars</div>
+      <div class="passage-para">A map of the world expresses a point of view. A correct model of the earth is a sphere - or an ellipsoid to be precise. Photographs of the earth from space provide comforting reassurance on that point. If you wish to know the relative positions of the continents and the oceans you should go out and buy yourself a globe and spin it around.</div>
+      <div class="passage-para">But a globe cannot be pinned to a wall or printed in a book. For that you need a two-dimensional representation. This is where the problems start since you cannot project three-dimensional information onto a flat plane without making certain assumptions. The arguments between cartographers mostly concern what those assumptions should be.</div>
+      <div class="passage-para">The simplest two-dimensional representation is a &lsquo;cylindrical&rsquo; projection - what you get by wrapping a sheet of paper around a globe and simply transferring the information across. This means it indicates true north and south. So, Newfoundland is directly north of Venezuela and it appears that way on the map. East and west similarly are also indicated correctly. Such a map demonstrates what is called &lsquo;fidelity of axis&rsquo;.</div>
+      <div class="passage-para">One of the longest-lived cylindrical projections was based on the needs of sixteenth century navigators. Gerhard Kremer, a Flemish mathematician, produced his view of the world in 1569. &lsquo;Kremer&rsquo; translates to &lsquo;merchant&rsquo; in English and &lsquo;mercator&rsquo; in Latin. And the Mercator projection survives to this day in many books and maps.</div>
+      <div class="passage-para">Mercator&rsquo;s projection of the world also shows intermediate compass directions like north-west more or less accurately. So, it is possible to conclude from his map that Brazil is south-west of Liberia and if you plot a course in that direction you will eventually arrive at your destination. No wonder it was appreciated by the early explorers! If it can be used in this way a map is said to have &lsquo;fidelity of angle&rsquo;.</div>
+      <div class="passage-para">But fidelity of angle is only achieved at a cost. To make it work, the further away you get from the equator, the further apart you have to move the horizontal lines of latitude. As these distances increase so do the sizes of the countries underneath them. So, by the time you get to the North or South Poles the lines would be drawn infinitely far apart and the Arctic and Antarctic regions can scarcely be represented at all since they would be infinitely large. More importantly the relative sizes of intermediate areas are completely distorted; South America seems smaller than Europe whereas in fact it is twice the size. These changes in scale distort both the size and shape of countries. Given such defects, it is surprising that the Mercator projection has survived so long, especially as dozens of other more satisfactory projections have appeared since. One of the best known of these is the Aitoff projection of 1889, which attempted to represent country sizes and shapes more correctly. But to do so required a compromise - the lines of latitude and longitude had to be &lsquo;bent&rsquo;. Fidelity of axis had thus been lost and you could no longer judge north, south, east and west so easily. Most of us, however, did not notice that these projections were different from Mercator. We assumed that all maps were simply factual statements.</div>
+      <div class="passage-para">Dr. Arno Peters, a German historian, was irritated by the maps he saw widely published, particularly by the survival of Mercator which he argued, gave a euro-centric view of the world. It shrank the developing countries since most of these are around the equator, and it expanded the richer countries since they lay further north. Even the equator itself is shown two thirds of the way down on the traditional Mercator map. Dr. Peters insisted that his map, which first appeared in 1985, has equal-area projection so that no country is given prominence over another, plus fidelity of axis to avoid the disorientating effect of bent lines of latitude and longitude.</div>
+      <div class="passage-para">Then there is the question of country shape. If you were to take a photo of a globe in its normal position you would find the countries around the equator like Zaire or Ecuador came out of it pretty well. They would be shown relatively large and with something close to their correct shape. But further north or south there are considerable distortions: Australia tails away alarmingly. Dr. Peters decided that the minimum distortions should occur not at the equator but at the 45 degree lines of latitude, as these are much more populated areas. However, this controversial Peters map does radically change the shape of both Africa and South America; and although all projections distort to some extent, it is clear that Africa appears exceptionally long and thin on the Peters map.</div>
+      <div class="passage-para">But the oddity of the Peters projection is at least partly responsible for its success, as there has been widespread discussion on the misrepresentation of country sizes in previous maps. The issues which the Peters map raises are relatively simple. If you decide you want an equal area map with fidelity of axis you will always get something resembling the Peters projection. If you decide that shape is more significant you will get something else.</div>
+      <div class="passage-para">The real value of the Peters projection is that it has made the world think about something that before was never taken seriously: that maps of the world represent a point of view just as do press articles or TV programmes or photographs. But it isn&rsquo;t recommended that you navigate a &lsquo;747&rsquo; round the world with the Peters projection or with any other single global projection they would all lead you astray!</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1-3: Answer the following questions using NO MORE THAN THREE WORDS from the passage.</div>
+      <div class="q-block">
+        <div class="q-label">Q1. How old was Juliane at the time of the crash?</div>
+        <input type="text" id="q1" oninput="markTxt(this)" placeholder="answer">
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. What is her occupation now?</div>
+        <input type="text" id="q2" oninput="markTxt(this)" placeholder="answer">
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. What was the cause of the plane crash?</div>
+        <input type="text" id="q3" oninput="markTxt(this)" placeholder="answer">
+        <div class="q-result" id="r3"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 4-10: Choose the correct letter A-D.</div>
+      <div class="q-block">
+        <div class="q-label">Q4. 4. What happened to the plane?</div>
+        <label class="radio-opt"><input type="radio" name="q4" value="A" onchange="markRad(this)"> A &nbsp;It broke apart in the air</label>
+        <label class="radio-opt"><input type="radio" name="q4" value="B" onchange="markRad(this)"> B &nbsp;It hit trees and exploded.</label>
+        <label class="radio-opt"><input type="radio" name="q4" value="C" onchange="markRad(this)"> C &nbsp;It crashed into a mountainside.</label>
+        <label class="radio-opt"><input type="radio" name="q4" value="D" onchange="markRad(this)"> D &nbsp;It hit the ground and burst into flames.</label>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. 5. Which of the following did NOT help to slow her fall?</div>
+        <label class="radio-opt"><input type="radio" name="q5" value="A" onchange="markRad(this)"> A &nbsp;an updraft caused by storm clouds</label>
+        <label class="radio-opt"><input type="radio" name="q5" value="B" onchange="markRad(this)"> B &nbsp;hitting vines</label>
+        <label class="radio-opt"><input type="radio" name="q5" value="C" onchange="markRad(this)"> C &nbsp;the section of seats to which she was attached</label>
+        <label class="radio-opt"><input type="radio" name="q5" value="D" onchange="markRad(this)"> D &nbsp;a parachute</label>
+        <div class="q-result" id="r5"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q6. 6. Which of the following injuries did she sustain?</div>
+        <label class="radio-opt"><input type="radio" name="q6" value="A" onchange="markRad(this)"> A &nbsp;a broken foot</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="B" onchange="markRad(this)"> B &nbsp;a broken arm</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="C" onchange="markRad(this)"> C &nbsp;concussion</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="D" onchange="markRad(this)"> D &nbsp;cuts on her head</label>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. 7. What, helped her to survive?</div>
+        <label class="radio-opt"><input type="radio" name="q7" value="A" onchange="markRad(this)"> A &nbsp;Knowledge of the jungle</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="B" onchange="markRad(this)"> B &nbsp;a map showing the location of the river</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="C" onchange="markRad(this)"> C &nbsp;appropriate clothing and shoes</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="D" onchange="markRad(this)"> D &nbsp;food supplies from the plane</label>
+        <div class="q-result" id="r7"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q8. 8. What was the biggest threat to her survival?</div>
+        <label class="radio-opt"><input type="radio" name="q8" value="A" onchange="markRad(this)"> A &nbsp;infected wounds</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="B" onchange="markRad(this)"> B &nbsp;sting rays</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="C" onchange="markRad(this)"> C &nbsp;starvation</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="D" onchange="markRad(this)"> D &nbsp;crocodiles</label>
+        <div class="q-result" id="r8"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q9. 9. How long was she lost in the jungle?</div>
+        <label class="radio-opt"><input type="radio" name="q9" value="A" onchange="markRad(this)"> A &nbsp;3 days</label>
+        <label class="radio-opt"><input type="radio" name="q9" value="B" onchange="markRad(this)"> B &nbsp;5 days</label>
+        <label class="radio-opt"><input type="radio" name="q9" value="C" onchange="markRad(this)"> C &nbsp;10 days</label>
+        <label class="radio-opt"><input type="radio" name="q9" value="D" onchange="markRad(this)"> D &nbsp;15 days</label>
+        <div class="q-result" id="r9"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q10. 10. How was she finally rescued?</div>
+        <label class="radio-opt"><input type="radio" name="q10" value="A" onchange="markRad(this)"> A &nbsp;A search party found her in the jungle.</label>
+        <label class="radio-opt"><input type="radio" name="q10" value="B" onchange="markRad(this)"> B &nbsp;Native hunters found her.</label>
+        <label class="radio-opt"><input type="radio" name="q10" value="C" onchange="markRad(this)"> C &nbsp;She signaled to a plane from the river.</label>
+        <label class="radio-opt"><input type="radio" name="q10" value="D" onchange="markRad(this)"> D &nbsp;She reached a campsite along the river.</label>
+        <div class="q-result" id="r10"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 11-14: Do the following statements agree with the views of the writer in this passage? Write: YES. if the statement agrees with the views of the writer NO. if the statement contradicts the views of the writer NOT GIVEN. if there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q11. Other survivors of the crash were found in the jungle.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q11" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q11" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q11" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. Juliane was upset when she re-visited the crash site.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q12" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q12" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q12" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. Wings of Hope is the name given to a memorial statue.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q13" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q13" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q13" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r13"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q14. Juliane suffered nightmares for many years as a result of her experience.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q14" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q14" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q14" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 15-19: Classify the following as relating to:</div>
+      <div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px">
+        <b>A</b> the silk of bombyx mori &nbsp;|&nbsp; <b>B</b> dragline silk of nephila clavipes &nbsp;|&nbsp; <b>C</b> capture silk of nephila clavipes<br>
+        <em>Example: forms the cocoon &mdash; Answer: A</em>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. 15. forms the framework of a web</div>
+        <div class="tfng-row">
+          <select id="q15" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. 16. most elastic silk</div>
+        <div class="tfng-row">
+          <select id="q16" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. 17. allows predator to drop quickly</div>
+        <div class="tfng-row">
+          <select id="q17" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. 18. single strand can be up to 900 metres long</div>
+        <div class="tfng-row">
+          <select id="q18" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r18"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q19. 19. strongest silk</div>
+        <div class="tfng-row">
+          <select id="q19" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r19"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 20-24: Do the following statements reflect the claims of the writer in the passage? Write: YES. if the statement agrees with the views of the writer NO. if the statement contradicts the views of the writer NOT GIVEN. if there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q20. All spiders secrete silk.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q20" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q20" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q20" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r20"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q21. Artificial genes for spider silk have been produced.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q21" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q21" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q21" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r21"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q22. Spider silk protein occurs naturally in goats' milk.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q22" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q22" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q22" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r22"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q23. China is leading research efforts in the area of spider silk.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q23" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q23" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q23" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r23"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q24. Spider silk is now being produced commercially.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q24" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q24" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q24" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r24"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 25-27: Using NO MORE THAN THREE WORDS from the passage for each answer, complete the following.</div>
+      <div class="q-block">
+        <div class="passage-para">Comparison of Synthetic and Natural Fibres<br>
+        &bull; Main problem in the production of synthetic fibres: <b>25.</b> <input type="text" id="q25" oninput="markTxt(this)" placeholder="answer"><br>
+        &bull; 3 disadvantages of natural fibres: <b>26.</b> <input type="text" id="q26" oninput="markTxt(this)" placeholder="answer"><br>
+        &bull; Proportion of clothing made from natural fibre: <b>27.</b> <input type="text" id="q27" oninput="markTxt(this)" placeholder="answer"></div>
+        <div class="q-result" id="r25"></div><div class="q-result" id="r26"></div><div class="q-result" id="r27"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 28-31: Complete the summary. Choose your answers from the box below the summary. There are more words than you will need to fill the gaps.</div>
+      <div class="word-box">
+        <span>A axis</span><span>B estimate</span><span>C perspective</span><span>D map</span>
+        <span>E direction</span><span>F compare</span><span>G size</span><span>H judge</span>
+        <span>I accurately</span><span>J angle</span><span>K distances</span><span>L models</span>
+        <span>M projection</span><span>N change</span>
+      </div>
+      <div class="q-block">
+        <div class="passage-para">For four centuries, map makers have been trying to convert three-dimensional information as accurately (example) as possible onto a two-dimensional plane. However, each method of
+          <select id="q28" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option></select> <b>(28)</b>
+          involves a compromise. Thus Mercator&rsquo;s projection indicates true north and south, known as fidelity of
+          <select id="q29" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option></select> <b>(29)</b>,
+          but misrepresents the relative size of countries. To avoid this distortion, other cartographers rounded the lines of latitude and longitude. Dr. Peters felt that such maps presented a first-world
+          <select id="q30" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option></select> <b>(30)</b>.
+          His map, with equal area projection, enables us to
+          <select id="q31" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option><option value="M">M</option><option value="N">N</option></select> <b>(31)</b>
+          the size of one country with another.
+        </div>
+        <div class="q-result" id="r28"></div><div class="q-result" id="r29"></div><div class="q-result" id="r30"></div><div class="q-result" id="r31"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 32-36: Use the information in the text to match the map projections [M, A, P] with the characteristics listed below.</div>
+      <div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px">
+        <b>M</b> Mercator projection &nbsp;|&nbsp; <b>A</b> Aitoff projection &nbsp;|&nbsp; <b>P</b> Peters projection<br>
+        <em>Example: designed for the needs of early navigators &mdash; Answer: M</em>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q32. 32. makes Europe seem larger than it is</div>
+        <div class="tfng-row">
+          <select id="q32" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="M">M</option><option value="A">A</option><option value="P">P</option>
+          </select>
+        </div>
+        <div class="q-result" id="r32"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q33. 33. maximum distortions at the poles</div>
+        <div class="tfng-row">
+          <select id="q33" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="M">M</option><option value="A">A</option><option value="P">P</option>
+          </select>
+        </div>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. 34. maintains greatest accuracy at 45 degrees latitude</div>
+        <div class="tfng-row">
+          <select id="q34" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="M">M</option><option value="A">A</option><option value="P">P</option>
+          </select>
+        </div>
+        <div class="q-result" id="r34"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q35. 35. most distorts the position of the equator</div>
+        <div class="tfng-row">
+          <select id="q35" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="M">M</option><option value="A">A</option><option value="P">P</option>
+          </select>
+        </div>
+        <div class="q-result" id="r35"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q36. 36. more accurately represents country shapes and sizes</div>
+        <div class="tfng-row">
+          <select id="q36" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="M">M</option><option value="A">A</option><option value="P">P</option>
+          </select>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 37-39: Choose one drawing (A-D) to match each of the three projection types (37-39). There are more drawings than names so you will not use all of them. <em>(Note: the original diagrams A-D are not reproducible here &mdash; select your answer from the options below.)</em></div>
+      <div class="q-block">
+        <div class="q-label">Q37. 37. Mercator projection</div>
+        <div class="tfng-row">
+          <select id="q37" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. 38. Aitoff projection</div>
+        <div class="tfng-row">
+          <select id="q38" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. 39. Peters projection</div>
+        <div class="tfng-row">
+          <select id="q39" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Question 40: Choose the correct letter A-D.</div>
+      <div class="q-block">
+        <div class="q-label">Q40. 40. The main point made by the writer of this article is that we need to ...</div>
+        <label class="radio-opt"><input type="radio" name="q40" value="A" onchange="markRad(this)"> A &nbsp;understand maps.</label>
+        <label class="radio-opt"><input type="radio" name="q40" value="B" onchange="markRad(this)"> B &nbsp;understand map-making.</label>
+        <label class="radio-opt"><input type="radio" name="q40" value="C" onchange="markRad(this)"> C &nbsp;understand that maps are not objective.</label>
+        <label class="radio-opt"><input type="radio" name="q40" value="D" onchange="markRad(this)"> D &nbsp;understand the importance of latitude and longitude.</label>
+        <div class="q-result" id="r40"></div>
+      </div>
+
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+// ANSWER KEY
+var ANS={
+  q1:['18','18 years old','18 (years old)'],
+  q2:['biologist'],
+  q3:['storm/lightning','storm','lightning','storm and lightning'],
+  q4:'A',q5:'D',q6:'C',q7:'A',q8:'B',q9:'C',q10:'D',
+  q11:'NO',q12:'NO',q13:'YES',q14:'NOT GIVEN',
+  q15:'B',q16:'C',q17:'B',q18:'A',q19:'B',
+  q20:'NOT GIVEN',q21:'YES',q22:'NO',q23:'NOT GIVEN',q24:'NO',
+  q25:['pollution'],
+  q26:['stretching, wrinkling, shrinkage','stretching, wrinkling and shrinkage'],
+  q27:['60 per cent','60%'],
+  q28:'M',q29:'A',q30:'C',q31:'F',
+  q32:'M',q33:'M',q34:'P',q35:'M',q36:'A',
+  q37:'B',q38:'C',q39:'A',q40:'C'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  // Q1-3 text
+  for(var i=1;i<=3;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q4-10 radio
+  for(var i=4;i<=10;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q11-14 radio (YNG)
+  for(var i=11;i<=14;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q15-19 select
+  for(var i=15;i<=19;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q20-24 radio (YNG)
+  for(var i=20;i<=24;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q25-27 text
+  for(var i=25;i<=27;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q28-31 select
+  for(var i=28;i<=31;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q32-36 select
+  for(var i=32;i<=36;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q37-39 select
+  for(var i=37;i<=39;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q40 radio
+  var ok40=chkRad('q40',ANS['q40']);score+=ok40;document.getElementById('r40').innerHTML=ok40?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q40']+'</span>';
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  var detailsParts=[];
+  for(var i=1;i<=3;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=4;i<=14;i++){var v=(i<=10)?getRadio('q'+i):getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=15;i<=19;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=20;i<=24;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=25;i<=27;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=28;i<=39;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var v40=getRadio('q40');var ok40b=v40.toUpperCase()===ANS['q40'].toUpperCase()?'✔':'✘';detailsParts.push('Q40:'+ok40b+'('+v40+')');
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 31',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
