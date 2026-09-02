@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Listening Test 30</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f4f6f9; color: #222; }
+
+  .container { max-width: 860px; margin: 30px auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); padding: 36px 40px 50px; }
+
+  h1 { text-align: center; font-size: 1.6em; letter-spacing: 2px; color: #1a3a5c; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #666; font-size: 0.95em; margin-bottom: 28px; }
+
+  /* Audio */
+  .audio-section { background: #eaf3fb; border: 1px solid #b3d4ef; border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; text-align: center; }
+  .audio-section p { font-weight: bold; color: #1a3a5c; margin-bottom: 10px; }
+  audio { width: 100%; }
+
+  /* Parts */
+  .part { margin-bottom: 36px; }
+  .part-title { background: #1a3a5c; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 1.05em; font-weight: bold; margin-bottom: 14px; }
+  .question-block { margin-bottom: 18px; }
+  .instruction { font-style: italic; color: #555; margin-bottom: 12px; font-size: 0.93em; }
+  .question-id { font-size: 0.75em; color: #999; margin-bottom: 2px; }
+
+  /* Notes layout */
+  .notes-box { border: 1px solid #ccc; border-radius: 8px; padding: 18px 22px; background: #fafafa; margin-bottom: 12px; }
+  .notes-box h3 { text-align: center; font-size: 1em; color: #1a3a5c; margin-bottom: 12px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+  .note-row { display: flex; align-items: center; padding: 5px 0; border-bottom: 1px dotted #e0e0e0; flex-wrap: wrap; gap: 6px; }
+  .note-row:last-child { border-bottom: none; }
+  .note-label { min-width: 160px; font-weight: bold; color: #333; }
+  .note-value { color: #555; }
+  .note-static { color: #444; font-style: italic; }
+  .qid-tag { font-size: 0.72em; color: #aaa; margin-right: 4px; }
+
+  /* Input styling */
+  input[type="text"] {
+    border: none; border-bottom: 2px solid #1a3a5c; background: transparent;
+    font-size: 0.95em; padding: 2px 6px; width: 140px; color: #1a3a5c;
+    outline: none; transition: border-color 0.2s;
+  }
+  input[type="text"]:focus { border-bottom-color: #f39c12; }
+  input[type="text"].correct { border-bottom-color: #27ae60; background: #eafaf1; }
+  input[type="text"].wrong { border-bottom-color: #e74c3c; background: #fdf0ef; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th { background: #1a3a5c; color: #fff; padding: 8px 10px; text-align: center; font-size: 0.9em; }
+  td { border: 1px solid #ccc; padding: 8px 10px; text-align: center; font-size: 0.9em; }
+  td.left { text-align: left; }
+  tr:nth-child(even) td { background: #f7f7f7; }
+
+  /* MCQ */
+  .mcq-question { margin-bottom: 20px; }
+  .mcq-question p { font-weight: bold; margin-bottom: 8px; color: #1a3a5c; }
+  .mcq-options { display: flex; flex-direction: column; gap: 6px; margin-left: 16px; }
+  .mcq-options label { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-size: 0.95em; }
+  .mcq-options label.correct-label { color: #27ae60; font-weight: bold; }
+  .mcq-options label.wrong-label { color: #e74c3c; }
+
+  /* Matching */
+  .matching-intro { margin-bottom: 10px; font-size: 0.93em; color: #555; }
+  .matching-key { background: #eaf3fb; border-radius: 6px; padding: 10px 16px; margin-bottom: 12px; font-size: 0.9em; }
+  .matching-key p { margin-bottom: 3px; }
+  .matching-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .matching-row span { font-weight: bold; min-width: 160px; }
+  select {
+    border: 1px solid #1a3a5c; border-radius: 4px; padding: 4px 8px;
+    font-size: 0.93em; color: #1a3a5c; background: #fff; cursor: pointer;
+  }
+  select.correct { border-color: #27ae60; background: #eafaf1; color: #27ae60; }
+  select.wrong { border-color: #e74c3c; background: #fdf0ef; color: #e74c3c; }
+
+  /* Submit */
+  .submit-section { text-align: center; margin-top: 36px; }
+  button#submitBtn {
+    background: #1a3a5c; color: #fff; border: none; padding: 13px 50px;
+    font-size: 1.05em; border-radius: 8px; cursor: pointer; letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+  button#submitBtn:hover { background: #f39c12; }
+
+  /* Score */
+  #scoreBoard { display: none; margin-top: 28px; border: 2px solid #1a3a5c; border-radius: 10px; padding: 24px 30px; text-align: center; background: #eaf3fb; }
+  #scoreBoard h2 { color: #1a3a5c; font-size: 1.4em; margin-bottom: 8px; }
+  #scoreBoard p { font-size: 1.05em; color: #333; }
+  .score-num { font-size: 2em; font-weight: bold; color: #f39c12; }
+
+  /* Answer reveal */
+  .answer-reveal { font-size: 0.82em; color: #27ae60; margin-top: 3px; display: none; }
+  .answer-reveal.show { display: inline; }
+  .wrong-ans { color: #e74c3c; }
+
+  /* Timer */
+  #timerBox {
+    position: fixed; top: 18px; right: 22px; z-index: 999;
+    background: #1a3a5c; color: #fff;
+    padding: 10px 18px; border-radius: 10px;
+    font-size: 1.05em; font-weight: bold;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    min-width: 120px; text-align: center;
+  }
+  #timerBox .timer-label { font-size: 0.72em; letter-spacing: 1px; opacity: 0.8; }
+  #timerBox .timer-time { font-size: 1.4em; letter-spacing: 2px; }
+  #timerBox.warning { background: #e67e22; animation: pulse 1s infinite; }
+  #timerBox.danger  { background: #e74c3c; animation: pulse 0.5s infinite; }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(231,76,60,0.6); }
+    70%  { box-shadow: 0 0 0 10px rgba(231,76,60,0); }
+    100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); }
+  }
+
+  /* Chống gian lận */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  input[type="text"], select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+  @media print {
+    body { display: none !important; }
+  }
+
+  /* Tab warning banner */
+  #tabWarning {
+    display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 99998;
+    background: #e74c3c; color: #fff; text-align: center;
+    padding: 10px; font-size: 0.95em; font-weight: bold;
+  }
+  #tabWarning.show { display: block; }
+  #fsWarning.show  { display: flex !important; }
+
+  /* Log panel */
+  #logPanel {
+    display: none; position: fixed; bottom: 18px; left: 18px; z-index: 9997;
+    background: rgba(26,58,92,0.92); color: #fff; border-radius: 8px;
+    padding: 10px 16px; font-size: 0.78em; max-width: 260px; line-height: 1.6;
+  }
+
+  /* Warning overlay */
+  #warningOverlay {
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.55); justify-content: center; align-items: center;
+  }
+  #warningOverlay.show { display: flex; }
+  #warningBox {
+    background: #fff; border-radius: 14px; padding: 36px 40px; text-align: center;
+    max-width: 380px; box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+  }
+  #warningBox h2 { color: #e74c3c; font-size: 1.4em; margin-bottom: 12px; }
+  #warningBox p  { color: #444; margin-bottom: 18px; font-size: 0.97em; line-height: 1.5; }
+  #warningBox .countdown-big { font-size: 2.4em; font-weight: bold; color: #e74c3c; margin-bottom: 16px; }
+  #warningBox button {
+    background: #1a3a5c; color: #fff; border: none;
+    padding: 10px 30px; border-radius: 8px; font-size: 1em; cursor: pointer;
+  }
+  #warningBox button:hover { background: #f39c12; }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px 14px; }
+    .note-label { min-width: 120px; }
+    input[type="text"] { width: 110px; }
+    #timerBox { top: 10px; right: 10px; padding: 7px 12px; min-width: 95px; }
+    #timerBox .timer-time { font-size: 1.15em; }
+  }
+</style>
+</head>
+<body>
+<!-- TIMER -->
+<div id="timerBox">
+  <span class="timer-label">⏱ THỜI GIAN</span>
+  <span class="timer-time" id="timerDisplay">40:00</span>
+</div>
+
+<!-- WARNING OVERLAY -->
+<div id="warningOverlay">
+  <div id="warningBox">
+    <h2>⏰ Hết giờ làm bài!</h2>
+    <p>Bạn đã dùng hết <strong>40 phút</strong>.<br>Bài sẽ tự động nộp sau:</p>
+    <div class="countdown-big" id="extraCountdown">5:00</div>
+    <p style="font-size:0.88em; color:#888;">Hoặc bấm nộp bài ngay bây giờ.</p>
+    <button onclick="forceSubmit()">✅ Nộp bài ngay</button>
+  </div>
+</div>
+
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">🎧 IELTS Listening Test 30</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+
+<!-- TAB WARNING BANNER -->
+<div id="tabWarning"></div>
+
+<!-- FULLSCREEN WARNING -->
+<div id="fsWarning" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);justify-content:center;align-items:center;flex-direction:column;gap:16px;">
+  <h2 style="color:#f39c12;font-family:Arial;">⚠️ Vui lòng quay lại chế độ toàn màn hình!</h2>
+  <p style="color:#fff;font-family:Arial;text-align:center;">Bài thi yêu cầu toàn màn hình.<br>Hành vi thoát fullscreen đã được ghi lại.</p>
+  <button onclick="enterFullscreen()" style="background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;">🔲 Vào toàn màn hình</button>
+</div>
+
+<!-- LOG PANEL -->
+<div id="logPanel"></div>
+
+<div class="container">
+
+  <h1>IELTS LISTENING — TEST 30</h1>
+  <p class="subtitle">Điền vào chỗ trống hoặc chọn đáp án đúng. Bấm <strong>Submit</strong> để xem kết quả.</p>
+
+  <!-- AUDIO -->
+  <div class="audio-section">
+    <p>🎧 Audio — Listening Test 30</p>
+    <audio controls>
+      <source src="Audio test 30.mp3" type="audio/mpeg">
+      Trình duyệt của bạn không hỗ trợ audio.
+    </audio>
+  </div>
+
+  <!-- ==================== PART 1 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 1 &nbsp;|&nbsp; Questions 1–10</div>
+
+    <!-- Q1-5: Note Completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 1–5: Complete the notes below. Write NO MORE THAN TWO WORDS for each answer</p>
+
+      <div class="notes-box">
+        <h3>Transport form Highgate Village</h3>
+        <div class="note-row">
+          <span class="note-label">Example Answer Destination:</span>
+          <span class="note-static">Camden Town</span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Fast train leaves at:</span>
+          <span class="qid-tag">Q.01.TEST030</span>
+          <input type="text" id="q1" placeholder="answer..." data-answer="from platform 9">
+          <span class="answer-reveal" id="r1"></span>
+          <span class="note-static">from platform 9.</span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Nearest station is:</span>
+          <span class="qid-tag">Q.02.TEST030</span>
+          <input type="text" id="q2" placeholder="answer..." data-answer="King's Cross">
+          <span class="answer-reveal" id="r2"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Number 999 bus goes to Gower Street:</span>
+          <span class="qid-tag">Q.03.TEST030</span>
+          <input type="text" id="q3" placeholder="answer..." data-answer="Underground Station">
+          <span class="answer-reveal" id="r3"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">The train leaves the railway station from platform:</span>
+          <span class="qid-tag">Q.04.TEST030</span>
+          <input type="text" id="q4" placeholder="answer..." data-answer="6">
+          <span class="answer-reveal" id="r4"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">There is a train every:</span>
+          <span class="qid-tag">Q.05.TEST030</span>
+          <input type="text" id="q5" placeholder="answer..." data-answer="5 minutes">
+          <span class="answer-reveal" id="r5"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q6-10: Table Completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 6–10: Complete the table below. Write NO MORE THAN ONE WORD AND/OR A NUMBER for each answer.</p>
+      <div class="notes-box">
+        <table>
+          <thead>
+            <tr><th>Means of transport</th><th>Normal fare</th><th>Discounted fare</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">Bus</td>
+              <td>£2</td>
+              <td>£ <span class="qid-tag">Q.06.TEST030</span><input type="text" id="q6" placeholder="answer..." data-answer="1.40" style="width:80px"></td>
+            </tr>
+            <tr>
+              <td class="left">Train (busy time)</td>
+              <td>£ <span class="qid-tag">Q.07.TEST030</span><input type="text" id="q7" placeholder="answer..." data-answer="11" style="width:80px"></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td class="left">Train (off-peak hours)</td>
+              <td>£11</td>
+              <td>£ <span class="qid-tag">Q.08.TEST030</span><input type="text" id="q8" placeholder="answer..." data-answer="6.05" style="width:80px"></td>
+            </tr>
+            <tr>
+              <td class="left">Regular Thames boat trip</td>
+              <td>£6</td>
+              <td>£ <span class="qid-tag">Q.09.TEST030</span><input type="text" id="q9" placeholder="answer..." data-answer="4.80" style="width:80px"></td>
+            </tr>
+            <tr>
+              <td class="left">Half-day sightseeing boat tour</td>
+              <td>£45</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td class="left">Whole-day sightseeing boat tour</td>
+              <td>£ <span class="qid-tag">Q.10.TEST030</span><input type="text" id="q10" placeholder="answer..." data-answer="75" style="width:80px"></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="answer-reveal" id="r6"></span><span class="answer-reveal" id="r7"></span>
+          <span class="answer-reveal" id="r8"></span><span class="answer-reveal" id="r9"></span>
+          <span class="answer-reveal" id="r10"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 2 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 2 &nbsp;|&nbsp; Questions 11–20</div>
+
+    <!-- Q11-16: Table Completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 11–16: Label the table below. Write NO MORE THAN TWO WORDS for each answer.</p>
+      <div class="notes-box">
+        <table>
+          <thead>
+            <tr><th>Services offered</th><th>For individuals</th><th>For groups</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left">email counselling</td>
+              <td class="left">
+                • your decision when to allocate time to your issues<br>
+                • <span class="qid-tag">Q.11.TEST030</span><input type="text" id="q11" placeholder="answer..." data-answer="write down" style="width:110px"> and reflect
+              </td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td class="left">face-to-face individual counselling</td>
+              <td class="left">
+                • talk in person<br>
+                • 50-minute session<br>
+                • <span class="qid-tag">Q.12.TEST030</span><input type="text" id="q12" placeholder="answer..." data-answer="pre-scheduled appointment" style="width:150px"> time
+              </td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td class="left">group therapy</td>
+              <td>-</td>
+              <td class="left">
+                • how to function <span class="qid-tag">Q.13.TEST030</span><input type="text" id="q13" placeholder="answer..." data-answer="in relation" style="width:100px"> to others<br>
+                • <span class="qid-tag">Q.14.TEST030</span><input type="text" id="q14" placeholder="answer..." data-answer="long-term" style="width:100px"> personal development
+              </td>
+            </tr>
+            <tr>
+              <td class="left">self-help resources</td>
+              <td class="left">
+                • find out more about your issues<br>
+                • <span class="qid-tag">Q.15.TEST030</span><input type="text" id="q15" placeholder="answer..." data-answer="accessible" style="width:100px"> 24/7<br>
+                • links to a range of resources
+              </td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td class="left">specific issue workshops</td>
+              <td>-</td>
+              <td class="left">
+                • similar specific issues<br>
+                • develop helpful <span class="qid-tag">Q.16.TEST030</span><input type="text" id="q16" placeholder="answer..." data-answer="strategies" style="width:100px">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="answer-reveal" id="r11"></span><span class="answer-reveal" id="r12"></span>
+          <span class="answer-reveal" id="r13"></span><span class="answer-reveal" id="r14"></span>
+          <span class="answer-reveal" id="r15"></span><span class="answer-reveal" id="r16"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q17-20: Matching -->
+    <div class="question-block">
+      <p class="instruction">Questions 17–20: Which counsellor should you see? Write the correct letter: A, B or C, next to questions 17–20</p>
+      <div class="matching-key">
+        <p><strong>A</strong> — Deirdre Blythe</p>
+        <p><strong>B</strong> — Bobby Foyle</p>
+        <p><strong>C</strong> — Samantha Stewart</p>
+      </div>
+
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.17.TEST030</span> 17. if you have not made an appointment</span>
+        <select id="q17" data-answer="B">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r17"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.18.TEST030</span> 18. if you have never seen a counsellor before</span>
+        <select id="q18" data-answer="A">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r18"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.19.TEST030</span> 19. if you suffer from stress or anxiety</span>
+        <select id="q19" data-answer="C">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r19"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.20.TEST030</span> 20. if you are not able to see a counsellor during normal office hours</span>
+        <select id="q20" data-answer="A">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r20"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 3 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 3 &nbsp;|&nbsp; Questions 21–30</div>
+    <div class="question-block">
+      <p class="instruction">Questions 21–30: Complete the notes below. Write NO MORE THAN THREE WORDS for each answer.</p>
+
+      <div class="notes-box">
+        <h3>HOW TO WRITE AN ENGLISH LITERATURE ESSAY</h3>
+
+        <p style="font-weight:bold; margin-bottom:8px; color:#1a3a5c;">Introductory Points</p>
+        <div class="note-row">
+          <span class="note-value">Number one criterion for a good essay is
+            <span class="qid-tag">Q.21.TEST030</span>
+            <input type="text" id="q21" placeholder="..." data-answer="readability">
+            <span class="answer-reveal" id="r21"></span>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Avoid writing an essay that is a regurgitation of facts,
+            <span class="qid-tag">Q.22.TEST030</span>
+            <input type="text" id="q22" placeholder="..." data-answer="lecture notes">
+            <span class="answer-reveal" id="r22"></span>
+            or other people's opinions.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">The second important thing to keep in mind is
+            <span class="qid-tag">Q.23.TEST030</span>
+            <input type="text" id="q23" placeholder="..." data-answer="planning">
+            <span class="answer-reveal" id="r23"></span>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Write
+            <span class="qid-tag">Q.24.TEST030</span>
+            <input type="text" id="q24" placeholder="..." data-answer="key points">
+            <span class="answer-reveal" id="r24"></span>
+            and ideas down before you start.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Look at the
+            <span class="qid-tag">Q.25.TEST030</span>
+            <input type="text" id="q25" placeholder="..." data-answer="whole picture">
+            <span class="answer-reveal" id="r25"></span>
+            before you start writing.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Know
+            <span class="qid-tag">Q.26.TEST030</span>
+            <input type="text" id="q26" placeholder="..." data-answer="your reader">
+            <span class="answer-reveal" id="r26"></span>. Do not make the mistake of writing for yourself.
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Essay Structure</p>
+        <div class="note-row">
+          <span class="note-value">Absolute maximum paragraph size is an
+            <span class="qid-tag">Q.27.TEST030</span>
+            <input type="text" id="q27" placeholder="..." data-answer="A4 page">
+            <span class="answer-reveal" id="r27"></span>
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Flow</p>
+        <div class="note-row">
+          <span class="note-value">One thought should
+            <span class="qid-tag">Q.28.TEST030</span>
+            <input type="text" id="q28" placeholder="..." data-answer="seem to follow">
+            <span class="answer-reveal" id="r28"></span>
+            another in your English Literature essay.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">To make the transition between paragraphs smoother, you can use
+            <span class="qid-tag">Q.29.TEST030</span>
+            <input type="text" id="q29" placeholder="..." data-answer="connective words">
+            <span class="answer-reveal" id="r29"></span>
+            and phrases.
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Argument</p>
+        <div class="note-row">
+          <span class="note-value">Every English Literature essay should have a clear argument. This should not be
+            <span class="qid-tag">Q.30.TEST030</span>
+            <input type="text" id="q30" placeholder="..." data-answer="one-sided">
+            <span class="answer-reveal" id="r30"></span>
+            but rather, it should include several possible sides of the discussion.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 4 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 4 &nbsp;|&nbsp; Questions 31–40</div>
+
+    <!-- Q31-35: Sentence Completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 31–35: Complete each sentence with NO MORE THAN THREE WORDS.</p>
+      <div class="notes-box">
+        <div class="note-row">
+          <span class="note-value">Red is a potent colour. It brings to mind many
+            <span class="qid-tag">Q.31.TEST030</span>
+            <input type="text" id="q31" placeholder="..." data-answer="powerful associations">
+            <span class="answer-reveal" id="r31"></span>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">It is frequently used to imply or refer to
+            <span class="qid-tag">Q.32.TEST030</span>
+            <input type="text" id="q32" placeholder="..." data-answer="danger and warning">
+            <span class="answer-reveal" id="r32"></span>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Our faces become red when we are very angry, hence the expression to
+            <span class="qid-tag">Q.33.TEST030</span>
+            <input type="text" id="q33" placeholder="..." data-answer="see red">
+            <span class="answer-reveal" id="r33"></span>
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">When
+            <span class="qid-tag">Q.34.TEST030</span>
+            <input type="text" id="q34" placeholder="..." data-answer="we blush">
+            <span class="answer-reveal" id="r34"></span>,
+            we become suddenly red in the face from embarrassment or shame, modesty or guilt.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Finally, red is the colour most often used to symbolise love, the most common example of which is, of course,
+            <span class="qid-tag">Q.35.TEST030</span>
+            <input type="text" id="q35" placeholder="..." data-answer="the red rose">
+            <span class="answer-reveal" id="r35"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q36-40: MCQ -->
+    <div class="question-block">
+      <p class="instruction">Questions 36–40: Choose the correct letter, A, B, C or D.</p>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.36.TEST030</span> 36. According to colour psychology, wearing red clothing may influence</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q36" value="A"> A &nbsp; our visual perception.</label>
+          <label><input type="radio" name="q36" value="B"> B &nbsp; our bank balance.</label>
+          <label><input type="radio" name="q36" value="C"> C &nbsp; our bodily processes.</label>
+          <label><input type="radio" name="q36" value="D"> D &nbsp; our interest in sport.</label>
+        </div>
+        <span class="answer-reveal" id="r36"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.37.TEST030</span> 37. A surprising number of non-primate mammals</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q37" value="A"> A &nbsp; have a new cell in their retina.</label>
+          <label><input type="radio" name="q37" value="B"> B &nbsp; are dogs.</label>
+          <label><input type="radio" name="q37" value="C"> C &nbsp; are colour-blind.</label>
+          <label><input type="radio" name="q37" value="D"> D &nbsp; cannot survive in the tropics.</label>
+        </div>
+        <span class="answer-reveal" id="r37"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.38.TEST030</span> 38. Russell Hill and Robert Barton's experiments showed that humans react to red</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q38" value="A"> A &nbsp; with humility and arrogance.</label>
+          <label><input type="radio" name="q38" value="B"> B &nbsp; in the same way as mandrill monkeys.</label>
+          <label><input type="radio" name="q38" value="C"> C &nbsp; only 5% of the time.</label>
+          <label><input type="radio" name="q38" value="D"> D &nbsp; as if they are footballers trying to score a penalty.</label>
+        </div>
+        <span class="answer-reveal" id="r38"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.39.TEST030</span> 39. Which is NOT mentioned as a reason for the effect of wearing red in sport?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q39" value="A"> A &nbsp; Wearing red helps the athlete rise to a higher level of self-confidence.</label>
+          <label><input type="radio" name="q39" value="B"> B &nbsp; Wearing red makes people domineering and controlling.</label>
+          <label><input type="radio" name="q39" value="C"> C &nbsp; The opponent of an athlete wearing red feels threatened.</label>
+          <label><input type="radio" name="q39" value="D"> D &nbsp; Umpires tend to be partial towards athletes wearing red.</label>
+        </div>
+        <span class="answer-reveal" id="r39"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.40.TEST030</span> 40. Colour psychology is</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q40" value="A"> A &nbsp; studied by very young scientists.</label>
+          <label><input type="radio" name="q40" value="B"> B &nbsp; an old-fashioned branch of science.</label>
+          <label><input type="radio" name="q40" value="C"> C &nbsp; considered to use controversial experimental methods.</label>
+          <label><input type="radio" name="q40" value="D"> D &nbsp; interested in how colour can be used to improve work performance.</label>
+        </div>
+        <span class="answer-reveal" id="r40"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <button id="submitBtn" onclick="submitTest()">✅ NỘP BÀI</button>
+  </div>
+
+  <!-- SCORE BOARD -->
+  <div id="scoreBoard">
+    <h2>🎯 KẾT QUẢ</h2>
+    <p class="score-num" id="scoreNum"></p>
+    <p id="scoreMsg"></p>
+  </div>
+
+</div>
+
+<script>
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+
+  // Đóng popup
+  document.getElementById('studentPopup').style.display = 'none';
+
+  // Bắt đầu vào fullscreen sau khi đóng popup
+  setTimeout(function() { if (window.enterFullscreen) window.enterFullscreen(); }, 300);
+}
+
+// _testStartTime được ghi nhận trong startExam() — không ghi ở đây
+
+// ===================== CHỐNG GIAN LẬN (tab độc lập - GitHub Pages) =====================
+(function() {
+  var log          = [];
+  var tabViolations   = 0;
+  var focusViolations = 0;
+  var fsViolations    = 0;
+  var submitted    = false;
+
+  function addLog(msg) {
+    var now  = new Date();
+    var time = now.toTimeString().slice(0,8);
+    log.push('[' + time + '] ' + msg);
+  }
+  addLog('Bắt đầu làm bài');
+
+  var tabWarningEl = document.getElementById('tabWarning');
+  var tabCountEl   = document.getElementById('tabCount');
+
+  function showWarning(msg) {
+    if (submitted) return;
+    tabWarningEl.innerHTML = msg;
+    tabWarningEl.classList.add('show');
+    setTimeout(function() { tabWarningEl.classList.remove('show'); }, 4000);
+  }
+
+  // 1. Phát hiện chuyển tab
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && !submitted) {
+      tabViolations++;
+      addLog('Chuyển tab lần ' + tabViolations);
+      showWarning('⚠️ CẢNH BÁO: Bạn vừa chuyển tab! Hành vi đã được ghi lại. (Tổng vi phạm: <span id="tabCount">' + (tabViolations + focusViolations) + '</span> lần)');
+    }
+  });
+
+  // 2. Phát hiện mất focus cửa sổ (window.blur hoạt động đúng ở tab độc lập)
+  window.addEventListener('blur', function() {
+    if (submitted) return;
+    focusViolations++;
+    addLog('Mất focus cửa sổ lần ' + focusViolations);
+    showWarning('⚠️ CẢNH BÁO: Bạn vừa rời khỏi cửa sổ thi! Hành vi đã được ghi lại. (Tổng vi phạm: ' + (tabViolations + focusViolations) + ' lần)');
+  });
+
+  // 3. Fullscreen bắt buộc
+  function enterFullscreen() {
+    var el = document.documentElement;
+    if (el.requestFullscreen)       el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+    document.getElementById('fsWarning').classList.remove('show');
+  }
+  window.enterFullscreen = enterFullscreen;
+
+  // Fullscreen được kích hoạt từ startExam() sau khi đóng popup
+
+  // Phát hiện thoát fullscreen
+  document.addEventListener('fullscreenchange', function() {
+    if (!document.fullscreenElement && !submitted) {
+      fsViolations++;
+      addLog('Thoát fullscreen lần ' + fsViolations);
+      document.getElementById('fsWarning').classList.add('show');
+    }
+  });
+  document.addEventListener('webkitfullscreenchange', function() {
+    if (!document.webkitFullscreenElement && !submitted) {
+      fsViolations++;
+      addLog('Thoát fullscreen lần ' + fsViolations);
+      document.getElementById('fsWarning').classList.add('show');
+    }
+  });
+
+  // 4. Chặn chuột phải
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+
+  // 5. Chặn phím tắt
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12') { e.preventDefault(); return false; }
+    if (e.ctrlKey && ['c','a','s','u','p','v'].includes(e.key.toLowerCase())) {
+      e.preventDefault(); return false;
+    }
+    if (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(e.key.toLowerCase())) {
+      e.preventDefault(); return false;
+    }
+    // Escape thoát fullscreen — chặn
+    if (e.key === 'Escape') { e.preventDefault(); return false; }
+  });
+
+  // 6. Chặn copy & paste
+  document.addEventListener('copy',  function(e) { e.preventDefault(); return false; });
+  document.addEventListener('paste', function(e) { e.preventDefault(); return false; });
+  document.addEventListener('cut',   function(e) { e.preventDefault(); return false; });
+
+  // 7. Chặn drag & drop
+  document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
+  document.addEventListener('drop',      function(e) { e.preventDefault(); return false; });
+
+
+  // Export
+  window.getViolationLog = function() {
+    submitted = true;
+    return { tabViolations: tabViolations, focusViolations: focusViolations, fsViolations: fsViolations, log: log };
+  };
+})();
+
+// ===================== TIMER =====================
+(function() {
+  var MAIN_MS  = 40 * 60 * 1000;
+  var EXTRA_MS =  5 * 60 * 1000;
+
+  var startTime    = null;   // set from window._testStartTime when first tick runs
+  var inExtraTime  = false;
+  var extraStart   = null;
+  var timerStopped = false;
+
+  var timerBox     = document.getElementById('timerBox');
+  var timerDisplay = document.getElementById('timerDisplay');
+  var overlay      = document.getElementById('warningOverlay');
+  var extraDisplay = document.getElementById('extraCountdown');
+
+  function fmt(ms) {
+    var total = Math.max(0, Math.ceil(ms / 1000));
+    var m = Math.floor(total / 60);
+    var s = total % 60;
+    return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+
+  function tick() {
+    if (timerStopped) return;
+    if (!startTime) {
+      // Wait until student has started the exam
+      if (!window._testStartTime) return;
+      startTime = window._testStartTime;
+    }
+    var now = Date.now();
+    if (!inExtraTime) {
+      var remaining = MAIN_MS - (now - startTime);
+      timerDisplay.textContent = fmt(remaining);
+      if      (remaining <= 60000)  timerBox.className = 'danger';
+      else if (remaining <= 300000) timerBox.className = 'warning';
+      if (remaining <= 0) {
+        inExtraTime = true;
+        extraStart  = Date.now();
+        overlay.classList.add('show');
+        timerBox.style.display = 'none';
+      }
+    } else {
+      var extraRemaining = EXTRA_MS - (now - extraStart);
+      extraDisplay.textContent = fmt(extraRemaining);
+      if (extraRemaining <= 0) forceSubmit();
+    }
+  }
+
+  setInterval(tick, 500);
+
+  window.forceSubmit = function() {
+    timerStopped = true;
+    overlay.classList.remove('show');
+    submitTest();
+  };
+
+  window.stopTimer = function() {
+    timerStopped = true;
+  };
+})();
+
+// Answer keys (lowercase, trimmed for comparison)
+const answers = {
+  q1:  ["from platform 9","platform 9"],
+  q2:  ["king's cross","kings cross"],
+  q3:  ["underground station"],
+  q4:  ["6"],
+  q5:  ["5 minutes","five minutes"],
+  q6:  ["1.40","1,40"],
+  q7:  ["11"],
+  q8:  ["6.05","6,05"],
+  q9:  ["4.80","4,80"],
+  q10: ["75"],
+  q11: ["write down"],
+  q12: ["pre-scheduled appointment","prescheduled appointment"],
+  q13: ["in relation"],
+  q14: ["long-term","long term"],
+  q15: ["accessible"],
+  q16: ["strategies"],
+  q17: ["b"],
+  q18: ["a"],
+  q19: ["c"],
+  q20: ["a"],
+  q21: ["readability"],
+  q22: ["lecture notes"],
+  q23: ["planning"],
+  q24: ["key points"],
+  q25: ["whole picture"],
+  q26: ["your reader"],
+  q27: ["a4 page"],
+  q28: ["seem to follow"],
+  q29: ["connective words"],
+  q30: ["one-sided","one sided"],
+  q31: ["powerful associations"],
+  q32: ["danger and warning"],
+  q33: ["see red"],
+  q34: ["we blush"],
+  q35: ["the red rose"],
+  q36: ["c"],
+  q37: ["c"],
+  q38: ["b"],
+  q39: ["b"],
+  q40: ["d"]
+};
+
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function submitTest() {
+  let score = 0;
+  const total = 40;
+
+  for (let i = 1; i <= 40; i++) {
+    const qId = 'q' + i;
+    const rId = 'r' + i;
+    const correctList = answers[qId];
+    const revealEl = document.getElementById(rId);
+
+    // Text inputs
+    const inputEl = document.getElementById(qId);
+    if (inputEl && inputEl.tagName === 'INPUT') {
+      const userAns = normalize(inputEl.value);
+      const isCorrect = correctList.some(a => normalize(a) === userAns);
+      inputEl.classList.remove('correct','wrong');
+      inputEl.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ &rarr; <strong>' + correctList[0] + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+
+    // Radio
+    const radioEls = document.querySelectorAll('input[name="' + qId + '"]');
+    if (radioEls.length > 0) {
+      let userAns = '';
+      radioEls.forEach(r => { if (r.checked) userAns = r.value; });
+      const isCorrect = correctList.some(a => normalize(a) === normalize(userAns));
+      // highlight labels
+      radioEls.forEach(r => {
+        const lbl = r.parentElement;
+        lbl.classList.remove('correct-label','wrong-label');
+        if (r.value === correctList[0].toUpperCase()) lbl.classList.add('correct-label');
+        else if (r.checked && !isCorrect) lbl.classList.add('wrong-label');
+      });
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔ Correct!';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ Answer: <strong>' + correctList[0].toUpperCase() + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+
+    // Select
+    const selectEl = document.getElementById(qId);
+    if (selectEl && selectEl.tagName === 'SELECT') {
+      const userAns = normalize(selectEl.value);
+      const isCorrect = correctList.some(a => normalize(a) === userAns);
+      selectEl.classList.remove('correct','wrong');
+      selectEl.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ &rarr; <strong>' + correctList[0].toUpperCase() + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+  }
+
+  // Show score
+  const board = document.getElementById('scoreBoard');
+  board.style.display = 'block';
+  document.getElementById('scoreNum').textContent = score + ' / ' + total;
+  let msg = '';
+  if (score >= 35) msg = '🏆 Xuất sắc! Band 8.5–9.0';
+  else if (score >= 30) msg = '🥇 Giỏi! Band 7.5–8.0';
+  else if (score >= 23) msg = '🥈 Khá! Band 6.0–7.0';
+  else if (score >= 16) msg = '🥉 Trung bình. Band 5.0–5.5';
+  else msg = '📚 Cần luyện tập thêm. Band dưới 5.0';
+  document.getElementById('scoreMsg').textContent = msg;
+
+  board.scrollIntoView({ behavior: 'smooth' });
+
+  // ===================== ĐỌC CHI TIẾT TỪNG CÂU (TRƯỚC KHI KHÓA INPUT) =====================
+  var _details = [];
+  for (var di = 1; di <= 40; di++) {
+    var dqId  = 'q' + di;
+    var dqNum = 'Q' + String(di).padStart(2,'0');
+    var dVal  = '';
+    var dOk   = '✘';
+
+    // Text input
+    var dEl = document.getElementById(dqId);
+    if (dEl && dEl.tagName === 'INPUT' && dEl.type === 'text') {
+      dVal = dEl.value || '';
+      dOk  = dEl.classList.contains('correct') ? '✔' : '✘';
+
+    // Select
+    } else if (dEl && dEl.tagName === 'SELECT') {
+      dVal = dEl.value || '';
+      dOk  = dEl.classList.contains('correct') ? '✔' : '✘';
+
+    // Radio
+    } else {
+      var dRadios = document.querySelectorAll('input[name="' + dqId + '"]');
+      if (dRadios.length > 0) {
+        dRadios.forEach(function(r) { if (r.checked) dVal = r.value; });
+        var dChecked = document.querySelector('input[name="' + dqId + '"]:checked');
+        if (dChecked) {
+          dOk = dChecked.parentElement.classList.contains('correct-label') ? '✔' : '✘';
+        }
+      }
+    }
+    _details.push(dqNum + ':' + dOk + '(' + dVal + ')');
+  }
+  window._submittedDetails = _details;
+
+  // Khóa toàn bộ input sau khi nộp
+  document.querySelectorAll('input[type="text"], input[type="radio"], select').forEach(function(el) {
+    el.disabled = true;
+  });
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = '✅ Đã nộp bài';
+
+  // Dừng timer
+  if (window.stopTimer) window.stopTimer();
+  var timerBox = document.getElementById('timerBox');
+  if (timerBox) timerBox.style.display = 'none';
+
+  // Dừng audio
+  var audioEl = document.querySelector('audio');
+  if (audioEl) { audioEl.pause(); }
+
+  // Hiện log vi phạm
+  var v = window.getViolationLog ? window.getViolationLog() : null;
+  var totalV = 0;
+  if (v) {
+    var logPanel = document.getElementById('logPanel');
+    logPanel.style.display = 'block';
+    totalV = v.tabViolations + v.focusViolations + v.fsViolations;
+    logPanel.innerHTML =
+      '<strong>📋 Báo cáo hành vi</strong><br>' +
+      '• Chuyển tab: <b>' + v.tabViolations + '</b> lần<br>' +
+      '• Mất focus cửa sổ: <b>' + v.focusViolations + '</b> lần<br>' +
+      '• Thoát fullscreen: <b>' + v.fsViolations + '</b> lần<br>' +
+      (totalV > 0
+        ? '<span style="color:#f39c12">⚠️ Tổng vi phạm: ' + totalV + ' lần</span>'
+        : '<span style="color:#2ecc71">✅ Không có vi phạm</span>');
+
+    var logSummary = totalV > 0
+      ? '<br><small style="color:#e74c3c">⚠️ Ghi nhận ' + totalV + ' lần hành vi đáng ngờ</small>'
+      : '<br><small style="color:#27ae60">✅ Không phát hiện hành vi gian lận</small>';
+    document.getElementById('scoreMsg').innerHTML += logSummary;
+  }
+
+  // ===================== GỬI KẾT QUẢ LÊN GOOGLE SHEETS =====================
+  (function() {
+    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+
+    // Tính thời gian làm bài
+    var endTime   = Date.now();
+    var startTime = window._testStartTime || endTime;
+    var elapsed   = Math.floor((endTime - startTime) / 1000);
+    var mm = Math.floor(elapsed / 60);
+    var ss = elapsed % 60;
+    var timeTaken = mm + ' phút ' + ss + ' giây';
+
+    // Chi tiết từng câu — đã đọc trước khi khóa input
+    var details = window._submittedDetails || [];
+
+    // Band
+    var bandEl = document.getElementById('scoreMsg');
+    var band   = bandEl ? bandEl.textContent.replace(/⚠️.*|✅.*/g,'').trim() : '';
+
+    // Payload
+    var payload = {
+      student:    (window._studentName || 'Ẩn danh') + ' — ' + (window._studentClass || ''),
+      test:       'Listening Test 30',
+      score:      score,
+      total:      total,
+      band:       band,
+      timeTaken:  timeTaken,
+      tabViol:    v ? v.tabViolations   : 0,
+      focusViol:  v ? v.focusViolations : 0,
+      fsViol:     v ? v.fsViolations    : 0,
+      details:    details.join(' | ')
+    };
+
+    // Gửi lên Google Sheets
+    fetch(SHEET_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    }).then(function() {
+      console.log('Kết quả đã gửi lên Google Sheets!');
+    }).catch(function(err) {
+      console.warn('Không thể gửi kết quả:', err);
+    });
+  })();
+}
+</script>
+</body>
+</html>

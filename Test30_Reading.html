@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 30</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 30</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">A gentle giant and a pint-sized bully</div>
+      <div class="passage-para">Though a giant - more horse than dog, some say - the Irish Wolfhound, towering over his canine brethren, makes a surprisingly good pet. Hard as it may be to imagine how a hound bred for wolf-hunting, with muscular limbs, a swift turn of pace, the eyesight of an eagle, the stature of a thoroughbred, primed for, and indeed employed in, battle many times for war-hungry Celtic lords of yore, could possibly cut the mustard as a domestic pet, trust me: looks can be deceiving. In fact, despite his size and reputation, the wolfhound is becoming an increasingly popular pet choice for many families up and down the country.</div>
+      <div class="passage-para">Why? Well, there is a number of very good reasons. Firstly, the wolfhound is of above-average intelligence, and, therefore, responds very well to obedience training (provided the training is done from an early age, otherwise the animal's strong prey drive may hinder development in this area). Secondly, he is very good-natured; despite the hound's reputation as a fierce, battle-hardened animal, he is, in fact, very calm and even-tempered. Thirdly, the Irish Wolfhound is a very social animal and does well with young children. He views himself as a member of the family and so will be fiercely protective of all his 'siblings' and will not intentionally let any of them get in harm's way, though his considerable frame and slight clumsiness can lead to collisions if the little members of the household don't watch where they are going.</div>
+      <div class="passage-para">Though the Irish Wolfhound makes an adequate guard dog, he is, surprisingly perhaps, not terribly strong in this department. The hound tends to be aloof with strangers rather than aggressive towards them, and he may not, at least initially, bark at intruders, therefore scoring low in the watchdog department as well by failing to sound the alarm or alert the other members of the household to danger in good time. If he is provoked, however, or if a member of his 'pack' is threatened, his primeval instincts kick in. When that happens, intruders'd better look out!</div>
+      <div class="passage-para">He is a very needy pet and a large enclosed backyard is a must-have for any prospective owner because though he is easily house-trained, it is simply not fair to keep a dog of his size cooped up inside all day. His appetite is huge and this is one of the practicalities to consider before buying a Wolfhound - can you afford him? His large appetite also means that regular exercise is essential in order for him to remain healthy and at a reasonably good weight. Five-minute walks to the corner shop will not do; this animal needs proper exercise and should be taken out for between one and two hours each day. Another practicality, and also a factor that influences cost (the cost of clean-up), is his tendency to shed. Irish Wolfhounds shed a lot of fur and dog hair will likely be deposited all over the house in vast quantities. If all this is bearable and if you still want a cuddly, affectionate giant anyway, then go for it! The Irish Wolfhound will provide you with many years of loyalty and friendship.</div>
+      <div class="passage-para">The truth, though, is that not everyone has the space to accommodate such a beast. And, indeed, others would struggle to find the time to devote to this needy creature. The alternative, perhaps, is the comparably tiny little West Highland White Terrier. The Highland and the Wolfhound have one very important thing in common; they are both fantastic with kids. It is here, though, that the similarity ends. The Highland sheds virtually no hair at all, so you won't be cleaning up after him all the time. He also loves to make noise, making him the perfect watchdog and quick to alert you when anything suspicious occurs. His size limits his ability to respond meaningfully to any real threat discovered though. Compared to the Wolfhound, he is a little more of a challenge in the training department, and must be monitored carefully and shown his place in the 'pack', otherwise his aggressive streak may come out and take over.</div>
+      <div class="passage-para">In almost every way possible, the Highland and the Wolfhound are different characters. The Highland could never be described as placid, and, in fact, is extremely excitable and very energetic. This little fellow suffers from a size complex of sorts, too, which sees him determined to boss those around him and have his way, despite his modest profile. He is not that interested in 'cuddles' either, so don't let his size fool you into suggesting otherwise -this is no toy dog. And he is, in general, not the most affectionate of dogs, being far happier digging up your garden or barking at the neighbour's cat than lying in the arms of his owner. So, while the Wolfhound is a gentle giant, the West Highland is, well, a little terrier in every sense of the word.</div>
+      <div class="passage-para">But while their character may differ, their fondness for exercise does not. The Highland is an intelligent breed and needs stimulation; regular walks are essential. He also has a penchant for water and loves to go swimming. And while he is excellent with older kids, toddlers should not be left alone around the Highland as their size, coupled with their noisiness and hyperactivity, may prompt an aggressive response from the dog.</div>
+      <div class="passage-para">Though both breeds have their strengths and weaknesses as pets, overall, either would make an excellent addition to the family. The West Highland will be content enough indoors, provided he gets regular exercise, but the Wolfhound must have an outdoor play area. And that is the one point I must emphasize; don't buy a Wolfhound unless you have plenty of room.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">The Scarlet Pimpernel of the Vatican</div>
+      <div class="passage-para">Born in Kiskeam in his mother's native North Cork, Hugh O'Flaherty was brought up in Killarney, where his father was the steward of a local golf club. He was the eldest of four children, and, from an early age, appeared to have a vocation for the priesthood. His fondness for the church was formed in part during his education, which began at Presentation Brothers' School in a local monastery in his home town. He later attended Waterford College, but the priesthood was always going to be his calling, so he applied to Mungret College in Limerick and was accepted into the seminary there. He was posted to Rome as a young seminarian in 1922, the year in which Mussolini came to power. While studying in Rome, he earned a degree in theology and was ordained in 1925 before going on to study there for a further two years, earning his doctorates in divinity, canon law and philosophy.</div>
+      <div class="passage-para">O'Flaherty, posted at various times over the next few years in Egypt, Haiti, San Domingo and Czechoslovakia, as well as Palestine, soon proved himself a very able diplomat. His golfing skills were also noted, and he developed a number of high-profile connections in Italy through the world of golf, often playing with the likes of ex-king Alfonso of Spain and Count Ciana, Mussolini's son-in-law. These people were no doubt impressed by the golfing talents of the man, which were, considering he had been playing the game since early childhood and was a natural, by then rather impressive to say the least. O'Flaherty would come to rely on his high profile, as well as his 'high' connections in the coming years as war broke out in Europe and Italy aligned itself with Hitler's Germany and its policy of discriminating against minority groups. His connections would give him the power and influence to make a difference to the lives of thousands of innocent people when the time came, whilst his high profile made the German and Italian authorities slow to move against him.</div>
+      <div class="passage-para">In the autumn of 1942, the Germans and Italians started to crack down on prominent figures they viewed as being hostile to their goals. As their policies became more and more extreme, many people started to become alarmed by fascist propaganda. The German and Italian governments were not interested in justice, they were aligned on an ideological level and started to execute their policy of ethnically cleansing Italy of the so-called 'unwanted': Jews, blacks, gypsies and so on. O'Flaherty, on the other hand, having socialised with many prominent Jews throughout his time in Italy, did not adhere to the Nazi ideology, and it was then that he started to act, protecting innocent Jews and other victims of injustice, and keeping them away from the claws of the Italian and German police, whose orders were to ship them to concentration camps.</div>
+      <div class="passage-para">O'Flaherty used his old college and indeed his own official residence as hiding places for the people he was trying to protect. As the situation got more and more desperate, and the numbers of people threatened grew, he even turned to using monasteries and convents as hideouts, calling in favours from old friends in these places who, by agreeing to house the 'unwanted', were not just risking a reprimand from the fascists had they been caught but were endangering their own lives by being party to O'Flaherty's campaign. In the summer of 1943, O'Flaherty extended his efforts to include helping escaped British prisoners-of-war and shot-down allied airmen. Calling once again on his contacts, he developed a network of apartments in which to house them until their safe return to Britain could be arranged.</div>
+      <div class="passage-para">By the end of the war, over 6,500 Jews and American and British soldiers had O'Flaherty to thank for their escape from the Germans and a nearly certain death. His success in never being identified when on unauthorised rescue missions outside of Vatican City, and in smuggling Jews and allied airmen inside the city led to him being given the nickname the Scarlet Pimpernel of the Vatican, an acknowledgement of how much the master of disguise O'Flaherty had become. After the war, O'Flaherty continued to serve in Rome and received many accolades, including the US Medal of Freedom and the title Commander of the British Empire. The fledgling Jewish state of Israel also recognised O'Flaherty's contribution by proclaiming him Righteous among the Nations.</div>
+      <div class="passage-para">In 1960, O'Flaherty retired and went home to Ireland to a town called Cahirsheveen. There he lived for the remainder of his life until he died on the 30th October 1963. His death was mourned throughout the world and the prestigious New York Times carried a front-page tribute in his honour.</div>
+      <div class="passage-para">Margaret Mead once said: 'Never doubt that a small group of thoughtful, committed, citizens can change the world. Indeed, it is the only thing that ever has'. O'Flaherty and his loyal group of helpers within the Vatican and without are exactly the kind of people she was referring to. In life, he saved thousands of innocent Romans; in death, he is remembered as a man who bravely stood up to extremism and who was not prepared to turn a blind eye to injustice.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">ALL YOU NEED TO KNOW ABOUT SNOW</div>
+      <div class="section-label">Types of Snowfall</div>
+      <div class="passage-para">Snow is typically the product of weather conditions in which an extratropical cyclone has formed. Extratropical cyclones bring extremely hazardous weather, such as high winds and heavy rain or snow, and are often referred to as windstorms in Europe. The band of precipitation associated with their warm front is often very extensive. When the warm front and cold front collide, snow can result on the poleward side of the precipitation band; that is, on the northern side in the Northern Hemisphere and on the southern side in the Southern Hemisphere.</div>
+      <div class="passage-para">Lake-effect snow is another kind of common snowfall. Although the name suggests a particular correspondence of this type of precipitation to lake features, in fact, all narrow bands of water may generate it. Lake-effect snow occurs when the water temperature is considerably higher than the air temperature of a cold front progressing over a large water mass. Warm moist air is then attracted upward at a relatively fast rate, condensing to form vertically oriented clouds. If the temperature difference between the body of water and the air above is significant, say, 13 degrees or more, this can result in heavy and prolonged snowfall.</div>
+      <div class="passage-para">Mountainous areas are also prone to experiencing heavy snowfall. Accumulations typically occur on the windward side of the mountain as precipitation is 'squeezed out' of the warm moist air as it is forced to ascend the slopes; the moisture condenses upon contact with the colder air found at higher altitudes and heavy snowfall can then occur if ground conditions are sufficiently cold.</div>
+      <div class="section-label">How Snow Is Formed</div>
+      <div class="passage-para">Snow crystals, tiny supercooled cloud droplets, form at extremely low temperatures in the atmosphere. Temperatures lower than minus 35 degrees Celsius are required for this supercool moisture to freeze by itself. In warmer clouds, an aerosol particle such as clay or desert dust, or an ice nucleus is needed for the freezing to start.</div>
+      <div class="passage-para">Once a droplet of water has frozen, it starts to grow in the supersaturated environment of the cloud. Eventually, due to its size, the cloud will not be able to contain the ice crystal anymore. At this point the ice crystal will fall to the ground and, if it is not melted by warmer air at lower altitudes, it will do so as snow. Although the ice crystals that land on the ground are actually transparent, hollow imperfections in them mean that light is scattered and they often appear white in colour owing to diffuse reflection of the whole spectrum of light.</div>
+      <div class="section-label">The Snowflake</div>
+      <div class="passage-para">The shape of a snowflake is determined by the atmospheric conditions present at the time of its formation, specifically temperature and humidity. Between 0 and -3 degrees Celsius, thin flat crystals called planar crystals grow. From -3 to 8, the crystals form needles or prisms with pencil-like shapes. The shape then reverts back to plate-like until after 22 degrees Celsius when column-like structures (needles and prisms, etc.) begin to form again. At temperatures of 22 degrees and below, as well as the column-like structures, more complex growth patterns also form.</div>
+      <div class="section-label">Snowfall in the British Isles</div>
+      <div class="passage-para">Snowfall occurs frequently in the U.K., but the quantities are typically small and it seldom persists for very long. In recent years, a trend towards milder, wetter winters has been developing, though the 2010/11, 2011/12 and 2012/13 winters seem to have bucked the trend and, indeed, represent the longest period of consecutive cold winters for more than 50 years. For its latitude, the British Isles should see far more prolonged cold weather in winter and regular snowfall. However, the Gulf Stream, a mild Atlantic Ocean current, keeps the climate several degrees warmer than regions of similar latitude in other parts of the world. As a consequence, despite the occasional incident of prolonged cold, Britain's winters are typically not very severe.</div>
+      <div class="passage-para">Some parts of the isles see little, if any, snow from year to year. The most snow-prone are the Pennines, the Scottish Highlands, the Welsh Hills and the mountains of Northern Ireland. The Scottish Highlands boasts the isles' highest peaks and also their only winter ski resorts. For years, unreliable snowfall has threatened to close these resorts, though, having had three consecutive bumper seasons, there is now less pressure on the Scottish ski industry, which, not so long ago, was threatened with going out of existence.</div>
+      <div class="passage-para">Long-term weather forecasts for the British Isles are notoriously hard to get right; however, so far, three months before the official start of the meteorological winter in December, forecasters are predicting another winter of record-breaking low temperatures. They point to sunspot and geothermal activity, and changes in the strength of the Gulf Stream as key indicators of the fact that a cold winter is in prospect. Were their predictions to be realised, then this would point to the isles undergoing a subtle climatic change and a return to more severe winters in general.</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1–10: Complete the table below. Choose 10 answers from the box and choose the correct letter, A-I, next to questions 1-10 (Temperament and Considerations When Training: Behaviour around Children: Irish Wolfhound / West Highland White Terrier)</div>
+      <div class="word-box">
+        <span>A not very tolerant of or interested in gestures of affection from children (or any member of the family)</span>
+        <span>B generally well-behaved around children, but inclined to react badly to very young children who are loud and energetic</span>
+        <span>C reacts well to training once training has commenced at an early stage in life</span>
+        <span>D strong sense of pack loyalty makes it want to look after and care for young family members</span>
+        <span>E restless and can make itself a bit of a nuisance around the house and in the garden</span>
+        <span>F reasonably good with children of all ages, though its natural awkwardness can mean it poses a slight danger to young ones</span>
+        <span>G must be taught its place in the hierarchy otherwise may try to dominate</span>
+        <span>H a typically sedate and unexcitable temperament</span>
+        <span>I requires more training and supervision</span>
+        <span>J success of late-start training may be hindered by the animal's strong hunting instincts</span>
+        <span>K better with younger children to whom its size poses less of a threat</span>
+        <span>L training from a young age is essential, otherwise it will lack confidence</span>
+      </div>
+      <table class="q-table">
+        <tr><th></th><th>Temperament and Considerations When Training</th><th>Behaviour around Children</th></tr>
+        <tr>
+          <td><b>Irish Wolfhound</b></td>
+          <td>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q1.</div>
+              <select id="q1" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r1"></div>
+            </div>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q2.</div>
+              <select id="q2" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r2"></div>
+            </div>
+          </td>
+          <td>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q3.</div>
+              <select id="q3" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r3"></div>
+            </div>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q4.</div>
+              <select id="q4" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r4"></div>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td><b>West Highland White Terrier</b></td>
+          <td>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q5.</div>
+              <select id="q5" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r5"></div>
+            </div>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q6.</div>
+              <select id="q6" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r6"></div>
+            </div>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q7.</div>
+              <select id="q7" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r7"></div>
+            </div>
+          </td>
+          <td>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q8.</div>
+              <select id="q8" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r8"></div>
+            </div>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q9.</div>
+              <select id="q9" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r9"></div>
+            </div>
+            <div class="q-block" style="margin:4px 0">
+              <div class="q-label">Q10.</div>
+              <select id="q10" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option><option value="K">K</option><option value="L">L</option></select>
+              <div class="q-result" id="r10"></div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 11–13: Complete each sentence with the correct ending, A-E, below. Write the correct letter, A-E.</div>
+      <div class="word-box">
+        <span>A actually makes a pretty ineffectual watchdog, being slow to react to intruders or to perceive them as a threat.</span>
+        <span>B it is important to consider the costs of feeding and cleaning up after it, as well as the space requirements for keeping one, before making the decision to purchase.</span>
+        <span>C but it should never be left unsupervised around children of any age since it has an excitable temperament and can be aggressive towards them.</span>
+        <span>D is actually a fierce guard dog, alerting family members at the slightest hint that something is wrong.</span>
+        <span>E though it is largely ineffectual when it comes to neutralising any threats that have been identified.</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q11. The Irish Wolfhound, despite its size and reputation</div>
+        <div class="tfng-row">
+          <select id="q11" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. The West Highland White Terrier is quick to respond to intruders and alert the other members of the household</div>
+        <div class="tfng-row">
+          <select id="q12" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. Granted the Irish Wolfhound has the ideal temperament to become a loyal member of the family</div>
+        <div class="tfng-row">
+          <select id="q13" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14–16: Choose the correct letter, A, B, C or D</div>
+      <div class="q-block">
+        <div class="q-label">Q14. O'Flaherty went to Rome</div>
+        <label class="radio-opt"><input type="radio" name="q14" value="A" onchange="markRad(this)"> A &nbsp; voluntarily for personal reasons as he wanted to pursue his studies there.</label>
+        <label class="radio-opt"><input type="radio" name="q14" value="B" onchange="markRad(this)"> B &nbsp; after completing his studies at Mungret College in Limerick and becoming a priest.</label>
+        <label class="radio-opt"><input type="radio" name="q14" value="C" onchange="markRad(this)"> C &nbsp; at the same time as a Mussolini went to study there.</label>
+        <label class="radio-opt"><input type="radio" name="q14" value="D" onchange="markRad(this)"> D &nbsp; under the instructions of the religious organisation of which he was a part.</label>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. O'Flaherty's golfing talents</div>
+        <label class="radio-opt"><input type="radio" name="q15" value="A" onchange="markRad(this)"> A &nbsp; were exploited by him as a means by which to meet and influence important people.</label>
+        <label class="radio-opt"><input type="radio" name="q15" value="B" onchange="markRad(this)"> B &nbsp; were the product of his extremely hard work and tireless practice from a young age.</label>
+        <label class="radio-opt"><input type="radio" name="q15" value="C" onchange="markRad(this)"> C &nbsp; went unnoticed until he was posted in Italy where they impressed a number of high-profile individuals.</label>
+        <label class="radio-opt"><input type="radio" name="q15" value="D" onchange="markRad(this)"> D &nbsp; were exaggerated by friends and connections in order to win him favour with the German and Italian authorities.</label>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. When it came to Nazi ideology, O'Flaherty's beliefs</div>
+        <label class="radio-opt"><input type="radio" name="q16" value="A" onchange="markRad(this)"> A &nbsp; were similar to those of Jews, blacks and gypsies, who viewed the German interference in Italy as unwanted.</label>
+        <label class="radio-opt"><input type="radio" name="q16" value="B" onchange="markRad(this)"> B &nbsp; were influenced by the conclusions he had drawn from socialising with certain groups of people in the past.</label>
+        <label class="radio-opt"><input type="radio" name="q16" value="C" onchange="markRad(this)"> C &nbsp; were in keeping up with the stated views of the German and Italian governments.</label>
+        <label class="radio-opt"><input type="radio" name="q16" value="D" onchange="markRad(this)"> D &nbsp; were similarly hostile and extreme as he was influenced by fascist propaganda.</label>
+        <div class="q-result" id="r16"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 17–18: There are TWO correct answers. Choose TWO letters from A, B, C, D and E.<br>A in the place at which he was then studying &nbsp;|&nbsp; B in a former college that had been converted into a network of apartments &nbsp;|&nbsp; C in the place where he officially lived at the time &nbsp;|&nbsp; D in the residences of certain religious groups &nbsp;|&nbsp; E in the houses of old friends of his</div>
+      <div class="q-block">
+        <div class="q-label">Q17. (select one of the two correct letters)</div>
+        <div class="tfng-row">
+          <select id="q17" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. (select the other correct letter)</div>
+        <div class="tfng-row">
+          <select id="q18" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option>
+          </select>
+        </div>
+        <div class="q-result" id="r18"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 19–21: Choose the correct letter, A, B, C or D.</div>
+      <div class="q-block">
+        <div class="q-label">Q19. What impressive aspect of the actions of O'Flaherty's helpers does the writer highlight?</div>
+        <label class="radio-opt"><input type="radio" name="q19" value="A" onchange="markRad(this)"> A &nbsp; how eager they were to help him</label>
+        <label class="radio-opt"><input type="radio" name="q19" value="B" onchange="markRad(this)"> B &nbsp; how many of them were willing to volunteer</label>
+        <label class="radio-opt"><input type="radio" name="q19" value="C" onchange="markRad(this)"> C &nbsp; their disregard for the possible consequences of being caught</label>
+        <label class="radio-opt"><input type="radio" name="q19" value="D" onchange="markRad(this)"> D &nbsp; their ability to coordinate and work together</label>
+        <div class="q-result" id="r19"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q20. Why was O'Flaherty nicknamed the Scarlet Pimpernel of the Vatican?</div>
+        <label class="radio-opt"><input type="radio" name="q20" value="A" onchange="markRad(this)"> A &nbsp; He resembled a Scarlet Pimpernel in the disguises he used to wear.</label>
+        <label class="radio-opt"><input type="radio" name="q20" value="B" onchange="markRad(this)"> B &nbsp; He often disguised himself as a Vatican priest.</label>
+        <label class="radio-opt"><input type="radio" name="q20" value="C" onchange="markRad(this)"> C &nbsp; He had successfully used disguises to avoid being identified.</label>
+        <label class="radio-opt"><input type="radio" name="q20" value="D" onchange="markRad(this)"> D &nbsp; He had earned a Master's in the art of disguise.</label>
+        <div class="q-result" id="r20"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q21. What impression does the writer leave us with of his own personal feelings with respect to O'Flaherty's life and achievements?</div>
+        <label class="radio-opt"><input type="radio" name="q21" value="A" onchange="markRad(this)"> A &nbsp; He admires O'Flaherty's bravery and determination to stop injustice.</label>
+        <label class="radio-opt"><input type="radio" name="q21" value="B" onchange="markRad(this)"> B &nbsp; He admires O'Flaherty's loyalty to the Vatican and his church.</label>
+        <label class="radio-opt"><input type="radio" name="q21" value="C" onchange="markRad(this)"> C &nbsp; He feels that Margaret Mead was a superior speech-maker to O'Flaherty.</label>
+        <label class="radio-opt"><input type="radio" name="q21" value="D" onchange="markRad(this)"> D &nbsp; He feels he didn't get the recognition he deserves for his achievements.</label>
+        <div class="q-result" id="r21"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 22–26: Complete the summary below. Choose NO MORE THAN TWO WORDS from the passage for each answer.</div>
+      <div class="q-block">
+        <div class="passage-para">A moral, determined and resourceful man O'Flaherty's personal beliefs were at loggerheads with fascist ideology, which he saw as mindless propaganda, so he took it upon himself to combat the injustices being perpetrated against Jews and other minority groups at the hands of the German and Italian police, who, acting on orders from above, were rounding said groups up to be sent to <b>(22)</b> <input type="text" id="q22" oninput="markTxt(this)" placeholder="answer">. Initially, O'Flaherty used familiar places as hideouts for the people he was trying to conceal. However, as the situation started to deteriorate, and more and more people were in need of assistance, he was forced to call upon old friends and contacts for help. In helping O'Flaherty, these friends showed their own bravery as getting <b>(23)</b> <input type="text" id="q23" oninput="markTxt(this)" placeholder="answer"> might have cost them their lives. Not only did O'Flaherty help the 'unwanted', he also extended his assistance to fallen <b>(24)</b> <input type="text" id="q24" oninput="markTxt(this)" placeholder="answer">, as well as British soldiers who had been detained by the Germans. By the war's end, the lives of 6,500 people had been spared thanks to O'Flaherty and his helpers. So effective had he been at <b>(25)</b> <input type="text" id="q25" oninput="markTxt(this)" placeholder="answer"> Jews and servicemen inside that he earned the nickname The Scarlet Pimpernel of the Vatican. O'Flaherty received a huge number of <b>(26)</b> <input type="text" id="q26" oninput="markTxt(this)" placeholder="answer"> from countries all around the world in acknowledgement of his war-time feats.</div>
+        <div class="q-result" id="r22"></div><div class="q-result" id="r23"></div>
+        <div class="q-result" id="r24"></div><div class="q-result" id="r25"></div>
+        <div class="q-result" id="r26"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27–33: Do the following statements agree with the information given in Reading Passage 3? Write: YES if the statement agrees with the views of the writer; NO if the statement contradicts the views of the writer; NOT GIVEN if it is impossible to say what the writer thinks about this</div>
+      <div class="q-block">
+        <div class="q-label">Q27. When a warm front from an extratropical cyclone meets a cold front, snow is more likely to occur on the poleward side of the weather system.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q27" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q27" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q27" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. Lake-effect snow is aptly named, given that it is a weather phenomenon which is only associated with lakes.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q28" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q28" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q28" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. Heavy snowfall is more likely to be seen on the side of the mountain that is exposed to high winds.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q29" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q29" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q29" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. In the absence of dust or a similar particle to start the freezing process, supercool moisture will not freeze in a cloud whose mean temperature is -34 degrees or more.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q30" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q30" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q30" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q31. The real colour of snow is the same as the colour snow appears to be to the human eye.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q31" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q31" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q31" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r31"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q32. Snowflakes shaped like a prism are more likely to form in milder weather than are flakes with more intricate growth patterns.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q32" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q32" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q32" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r32"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q33. The thin flat crystals created at temperatures of between zero and minus three degrees Celsius are more voluminous than column-like crystals.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q33" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q33" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q33" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r33"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 34–37: Complete the sentences below. Choose NO MORE THAN THREE WORDS from the passage for each answer.</div>
+      <div class="q-block">
+        <div class="passage-para">While snowfall is not an uncommon feature of a United Kingdom winter, it is rare for significant <b>(34)</b> <input type="text" id="q34" oninput="markTxt(this)" placeholder="answer"> to accumulate, or for the snow to remain on the ground for any great length of time. Three consecutive winters have failed to follow the <b>(35)</b> <input type="text" id="q35" oninput="markTxt(this)" placeholder="answer"> towards milder, wetter weather. Despite its latitude, the British Isles does not suffer from <b>(36)</b> <input type="text" id="q36" oninput="markTxt(this)" placeholder="answer"> on account of the influence of the Gulf Stream. Should next winter be another unusually cold one, this may be indicative of the fact that a <b>(37)</b> <input type="text" id="q37" oninput="markTxt(this)" placeholder="answer"> is under way.</div>
+        <div class="q-result" id="r34"></div><div class="q-result" id="r35"></div>
+        <div class="q-result" id="r36"></div><div class="q-result" id="r37"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 4px">Questions 38–40: Complete the summary with the list of words A-F below. Write the correct letter, A-F, in spaces 38-40 below.</div>
+      <div class="word-box">
+        <span>A uninterrupted</span><span>B mild</span><span>C strengthening</span><span>D waning</span><span>E extreme</span><span>F direct</span>
+      </div>
+      <div class="q-block">
+        <div class="passage-para">The British Winter Snowfall is not an uncommon sight in Britain during winter, but such weather rarely persists for very long. In fact, up until a few years ago, it looked like British winters were getting milder. However, this perception has changed fairly dramatically over the last three winters, which have been the longest
+          <select id="q38" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option></select> <b>(38)</b>
+          period of cold winters for more than half a century. It is now feared that the climate of the British Isles is changing and that, should the next few winters be equally severe, this could signal a permanent move to more
+          <select id="q39" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option></select> <b>(39)</b>
+          winter weather in general. Scientists blame sunspot and geothermal activity as well as the
+          <select id="q40" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option></select> <b>(40)</b>
+          influence of the Gulf Stream, which, until now, has kept Britain's climate milder than that of areas of similar latitude throughout the rest of the world.</div>
+        <div class="q-result" id="r38"></div><div class="q-result" id="r39"></div>
+        <div class="q-result" id="r40"></div>
+      </div>
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+// ANSWER KEY
+var ANS={
+  q1:'C',q2:'H',q3:'J',q4:'D',q5:'F',q6:'E',q7:'G',q8:'I',q9:'A',q10:'B',
+  q11:'A',q12:'E',q13:'B',
+  q14:'D',q15:'A',q16:'B',
+  q17:'C',q18:'D',
+  q19:'C',q20:'C',q21:'A',
+  q22:['concentration camps'],
+  q23:['caught'],
+  q24:['allied airmen','allied armen'],
+  q25:['smuggling'],
+  q26:['accolades'],
+  q27:'YES',q28:'NO',q29:'YES',q30:'YES',q31:'NO',q32:'YES',q33:'NOT GIVEN',
+  q34:['quantities'],
+  q35:['trend'],
+  q36:['severe winters','very cold weather'],
+  q37:['subtle climatic change','climatic change'],
+  q38:'A',q39:'E',q40:'D'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  // Q1-10 select
+  for(var i=1;i<=10;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q11-13 select
+  for(var i=11;i<=13;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q14-16 radio
+  for(var i=14;i<=16;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q17-18 select
+  for(var i=17;i<=18;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q19-21 radio
+  for(var i=19;i<=21;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q22-26 text
+  for(var i=22;i<=26;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q27-33 radio
+  for(var i=27;i<=33;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q34-37 text
+  for(var i=34;i<=37;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q38-40 select
+  for(var i=38;i<=40;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  // Build details từ ANS object (đúng thứ tự Q1-Q40)
+  var detailsParts=[];
+  for(var i=1;i<=10;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=11;i<=13;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=16;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=17;i<=18;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=19;i<=21;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=22;i<=26;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=(Array.isArray(ans)?ans.some(function(a){return v.toLowerCase()===a.toLowerCase();}):v.toLowerCase()===ans.toLowerCase())?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=27;i<=33;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=34;i<=37;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=(Array.isArray(ans)?ans.some(function(a){return v.toLowerCase()===a.toLowerCase();}):v.toLowerCase()===ans.toLowerCase())?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=38;i<=40;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 30',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
