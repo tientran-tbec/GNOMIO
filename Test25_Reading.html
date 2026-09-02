@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 25</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 25</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">Daydreaming</div>
+      <div class="passage-para">Everyone daydreams sometimes. We sit or lie down, close our eyes and use our imagination to think about something that might happen in the future or could have happened in the past. Most daydreaming is pleasant. We would like the daydream to happen and we would be very happy if it did actually happen. We might daydream that we are in another person's place, or doing something that we have always wanted to do, or that other people like or admire us much more than they normally do.</div>
+      <div class="passage-para">Daydreams are not dreams, because we can only daydream if we are awake. Also, we choose what our daydreams will be about, which we cannot usually do with dreams. With many daydreams, we know that what we imagine is unlikely to happen. At least, if it does happen, it probably will not do so in the way we want it to. However, some daydreams are about things that are likely to happen. With these, our daydreams often help us to work out what we want to do, or how to do it to get the best results. So, these daydreams are helpful. We use our imagination to help us understand the world and other people.</div>
+      <div class="passage-para">Daydreams can help people to be creative. People in creative or artistic careers, such as composers, novelists and filmmakers, develop new ideas through daydreaming. This is also true of research scientists and mathematicians. In fact, Albert Einstein said that imagination is more important than knowledge because knowledge is limited whereas imagination is not.</div>
+      <div class="passage-para">Research in the 1980s showed that most daydreams are about ordinary, everyday events. It also showed that over 75% of workers in so-called 'boring jobs', such as lorry drivers and security guards, spend a lot of time daydreaming in order to make their time at work more interesting. Recent research has also shown that daydreaming has a positive effect on the brain. Experiments with MRI brain scans show that the parts of the brain linked with complex problem-solving are more active during daydreaming. Researchers conclude that daydreaming is an activity in which the brain consolidates learning. In this respect, daydreaming is the same as dreaming during sleep.</div>
+      <div class="passage-para">Although there do seem to be many advantages with daydreaming, in many cultures it is considered a bad thing to do. One reason for this is that when you are daydreaming, you are not working. In the 19th century, for example, people who daydreamed a lot were judged to be lazy. This happened in particular when people started working in factories on assembly lines. When you work on an assembly line, all you do is one small task again and again, every time exactly the same. It is rather repetitive and, obviously, you cannot be creative. So many people decided that there was no benefit in daydreaming.</div>
+      <div class="passage-para">Other people have said that daydreaming leads to 'escapism' and that this is not healthy, either. Escapist people spend a lot of time living in a dream world in which they are successful and popular, instead of trying to deal with the problems they face in the real world. Such people often seem to be unhappy and are unable or unwilling to improve their daily lives. Indeed, recent studies show that people who often daydream have fewer close friends than other people. In fact, they often do not have any close friends at all.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">TRICKY SUMS AND PSYCHOLOGY</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">In their first years of studying mathematics at school, children all over the world usually have to learn the times table, also known as the multiplication table, which shows what you get when you multiply numbers together. Children have traditionally learned their times table by going from '1 times 1 is 1' all the way up to '12 times 12 is 144'.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Times tables have been around for a very long time now. The oldest known tables using base 10 numbers, the base that is now used everywhere in the world, are written on bamboo strips dating from 305 BC, found in China. However, in many European cultures the times table is named after the Ancient Greek mathematician and philosopher Pythagoras (570-495 BC). And so it is called the Table of Pythagoras in many languages, including French and Italian.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">In 1820, in his book The Philosophy of Arithmetic, the mathematician John Leslie recommended that young pupils memories the times table up to 25 x 25. Nowadays, however, educators generally believe it is important for children to memorise the table up to 9 x 9, 10 x 10 or 12 x12.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">The current aim in the UK is for school pupils to know all their times tables up to 12 x 12 by the age of nine. However, many people do not know them, even as adults. Recently, some politicians have been asked arithmetical questions of this kind. For example, in 1998, the schools minister Stephen Byers was asked the answer to 7 x 8. He got the answer wrong, saying 54 rather than 56, and everyone laughed at him.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">In 2014, a young boy asked the UK Chancellor George Osborne the exact same question. As he had passed A-level maths and was in charge of the UK's economic policies at the time, you would expect him to know the answer. However, he simply said, 'I've made it a rule in life not to answer such questions.'</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">Why would a politician refuse to answer such a question? It is certainly true that some sums are much harder than others. Research has shown that learning and remembering sums involving 6,7,8 and 9 tends to be harder than remembering sums involving other numbers. And it is even harder when 6,7,8 and 9 are multiplied by each other. Studies often find that the hardest sum is 6x8, with 7x8 not far behind. However, even though 7x8 is a relatively difficult sum, it is unlikely that George Osborne did not know the answer. So there must be some other reason why he refused to answer the question.</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">The answer is that Osborne was being 'put on the spot' and he didn't like it. It is well known that when there is a lot of pressure to do something right, people often have difficulty doing something that they normally find easy. When you put someone on the spot and ask such a question, it causes stress. The person's heart beats faster and their adrenalin levels go up. As a result, people will often make mistakes that they would not normally make. This is called 'choking'. Choking often happens in sport, such as when a footballer takes a crucial penalty. In the same way, the boy's question put Osborne under great pressure. He knew it would be a disaster for him if he got the answer to such a simple question wrong and feared that he might choke. And that is why he refused to answer the question.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">Care in the Community</div>
+      <div class="passage-para">'Bedlam' is a word that has become synonymous in the English language with chaos and disorder. The term itself derives from the shortened name for a former 16th century London institution for the mentally ill, known as St. Mary of Bethlehem. This institution was so notorious that its name was to become a byword for mayhem. Patient 'treatment' amounted to little more than legitimised abuse. Inmates were beaten and forced to live in unsanitary conditions, whilst others were placed on display to a curious public as a side-show. There is little indication to suggest that other institutions founded at around the same time in other European countries were much better.</div>
+      <div class="passage-para">Even up until the mid-twentieth century, institutions for the mentally ill were regarded as being more places of isolation and punishment than healing and solace. In popular literature of the Victorian era that reflected true-life events, individuals were frequently sent to the 'madhouse' as a legal means of permanently disposing of an unwanted heir or spouse. Later, in the mid-twentieth century, institutes for the mentally ill regularly carried out invasive brain surgery known as a 'lobotomy' on violent patients without their consent. The aim was to 'calm' the patient but ended up producing a patient that was little more than a zombie. Such a procedure is well documented to devastating effect in the film 'One Flew Over the Cuckoo's Nest'. Little wonder then that the appalling catalogue of treatment of the mentally ill led to a call for change from social activists and psychologists alike.</div>
+      <div class="passage-para">Improvements began to be seen in institutions from the mid-50s onwards, along with the introduction of care in the community for less severely ill patients. Community care was seen as a more humane and purposeful approach to dealing with the mentally ill. Whereas institutionalised patients lived out their existence in confinement, forced to obey institutional regulations, patients in the community were free to live a relatively independent life. The patient was never left purely to their own devices as a variety of services could theoretically be accessed by the individual. In its early stages, however, community care consisted primarily of help from the patient's extended family network. In more recent years, such care has extended to the provision of specialist community mental health teams (CMHTs) in the UK. Such teams cover a wide range of services from rehabilitation to home treatment and assessment. In addition, psychiatric nurses are on hand to administer prescription medication and give injections. The patient is therefore provided with the necessary help that they need to survive in the everyday world whilst maintaining a degree of autonomy.</div>
+      <div class="passage-para">Often, though, when a policy is put into practice, its failings become apparent. This is true for the policy of care in the community. Whilst back-up services may exist, an individual may not call upon them when needed, due to reluctance or inability to assess their own condition. As a result, such an individual may be alone during a critical phase of their illness, which could lead them to self-harm or even become a threat to other members of their community. Whilst this might be an extreme-case scenario, there is also the issue of social alienation that needs to be considered. Integration into the community may not be sufficient to allow the individual to find work, leading to poverty and isolation. Social exclusion could then cause a relapse as the individual is left to battle mental health problems alone. The solution, therefore, is to ensure that the patient is always in touch with professional helpers and not left alone to fend for themselves. It should always be remembered that whilst you can take the patient out of the institution, you can't take the institution out of the patient.</div>
+      <div class="passage-para">When questioned about care in the community, there seems to be a division of opinion amongst members of the public and within the mental healthcare profession itself. Dr. Mayalla, practising clinical psychologist, is inclined to believe that whilst certain patients may benefit from care in the community, the scheme isn't for everyone. 'Those suffering moderate cases of mental illness stand to gain more from care in the community than those with more pronounced mental illness. I don't think it's a one-size-fits-all policy. But I also think that there is a far better infrastructure of helpers and social workers in place now than previously and the scheme stands a greater chance of success than in the past.'</div>
+      <div class="passage-para">Anita Brown, mother of three, takes a different view. 'As a mother, I'm very protective towards my children. As a result, I would not put my support behind any scheme that I felt might put my children in danger... I guess there must be assessment methods in place to ensure that dangerous individuals are not let loose amongst the public but I'm not for it at all. I like to feel secure where I live, but more to the point, that my children are not under any threat.'</div>
+      <div class="passage-para">Bob Ratchett, a former mental health nurse, takes a more positive view on community care projects. 'Having worked in the field myself, I've seen how a patient can benefit from living an independent life, away from an institution. Obviously, only individuals well on their way to recovery would be suitable for consideration as participants in such a scheme. If you think about it, is it really fair to condemn an individual to a lifetime in an institution when they could be living a fairly fulfilled and independent life outside the institution?'</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1-8: Do the following statements agree with the information given in the text? For questions 1-8, write TRUE. if the statement agrees with the information FALSE. if the statement contradicts the information NOT GIVEN. If there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q1. People usually daydream when they are walking around.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q1" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q1" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q1" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. Some people can daydream when they are asleep.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q2" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q2" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q2" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. Some daydreams help us to be more successful in our lives.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q3" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q3" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q3" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. Most lorry drivers daydream in their jobs to make them more interesting.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q4" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q4" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q4" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. Factory workers daydream more than lorry drivers.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q5" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q5" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q5" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r5"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q6. Daydreaming helps people to be creative.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q6" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q6" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q6" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. Old people daydream more than young people.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q7" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q7" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q7" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r7"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q8. Escapist people are generally very happy.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q8" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q8" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q8" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r8"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 9-10: Complete the sentences below. Choose NO MORE THAN THREE WORDS from the text for each answer.</div>
+      <div class="q-block">
+        <div class="passage-para">Writers, artists and other creative people use daydreaming to <b>9.</b> <input type="text" id="q9" oninput="markTxt(this)" placeholder="answer">. The areas of the brain used in daydreaming are also used for complicated <b>10.</b> <input type="text" id="q10" oninput="markTxt(this)" placeholder="answer"></div>
+        <div class="q-result" id="r9"></div><div class="q-result" id="r10"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 11-13: Choose the correct letter, A, B, C or D</div>
+      <div class="q-block">
+        <div class="q-label">Q11. 11. Daydreams are</div>
+        <label class="radio-opt"><input type="radio" name="q11" value="A" onchange="markRad(this)"> A &nbsp;dreams that we have when we fall asleep in daytime.</label>
+        <label class="radio-opt"><input type="radio" name="q11" value="B" onchange="markRad(this)"> B &nbsp;about things that happened that make us sad.</label>
+        <label class="radio-opt"><input type="radio" name="q11" value="C" onchange="markRad(this)"> C &nbsp;often about things that we would like to happen.</label>
+        <label class="radio-opt"><input type="radio" name="q11" value="D" onchange="markRad(this)"> D &nbsp;activities that only a few people are able to do.</label>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. 12. In the nineteenth century, many people believed that daydreaming was</div>
+        <label class="radio-opt"><input type="radio" name="q12" value="A" onchange="markRad(this)"> A &nbsp;helpful in factory work.</label>
+        <label class="radio-opt"><input type="radio" name="q12" value="B" onchange="markRad(this)"> B &nbsp;a way of avoiding work.</label>
+        <label class="radio-opt"><input type="radio" name="q12" value="C" onchange="markRad(this)"> C &nbsp;something that few people did.</label>
+        <label class="radio-opt"><input type="radio" name="q12" value="D" onchange="markRad(this)"> D &nbsp;a healthy activity.</label>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. 13. People who daydream a lot</div>
+        <label class="radio-opt"><input type="radio" name="q13" value="A" onchange="markRad(this)"> A &nbsp;usually have creative jobs.</label>
+        <label class="radio-opt"><input type="radio" name="q13" value="B" onchange="markRad(this)"> B &nbsp;are much happier than other people.</label>
+        <label class="radio-opt"><input type="radio" name="q13" value="C" onchange="markRad(this)"> C &nbsp;are less intelligent than other people.</label>
+        <label class="radio-opt"><input type="radio" name="q13" value="D" onchange="markRad(this)"> D &nbsp;do not have as many friends as other people.</label>
+        <div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14-19: The text has seven paragraphs, A-G Which paragraph contains the following information? Write the correct letter, A-G, next to questions 14-19.</div>
+      <div class="q-block">
+        <div class="q-label">Q14. 14. a 19th-century opinion of what children should learn</div>
+        <div class="tfng-row">
+          <select id="q14" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. 15. the most difficult sums</div>
+        <div class="tfng-row">
+          <select id="q15" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. 16. the effect of pressure on doing something</div>
+        <div class="tfng-row">
+          <select id="q16" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. 17. how children learn the times table</div>
+        <div class="tfng-row">
+          <select id="q17" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. 18. a politician who got a sum wrong</div>
+        <div class="tfng-row">
+          <select id="q18" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r18"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q19. 19. a history of the times table</div>
+        <div class="tfng-row">
+          <select id="q19" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option>
+          </select>
+        </div>
+        <div class="q-result" id="r19"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 20-25: Do the following statements agree with the information given in the text? For questions 20-25, write TRUE. if the statement agrees with the information FALSE. if the statement contradicts the information NOT GIVEN. If there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q20. Pythagoras invented the times table in China.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q20" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q20" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q20" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r20"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q21. Stephen Byers and George Osborne were asked the same question.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q21" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q21" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q21" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r21"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q22. All children in the UK have to learn the multiplication table.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q22" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q22" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q22" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r22"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q23. George Osborne did not know the answer to 7 X 8.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q23" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q23" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q23" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r23"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q24. 7 X 8 is the hardest sum that children have to learn.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q24" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q24" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q24" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r24"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q25. Stephen Byers got the sum wrong because he choked.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q25" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q25" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q25" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r25"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 26-31: Choose the correct letter, A, B, C or D.</div>
+      <div class="q-block">
+        <div class="q-label">Q26. 26. Which of the following statements is accurate?</div>
+        <label class="radio-opt"><input type="radio" name="q26" value="A" onchange="markRad(this)"> A &nbsp;In the 20th century, illegal surgical procedures were carried out on the mentally ill.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="B" onchange="markRad(this)"> B &nbsp;The Victorian era saw an increase in mental illness amongst married couples.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="C" onchange="markRad(this)"> C &nbsp;Mental institutions of the past were better-equipped for dealing with the mentally ill.</label>
+        <label class="radio-opt"><input type="radio" name="q26" value="D" onchange="markRad(this)"> D &nbsp;In the past, others often benefitted when a patient was sent to a mental asylum.</label>
+        <div class="q-result" id="r26"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q27. 27. What does the writer mean by patient treatment being 'legitimised abuse'?</div>
+        <label class="radio-opt"><input type="radio" name="q27" value="A" onchange="markRad(this)"> A &nbsp;There were proper guidelines for the punishment of mentally ill patients.</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="B" onchange="markRad(this)"> B &nbsp;Maltreatment of mentally ill patients was not illegal and so was tolerated.</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="C" onchange="markRad(this)"> C &nbsp;Only those who were legally entitled to do so could punish mentally ill patients.</label>
+        <label class="radio-opt"><input type="radio" name="q27" value="D" onchange="markRad(this)"> D &nbsp;Physical abuse of mentally ill patients was a legal requirement of mental institutions.</label>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. 28. What brought about changes in the treatment of mentally ill patients?</div>
+        <label class="radio-opt"><input type="radio" name="q28" value="A" onchange="markRad(this)"> A &nbsp;A radio documentary exposed patient maltreatment.</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="B" onchange="markRad(this)"> B &nbsp;People rebelled against the consistent abuse of mentally ill patients.</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="C" onchange="markRad(this)"> C &nbsp;Previous treatments of mentally ill patients were proved to be ineffective.</label>
+        <label class="radio-opt"><input type="radio" name="q28" value="D" onchange="markRad(this)"> D &nbsp;The maltreatment of mentally ill patients could never be revealed.</label>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. 29. What was a feature of early care in the community schemes?</div>
+        <label class="radio-opt"><input type="radio" name="q29" value="A" onchange="markRad(this)"> A &nbsp;Patient support was the responsibility more of relatives than professionals.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="B" onchange="markRad(this)"> B &nbsp;Advanced professional help was available to patients.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="C" onchange="markRad(this)"> C &nbsp;All mentally ill patients could benefit from the scheme.</label>
+        <label class="radio-opt"><input type="radio" name="q29" value="D" onchange="markRad(this)"> D &nbsp;Patients were allowed to enjoy full independence.</label>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. 30. What is true of care in the community schemes today?</div>
+        <label class="radio-opt"><input type="radio" name="q30" value="A" onchange="markRad(this)"> A &nbsp;They permit greater patient autonomy.</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="B" onchange="markRad(this)"> B &nbsp;More professional services are available to patients.</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="C" onchange="markRad(this)"> C &nbsp;Family support networks have become unnecessary.</label>
+        <label class="radio-opt"><input type="radio" name="q30" value="D" onchange="markRad(this)"> D &nbsp;All patients can now become part of these schemes.</label>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q31. 31. What can be said of the writer's attitude towards care in the community?</div>
+        <label class="radio-opt"><input type="radio" name="q31" value="A" onchange="markRad(this)"> A &nbsp;He believes that the scheme has proved to be a failure.</label>
+        <label class="radio-opt"><input type="radio" name="q31" value="B" onchange="markRad(this)"> B &nbsp;He believes that it can only work under certain circumstances.</label>
+        <label class="radio-opt"><input type="radio" name="q31" value="C" onchange="markRad(this)"> C &nbsp;He believes that it will never work as mentally ill patients will always be disadvantaged.</label>
+        <label class="radio-opt"><input type="radio" name="q31" value="D" onchange="markRad(this)"> D &nbsp;He believes it has failed due to patient neglect by professional helpers.</label>
+        <div class="q-result" id="r31"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 32-36: Look at the following statements, 32-36, and the list of people, A-C Match each statement to the correct person.</div>
+      <div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px">
+        <b>A</b> Dr. Mayalla &nbsp;|&nbsp; <b>B</b> Anita Brown &nbsp;|&nbsp; <b>C</b> Bob Ratchett
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q32. 32. This person acknowledges certain inadequacies in the concept of care in the community, but recognises that attempts have been made to improve on this.</div>
+        <div class="tfng-row">
+          <select id="q32" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r32"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q33. 33. This person whilst emphasising the benefits to the patient from care in the community schemes is critical of traditional care methods.</div>
+        <div class="tfng-row">
+          <select id="q33" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. 34. This person’s views have been moderated by their professional contact with the mentally ill.</div>
+        <div class="tfng-row">
+          <select id="q34" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r34"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q35. 35. This person places the welfare of others above that of the mentally ill.</div>
+        <div class="tfng-row">
+          <select id="q35" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r35"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q36. 36. This person acknowledges that a mistrust of care in the community schemes may be unfounded.</div>
+        <div class="tfng-row">
+          <select id="q36" onchange="markSel(this)">
+            <option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option>
+          </select>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 37-40: Do the following statements agree with the information given in the text? For questions 37-40, write TRUE. if the statement agrees with the information FALSE. if the statement contradicts the information NOT GIVEN. If there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q37. There is a better understanding of the dynamics of mental illness today.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q37" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q37" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q37" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. Community care schemes do not provide adequate psychological support for patients.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q38" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q38" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q38" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. Dr. Mayalla believes that the scheme is less successful than in the past.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q39" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q39" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q39" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. The goal of community care schemes is to make patients less dependent on the system.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q40" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q40" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q40" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r40"></div>
+      </div>
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+// ANSWER KEY
+var ANS={
+  q1:'FALSE',q2:'FALSE',q3:'TRUE',q4:'TRUE',q5:'NOT GIVEN',q6:'TRUE',q7:'NOT GIVEN',q8:'FALSE',
+  q9:['develop new ideas'],
+  q10:['problem-solving','problem solving'],
+  q11:'C',q12:'B',q13:'D',
+  q14:'C',q15:'F',q16:'G',q17:'A',q18:'D',q19:'B',
+  q20:'FALSE',q21:'TRUE',q22:'TRUE',q23:'FALSE',q24:'FALSE',q25:'NOT GIVEN',
+  q26:'D',q27:'B',q28:'B',q29:'A',q30:'B',q31:'B',
+  q32:'A',q33:'C',q34:'C',q35:'B',q36:'B',
+  q37:'NOT GIVEN',q38:'FALSE',q39:'FALSE',q40:'TRUE'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  // Q1-8 radio (TFNG)
+  for(var i=1;i<=8;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q9-10 text
+  for(var i=9;i<=10;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q11-13 radio
+  for(var i=11;i<=13;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q14-19 select
+  for(var i=14;i<=19;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q20-25 radio (TFNG)
+  for(var i=20;i<=25;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q26-31 radio
+  for(var i=26;i<=31;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q32-36 select
+  for(var i=32;i<=36;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q37-40 radio (TFNG)
+  for(var i=37;i<=40;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  var detailsParts=[];
+  for(var i=1;i<=8;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=9;i<=10;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=11;i<=13;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=19;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=20;i<=25;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=26;i<=31;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=32;i<=36;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=37;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 25',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
