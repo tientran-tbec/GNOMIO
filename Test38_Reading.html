@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 38</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:260px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+.fallback-note{background:#fff8e1;border-left:4px solid #f9a825;padding:8px 12px;border-radius:6px;font-size:13px;color:#5d4037;margin-bottom:10px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 38</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">PROJECT: Reform Of The Prison System In The UK</div>
+      <div class="section-label">Penal progress:</div>
+      <div class="passage-para">The UK's large prison population is fuelled by a high level of recidivism - when criminals repeatedly relapse into crime. This project for a model prison tackles issues of architecture, management and funding in an enlightened attempt to achieve lasting rehabilitation.</div>
+      <div class="section-label">Project:</div>
+      <div class="passage-para">The penal system is one of the most direct manifestations of the power of the state, but is often also a revealing reflection of the national psyche and the public's attitude to punishment and rehabilitation. Surprisingly, for a prosperous, progressive Western democracy, the UK has a lamentable penal record. Britain's prison population is currently in excess of 60,000 (up 50 per cent from a decade ago) making it the second largest in Europe. The average cost of keeping an individual prisoner incarcerated for a year is £27,000 (ten times the average expenditure on a secondary school pupil in the state sector). Despite such substantial investment, over half of British prisoners re-offend within two years of release.</div>
+      <div class="passage-para">Such high rates of recidivism is a serious problem. It means that the prison population is continuing to grow at an alarming rate (recently by as many as 700 a week), so overcrowding is endemic, hampering opportunities for education and rehabilitation and lowering staff and prisoner morale. To ease this pressure, the UK government is investing in the prison estate at historic levels, with 12,000 new prison places proposed within the next few years. Yet, like their nineteenth-century predecessors, Britain's 'new Victorian' prisons are designed for security and control rather than for the rehabilitation and education which is increasingly recognised as what prisoners need. Most are poorly educated young men under 30 (at least 60 per cent of whom are functionally illiterate and innumerate), so without education and skills few will be able to build meaningful lives away from crime, no matter how often they go to prison, or how long they spend there.</div>
+      <div class="passage-para">Any transformation of the penal system must start with the redesign of prison buildings. Prison architecture has a clearly discernible effect on behaviour, operational efficiency, interaction and morale. Last year, architects Buschow Henley were commissioned by a think tank organisation working with the Home Office Prison Service to research and develop an alternative prison model that focuses more intensely on rehabilitation through a concentrated programme of intellectual, physical and social education. The model is not intended as a blueprint but rather a series of principles that might be adapted to support the wider concept of the 'Learning Prison' in which other aspects such as organisation, management and funding would obviously play a part. Key to this is the introduction of a system that groups together prisoners in small communities or 'houses' of between 30 and 40 inmates. This has two important consequences. First, the more compact spatial organisation of the house reduces staff time spent on supervising and escorting prisoners. Second, the system places educational and other facilities at the heart of the building, within easy reach at all times of day, reinforced by a supportive social environment. This model also enables resources to be dramatically redeployed, from a current estimated ratio of 80:20 (costs of security versus rehabilitation) to a predicted reversed figure of 20:80, freeing up much-needed funds to invest in educational programmes, thereby helping to promote rehabilitation, reduce recidivism and initiate a virtuous cycle.</div>
+      <div class="passage-para">In Buschow Henley's scheme, the proposed group size of 30-40 has the potential for social accountability - each prisoner being known within the community and personally accountable for his behaviour. Houses are semi-autonomous, not just dormitories, with communal, as opposed to centralised, facilities. Circulation is simplified and reduced. Buildings are arranged in a chess-board formation, as opposed to pavilions marooned in space, each with a discrete external area that can be productively used for sport, games or gardening with a minimum of supervision.</div>
+      <div class="passage-para">Individual cells are replanned to make them less like domestic lavatories and more conducive to learning. In an inversion of the conventional layout, the bed is placed lengthways along the external wall at high level, freeing up space below. Storage is built in and each inmate is provided with a moveable table equipped with electronic tools for study. Washing facilities are contained in a small adjoining space (included in the basic 8 sqm allowance) so reducing pressure on prison staff to manage inmate hygiene and ablution. Each cell is paired with a neighbouring 'buddy' cell linked by sliding doors controlled by individual prisoners to mitigate the risk of self-harm.</div>
+      <div class="passage-para">While this new type of prison appears to be somewhat liberal, the arrangement of spaces and functions both inside and out is actually tightly controlled. Paradoxically, however, this proscription enables a greater range of activities to take place, and makes general supervision easier. In this environment the prisoners are judged not by their degree of conformity, but by the scope of their activities and achievements, so laying the foundations for genuine rehabilitation. As Martin Narey, Director General of the UK Prison Services observes, 'We have got to accept that prison must be a humane and constructive place, not least because all but 23 of my population are going home some day.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Special Olympics Conditions of Participation</div>
+      <div class="passage-para">To be eligible for participation in the Special Olympics an individual with an intellectual disability must agree to observe and abide by the SOC Sports Rules. 'Mental Retardation' refers to substantial limitations in present functioning. It is characterised by significantly sub-average intellectual functioning, existing concurrently with related limitations in two or more of the following applicable adaptive skill areas: communication, self-care, home living, social skills, community use, self-direction, health and safety, functional academics, leisure and work. Mental retardation manifests itself before the age of 18. The following four assumptions are essential to the application of the definition:</div>
+      <div class="passage-para">1. Valid assessment considers cultural and linguistic diversity as well as differences in communication and behavioural factors.</div>
+      <div class="passage-para">2. The existence of limitations in adaptive skills occurs within the context of community environments typical of the individual's age-peers and is indexed to the person's individualised needs for support.</div>
+      <div class="passage-para">3. Specific adaptive limitations often co-exist with strengths in other adaptive skills or other personal capabilities.</div>
+      <div class="passage-para">4. With appropriate support over a sustained period, the life functioning of the person with mental retardation will generally improve.</div>
+      <div class="passage-para">The term 'mental retardation' is a diagnostic term used to describe the condition defined above. In keeping with the current language practised within the field, the term 'mental retardation' is no longer commonly used. In its place, if it is absolutely necessary to use a label, i.e. in an educational setting or in a SOC/NCCP Technical Programme, then the term that is in keeping with the current practices is a person with an intellectual disability. Special Olympics was created and developed to give individuals with an intellectual disability the opportunity to train and compete in sport activities. No person shall, on the grounds of gender, race, religion, colour, national origin or financial constraint be excluded from participation in, or be denied the benefits of, or otherwise be subjected to discrimination under any programme or activity of Special Olympics. Flexibility is left to the Local, Region/Zone, Chapter and National Special Olympics organisations for determining the eligibility of the participants because of the variety of situations and needs that exist in the many localities where Special Olympics programmes have been and will be instituted. Inclusion is preferred to exclusion when eligibility is in question. Individuals who have both an intellectual disability and multiple disabilities may participate in Special Olympics programmes and competitions.</div>
+      <div class="section-label">A. Participation by individuals with Down Syndrome who have Atlantoaxial Instability.</div>
+      <div class="passage-para">There is evidence from medical research that up to 15 percent of individuals with Down Syndrome have a defect in the cervical vertebrae C-1 and C-2 in the neck. This condition exposes Down Syndrome individuals to the heightened possibility of a neck injury if they participate in activities that hyperextend or radically flex the neck or upper spine.</div>
+      <div class="section-label">B. SOC requires temporary restriction of individuals with Down Syndrome from participation in certain activities.</div>
+      <div class="passage-para">1) Accredited Programmes may allow all individuals with Down Syndrome to continue in most Special Olympics sports training and competition activities. However, such individuals shall not be permitted to participate in sport training and competitions which, by their nature, result in hyperextension, radical flexion or direct pressure on the neck or upper spine. Such sports training and competition activities include: the butterfly stroke and diving starts in swimming, diving, pentathlon, high jump, equestrian sports, artistic gymnastics, soccer, alpine skiing and any warm-up exercise placing undue stress on the head and neck.</div>
+      <div class="passage-para">2) Restriction from participation in the above-listed activities shall continue until an individual with Down Syndrome has been examined (including X-ray views of full extension and flexion of the neck) by a physician who has been briefed on the nature of the Atlantoaxial Instability condition, and the results of such an examination demonstrate that the individual does not have the Atlantoaxial Instability condition.</div>
+      <div class="passage-para">3) For any individual diagnosed as having Atlantoaxial Instability condition, the examining physician shall notify the athlete's parents or guardians of the nature and extent of the individual's condition and such athlete shall be allowed to participate in the activities listed in 1) above only if the athlete submits written certification from two physicians combined with an acknowledgment of the risks signed by the adult athlete or his/her parent or guardian if the athlete is a minor.</div>
+      <div class="passage-para">4) It is the responsibility of parents/guardians to monitor the individual and take appropriate action if neurological symptoms appear.</div>
+      <div class="passage-para">Terminology note: the term intellectual disability is used to replace the clinical term of Mental Retardation. Intellectual disability is not a disease, nor should it be confused with mental illness. People with mental disabilities have both a slower rate of learning and a limited capacity to learn. They may also have difficulty managing the ordinary activities of daily living, understanding the behaviour of others, and determining their own appropriate social responses (adaptive behaviour). Children with intellectual disabilities grow into adults with intellectual disabilities; they do not remain 'eternal children'.</div>
+      <div class="passage-para">People with intellectual disabilities constitute one of the largest groups of citizens with disabilities. There are an estimated 156 million individuals in the world who have intellectual disabilities. Intellectual disability cuts across lines of race, education, and social and economic background. It can occur in anyone. Hereditary components are known to account for only a fraction of the cases of intellectual disability. There are well over 350 causes of intellectual disability and in three-quarters of the cases the specific cause is unknown. About 87 percent of all people with intellectual disabilities are mildly afflicted and in many respects are indistinguishable from people who do not have intellectual disabilities.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">Migrants and Refugees: Racial Discrimination and Xenophobia</div>
+      <div class="passage-para">Today, one in every 50 human beings is a migrant worker, a refugee or asylum seeker, or an immigrant living in a foreign country. Current estimates by the United Nations and the International Organisation for Migration indicate that some 150 million people live temporarily or permanently outside their countries of origin (2.5% of the world population). Many of these, 80-97 million, are estimated to be migrant workers with members of their families. Another 12 million are refugees outside their country of origin. These figures do not include the estimated 20 million Internally Displaced Persons forcibly displaced within their own country, nor the tens of millions more of internal migrants, mainly rural to urban, in countries around the world.</div>
+      <div class="passage-para">Increasing ethnic and racial diversity of societies is the inevitable consequence of migration. Increasing migration means that a growing number of states have become or are becoming more multi-ethnic, and are confronted with the challenge of accommodating peoples of different cultures, races, religions and languages. Addressing the reality of increased diversity means finding political, legal, social and economic mechanisms to ensure mutual respect and to mediate relations across differences. But xenophobia and racism have become manifest in some societies which have received substantial numbers of immigrants, as workers or as asylum-seekers. In those countries the migrants have become the targets in internal disputes about national identity. In the last few decades, the emergence of new nation states has often been accompanied by ethnic exclusion.</div>
+      <div class="passage-para">As governments grapple with the new realities of their multi-ethnic societies, there has been a marked increase in discrimination and violence directed against migrants, refugees and other non-nationals by extremist groups in many parts of the world. The lack of any systematic documentation or research over time makes it unclear whether there is a real increase in the level of abuse or in the level of exposure and reporting. Unfortunately, there is more than enough anecdotal evidence to show that violations of the human rights of migrants, refugees and other non-nationals are so generalised, widespread and commonplace that they are a defining feature of international migration today.</div>
+      <div class="passage-para">The extent of racial discrimination and xenophobia is often played down and sometimes denied by authorities. Racial discrimination is defined in international law as being: any distinction, exclusion, restriction or preference based on race, colour, descent or national or ethnic origin which has the purpose or effect of nullifying or impairing the recognition, enjoyment or exercise, on an equal footing, of human rights and fundamental freedoms in the political, economic, social, cultural or any other field of public life.</div>
+      <div class="passage-para">Racism and xenophobia are distinct phenomena, although they often overlap. While racism generally implies distinction based on difference in physical characteristics, such as skin colour, hair type, facial features, etc, xenophobia denotes behaviour specifically based on the perception that 'the other' is foreign to or originates from outside the community or nation. By the standard dictionary definition, xenophobia is the intense dislike or fear of strangers or people from other countries. As a sociologist puts it, 'xenophobia is an attitudinal orientation of hostility against non-natives in a given population.'</div>
+      <div class="passage-para">The definition of xenophobia, and its differentiation from racism and racial discrimination, is a still-evolving concept. One of the regional Preparatory Meetings for a recent World Conference suggested that:</div>
+      <div class="passage-para">- Racism is an ideological construct that assigns a certain race and/or ethnic group, to a position of power over others on the basis of physical and cultural attributes, as well as economic wealth, involving hierarchical relations where the superior race exercises domination and control over others.</div>
+      <div class="passage-para">- Xenophobia describes attitudes, prejudices and behaviour that reject, exclude and often vilify persons, based on the perception that they are outsiders or foreigners in the community, society or with respect to national identity.</div>
+      <div class="passage-para">In many cases, it is difficult to distinguish between racism and xenophobia as motivations for behaviour, since differences in physical characteristics are often assumed to distinguish a person from the common identity. However, manifestations of xenophobia occur against people of identical physical characteristics, even of shared ancestry, when such people arrive, return or migrate to states or areas where occupants consider them outsiders.</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1-5: Complete each sentence with the correct ending, A – H, below.</div>
+      <div class="word-box">
+        <span>A. improved security, supervision and education.</span>
+        <span>B. rehabilitation and education.</span>
+        <span>C. reduced efficiency, morale and interaction.</span>
+        <span>D. reduced risk of self harm.</span>
+        <span>E. security and control.</span>
+        <span>F. an alternative prison model</span>
+        <span>G. a learning environment rather than a punitive compound</span>
+        <span>H. organisation, management and funding.</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q1. The agenda of current British prison systems is primarily</div>
+        <select id="q1" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+        </select>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. The primary role of prisons should be</div>
+        <select id="q2" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+        </select>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. The new prison scheme will create</div>
+        <select id="q3" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+        </select>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. Existing prison architecture causes</div>
+        <select id="q4" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+        </select>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. The positive results of reducing the number of prisoners in one space include</div>
+        <select id="q5" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option>
+        </select>
+        <div class="q-result" id="r5"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 6-9: Choose the correct letter A, B, C or D.</div>
+      <div class="q-block">
+        <div class="q-label">Q6. The project to reform the penal system in the UK</div>
+        <label class="radio-opt"><input type="radio" name="q6" value="A" onchange="markRad(this)"> A &nbsp; is progressive.</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="B" onchange="markRad(this)"> B &nbsp; is inexpensive.</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="C" onchange="markRad(this)"> C &nbsp; will eliminate the need for supervision.</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="D" onchange="markRad(this)"> D &nbsp; is, primarily, to make prisoners more comfortable.</label>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. The proposal to create 12,000 new prison places, within the next few years, indicates that</div>
+        <label class="radio-opt"><input type="radio" name="q7" value="A" onchange="markRad(this)"> A &nbsp; prison cells are too small.</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="B" onchange="markRad(this)"> B &nbsp; a lot of money is invested into educating offenders.</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="C" onchange="markRad(this)"> C &nbsp; there is an increasing population of offenders in the UK.</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="D" onchange="markRad(this)"> D &nbsp; the government is getting tougher on offenders.</label>
+        <div class="q-result" id="r7"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q8. The proposed changes to prison architecture are designed primarily to</div>
+        <label class="radio-opt"><input type="radio" name="q8" value="A" onchange="markRad(this)"> A &nbsp; improve the aesthetic value of the building.</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="B" onchange="markRad(this)"> B &nbsp; boost self-esteem and social behaviour.</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="C" onchange="markRad(this)"> C &nbsp; allow prisoners more living space.</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="D" onchange="markRad(this)"> D &nbsp; increase running costs within prisons.</label>
+        <div class="q-result" id="r8"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q9. Why is the bed placed lengthways along the external wall at high level?</div>
+        <label class="radio-opt"><input type="radio" name="q9" value="A" onchange="markRad(this)"> A &nbsp; to make room below for washing facilities</label>
+        <label class="radio-opt"><input type="radio" name="q9" value="B" onchange="markRad(this)"> B &nbsp; for the improvement of the inmates’ hygiene</label>
+        <label class="radio-opt"><input type="radio" name="q9" value="C" onchange="markRad(this)"> C &nbsp; to allow room below for storage and shelves</label>
+        <label class="radio-opt"><input type="radio" name="q9" value="D" onchange="markRad(this)"> D &nbsp; to make room for sliding doors</label>
+        <div class="q-result" id="r9"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 10-13: Label the diagram below. Write NO MORE THAN THREE WORDS from the passage for each answer.</div>
+      <div class="fallback-note">⚠ Hình ảnh sơ đồ phòng giam không trích xuất được từ file gốc — vui lòng tham khảo file đề thi gốc. Các câu hỏi vẫn được giữ nguyên đầy đủ bên dưới.</div>
+      <div class="q-block">
+        <div class="passage-para">
+          Q10. Each house has a <input type="text" id="q10" oninput="markTxt(this)" placeholder="answer"> used for sport, games or gardening.<br>
+          Q11. In each cell, the <input type="text" id="q11" oninput="markTxt(this)" placeholder="answer"> is placed lengthways along the external wall at high level.<br>
+          Q12. This frees up space below for built-in <input type="text" id="q12" oninput="markTxt(this)" placeholder="answer">.<br>
+          Q13. Each cell is paired with a neighbouring 'buddy' cell linked by <input type="text" id="q13" oninput="markTxt(this)" placeholder="answer">.
+        </div>
+        <div class="q-result" id="r10"></div><div class="q-result" id="r11"></div>
+        <div class="q-result" id="r12"></div><div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14-20: Do the following statements agree with the information given in Reading Passage 2? Write TRUE / FALSE / NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q14. To be eligible to take part in the Special Olympics, the athlete has to be not only less than intellectually capable, but must also be lacking in a number of other functions.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q14" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q14" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q14" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. People with intellectual disabilities never improve their lives.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q15" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q15" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q15" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. All people with intellectual disabilities need the written permission of a parent or guardian in order to participate.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q16" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q16" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q16" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. Down Syndrome participants often excel in their chosen field of athletic activity.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q17" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q17" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q17" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. People with Down Syndrome cannot participate in any swimming events.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q18" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q18" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q18" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r18"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q19. If you have Down Syndrome, your neck may be at risk of damage in certain spoils.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q19" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q19" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q19" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r19"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q20. Participation in sports helps people with intellectual disabilities to improve their communication and social skills.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q20" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q20" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q20" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r20"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 21-23: Choose the correct letter A, B, C or D.</div>
+      <div class="q-block">
+        <div class="q-label">Q21. What were the objectives of the Special Olympics document?</div>
+        <label class="radio-opt"><input type="radio" name="q21" value="A" onchange="markRad(this)"> A &nbsp; to inform the public about what they are to expect from the Special Olympics</label>
+        <label class="radio-opt"><input type="radio" name="q21" value="B" onchange="markRad(this)"> B &nbsp; to provide information for future candidates</label>
+        <label class="radio-opt"><input type="radio" name="q21" value="C" onchange="markRad(this)"> C &nbsp; to promote awareness in the general population of the plight of disabled people</label>
+        <label class="radio-opt"><input type="radio" name="q21" value="D" onchange="markRad(this)"> D &nbsp; to list the problems intellectually disabled people have</label>
+        <div class="q-result" id="r21"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q22. What does the passage say about intellectual disability?</div>
+        <label class="radio-opt"><input type="radio" name="q22" value="A" onchange="markRad(this)"> A &nbsp; The majority of cases are inherited.</label>
+        <label class="radio-opt"><input type="radio" name="q22" value="B" onchange="markRad(this)"> B &nbsp; Sufferers of the condition outnumber those with physical disabilities.</label>
+        <label class="radio-opt"><input type="radio" name="q22" value="C" onchange="markRad(this)"> C &nbsp; In most cases, the cause of the condition cannot be determined.</label>
+        <label class="radio-opt"><input type="radio" name="q22" value="D" onchange="markRad(this)"> D &nbsp; It may be determined by race, education, or social and economic background.</label>
+        <div class="q-result" id="r22"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q23. What word best describes the Special Olympics participation policy?</div>
+        <label class="radio-opt"><input type="radio" name="q23" value="A" onchange="markRad(this)"> A &nbsp; inconsistent</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="B" onchange="markRad(this)"> B &nbsp; ambiguous</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="C" onchange="markRad(this)"> C &nbsp; controversial</label>
+        <label class="radio-opt"><input type="radio" name="q23" value="D" onchange="markRad(this)"> D &nbsp; non-discriminatory</label>
+        <div class="q-result" id="r23"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 24-26: Which THREE of the following facts relating to Down Syndrome are mentioned? Choose THREE letters A – F.</div>
+      <div class="q-block">
+        <label class="check-opt"><input type="checkbox" name="q24_26" value="A" onchange="markChk(this)"> A &nbsp; It is thought that about one Down Syndrome person in every seven has Atlantoaxial Instability</label>
+        <label class="check-opt"><input type="checkbox" name="q24_26" value="B" onchange="markChk(this)"> B &nbsp; A person with Down Syndrome cannot participate in any winter competitions.</label>
+        <label class="check-opt"><input type="checkbox" name="q24_26" value="C" onchange="markChk(this)"> C &nbsp; Down Syndrome sufferers with Atlantoaxial Instability who are minors need permission from a guardian to play soccer.</label>
+        <label class="check-opt"><input type="checkbox" name="q24_26" value="D" onchange="markChk(this)"> D &nbsp; Down Syndrome sufferers are unable to flex the upper spine.</label>
+        <label class="check-opt"><input type="checkbox" name="q24_26" value="E" onchange="markChk(this)"> E &nbsp; Down Syndrome athletes need to wear a neck brace to participate in the Special Olympics.</label>
+        <label class="check-opt"><input type="checkbox" name="q24_26" value="F" onchange="markChk(this)"> F &nbsp; Down Syndrome athletes can take part in sports that do not directly affect the neck or spine without any preconditions being fulfilled.</label>
+      </div>
+      <div class="q-result" id="r24"></div><div class="q-result" id="r25"></div><div class="q-result" id="r26"></div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27-30: Complete each sentence with the correct ending, A – F, below.</div>
+      <div class="word-box">
+        <span>A. are always culturally or physically distinct from the perpetrators of the acts of wrongdoing.</span>
+        <span>B. tend to share a likeness with the perpetrators of the crime</span>
+        <span>C. may still find themselves the victims of xenophobic behaviour.</span>
+        <span>D. has been observed in many different parts of the world.</span>
+        <span>E. will eventually reach a position of total submission.</span>
+        <span>F. has a controlling hand in the affairs of one or more of the other sections of society.</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q27. An upward trend in violence perpetrated against non-national minority groups by radical nationals</div>
+        <select id="q27" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. Where racism occurs, the dominant group promotes a hierarchical system in which it</div>
+        <select id="q28" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. Persons not considered to be culturally or physically distinct from the majority</div>
+        <select id="q29" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. Racism differs from xenophobia in that victims of the former</div>
+        <select id="q30" onchange="markSel(this)">
+          <option value="">-- Select --</option>
+          <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+        </select>
+        <div class="q-result" id="r30"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 31-34: Choose the correct letter A, B, C or D.</div>
+      <div class="q-block">
+        <div class="q-label">Q31. Which of the following migrants are there more of?</div>
+        <label class="radio-opt"><input type="radio" name="q31" value="A" onchange="markRad(this)"> A &nbsp; internally displaced persons</label>
+        <label class="radio-opt"><input type="radio" name="q31" value="B" onchange="markRad(this)"> B &nbsp; refugees</label>
+        <label class="radio-opt"><input type="radio" name="q31" value="C" onchange="markRad(this)"> C &nbsp; internal migrants</label>
+        <label class="radio-opt"><input type="radio" name="q31" value="D" onchange="markRad(this)"> D &nbsp; immigrant workers</label>
+        <div class="q-result" id="r31"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q32. The author of the text believes that</div>
+        <label class="radio-opt"><input type="radio" name="q32" value="A" onchange="markRad(this)"> A &nbsp; racism is inevitable when people emigrate.</label>
+        <label class="radio-opt"><input type="radio" name="q32" value="B" onchange="markRad(this)"> B &nbsp; governments are finding it difficult to stop racism and xenophobia.</label>
+        <label class="radio-opt"><input type="radio" name="q32" value="C" onchange="markRad(this)"> C &nbsp; the exploitation of minority groups deters others from migrating.</label>
+        <label class="radio-opt"><input type="radio" name="q32" value="D" onchange="markRad(this)"> D &nbsp; xenophobia does not exist within minority groups.</label>
+        <div class="q-result" id="r32"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q33. There is no real way of knowing how many migrants are discriminated against because</div>
+        <label class="radio-opt"><input type="radio" name="q33" value="A" onchange="markRad(this)"> A &nbsp; not all racial abuse cases are documented or looked into.</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="B" onchange="markRad(this)"> B &nbsp; the number of migrants is increasing at an alarming rate.</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="C" onchange="markRad(this)"> C &nbsp; migrants don't complain about being abused.</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="D" onchange="markRad(this)"> D &nbsp; only serious cases are documented.</label>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. People in authority sometimes</div>
+        <label class="radio-opt"><input type="radio" name="q34" value="A" onchange="markRad(this)"> A &nbsp; exaggerate the seriousness of the problem.</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="B" onchange="markRad(this)"> B &nbsp; create the problem.</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="C" onchange="markRad(this)"> C &nbsp; deny there is a problem.</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="D" onchange="markRad(this)"> D &nbsp; are eager to solve the problem.</label>
+        <div class="q-result" id="r34"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 35-40: Do the following statements agree with the information given in Reading Passage 3? Write TRUE / FALSE / NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q35. Most migrants flee their country of origin because of political or social disorder.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q35" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q35" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q35" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r35"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q36. Most internal migrants leave the countryside for the cities.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q36" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q36" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q36" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q37. Governments are often reluctant to acknowledge that racial discrimination and xenophobia exist.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q37" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q37" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q37" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. Migrants are exploited and abused because they create a sense of insecurity for extremist groups.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q38" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q38" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q38" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. People who are racist or xenophobic are uneducated and hostile.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q39" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q39" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q39" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. People returning to their country of ancestry do not face xenophobia.</div>
+        <div class="tfng-row"><label class="radio-opt"><input type="radio" name="q40" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q40" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q40" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label></div>
+        <div class="q-result" id="r40"></div>
+      </div>
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+function markChk(el){el.closest('.check-opt').classList.toggle('selected-answer',el.checked);}
+
+document.querySelectorAll('input[name="q24_26"]').forEach(function(inp) {
+  inp.addEventListener('change', function() {
+    if (inp.checked) {
+      var n = document.querySelectorAll('input[name="q24_26"]:checked').length;
+      if (n > 3) {
+        inp.checked = false;
+        markChk(inp);
+        var id = 'chk-limit-q24_26';
+        var el = document.getElementById(id);
+        if (!el) {
+          el = document.createElement('div');
+          el.id = id;
+          el.style.cssText = 'color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;';
+          var grp = document.querySelector('input[name="q24_26"]');
+          if (grp && grp.closest('.q-block')) grp.closest('.q-block').appendChild(el);
+        }
+        el.textContent = '⚠ Chỉ được chọn tối đa 3 đáp án!';
+        clearTimeout(el._t);
+        el._t = setTimeout(function(){ el.textContent = ''; }, 2500);
+      }
+    }
+  });
+});
+
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getChecked(name){return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(function(x){return x.value;});}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+var ANS={
+  q1:'E',q2:'B',q3:'G',q4:'C',q5:'A',
+  q6:'A',q7:'C',q8:'B',q9:'C',
+  q10:['(discrete) external area','discrete external area','external area'],
+  q11:['bed'],
+  q12:['storage'],
+  q13:['sliding doors'],
+  q14:'TRUE',q15:'FALSE',q16:'FALSE',q17:'NOT GIVEN',q18:'FALSE',q19:'TRUE',q20:'NOT GIVEN',
+  q21:'B',q22:'C',q23:'D',
+  q24_26:['A','C','F'],
+  q27:'D',q28:'F',q29:'C',q30:'A',
+  q31:'D',q32:'B',q33:'A',q34:'C',
+  q35:'NOT GIVEN',q36:'TRUE',q37:'TRUE',q38:'NOT GIVEN',q39:'NOT GIVEN',q40:'FALSE'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+
+  // Q1-5 select
+  for(var i=1;i<=5;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q6-9 radio
+  for(var i=6;i<=9;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q10-13 text
+  for(var i=10;i<=13;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q14-20 radio
+  for(var i=14;i<=20;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q21-23 radio
+  for(var i=21;i<=23;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q24-26 checkbox group (3 points)
+  var checked24_26=getChecked('q24_26');
+  var correctSet=ANS.q24_26;
+  var okCount=0;
+  correctSet.forEach(function(c){if(checked24_26.indexOf(c)>=0)okCount++;});
+  score+=okCount;
+  var msg2426=(okCount===3)?'<span class="correct-label">✓ Correct (3/3)</span>':'<span class="wrong-label">✗ '+okCount+'/3 correct. Correct: '+correctSet.join(', ')+'</span>';
+  document.getElementById('r24').innerHTML=msg2426;
+  document.getElementById('r25').innerHTML='';
+  document.getElementById('r26').innerHTML='';
+  // Q27-30 select
+  for(var i=27;i<=30;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q31-34 radio
+  for(var i=31;i<=34;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q35-40 radio
+  for(var i=35;i<=40;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  var detailsParts=[];
+  for(var i=1;i<=5;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=6;i<=9;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=10;i<=13;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=20;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=21;i<=23;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  detailsParts.push('Q24-26:'+(okCount===3?'✔':'✘')+'('+checked24_26.join(',')+')');
+  for(var i=27;i<=30;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=31;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 38',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
