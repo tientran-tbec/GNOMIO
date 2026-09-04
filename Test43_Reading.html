@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 43</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 43</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">The Wonder Plant</div>
+      <div class="passage-para">Bamboo is used for a wide range of purposes, but now it seems it may be under threat.</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">Every year, during the rainy season, the mountain gorillas of central Africa migrate to the lower slopes of the Virunga Mountains to graze on bamboo. For the 650 or so that remain in the wild, it's a vital food source. Without it, says lan Redmond, chairman of the Ape Alliance, their chances of survival would be reduced significantly.</div>
+      <div class="passage-para">Gorillas aren't the only local keen on bamboo. For the people who live close to the Virungas, it's a valuable and versatile raw material. But in the past 100 years or so, resources have come under increasing pressure as populations have exploded and large areas of bamboo forest have been cleared to make way for commercial plantations. Sadly, this isn't an isolated story. All over the world, the ranges of many bamboo species appear to be shrinking, endangering the people and animals that depend upon them.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Despite bamboo's importance, we know surprisingly little about it. A recent report published by the UN Environment Programme (UNEP) and the International Network for Bamboo and Rattan (INBAR) has revealed just how profound our ignorance of global bamboo resources is, particularly in relation to conservation.</div>
+      <div class="passage-para">There are almost 1,600 recognised species of bamboo, but the report concentrated on the 1,200 or so woody varieties distinguished by the strong stems, or 'culms', that most people associate with this versatile plant. Of these, only 38 'priority species' identified for their commercial value have been the subject of any real scientific research to date.</div>
+      <div class="passage-para">This problem isn't confined to bamboo. Compared to the work carried out on animals, the science of assessing the conservation status of plants is still in its infancy. 'People have only started looking at this during the past 10-15 years, and only now are they understanding how to go about it systematically,' says Dr Valerie Kapos, one of the report's authors.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">Bamboo tends to grow in 'stands' (or groups) made up of individual plants that grow from roots known as rhizomes. It is the world's fastest-growing woody plant and some species grow over a meter in one day. But the plant's ecological role extends beyond providing food for wildlife. Its rhizome systems, which lie in the top layers of the soil, are crucial in preventing soil erosion. And there is growing evidence that bamboo plays an important part in determining forest structure and dynamics. 'Bamboo's pattern of mass flowering and mass death leaves behind large areas of dry biomass that attract wildfire,' says Kapos. 'When these burn, they create patches of open ground far bigger than would be left by a fallen tree. Patchiness helps to 2 D E F preserve diversity because certain plant species do better during the early stages of regeneration when there are gaps in the canopy.'</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">However, bamboo's most immediate significance lies in its economic value. Many countries, particularly in Asia, are involved in the trade of bamboo products. Modern processing techniques mean it can be used in a variety of ways, for example as flooring and laminates. Traditionally it is used in construction, but one of the fastest growing bamboo products is paper - 25 per cent of paper produced in India is made from bamboo fibre.</div>
+      <div class="passage-para">Of course, bamboo's main function has always been in domestic applications, and as a locally traded product it is worth about US$4.5 billion annually. Bamboo is often the only readily available raw material for people in many developing countries, says Chris Stapleton, a research associate at the UK's Royal Botanic Gardens. 'Bamboo can be harvested from forest areas or grown quickly elsewhere, and then converted simply without expensive machinery or facilities,' he says. 'In this way, it contributes substantially to poverty alleviation.'</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">Keen horticulturists will spot an apparent contradiction in the worrying picture painted by the UNEP-INBAR report. Those in the West who've followed the recent vogue for cultivating exotic species in their gardens will point out that, if it isn't kept in check, bamboo can cause real problems. 'In a lot of places, the people who live with bamboo don't perceive it as being under threat in any way,' says Kapos. 'In fact, a lot of bamboo species are very invasive if they've been introduced.' So why are so many species endangered?</div>
+      <div class="passage-para">There are two separate issues here, says Ray Townsend, arboretum manager at the Royal Botanic Gardens. 'Some plants are threatened because they can't survive in the habitat - they aren't strong enough or there aren't enough of them, perhaps. But bamboo can take care of itself - it's strong enough to survive if left alone. What is under threat is its habitat. When forest goes, it's converted into something else: then there isn't anywhere for forest plants such as bamboo to grow.'</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">Around the world, bamboo species are routinely protected as part of forest ecosystem in national parks and reserves, but there is next to nothing that protects bamboo in the wild for its own sake. The UNEP-INBAR report will help conservationists to establish effective measures aimed at protecting valuable wild bamboo species.</div>
+      <div class="passage-para">Townsend, too, sees the UNEP-INBAR report as an important step forward in promoting the cause of bamboo conservation. 'Until now, bamboo has been perceived as a second-class plant. When you talk about places like the Amazon, everyone always thinks about hardwoods. Of course, these are significant but there's a tendency to overlook the plants they are associated with, which are often bamboo species.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Renewable Energy</div>
+      <div class="passage-para"><em>An insight into the progress in renewable energy research</em></div>
+      <div class="passage-para">The race is on for the ultimate goal of renewable energy: electricity production at prices that are competitive with coal-fired power stations, but without coal's pollution. Some new technologies are aiming to be the first to push coal from its position as Australia's chief source of electricity.</div>
+      <div class="passage-para">At the moment the front-runner in renewable energy is wind technology. According to Peter Bergin of Australian Hydro, one of Australia's leading wind energy companies, there have been no dramatic changes in windmill design for many years, but the cumulative effects of numerous small improvements have had a major impact on cost. 'We're reaping the benefits of 30 years of research in Europe, without have to make the same mistakes that they did,' Mr Bergin says.</div>
+      <div class="passage-para">Electricity can be produced from coal at around 4 cents per kilowatt-hour, but only if the environmental costs are ignored. 'Australia has the second cheapest electricity in the world, and this makes it difficult for renewable to compete,' says Richard Hunter of the Australian Ecogeneration Association (AEA). Nevertheless, the AEA reports: 'The production cost of a kilowatt-hour of wind power is one-fifth of what it was 20 years ago,' or around 7 cents per kilowatt-hour.</div>
+      <div class="passage-para">Australian Hydro has dozens of wind monitoring stations across Australia as part of its aim to become Australia's pre-eminent renewable energy company. Despite all these developments, wind power remains one of the few forms of alternative energy where Australia is nowhere near the global cutting edge, mostly just replicating European designs.</div>
+      <div class="passage-para">While wind may currently lead the way, some consider a number of technologies under development have more potential. In several cases, Australia is at the forefront of global research in the area. Some of them are very site-specific, ensuring that they may never become dominant market players. On the other hand, these newer developments are capable of providing more reliable power, avoiding the major criticism of windmills – the need for back-up on a calm day.</div>
+      <div class="passage-para">One such development uses hot, dry rocks. Deep beneath South Australia, radiation from elements contained in granite heats the rocks. Layers of insulating sedimentation raise the temperatures in some location to 250° centigrade. An Australian firm, Geoenergy, is proposing to pump water 3.5 kilometres into the earth, where it will travel through tiny fissures in the granite, heating up as it goes until it escapes as steam through another drilled hole.</div>
+      <div class="passage-para">No greenhouse gases are produced, but the system needs some additional features if it is to be environmentally friendly. Dr Prue Chopra, a geophysicist at the Australian National University and one of the founders of Geoenergy, note that the steam will bring with it radon gas, along through a heat exchanger and then sent back underground for another cycle. Technically speaking, hot dry rocks are not a renewable source of energy. However, the Australian source is so large it could supply the entire country's needs for thousands of years at current rates of consumption.</div>
+      <div class="passage-para">Two other proposals for very different ways to harness sun and wind energy have surfaced recently. Progress continues with Australian company EnviroPower's plans for Australia's first solar chimney near Mildura, in Victoria. Under this scheme, a tall tower will draw hot air from a greenhouse built to cover the surrounding 5 km². As the air rises, it will drive a turbine* to produce electricity. The solar tower combines three very old technologies – the chimney, the turbine and the greenhouse – to produce something quite new. It is this reliance on proven engineering principles that led Enviropower's CEO, Richard Davies, to state: 'There is no doubt this technology will work, none at all.'</div>
+      <div class="passage-para">This year, Enviropower recognized that the quality of sunlight in the Mildura district will require a substantially larger collecting area than was previously thought. However, spokesperson kay Firth says that a new location closer to Mildura will enable Enviropower to balance the increased costs with extra revenue. Besides saving in transmission costs, the new site 'will mean increased revenue from tourism and use of power for telecommunications. We'll also be able to use the outer 500 metres for agribusiness.' Wind speeds closer to the tower will be too high for farming.</div>
+      <div class="passage-para">Another Australian company, Wavetech, is achieving success with ways of harvesting the energy in waves. Wavetech's invention uses a curved surface to push waves into a chamber, where the flowing water column pushes air back and forth through a turbine. Wavetech was created when Dr Tim Devine offered the idea to the world leader in wave generator manufacturers, who rather surprisingly rejected it. Dr Devine responded by establishing Wavetech and making a number of other improvements to generator design. Wavetech claims that, at appropriate sites, 'the cost of electricity produced with our technology should be below 4 cents per kilowatt-hour.</div>
+      <div class="passage-para">The diversity of forms of greenhouse – friendly energy under development in Australia is remarkable. However, support on a national level is disappointing. According to Richard Hunter of the AEA, 'Australia has huge potential for wind, sun and wave technology. We should really be at the forefront, but the reality is we are a long way behind.'</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">Inside the mind of a fan</div>
+      <div class="passage-para"><em>How watching sport affects the brain</em></div>
+      <div class="section-label">A</div>
+      <div class="passage-para">At about the same time that the poet Homer invented the epic here, the ancient Greeks started a festival in which men competed in a single race, about 200 metres long. The winner received a branch of wild olives. The Greeks called this celebration the Olympics. Through the ancient sprint remains, today the Olympics are far more than that. Indeed, the Games seem to celebrate the dream of progress as embodied in the human form. That the Games are intoxicating to watch is beyond question. During the Athens Olympics in 2004, 3.4 billion people, half the world, watched them on television. Certainly, being a spectator is a thrilling experience: but why?</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">In 1996, three Italian neuroscientists, Giacomo Rizzolatti, Leonardo Forgassi and Vittorio Gallese, examined the premotor cortex of monkeys. The discovered that inside these primate brains there were groups of cells that 'store vocabularies of motor actions'. Just as there are grammars of movement. These networks of cells are the bodily 'sentences' we use every day, the ones our brain has chosen to retain and refine. Think, for example, about a golf swing. To those who have only watched the Master's Tournament on TV, golfing seems easy. To the novice, however, the skill of casting a smooth arc with a lop-side metal stick is virtually impossible. This is because most novices swing with their consciousness, using an area of brain next to the premotor cortex. To the expert, on the other hand, a perfectly balanced stroke is second nature. For him, the motor action has become memorized, and the movements are embedded in the neurons of his premotor cortex. He hits the ball with the tranquility of his perfected autopilot.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">These neurons in the premotor cortex, besides explaining why certain athletes seem to possess almost unbelievable levels of skill, have an even more amazing characteristic, one that caused Rizzolatti, Fogassi and Gallese to give them the lofty title 'mirror neurons'. They note, 'The main functional characteristic of mirror neurons is that they become active both when the monkey performs a particular action (for example, grasping an object or holding it) and, astonishingly, when it sees another individual performing a similar action.' Humans have an even more elaborate mirror neuron system. These peculiar cells mirror, inside the brain, the outside world: they enable us to internalize the actions of another. In order to be activated, though, these cells require what the scientists call 'goal-orientated movements'. If we are staring at a photograph, a fixed image of a runner mid-stride, our mirror neurons are totally silent. They only fire when the runner is active: running, moving or sprinting.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">What these electrophysiological studies indicate is that when we watch a golfer or a runner in action, the mirror neurons in our own premotor cortex light up as if we were the ones competing. This phenomenon of neural mirror was first discovered in 1954, when two French physiologists, Gastaut and Berf, found that the brains of humans vibrate with two distinct wavelengths, alpha and mu. The mu system is involved in neural mirroring. It is active when your bodies are still, and disappears whenever we do something active, like playing a sport or changing the TV channel. The surprising fact is that the mu signal is also quiet when we watch someone else being active, as on TV, these results are the effect of mirror neurons.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">Rizzolatti, Fogassi and Gallese call the idea for mirror neurons the 'direct matching hypothesis'. They believe that we only understand the movement of sports stars when we 'map the visual representation of the observed action onto our motor representation of the same action'. According to this theory, watching an Olympic athlete 'causes the motor system of the observer to resonate. The "motor knowledge" of the observer is used to understand the observed action.' But mirror neurons are more than just the neural basis for our attitude to sport. It turns out that watching a great golfer makes us better golfers, and watching a great sprinter actually makes us run faster. This ability to learn by watching is a crucial skill. From the acquisition of language as infants to learning facial expressions, mimesis (copying) is an essential part of being conscious. The best athletes are those with a premotor cortex capable of imagining the movements of victory, together with the physical properties to make those movements real.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">But how many of us regularly watch sports in order to be a better athlete? Rather, we watch sport for the feeling, the human drama. This feeling also derives from mirror neurons. By letting spectators share in the motions of victory, they also allow us to share in its feelings. This is because they are directly connected to the amygdale, one of the main brain regions involved in emotion. During the Olympics, the mirror neurons of whole nations will be electrically identical, their athletes causing spectators to feel, just for a second or two, the same thing. Watching sports brings people together. Most of us will never run a mile in under four minutes, or hit a home run. Our consolation comes in watching, when we gather around the TV, we all feel, just for a moment, what it is to do something perfectly.</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1-7: Reading Passage 1 has six sections, A-F. Which section contains the following information? Choose the correct letter, A-F, in boxes 1-7 below. NB You may use any letter more than once.</div>
+      <div class="q-block">
+        <div class="q-label">Q1. an assessment of current levels of knowledge about bamboo</div>
+        <div class="tfng-row">
+          <select id="q1" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. a comparison between bamboo and more fragile plants</div>
+        <div class="tfng-row">
+          <select id="q2" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. details of the commercial significance of bamboo</div>
+        <div class="tfng-row">
+          <select id="q3" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. a human development that is threatening the availability of bamboo</div>
+        <div class="tfng-row">
+          <select id="q4" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. a description of the limited extent of existing research on bamboo</div>
+        <div class="tfng-row">
+          <select id="q5" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r5"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q6. examples of the uses to which bamboo is put</div>
+        <div class="tfng-row">
+          <select id="q6" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. an explanation of how bamboo may contribute to the survival of range of plants</div>
+        <div class="tfng-row">
+          <select id="q7" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r7"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 8-11: Look at the following statements (Questions 8-11) and the list of people below. Match each statement with the correct person, A-D. Choose the correct letter, A-D, in boxes 8-11 below. NB You may use any letter more than once.</div>
+      <div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px">
+        <b>A</b> Ian Redmond &nbsp;|&nbsp; <b>B</b> Valerie Kapos &nbsp;|&nbsp; <b>C</b> Chris Stapleton &nbsp;|&nbsp; <b>D</b> Ray Townsend
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q8. Some people do not regard bamboo as an endangered plant species.</div>
+        <div class="tfng-row">
+          <select id="q8" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r8"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q9. A scarcity of bamboo places certain wildlife under threat.</div>
+        <div class="tfng-row">
+          <select id="q9" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r9"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q10. Research methods investigating endangered plants have yet to be fully developed.</div>
+        <div class="tfng-row">
+          <select id="q10" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r10"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q11. The greatest danger to bamboo is disturbance of the places it grows in.</div>
+        <div class="tfng-row">
+          <select id="q11" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r11"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 12-13: Answer the questions below. Choose NO MORE THAN TWO WORDS from the passage for each answer.</div>
+      <div class="q-block">
+        <div class="passage-para" style="margin-bottom:8px">
+          What ecological problem do the roots of bamboo help to control? <b>12.</b> <input type="text" id="q12" oninput="markTxt(this)" placeholder="answer"><br>
+          Which bamboo product is undergoing market expansion? <b>13.</b> <input type="text" id="q13" oninput="markTxt(this)" placeholder="answer">
+        </div>
+        <div class="q-result" id="r12"></div>
+        <div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14-20: Do the following statements agree with the information given in Reading Passage 2? Choose TRUE if the statement agrees with the information, FALSE if the statement contradicts the information, NOT GIVEN if there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q14. In Australia, alternative energies are less expensive than conventional electricity.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q14" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q14" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q14" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. Geoenergy needs to adapt its system to make it less harmful to the environment.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q15" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q15" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q15" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. Dr Prue Chopra has studied the effects of radon gas on the environment.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q16" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q16" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q16" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. Hot, dry rocks could provide enough power for the whole of Australia.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q17" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q17" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q17" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. The new Enviropower facility will keep tourists away.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q18" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q18" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q18" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r18"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q19. Wavetech was established when its founders were turned down by another company.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q19" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q19" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q19" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r19"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q20. According to AEA, Australia is a world leader in developing renewable energy</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q20" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q20" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q20" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r20"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 21-26: Look at the following statements (Questions 21-26) and the list of companies below. Match each statement with the correct company, A-D. Choose the correct letter, A-D, in boxes 21-26 below. NB You may use any letter more than once.</div>
+      <div style="background:#e8f0f8;padding:8px 12px;border-radius:6px;margin-bottom:10px;font-size:13px">
+        <b>A</b> Australian Hydro &nbsp;|&nbsp; <b>B</b> Geoenergy &nbsp;|&nbsp; <b>C</b> Enviropower &nbsp;|&nbsp; <b>D</b> Wavetech
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q21. During the process, harmful substances are prevented from escaping.</div>
+        <div class="tfng-row">
+          <select id="q21" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r21"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q22. Water is used to force air through a special device.</div>
+        <div class="tfng-row">
+          <select id="q22" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r22"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q23. Techniques used by other countries are being copied.</div>
+        <div class="tfng-row">
+          <select id="q23" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r23"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q24. The system can provide services other than energy production.</div>
+        <div class="tfng-row">
+          <select id="q24" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r24"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q25. It is planned to force water deep under the ground.</div>
+        <div class="tfng-row">
+          <select id="q25" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r25"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q26. Original estimates for part of the project have been revised.</div>
+        <div class="tfng-row">
+          <select id="q26" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option>
+          </select>
+        </div>
+        <div class="q-result" id="r26"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27-32: Reading Passage 3 has six paragraphs, A-F. Which paragraph contains the following information? Choose the correct letter, A-F, in boxes 27-32 below. NB You may use any letter more than once.</div>
+      <div class="q-block">
+        <div class="q-label">Q27. An explanation of why watching sport may be emotionally satisfying</div>
+        <div class="tfng-row">
+          <select id="q27" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. An explanation of why beginners find sporting tasks difficult</div>
+        <div class="tfng-row">
+          <select id="q28" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. A factor that needs to combine with mirroring to attain sporting excellence</div>
+        <div class="tfng-row">
+          <select id="q29" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. A comparison of human and animal mirror neurons</div>
+        <div class="tfng-row">
+          <select id="q30" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q31. The first discovery of brain activity related to mirror neurons</div>
+        <div class="tfng-row">
+          <select id="q31" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r31"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q32. A claim linking observation to improvement in performance</div>
+        <div class="tfng-row">
+          <select id="q32" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r32"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 33-35: Choose the correct letter, A, B, C or D.</div>
+      <div class="q-block">
+        <div class="q-label">Q33. The writer uses the term 'grammar of movement' to mean</div>
+        <label class="radio-opt"><input type="radio" name="q33" value="A" onchange="markRad(this)"> A &nbsp;a level of sporting skill.</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="B" onchange="markRad(this)"> B &nbsp;a system of words about movement.</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="C" onchange="markRad(this)"> C &nbsp;a pattern of connected cells.</label>
+        <label class="radio-opt"><input type="radio" name="q33" value="D" onchange="markRad(this)"> D &nbsp;a type of golf swing.</label>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. The writer states that expert players perform their actions</div>
+        <label class="radio-opt"><input type="radio" name="q34" value="A" onchange="markRad(this)"> A &nbsp;without conscious thought.</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="B" onchange="markRad(this)"> B &nbsp;by planning each phase of movement.</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="C" onchange="markRad(this)"> C &nbsp;without regular practice.</label>
+        <label class="radio-opt"><input type="radio" name="q34" value="D" onchange="markRad(this)"> D &nbsp;by thinking about the actions of others.</label>
+        <div class="q-result" id="r34"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q35. The writer states that the most common motive for watching sport is to</div>
+        <label class="radio-opt"><input type="radio" name="q35" value="A" onchange="markRad(this)"> A &nbsp;improve personal performance.</label>
+        <label class="radio-opt"><input type="radio" name="q35" value="B" onchange="markRad(this)"> B &nbsp;feel linked with people of different nationalities.</label>
+        <label class="radio-opt"><input type="radio" name="q35" value="C" onchange="markRad(this)"> C &nbsp;experience strong positive emotions.</label>
+        <label class="radio-opt"><input type="radio" name="q35" value="D" onchange="markRad(this)"> D &nbsp;realize what skill consists of.</label>
+        <div class="q-result" id="r35"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 36-40: Do the following statements agree with the views of the writer in Reading Passage 3? Choose YES if the statement agrees with the views of the writer, NO if the statement contradicts the views of the writer, NOT GIVEN if it is impossible to say what the writer thinks about this.</div>
+      <div class="q-block">
+        <div class="q-label">Q36. Inexpert sports players are too aware of what they are doing.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q36" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q36" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q36" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q37. Monkeys have a more complex mirror neuron system than humans.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q37" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q37" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q37" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. Looking at a photograph can activate mirror neurons.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q38" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q38" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q38" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. Gastaut and Bert were both researchers and sports players.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q39" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q39" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q39" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. The mu system is at rest when we are engaged in an activity.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q40" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q40" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q40" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r40"></div>
+      </div>
+
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+// ANSWER KEY
+var ANS={
+  q1:'B',q2:'E',q3:'D',q4:'A',q5:'B',q6:'D',q7:'C',
+  q8:'B',q9:'A',q10:'B',q11:'D',
+  q12:['soil erosion'],
+  q13:['paper'],
+  q14:'FALSE',q15:'TRUE',q16:'NOT GIVEN',q17:'TRUE',q18:'FALSE',q19:'TRUE',q20:'TRUE',
+  q21:'B',q22:'D',q23:'A',q24:'C',q25:'B',q26:'C',
+  q27:'F',q28:'B',q29:'E',q30:'C',q31:'D',q32:'E',
+  q33:'C',q34:'A',q35:'C',
+  q36:'YES',q37:'NO',q38:'NO',q39:'NOT GIVEN',q40:'YES'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  // Q1-11 select
+  for(var i=1;i<=11;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q12-13 text
+  for(var i=12;i<=13;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q14-20 radio
+  for(var i=14;i<=20;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q21-26 select
+  for(var i=21;i<=26;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q27-32 select
+  for(var i=27;i<=32;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q33-35 radio
+  for(var i=33;i<=35;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q36-40 radio
+  for(var i=36;i<=40;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  // Build details từ ANS object (đúng thứ tự Q1-Q40)
+  var detailsParts=[];
+  // Q1-11 select
+  for(var i=1;i<=11;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q12-13 text
+  for(var i=12;i<=13;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=(Array.isArray(ans)?ans.some(function(a){return v.toLowerCase()===a.toLowerCase();}):v.toLowerCase()===ans.toLowerCase())?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q14-20 radio
+  for(var i=14;i<=20;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q21-32 select
+  for(var i=21;i<=32;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  // Q33-40 radio
+  for(var i=33;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 43',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
