@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 35</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 35</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+<div class="passage-tab" id="ptab0">
+      <div class="passage-title">Wolves, dogs and humans</div>
+      <div class="passage-para">There is no doubt that dogs are the oldest of all species tamed by humans and their domestication was based on a mutually beneficial relationship with man. The conventional view is that the domestication of wolves began between 10,000 and 20,000 years ago. However, a recent ground-breaking paper by a group of international geneticists has pushed this date back by a factor of 10. Led by Dr. Robert Wayne, at the University of California, Los Angeles, the team showed that all dog breeds had only one ancestor, the wolf. They did this by analysing the genetic history through the DNA of 162 wolves from around the world and 140 domestic dogs representing 67 breeds. The research also confirms, for the first time, that dogs are descended only from wolves and do not share DNA with coyotes or jackals. The fact that our companionship with dogs now appears to go back at least 100,000 years means that this partnership may have played an important part in the development of human hunting techniques that developed 70,000 to 90,000 years ago. It also may even have affected the brain development in both species.</div>
+      <div class="passage-para">The Australian veterinarian David Paxton suggests that in that period of first contact, people did not so much domesticate wolves as wolves domesticated people. Wolves may have started living at the edge of human settlements as scavengers, eating scraps of food and waste. Some learned to live with human beings in a mutually helpful way and gradually evolved into dogs. At the very least, they would have protected human settlements, and given warnings by barking at anything approaching. The wolves that evolved into dogs have been enormously successful in evolutionary terms. They are found everywhere in the inhabited world, hundreds of millions of them. The descendants of the wolves that remained wolves are now sparsely distributed, often in endangered populations.</div>
+      <div class="passage-para">In return for companionship and food, the early ancestor of the dog assisted humans in tracking, hunting, guarding and a variety of other activities. Eventually humans began to selectively breed these animals for specific traits. Physical characteristics changed and individual breeds began to take shape. As humans wandered across Asia and Europe, they took their dogs along, using them for additional tasks and further breeding them for selected qualities that would better enable them to perform specific duties.</div>
+      <div class="passage-para">According to Dr. Colin Groves, of the Department of Archaeology and Anthropology at Australian National University, early humans came to rely on dogs' keen ability to hear, smell and see – allowing certain areas of the human brain to shrink in size relative to other areas. 'Dogs acted as human's alarm systems, trackers and hunting aids, garbage disposal facilities, hot-water bottles and children's guardians and playmates. Humans provided dogs with food and security. This symbiotic relationship was stable for over 100,000 years and intensified into mutual domestication,' said Dr. Groves. In his opinion, humans domesticated dogs and dogs domesticated humans.</div>
+      <div class="passage-para">Dr. Groves repeated an assertion made as early as 1914 that humans have some of the same physical characteristics as domesticated animals, the most notable being decreased brain size. The horse experienced a 16 percent reduction in brain size after domestication while pigs' brains shrank by as much as 34 percent. The estimated brain-size reduction in domesticated dogs varies from 30 percent to 10 percent. Only in the last decade have archaeologists uncovered enough fossil evidence to establish that brain capacity in humans declined in Europe and Africa by at least 10 percent beginning about 10,000 years ago. Dr. Groves believes this reduction may have taken place as the relationship between humans and dogs intensified. The close interaction between the two species allowed for the diminishing of certain human brain functions like smell and hearing.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Crop circles</div>
+      <div class="passage-para">The crop circle phenomenon has puzzled and mystified humanity for many years. The designs just appear, placed carefully in fields of food grains. Some are larger than football fields and highly complex in design and construction. Others are smaller and more primitive. We call them crop circles, but many of them are not circular. Some are elongated abstract designs, a few resemble insects or other known forms, and some are mixtures of lines, circles, and other shapes melded into intricate patterns. Most become visible overnight, though it has been claimed that a few have appeared within a half-hour in broad daylight.</div>
+      <div class="passage-para">Crop circles have appeared all over the world. About 10,000 instances from various countries have been reported in recent years. The first modern rash of crop circles appeared in Australia in December of 1973. A strange circular imprint appeared in a wheat field near Wokurna, a community southeast of Adelaide. Soon seven swirled circles up to 14 feet in diameter appeared in an oatfield nearby. In December of 1989, an amazing set of circles, ranging from a few inches to a few feet in diameter appeared in the wheat belt west of Melbourne. As many as 90 crop circles were found. The best documented and largest modern spread of crop circles began in southern England during the summer of 1980. By the end of 1988, 112 new circles had been formed. At that time circles were being reported worldwide, 305 by the end of 1989. The total grew to an outstanding 1,000 newly-formed circles in 1990. In 1991, 200 to 300 circles were reported. Crop circles have been documented in over 30 countries, including Canada, the former Soviet Union, Japan and the United States.</div>
+      <div class="passage-para">Nine out of ten circles remained simple with broken stems flattened to the ground and swirled. The stalks around the circles remained completely erect. But over the years, crop circles have become much more geometrically intricate. Patterns involved multiple circles, bars, triangles, rings and spurs. Pictorial imagery also appeared. Reliable eyewitnesses have reported seeing unusual lights and hearing unidentifiable sounds while on an early-morning walk in the countryside where a crop circle showed later that day. High-pitched, warbling noises have been recorded at the site of some crop circles. On several occasions a strange glow or a darker colouring has been seen in the sky over a crop circle. And in more than one instance, the electrical power of small planes flying overhead has been cut off abruptly. While the causal energies do not seem to harm animals, or even insects as far as we can tell, wild creatures tend to avoid the circles. Flocks of birds have been seen to split apart and fly around the perimeter rather than go directly over a crop circle formation.</div>
+      <div class="passage-para">Researchers have spent a great deal of time investigating different aspects of crop circles. They try to detect traces of human involvement in the circle-making, test the area of the circle itself for geophysical anomalies, and analyze the field's grain both from within and outside the circles, searching for differences.</div>
+      <div class="passage-para">Dr. W. C. Levengood of BLT Research in Cambridge, Massachusetts, has analyzed many grain samples and confirmed, time after time, significant changes at the cellular level of crop circle plants. The plants from the circles have elongated cells and blown-out growth nodes. Seeds from the circle plants often show accelerated growth rates when they are sown, and in some instances, quite different-looking plants result. In many instances it appears that a vortex-like energy causes the plants to swirl down, flattening the design into the land. Whatever this energy is, it does not generally inhibit the plants' growth. They continue to show normal response to the sun, raising upward over several days following the appearance of the circle. Michael Chorost of Duke University found occasions of short-lived radionuclides in the top layer of soil in some of the formations. A British government laboratory found diminished nitrogen and decreased nematode populations as well as decreased water content in the soil of a formation. Researchers have discovered other anomalies as well, such as curious embedded magnetic particles and charred tissue. Some of the plant stalks within the circles show evidence of being exposed to rapid microwave heating.</div>
+      <div class="passage-para">Scientists have attempted to explain crop circles as a result of natural processes. One popular theory accepted by many mainstream scientists and academics, is known as 'Plasma Vortex Theory'. Developed by Dr. Terence Meaden, it theorizes that electrified air (plasma), on the side of hills, becomes mini-tornadoes and screws down onto the ground, creating the circles. The theory also holds that the electrified air would cause a light to appear above the circle and therefore account for UFO sightings. Although this theory still has considerable support, it has come under fire because of the highly intricate and complex crop circle patterns that have appeared since 1991. Another theory is that the circles are all hoaxes or practical jokes. Major support came to this theory when, on September 9, 1991, two Englishmen claimed to have created approximately 250 crop circles. However, those circles were more rugged than others, and many were already suspect. It is irrational to believe that all crop circles are fake for publicity or other reasons. Many crop circles appeared long before the phenomenon gained large recognition from the public and press. Too many circles and patterns are formed each year in too many countries for them to have been hoaxes. Many crop circles show strange mathematical trails when analyzed.</div>
+      <div class="passage-para">The crop circle phenomenon is an enigma. Many dollars have been spent by researchers and their associations in an attempt to find a solution to this intriguing puzzle which will continue to haunt humanity until an explanation is found.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">Are these two reporters on the same planet?</div>
+      <div class="passage-para"><em>An essay by scientist, educator and environmentalist, Dr. David Suzuki</em></div>
+      <div class="passage-para">A number of books, articles and television programs have disputed the reality of the claimed hazards of global warming, overpopulation, deforestation and ozone depletion. Two newspaper commentaries show the profound differences of opinion on critical issues affecting the planet.</div>
+      <div class="passage-para">The first, by Robert Kaplan, has generated both fear and denial. Entitled The Coming Anarchy, the report paints a horrifying picture of the future for humanity. The author suggests that the terrible consequences of the conjunction between exploding human population and surrounding environmental degradation are already visible in Africa and parts of Southeast Asia. As society is destabilised by the AIDS epidemic, government control evaporates, national borders crumble beneath the pressure of environmental refugees and local populations revert to tribalism to settle old scores or defend against fleeing masses and bands of stateless nomads on the move.</div>
+      <div class="passage-para">Kaplan believes what he has seen in Africa and Southeast Asia is the beginning of a global pattern of disintegration of social, political and economic infrastructure under the impact of ecological degradation, population pressure and disease. As ecosystems collapse, this scenario could sweep the planet, first in Eastern Europe and then the industrialised countries. It is a frightening scenario, built on a serious attempt to project the aftermath of ecological destruction. It comes from a core recognition that the planet is finite and consumption has vast social, political and economic ramifications. It has also generated a great deal of discussion and controversy.</div>
+      <div class="passage-para">Marcus Gee pronounces Kaplan's vision 'dead wrong' in a major article headlined Apocalypse Deferred. Attacking the 'doomsayers', Gee counters with the statistics favoured by believers in the limitless benefits and potential of economic growth. Citing the spectacular improvements in human health, levels of education and literacy, availability of food and length of life even in the developing world, Gee pronounces the fivefold increase in the world economy since 1950 as the cause of this good news. He does concede that immense problems remain, from ethnic nationalism to tropical deforestation to malnutrition to cropland losses but concludes that Kaplan has exaggerated many of the crises and thus missed the broad pattern of progress.</div>
+      <div class="passage-para">Focusing on statistics of the decline in child mortality and the rise in longevity, food production and adult literacy, Gee reaches the conclusion that things have never been better. Economic indicators, such as the rise in gross world product and total exports show 'remarkable sustained and dramatic progress'. Life for the majority of the world's citizens is getting steadily better in almost every category.</div>
+      <div class="passage-para">Gee's conclusions rest heavily on economic indicators. He points out the annual 3.9 percent rise in the global economy and the more than doubling of the gross output per person, that has occurred for the past thirty years. World trade has done even better, growing by 6 percent of a product's price in 1947 to 5 percent today.</div>
+      <div class="passage-para">Gee skips lightly over such facts as third world debt and the daily toll of 22,000 child deaths from easily preventable disease. He also fails to mention that during this period the gulf between rich and poor countries has increased. He does acknowledge the threats of loss of topsoil and forests, pollution of the air and contamination of water. However, he concludes that there is little evidence they are serious enough to halt or even reverse human progress. Gee challenges the notion of a population crisis since there have never been as many people so well off. Furthermore, he suggests there will never be a limit to population because more people means more Einsteins to keep making life better.</div>
+      <div class="passage-para">Gee's outlook rests on a tiny minority of scientists who have faith in the boundless potential of science and technology to overcome the physical constraints of air, water and soil so that a much larger population can be sustained. His final proof? – the general rise in living standards along with population growth. But the relationship between changes in living standards and population is a correlation, not proof of causal connection. Gee is ignoring basic economic as well as scientific reality.</div>
+      <div class="passage-para">If we inherit a bank account with a thousand dollars that earns 5% interest annually, we could withdraw fifty dollars or less each year forever. However, suppose we start to increase our withdrawals, say up to sixty dollars, then seventy dollars and more each year. For many years the account would yield cash. But it would be foolish to conclude that we could keep drawing more from the account indefinitely. Yet that is what Gee believes. As ocean fisheries around the world show, we are using up the ecological capital of the planet (biodiversity, air, water, soil) rather than living off the interest. It is a dangerous deception to believe that the human-created artifice called economies can keep the indicators rising as the life support systems of the planet continue to decline.</div>
+      <div class="passage-para">The value system that dominates most of the popular media promotes the delusion that resources and the economy can continue to expand indefinitely. It also blinds the public to the urgency and credibility of warnings that an environmental crisis confronts us.</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+<div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1–5: Do the following statements agree with the views of the writer of the passage? Write YES if the statement agrees, NO if it contradicts, NOT GIVEN if impossible to say.</div>
+      <div class="q-block">
+        <div class="q-label">Q1. The co-existence of wolves and humans began 10,000 years ago.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q1" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q1" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q1" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. Dogs, wolves, jackals and coyotes share a common ancestor.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q2" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q2" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q2" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. Wolves are a protected species in most parts of the world.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q3" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q3" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q3" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. Dogs evolved from wolves which chose to live with humans.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q4" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q4" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q4" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. Dogs probably influenced the development of human hunting skills.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q5" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q5" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q5" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r5"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 6–8: Choose the correct letter A–D.</div>
+      <div class="q-block">
+        <div class="q-label">Q6. How do we know that dogs have been more successful in evolutionary terms than wolves?</div>
+        <label class="radio-opt"><input type="radio" name="q6" value="A" onchange="markRad(this)"> A &nbsp; Dogs can be trained more easily than wolves.</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="B" onchange="markRad(this)"> B &nbsp; Wolves are stronger than dogs.</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="C" onchange="markRad(this)"> C &nbsp; Humans prefer dogs to wolves.</label>
+        <label class="radio-opt"><input type="radio" name="q6" value="D" onchange="markRad(this)"> D &nbsp; There are more dogs than wolves today.</label>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. As a result of domestication, the size of the human brain has ...</div>
+        <label class="radio-opt"><input type="radio" name="q7" value="A" onchange="markRad(this)"> A &nbsp; increased.</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="B" onchange="markRad(this)"> B &nbsp; decreased</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="C" onchange="markRad(this)"> C &nbsp; stayed the same.</label>
+        <label class="radio-opt"><input type="radio" name="q7" value="D" onchange="markRad(this)"> D &nbsp; become more complex.</label>
+        <div class="q-result" id="r7"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q8. What can we infer from the studies of brain size and domestication?</div>
+        <label class="radio-opt"><input type="radio" name="q8" value="A" onchange="markRad(this)"> A &nbsp; Domestic life is less demanding than surviving in the wild.</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="B" onchange="markRad(this)"> B &nbsp; Animals like living with humans.</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="C" onchange="markRad(this)"> C &nbsp; Domestication has made animals physically weaker.</label>
+        <label class="radio-opt"><input type="radio" name="q8" value="D" onchange="markRad(this)"> D &nbsp; Pigs are less intelligent than dogs.</label>
+        <div class="q-result" id="r8"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Question 9: Choose TWO WORDS from the passage for the answer.</div>
+      <div class="q-block">
+        <div class="passage-para">There are many different types of dogs today, because, in early times humans began to <b>9.</b> <input type="text" id="q9" oninput="markTxt(this)" placeholder="answer"> their animals for the characteristics they wanted.</div>
+        <div class="q-result" id="r9"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 10–14: Match one of the researchers A–C to each of the findings below. (Example: found the common ancestor of the dog = A)</div>
+      <div class="word-box"><span>A Dr. Wayne</span><span>B Dr. Paxton</span><span>C Dr. Groves</span></div>
+      <div class="q-block">
+        <div class="q-label">Q10. studied the brain size of domesticated animals</div>
+        <div class="tfng-row"><select id="q10" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r10"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q11. claims that wolves chose to interact with humans</div>
+        <div class="tfng-row"><select id="q11" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r11"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q12. established a new time frame for domestication of wolves</div>
+        <div class="tfng-row"><select id="q12" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r12"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q13. believes that dogs and humans domesticated each other</div>
+        <div class="tfng-row"><select id="q13" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r13"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q14. studied the DNA of wolves and dogs</div>
+        <div class="tfng-row"><select id="q14" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r14"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 15–19: Do the following statements reflect the claims of the writer of this passage? Write YES, NO, or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q15. Crop circles only appear in wheat fields.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q15" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q15" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q15" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. Crop circles have never been documented in tropical countries.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q16" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q16" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q16" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. The largest number of crop circle reportings in a single year occurred in 1990.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q17" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q17" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q17" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. The patterns of crop circles have become increasingly complex over the years.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q18" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q18" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q18" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r18"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q19. All crop circles are hoaxes.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q19" value="YES" onchange="markRad(this)"> YES</label><label class="radio-opt"><input type="radio" name="q19" value="NO" onchange="markRad(this)"> NO</label><label class="radio-opt"><input type="radio" name="q19" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r19"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 20–23: Complete the summary below. Choose NO MORE THAN THREE WORDS from the passage for each answer.</div>
+      <div class="q-block">
+        <div class="passage-para">Since the early 1970s, over ten thousand crop circles have been reported around the world, the greatest number in <b>20.</b> <input type="text" id="q20" oninput="markTxt(this)" placeholder="answer">, where in a single year, over one hundred circles appeared. Phenomena such as the appearance of strange lights and unusual <b>21.</b> <input type="text" id="q21" oninput="markTxt(this)" placeholder="answer"> sometimes occur around the sites of crop circles. <b>22.</b> <input type="text" id="q22" oninput="markTxt(this)" placeholder="answer"> are not affected but it has been observed that birds <b>23.</b> <input type="text" id="q23" oninput="markTxt(this)" placeholder="answer"> flying over a formation.</div>
+        <div class="q-result" id="r20"></div><div class="q-result" id="r21"></div><div class="q-result" id="r22"></div><div class="q-result" id="r23"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 24–27: Match one scientist A–C with each area of study below. (Example: observations of light in relation to crop circles = A)</div>
+      <div class="word-box"><span>A Dr. Meaden</span><span>B Dr. Levengood</span><span>C Michael Chorost</span></div>
+      <div class="q-block">
+        <div class="q-label">Q24. changes in the structure of soil within crop circles</div>
+        <div class="tfng-row"><select id="q24" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r24"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q25. accelerated growth of seeds from crop circles</div>
+        <div class="tfng-row"><select id="q25" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r25"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q26. electrical charges in the air around crop circles</div>
+        <div class="tfng-row"><select id="q26" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r26"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q27. changes in cell structure of plants found in crop circles</div>
+        <div class="tfng-row"><select id="q27" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r27"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 28–33: Match the people A–C with the opinions below. There may be more than one correct answer. (Example: Environmental challenges will be met by technological advances = B)</div>
+      <div class="word-box"><span>A R. Kaplan, author of The Coming Anarchy</span><span>B M. Gee, author of Apocalypse Deferred</span><span>C Neither (the writer's own opinion)</span></div>
+      <div class="q-block">
+        <div class="q-label">Q28. Our patterns of consumption are using up the ecological capital of the planet.</div>
+        <div class="tfng-row"><select id="q28" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. Crises beginning in the Third World will spread to developed countries.</div>
+        <div class="tfng-row"><select id="q29" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. Scientific progress will enable the planet to sustain increased population.</div>
+        <div class="tfng-row"><select id="q30" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q31. Social and political infrastructure worldwide could collapse.</div>
+        <div class="tfng-row"><select id="q31" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r31"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q32. Earth's life support systems are at critical risk.</div>
+        <div class="tfng-row"><select id="q32" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r32"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q33. Environmental problems are not a threat to progress.</div>
+        <div class="tfng-row"><select id="q33" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option></select></div>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 34–36: Choose ONE phrase from the list below (A–G) to complete each sentence. There are more phrases than questions so you will not use all of them.</div>
+      <div class="word-box">
+        <span>A have most benefited developing countries</span><span>B has led to a drop in the standard of living generally</span>
+        <span>C cannot continue to expand indefinitely</span><span>D have decreased third world debt</span>
+        <span>E shows a correlation, not cause and effect</span><span>F pose a threat to human progress</span>
+        <span>G has been accompanied by a fall in tariffs</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. The growth of world trade</div>
+        <div class="tfng-row"><select id="q34" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select></div>
+        <div class="q-result" id="r34"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q35. The relationship between population and standard of living</div>
+        <div class="tfng-row"><select id="q35" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select></div>
+        <div class="q-result" id="r35"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q36. Natural resources and the economy</div>
+        <div class="tfng-row"><select id="q36" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select></div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 37–40: Choose the correct letter A–D.</div>
+      <div class="q-block">
+        <div class="q-label">Q37. Which of the following is NOT stated by Kaplan as a key contributing factor to potential global destabilisation?</div>
+        <label class="radio-opt"><input type="radio" name="q37" value="A" onchange="markRad(this)"> A &nbsp; political corruption</label>
+        <label class="radio-opt"><input type="radio" name="q37" value="B" onchange="markRad(this)"> B &nbsp; collapse of ecosystems</label>
+        <label class="radio-opt"><input type="radio" name="q37" value="C" onchange="markRad(this)"> C &nbsp; population explosion</label>
+        <label class="radio-opt"><input type="radio" name="q37" value="D" onchange="markRad(this)"> D &nbsp; malnutrition and disease</label>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. What is the main source of Gee's optimism?</div>
+        <label class="radio-opt"><input type="radio" name="q38" value="A" onchange="markRad(this)"> A &nbsp; scientific and technological advances</label>
+        <label class="radio-opt"><input type="radio" name="q38" value="B" onchange="markRad(this)"> B &nbsp; decreasing Third World debt</label>
+        <label class="radio-opt"><input type="radio" name="q38" value="C" onchange="markRad(this)"> C &nbsp; the rise in the standard of living worldwide</label>
+        <label class="radio-opt"><input type="radio" name="q38" value="D" onchange="markRad(this)"> D &nbsp; economic growth</label>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. Which of the following can we infer about the views of the author of this passage?</div>
+        <label class="radio-opt"><input type="radio" name="q39" value="A" onchange="markRad(this)"> A &nbsp; He disagrees with both Gee and Kaplan.</label>
+        <label class="radio-opt"><input type="radio" name="q39" value="B" onchange="markRad(this)"> B &nbsp; He supports the views of Gee.</label>
+        <label class="radio-opt"><input type="radio" name="q39" value="C" onchange="markRad(this)"> C &nbsp; His views are closer to those of Kaplan.</label>
+        <label class="radio-opt"><input type="radio" name="q39" value="D" onchange="markRad(this)"> D &nbsp; He thinks both Gee and Kaplan are right.</label>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. The main purpose of the author in this passage is ...</div>
+        <label class="radio-opt"><input type="radio" name="q40" value="A" onchange="markRad(this)"> A &nbsp; to alert us to an environmental crisis.</label>
+        <label class="radio-opt"><input type="radio" name="q40" value="B" onchange="markRad(this)"> B &nbsp; to educate the media.</label>
+        <label class="radio-opt"><input type="radio" name="q40" value="C" onchange="markRad(this)"> C &nbsp; to create uncertainty about the future.</label>
+        <label class="radio-opt"><input type="radio" name="q40" value="D" onchange="markRad(this)"> D &nbsp; to challenge current economic theory.</label>
+        <div class="q-result" id="r40"></div>
+      </div>
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){var v=getVal(id).toUpperCase();var opts=String(ans).toUpperCase().split('/');return opts.indexOf(v)>=0?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+// ANSWER KEY
+var ANS={
+  q1:'NO',q2:'NO',q3:'NOT GIVEN',q4:'YES',q5:'YES',
+  q6:'D',q7:'B',q8:'A',
+  q9:['selectively breed'],
+  q10:'C',q11:'B',q12:'A',q13:'C',q14:'A',
+  q15:'NO',q16:'NOT GIVEN',q17:'YES',q18:'YES',q19:'NO',
+  q20:['southern england','(southern) england','england'],
+  q21:['high-pitched, warbling noises','noises','sound','high-pitched warbling sound'],
+  q22:['animals','insects','wild creatures','animals/insects/wild creatures'],
+  q23:['avoid'],
+  q24:'C',q25:'B',q26:'A',q27:'B',
+  q28:'C',q29:'A',q30:'B',q31:'A',q32:'C/A',q33:'B',
+  q34:'G',q35:'E',q36:'C',
+  q37:'A',q38:'D',q39:'C',q40:'A' 
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  for(var i=1;i<=5;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=6;i<=8;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=9;i<=9;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  for(var i=10;i<=14;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=15;i<=19;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=20;i<=23;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  for(var i=24;i<=27;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=28;i<=36;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=37;i<=40;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  // Build details từ ANS object (đúng thứ tự Q1-Q40)
+  var detailsParts=[];
+  for(var i=1;i<=5;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=6;i<=8;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=9;i<=9;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(x){return v.toLowerCase()===x.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=10;i<=14;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=15;i<=19;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=20;i<=23;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(x){return v.toLowerCase()===x.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=24;i<=27;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=28;i<=36;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=37;i<=40;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 35',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
