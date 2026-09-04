@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 39</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 39</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+
+    <div class="passage-tab" id="ptab0">
+      <div class="passage-title">Why should we study history?</div>
+      <div class="passage-para">In this paper, I shall present a number of people's opinions on why we should study history. Let me point out at the outset that many of these views overlap, with differences that are ones of emphasis, rather than of principle.</div>
+      <div class="passage-para">According to some of the greatest historians, such as Arnold Toynbee, the essential value of history is its ability to give us self-awareness, self-knowledge. This occurs because historical figures are presented to us in detail. Studying Alexander the Great, for instance, teaches us that a single person is capable of the whole range of behaviour from cruelty to kindness.</div>
+      <div class="passage-para">Diane Ravich, an education policy analyst, gives a practical reason for studying history. Like many others before her, she claims that history doesn't tell us the answers to our questions, but it helps to inform us and thus to improve our judgment, so that we make better choices in the future.</div>
+      <div class="passage-para">With a different focus, though, we can say that we know nothing about the future, and the present is just a moment, so in fact all there is is history. As the philosopher of education John Dewey suggested, the only tool we have for making sense of the reality we experience is what has occurred in the past.</div>
+      <div class="passage-para">According to historian Mark M Krug, the knowledge of how people acted in the past may not always suggest clever solutions to present crises, but it makes the task of finding them easier by giving us a starting point, a body of past experience which we can and, if necessary, reject. Peter N Stearns argues that the wisdom available from history has a personal, everyday application. People need to have some sense of the workings of societies, simply so that they can run their own lives without coming into conflict with the community to which they belong.</div>
+      <div class="passage-para">The philosopher Friedrich Nietzsche said people need models to imitate, and historical models are particularly powerful because they actually existed. Through her contribution to ending English rule over France, Joan of Arc demonstrates the power of individual belief and action. Galileo's opposition to the prevailing belief that the sun and planets orbited the Earth symbolises the fight against authority for freedom of thought. When studying history, we judge the actions of historical figures to be admirable or despicable, good or bad, and choose who we want to emulate.</div>
+      <div class="passage-para">Some philosophers have identified a pattern in historical events. Both Georg Hegel and Oswald Spengler saw history as a dynamic process, one in which nothing is static, in contrast to the many other philosophers who have believed that history consists of unique events. But there the resemblance ends. In Hegel's view, history is a process of conflict between opposite ideas, leading towards greater freedom, which combines the best elements of the two original ideas.</div>
+      <div class="passage-para">Spengler, on the other hand, developed the organic view that historical cultures, like plants and animals follow a process of growth, flowering and deterioration, a rise inevitably leading to a fall. There are very many historical examples of both individuals and empires that have conformed to this pattern.</div>
+      <div class="passage-para">Many historians argue that a society which has a shared cultural understanding of its own history is more likely to function smoothly than a society that is ignorant of its past. For example, Beverly Southgate claims that societies, like individuals, need to know who they are, and where they belong. Individuals who lack this sense of uniqueness are likely to feel that life has little meaning or purpose, and so too with societies. A shared knowledge of its history provides a nation with meaning, purpose and cohesion.</div>
+      <div class="passage-para">Southgate would agree with Conal Furay and Michael J Salevouris, in whose view а society that cannot recall its past is like an individual with amnesia, unaware of the roots that have created it. As a consequence, it has no direction, and this impacts on its further evolution.</div>
+      <div class="passage-para">These two historians identify another value of history. We tend to have a narrow view of our own society, assuming that its ways are the only acceptable ones. By learning how our own country used to be, we may realise that our present-day customs are not the only ones which are acceptable. This clearly has implications for our attitude towards other present-day countries and cultures, too.</div>
+      <div class="passage-para">Many historians and educators believe that the expert knowledge possessed by historians includes not only the learning of factual information, but also the habit of critically examining and evaluating evidence. These are abilities worth developing, as they are very useful, both in other academic pursuits and in almost any career.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Violins and very cold weather - a hypothesis</div>
+      <div class="passage-para"><em>Lloyd Burckle and Henri D Grissino-Mayer suggest a link between the great Italian violin makers and a mini ice-age 300 years ago</em></div>
+      <div class="section-label">A</div>
+      <div class="passage-para">There is considerable controversy surrounding reasons why instruments made by the artisans of Cremona in Italy in the late 17th and early 18th centuries sound superior compared to modern instruments. The famous violin-making families of Amati, Stradivari, and Guarneri certainly included many highly accomplished craftsmen, and the popular belief is that the skills of these Cremonese artisans, combined with either a secret ingredient or undocumented process, give their instruments the rich sound so highly admired by professional musicians. The nature of this secret ingredient has been the subject of conjecture for many years and is still fuelling speculation. Theories have included the method of varnish applied to the wood to produce the right acoustic effect, or the use of special types of wood which are subject to specific treatment and aging processes, as well as the careful blending of responsibly harvested chemicals before application.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">A new hypothesis has been found for the possible explanation. It was not directly related to the violin-makers' skills but more likely to do with the climate. Around 1645–1715, Europe was affected by a mini ice-age caused by a combination of reduced solar activity – widely known as the Maunder Minimum – and a possible increase in volcanic eruptions. This period was characterized by shorter, cooler growing seasons for trees, which resulted in wood with a greater density and narrower rings than usual. Antonio Stradivari was active during this period, from as short a season as seven years to as long as 31 years, developing wood that demonstrated considerable scientific properties.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">Analyses that include ultraviolet photography, electron microscopy, ion backscattering, and X-ray investigations, finally, have suggested that Stradivari used wood felled from alpine conifers. This theory has been discounted because analyses on numerous instruments attributed to Stradivari demonstrated ages for the wood that were contemporary with his lifetime.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">Wood with high density can, however, be found in trees growing in a variety of habitats and environmental settings in numerous higher-elevation locations throughout the world. Hence, an account of the Cremonese craftsmen's superior sound quality based solely on wood properties is insufficient. Instead, could the superior sound quality be explained by a combination of wood properties, environmental characteristics, and macroscopic conditions? Could the wood used by the Cremonese makers have had particular physical characteristics that were perhaps time-specific? There were questions that required more thorough research.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">The well-documented Maunder Minimum (1645–1715) was a period characterized by a scarcity of sunspots and a reduction in overall solar activity. It coincided with a sharp dip in temperatures and a period of extremely cold weather in western Europe. Analyses of the elevation forest areas of the European Alps over a long period recorded growing rates between approximately 1645 and 1720, identified by the narrow rings in tree trunks. Narrow rings would not have been seen in warmer periods.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">It seems likely that the narrow tree rings that identify the Maunder Minimum in Europe played a significant role in the enhanced sound quality of instruments produced by the Cremonese craftsmen. Narrow rings would not only strengthen the violin, but lend the wood a high degree of density – the property so important for acoustic resonance. It is surely significant that Stradivari's working lifetime coincides exactly with this climatic period, and that to fashion the most prized and valued instruments of this "Golden Period" (1700–1720), he would have used the only wood available to him, i.e. from trees that grew during the Maunder Minimum. The onset of the Maunder Minimum at a time when the skills of the Cremonese violin-makers reached their peak perhaps made the crucial difference in the violin's tone and brilliance. Furthermore, the conjunction of elevation, topography, soil properties and a deterioration in climate was temporally unique – climatic conditions with temperatures such as those that occurred during the Maunder Minimum simply cannot and do not occur today in areas where the Cremonese makers obtained their wood.</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">It seems likely that the narrow tree rings that identify the Maunder Minimum in Europe played a significant role in the enhanced sound quality of instruments produced by the Cremonese craftsmen. Narrow rings would not only strengthen the violin, but lend the wood a high degree of density-the property so important for acoustic resonance. It is surely significant that Stradivari's working lifetime coincides exactly with this climatic period, and that to fashion the most prized and valued instruments of his 'Golden Period' (1700-1720), he would have used the only wood available to him, i.e. from trees that grew during the Maunder Minimum. The onset of the Maunder Minimum at a time when the skills of the Cremonese violin-makers reached their peak perhaps made that crucial difference in the violin's tone and brilliance. Furthermore, the conjunction of elevation, topography, soil properties and a deterioration in climate was temporally unique - climate conditions with temperatures such as those that occurred during the Maunder Minimum simply cannot and do not occur today in areas where the Cremonese makers obtained their wood.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">What should companies do to survive</div>
+      <div class="section-label">A</div>
+      <div class="passage-para">In the world of business, where today's fashionable management theory soon becomes a stale cliché or a quaint archaism, it is essential to have a clear idea about the enduring rules of good management. The company that follows these is the company that is in the strongest position amid the uncertainties and violent upheavals of the world as we know it.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">A company is the sum of what its people understand and know how to do well. Value lies increasingly in creative ideas and knowledge. But ideas have value only if people share and develop them in ways that increase revenue; knowledge is useful only if people can find what they need to know. Getting intelligent people to share what is in their heads is vital, and takes more than mere money or clever software. Ideas must flow in every direction through a company—not merely from the top down. And knowledge is worth storing only if senior staff set careful rules to filter and structure it. What goes into a database determines the value of what comes out. So setting central rules and standards is key to good knowledge management.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">Good judgement is a key skill. Managers constantly blitzed with new information need to build in the data that matters and set aside the rest. Big-bang decisions are generally best avoided—or implemented in small incremental moves that leave room for flexibility and for altering course, if circumstances change.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">Customers matter—but some matter more than others. Acquiring new customers often costs more than making extra sales to existing ones. So companies must build loyalty by providing reliability and good service. Given the welter of product information reaching customers, memorable brands will grow more important. Companies need not only to widen their reach by finding new markets, but also to deepen existing relationships. They have more information than ever before about their customers, and must use this to offer their most profitable customers special deals and to make them feel part of an elite club. Some companies even seek to "fire" unprofitable customers by charging them higher rates than others.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">Like its customers, some of a company's people matter more than others, and not just at the top: managing talent is also about capturing innovative ideas from middle managers and those further down the line. At every level, managers must identify where most value lies. In some cases, a few stars will encapsulate much of a company's value; in others, teams of employees will matter more. Some companies will want to hire the talents of "free agents" as and when they are required; others, to employ directly their best brains.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">Companies need to collaborate more, in alliances that allow them to outsource production or to spread risk or to enter new markets. Effective collaboration calls for trust and shared understanding, rather than the top-down, command-and-control approach of hierarchical structures. Successful collaboration also requires excellent communication, and incentives that reward sharing information and working for common goals. As costs of handling information in a company decline, new opportunities open for redefining corporate shape, and companies are becoming less hierarchical, with more ways to arrange and rearrange structure. Managers must think through from scratch which activities should be kept in-house and which outsourced, and normally a company should keep those activities it does better than its competitors.</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">Given the pace of change, bosses need more than ever to be able to communicate persuasively through many channels, with their staff and the outside world. They must also listen: the most valuable communications will frequently be bottom-up, and the people nearest to the customer are best placed to explain what they see and hear. Managers must listen to them.</div>
+      <div class="section-label">H</div>
+      <div class="passage-para">Ironically, internet technologies, tools of freedom and decentralisation, call for discipline and standard processes. Only by setting standards and insisting that everyone abide by them will companies reap their potential savings. Companies need to insist on common practices in areas such as purchasing and information technology in order to harvest real productivity gains. As a result, some aspects of centralisation will increase: a key task of top managers is to provide structures and standards, and to insist that they are observed. Once standards have been set, openness and freedom should reign. Centralisation of standards makes possible decentralisation of decision making.</div>
+      <div class="section-label">I</div>
+      <div class="passage-para">In addition, internet technologies increase the need for a culture of openness, to foster the sharing of knowledge and effective collaboration. Increasingly, companies will allow their suppliers and customers inside "the machine," as it were, by giving them extraordinary access to their databases and inner workings in order to integrate their operations and to make collaboration effective.</div>
+      <div class="section-label">J</div>
+      <div class="passage-para">The key to success lies much less in technical know-how than in excellent leadership to push through and build upon organisational change. At some points in a company's life, it will need a leader who can rally staff to push through the trauma of disruptive change. At other times, the right style will be the manager-as-coach, a selfless talent scout who specialises in assembling and motivating great teams. Always, the people at the top will set the tone in a firm. Their skills will determine whether it is a good company to work in and do business with.</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+
+    <div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1–4: Look at the following people (Questions 1–4) and the list of theories of history below. Match each person with the correct theory, A–F. Choose the correct letter, A–F, in boxes 1–4 below.</div>
+      <div class="word-box">
+        <span>A It helps us put problems into perspective.</span>
+        <span>B It helps us to understand human nature.</span>
+        <span>C It helps us to understand the present.</span>
+        <span>D It provides examples to copy.</span>
+        <span>E It shows that there are alternative explanations of events.</span>
+        <span>F It helps to improve our ability to make decisions.</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q1. Arnold Toynbee</div>
+        <div class="tfng-row">
+          <select id="q1" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. Diane Ravitch</div>
+        <div class="tfng-row">
+          <select id="q2" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. John Dewey</div>
+        <div class="tfng-row">
+          <select id="q3" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q4. Friedrich Nietzsche</div>
+        <div class="tfng-row">
+          <select id="q4" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option>
+          </select>
+        </div>
+        <div class="q-result" id="r4"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 5–9: Complete the notes using the list of words, A–J, below. Choose the correct letter, A–J, in boxes 5–9 below. Hegel and Spengler: history is a process of change.</div>
+      <div class="word-box">
+        <span>A analysis</span><span>B decline</span><span>C peace</span><span>D change</span><span>E identity</span>
+        <span>F pleasure</span><span>G communication</span><span>H liberty</span><span>I tolerance</span><span>J conflict</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. Hegel: historical process ends in an increase in</div>
+        <div class="tfng-row">
+          <select id="q5" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+          </select>
+        </div>
+        <div class="q-result" id="r5"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q6. Spengler: historical process ends in</div>
+        <div class="tfng-row">
+          <select id="q6" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+          </select>
+        </div>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. Southgate: history helps to create a nation's</div>
+        <div class="tfng-row">
+          <select id="q7" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+          </select>
+        </div>
+        <div class="q-result" id="r7"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q8. Furay and Salevouris: study of history encourages</div>
+        <div class="tfng-row">
+          <select id="q8" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+          </select>
+        </div>
+        <div class="q-result" id="r8"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q9. ... of other cultures.</div>
+        <div class="tfng-row">
+          <select id="q9" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option>
+          </select>
+        </div>
+        <div class="q-result" id="r9"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 10–13: Complete the sentences below. Choose ONE WORD ONLY from the passage for each answer. Write your answers in boxes 10–13 below.</div>
+      <div class="q-block">
+        <div class="passage-para">Peter N Stearns believes that the study of history helps people to avoid <b>10.</b> <input type="text" id="q10" oninput="markTxt(this)" placeholder="answer"> with the society they live in. Southgate compares societies with <b>11.</b> <input type="text" id="q11" oninput="markTxt(this)" placeholder="answer">. Furay and Salevouris believe ignorance of history is like suffering from <b>12.</b> <input type="text" id="q12" oninput="markTxt(this)" placeholder="answer">. One educational benefit of studying history is the ability to analyse <b>13.</b> <input type="text" id="q13" oninput="markTxt(this)" placeholder="answer">.</div>
+        <div class="q-result" id="r10"></div><div class="q-result" id="r11"></div>
+        <div class="q-result" id="r12"></div><div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14–20: Reading Passage 2 has seven paragraphs, A–G. Choose the correct heading for each paragraph from the list of headings below. Write the correct number, i–ix, in boxes 14–20 below.</div>
+      <div class="word-box">
+        <span>i. Propositions that needed further investigation</span>
+        <span>ii. The most valuable instrument ever made</span>
+        <span>iii. An unrepeated mix of professional and environmental circumstances</span>
+        <span>iv. A remarkable woodworking technique</span>
+        <span>v. An ongoing debate</span>
+        <span>vi. Choosing the materials for different parts of a violin</span>
+        <span>vii. Disproving some hypotheses</span>
+        <span>viii. A well-known source of suitable wood</span>
+        <span>ix. Evidence of some exceptional environmental conditions</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q14. Paragraph A</div>
+        <div class="tfng-row">
+          <select id="q14" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option>
+          </select>
+        </div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. Paragraph B</div>
+        <div class="tfng-row">
+          <select id="q15" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option>
+          </select>
+        </div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. Paragraph C</div>
+        <div class="tfng-row">
+          <select id="q16" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option>
+          </select>
+        </div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. Paragraph D</div>
+        <div class="tfng-row">
+          <select id="q17" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option>
+          </select>
+        </div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. Paragraph E</div>
+        <div class="tfng-row">
+          <select id="q18" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option>
+          </select>
+        </div>
+        <div class="q-result" id="r18"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q19. Paragraph F</div>
+        <div class="tfng-row">
+          <select id="q19" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option>
+          </select>
+        </div>
+        <div class="q-result" id="r19"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q20. Paragraph G (example: ix)</div>
+        <div class="tfng-row">
+          <select id="q20" onchange="markSel(this)">
+            <option value="">-- Select --</option>
+            <option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option>
+          </select>
+        </div>
+        <div class="q-result" id="r20"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 21–24: Complete the summary below. Choose ONE WORD ONLY from the passage for each answer. Write your answers in boxes 21–24 below.</div>
+      <div class="q-block">
+        <div style="font-weight:600;margin-bottom:6px">The Cremonese violins: fine artistry but what else?</div>
+        <div class="passage-para">There is no doubt that the superior quality of the late 17th-and early 18th-century Cremonese violins is due in large part to the <b>21.</b> <input type="text" id="q21" oninput="markTxt(this)" placeholder="answer"> of the people who crafted them. But it has long been felt that other factors were involved. There has been extensive research into whether the composition of the varnish that was put on the wood could account for the unique sound of the Cremonese violins. Some people have also put forward the idea that Stradivari made his instruments from wood which had already been used in old buildings such as <b>22.</b> <input type="text" id="q22" oninput="markTxt(this)" placeholder="answer">. Scientific analysis has proved this not to be the case. Other theories have focused on the violin-makers' method of using <b>23.</b> <input type="text" id="q23" oninput="markTxt(this)" placeholder="answer"> to dry their wood before use, or using water to remove dangerous <b>24.</b> <input type="text" id="q24" oninput="markTxt(this)" placeholder="answer"> from the wood. A further suggestion concerns the amount of time taken for the process known as seasoning. However, craftsmen differed in the time they allowed for this.</div>
+        <div class="q-result" id="r21"></div><div class="q-result" id="r22"></div>
+        <div class="q-result" id="r23"></div><div class="q-result" id="r24"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 25–26: Choose TWO letters, A–E. Which TWO of these factors are mentioned in the passage as possibly having a significant effect on the eventual quality of a violin?</div>
+      <div class="q-block">
+        <label class="check-opt"><input type="checkbox" name="q2526" value="A" onchange="markChk(this);limitCheck(this,'q2526',2)"> A &nbsp; The altitude at which a tree is grown</label>
+        <label class="check-opt"><input type="checkbox" name="q2526" value="B" onchange="markChk(this);limitCheck(this,'q2526',2)"> B &nbsp; The stage of a tree's growth at which it is cut down</label>
+        <label class="check-opt"><input type="checkbox" name="q2526" value="C" onchange="markChk(this);limitCheck(this,'q2526',2)"> C &nbsp; The steepness of the mountains where a tree is grown</label>
+        <label class="check-opt"><input type="checkbox" name="q2526" value="D" onchange="markChk(this);limitCheck(this,'q2526',2)"> D &nbsp; The lack of rain during a tree's growing period</label>
+        <label class="check-opt"><input type="checkbox" name="q2526" value="E" onchange="markChk(this);limitCheck(this,'q2526',2)"> E &nbsp; The nutritional composition of the earth in which a tree is grown</label>
+        <div class="q-result" id="r2526"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27–34: Do the following statements agree with the views of the writer in Reading Passage 3? Choose TRUE, if the statement agrees with the information; FALSE, if the statement contradicts the information; NOT GIVEN, if there is no information on this.</div>
+      <div class="q-block">
+        <div class="q-label">Q27. Too few companies understand how to evaluate fashionable management theories.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q27" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q27" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q27" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. Certain practices should always be followed when coping with unstable situations.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q28" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q28" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q28" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. It is important that the development of ideas should lead to improvements in the company's financial position.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q29" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q29" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q29" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. The structuring of a database should be decided by all its users.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q30" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q30" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q30" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q31. More training needs to be provided to help managers assess the usefulness of new information.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q31" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q31" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q31" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r31"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q32. Any major change should be introduced all at once.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q32" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q32" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q32" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r32"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q33. Companies can benefit from using different strategies with different customers.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q33" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q33" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q33" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. The activities which are common to all companies are best kept in-house.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q34" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q34" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q34" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r34"></div>
+      </div>
+
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 4px">Questions 35–40: Which paragraph contains the following information? Choose the correct letter, A–J, in boxes 35–40 below. NB: You may use any letter more than once.</div>
+      <div class="q-block">
+        <div class="q-label">Q35. Examples of qualities required when co-operating with other companies</div>
+        <div class="tfng-row">
+          <select id="q35" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></select>
+        </div>
+        <div class="q-result" id="r35"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q36. Examples of business activities where all staff should follow the same practices</div>
+        <div class="tfng-row">
+          <select id="q36" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></select>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q37. Examples of alternative employment patterns within a company</div>
+        <div class="tfng-row">
+          <select id="q37" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></select>
+        </div>
+        <div class="q-result" id="r37"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q38. A basis for deciding whether a company should carry out an activity itself or ask an outside company to do it</div>
+        <div class="tfng-row">
+          <select id="q38" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></select>
+        </div>
+        <div class="q-result" id="r38"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q39. An example of how information can be shared by a company and its customers</div>
+        <div class="tfng-row">
+          <select id="q39" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></select>
+        </div>
+        <div class="q-result" id="r39"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q40. A reason why customers might continue to buy from the same companies</div>
+        <div class="tfng-row">
+          <select id="q40" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option><option value="J">J</option></select>
+        </div>
+        <div class="q-result" id="r40"></div>
+      </div>
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+function limitCheck(el, name, max) {
+  var boxes = document.querySelectorAll('input[name="' + name + '"]');
+  var checked = Array.prototype.filter.call(boxes, function(b){ return b.checked; });
+  if (checked.length > max) {
+    el.checked = false;
+    var id = 'chk-limit-' + name;
+    var msgEl = document.getElementById(id);
+    if (!msgEl) {
+      msgEl = document.createElement('div');
+      msgEl.id = id;
+      msgEl.style.cssText = 'color:#e74c3c;font-size:12px;font-weight:bold;margin-top:4px;';
+      var grp = document.querySelector('input[name="' + name + '"]');
+      var lbl = grp ? grp.closest('label') : null;
+      if (lbl && lbl.parentNode) lbl.parentNode.appendChild(msgEl);
+    }
+    msgEl.textContent = '\u26a0 Chi duoc chon toi da ' + max + ' dap an!';
+    clearTimeout(msgEl._t);
+    msgEl._t = setTimeout(function(){ msgEl.textContent = ''; }, 2500);
+  }
+}
+
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+function markChk(el){
+  var boxes=document.querySelectorAll('input[name="'+el.name+'"]');
+  var checked=Array.prototype.filter.call(boxes,function(b){return b.checked;});
+  if(checked.length>2){el.checked=false;return;}
+  boxes.forEach(function(b){b.closest('.check-opt').classList.toggle('selected-answer',b.checked);});
+}
+
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function getChecked(name){var boxes=document.querySelectorAll('input[name="'+name+'"]:checked');return Array.prototype.map.call(boxes,function(b){return b.value.toUpperCase();});}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){return getVal(id).toUpperCase()===ans.toUpperCase()?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+// ANSWER KEY
+var ANS={
+  q1:'D',q2:'F',q3:'C',q4:'E',
+  q5:'G',q6:'H',q7:'B',q8:'E',q9:'F',
+  q10:['conflict'],
+  q11:['uniqueness'],
+  q12:['amnesia'],
+  q13:['evidence'],
+  q14:'v',q15:'vii',q16:'vi',q17:'viii',q18:'i',q19:'iii',q20:'ix',
+  q21:['musicians'],
+  q22:['castles'],
+  q23:['violin-making','violin making'],
+  q24:['moisture'],
+  q2526:['A','D'],
+  q27:'NOT GIVEN',q28:'TRUE',q29:'NOT GIVEN',q30:'FALSE',
+  q31:'NOT GIVEN',q32:'FALSE',q33:'TRUE',q34:'FALSE',
+  q35:'F',q36:'C',q37:'E',q38:'F',q39:'I',q40:'D'
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  // Q1-4 select
+  for(var i=1;i<=4;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q5-9 select
+  for(var i=5;i<=9;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q10-13 text
+  for(var i=10;i<=13;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q14-20 select
+  for(var i=14;i<=20;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q21-24 text
+  for(var i=21;i<=24;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  // Q25-26 checkbox group (2 points)
+  var checked2526=getChecked('q2526');
+  var correctSet=ANS.q2526;
+  var okCount=0;
+  correctSet.forEach(function(c){if(checked2526.indexOf(c)>=0)okCount++;});
+  score+=okCount;
+  document.getElementById('r2526').innerHTML=(okCount===2)?'<span class="correct-label">✓ Correct (2/2)</span>':'<span class="wrong-label">✗ '+okCount+'/2 correct. Correct: '+correctSet.join(', ')+'</span>';
+  // Q27-34 radio
+  for(var i=27;i<=34;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  // Q35-40 select
+  for(var i=35;i<=40;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  // Build details từ ANS object (đúng thứ tự Q1-Q40)
+  var detailsParts=[];
+  for(var i=1;i<=9;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=10;i<=13;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=20;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=21;i<=24;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(a){return v.toLowerCase()===a.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  detailsParts.push('Q25-26:'+(okCount===2?'✔':'✘')+'('+checked2526.join(',')+')');
+  for(var i=27;i<=34;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=35;i<=40;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 39',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
