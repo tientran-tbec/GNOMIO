@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IELTS Reading – Test 41</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;background:#f0f2f5;color:#222;overflow:hidden}
+#header{position:fixed;top:0;left:0;right:0;z-index:100;background:#1a3a5c;color:#fff}
+#row1{display:flex;align-items:center;padding:4px 10px;gap:6px;min-height:44px}
+.tab-btn{padding:6px 14px;border:none;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600;background:#2a5080;color:#cde}
+.tab-btn.active{background:#FFD580;color:#1a3a5c}
+#timer-box{margin-left:auto;background:#e74c3c;color:#fff;padding:5px 14px;border-radius:6px;font-size:16px;font-weight:700;min-width:70px;text-align:center}
+#timer-box.warn{background:#c0392b;animation:pulse .8s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+#row2{display:flex;align-items:center;padding:3px 10px;gap:8px;background:#15304d;min-height:36px}
+.hl-btn{padding:3px 12px;border:none;border-radius:3px;cursor:pointer;font-size:13px;font-weight:600}
+#hl-yellow{background:#FFD580;color:#333}
+#hl-green{background:#90EE90;color:#333}
+#hl-pink{background:#FFB6C1;color:#333}
+#hl-clear{background:#aaa;color:#fff}
+#main{position:fixed;top:80px;height:calc(100vh - 80px);display:flex;width:100%}
+#left-panel{overflow-y:auto;padding:18px 20px;background:#fff;flex-shrink:0;width:50%}
+#divider{width:6px;background:#ccc;cursor:col-resize;flex-shrink:0}
+#divider:hover{background:#1a3a5c}
+#right-panel{overflow-y:auto;padding:18px 20px;background:#fafafa;flex:1}
+.passage-title{font-size:1.2em;font-weight:700;color:#1a3a5c;margin-bottom:10px}
+.section-label{font-weight:700;color:#1a3a5c;margin-top:10px}
+.passage-para{margin:8px 0;line-height:1.7}
+.q-block{margin:12px 0;padding:10px 12px;background:#fff;border-radius:6px;border-left:3px solid #1a3a5c}
+.q-label{font-weight:700;color:#1a3a5c;margin-bottom:4px}
+.radio-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.radio-opt:hover{background:#f0f0f0}
+.radio-opt.selected-answer{background:#FFD580}
+.check-opt{display:flex;align-items:flex-start;gap:6px;margin:4px 0;padding:4px 8px;border-radius:4px;cursor:pointer}
+.check-opt:hover{background:#f0f0f0}
+.check-opt.selected-answer{background:#FFD580}
+.tfng-row{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+select{padding:3px 6px;border-radius:4px;border:1px solid #aaa;font-size:14px;background:#fff;max-width:220px}
+select.selected-answer{background:#FFD580}
+input[type=text]{padding:3px 8px;border:1px solid #aaa;border-radius:4px;font-size:14px;width:180px}
+input[type=text].selected-answer{background:#FFD580}
+#submit-btn{display:block;margin:20px auto;padding:12px 40px;background:#1a3a5c;color:#fff;font-size:16px;font-weight:700;border:none;border-radius:8px;cursor:pointer}
+#submit-btn:hover{background:#2a5080}
+#score-box{display:none;margin:20px auto;padding:16px;background:#fff;border-radius:8px;border:2px solid #1a3a5c;max-width:520px;text-align:center}
+#score-box h2{color:#1a3a5c;margin-bottom:8px}
+.correct-label{color:#27ae60;font-weight:700}
+.wrong-label{color:#e74c3c;font-weight:700}
+.q-result{font-size:13px;margin-top:4px}
+table.q-table{border-collapse:collapse;width:100%;margin:8px 0}
+table.q-table td,table.q-table th{border:1px solid #ccc;padding:6px 10px;vertical-align:top}
+table.q-table th{background:#e8eef5;font-weight:700}
+.band-table{border-collapse:collapse;margin:10px auto}
+.band-table td,.band-table th{border:1px solid #aaa;padding:5px 12px;text-align:center}
+.band-table th{background:#1a3a5c;color:#fff}
+.highlight-yellow{background:#FFD580}
+.highlight-green{background:#90EE90}
+.highlight-pink{background:#FFB6C1}
+.word-box{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0;padding:8px;background:#e8f0f8;border-radius:6px}
+.word-box span{padding:3px 10px;background:#fff;border:1px solid #aaa;border-radius:4px;font-size:13px}
+
+body{user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}
+input[type="text"],textarea,select{user-select:text;-webkit-user-select:text}
+#left-panel,#right-panel{user-select:text;-webkit-user-select:text}
+
+</style>
+</head>
+<body>
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">📖 IELTS Reading Test 41</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+<div id="header">
+  <div id="row1">
+    <button class="tab-btn active" onclick="showTab(0)">Passage 1</button>
+    <button class="tab-btn" onclick="showTab(1)">Passage 2</button>
+    <button class="tab-btn" onclick="showTab(2)">Passage 3</button>
+    <div id="timer-box">60:00</div>
+  </div>
+  <div id="row2">
+    <span style="color:#cde;font-size:13px">Highlight:</span>
+    <button class="hl-btn" id="hl-yellow" onclick="setHL('yellow')">Yellow</button>
+    <button class="hl-btn" id="hl-green" onclick="setHL('green')">Green</button>
+    <button class="hl-btn" id="hl-pink" onclick="setHL('pink')">Pink</button>
+    <button class="hl-btn" id="hl-clear" onclick="setHL('clear')">Clear</button>
+    <span id="hl-mode" style="color:#FFD580;font-size:13px;margin-left:6px"></span>
+  </div>
+</div>
+<div id="main">
+  <div id="left-panel">
+<div class="passage-tab" id="ptab0">
+      <div class="passage-title">Bovids</div>
+      <div class="passage-para">The family of mammals called bovids belongs to the Artiodactyl class, which also includes giraffes. Bovids are a highly diverse group consisting of 137 species, some of which are man's most important domestic animals.</div>
+      <div class="passage-para">Bovids are well represented in most parts of Eurasia and Southeast Asian islands, but they are by far the most numerous and diverse in the latter. Some species of bovid are solitary, but others live in large groups with complex social structures. Although bovids have adapted to a wide range of habitats, from arctic tundra to deep tropical forest, the majority of species favour open grassland, scrub or desert. This diversity of habitat is also matched by great diversity in size and form: at one extreme is the royal antelope of West Africa, which stands a mere 25 cm at the shoulder; at the other, the massively built bison of North America and Europe, growing to a shoulder height of 2.2m.</div>
+      <div class="passage-para">Despite differences in size and appearance, bovids are united by the possession of certain common features. All species are ruminants, which means that they retain undigested food in their stomachs, and regurgitate it as necessary. Bovids are almost exclusively herbivorous.</div>
+      <div class="passage-para">Typically their teeth are highly modified for browsing and grazing: grass or foliage is cropped with the upper lip and lower incisors (the upper incisors are usually absent), and then ground down by the cheek teeth. As well as having cloven, or split, hooves, the males of all bovid species and the females of most carry horns. Bovid horns have bony cores covered in a sheath of horny material that is constantly renewed from within; they are unbranched and never shed. They vary in shape and size: the relatively simple horns of a large Indian buffalo may measure around 4 m from tip to tip along the outer curve, while the various gazelles have horns with a variety of elegant curves.</div>
+      <div class="passage-para">Five groups, or sub-families, may be distinguished: Bovinae, Antelope, Caprinae, Cephalophinae and Antilocapridae. The sub-family Bovinae comprises most of the larger bovids, including the African bongo, and nilgae, eland, bison and cattle. Unlike most other bovids they are all non-territorial. The ancestors of the various species of domestic cattle banteng, gaur, yak and water buffalo are generally rare and endangered in the wild, while the auroch (the ancestor of the domestic cattle of Europe) is extinct.</div>
+      <div class="passage-para">The term 'antelope' is not a very precise zoological name – it is used to loosely describe a number of bovids that have followed different lines of development. Antelopes are typically long-legged, fast-running species, often with long horns that may be laid along the back when the animal is in full flight. There are two main sub-groups of antelope: Hippotraginae, which includes the oryx and the addax, and Antilopinae, which generally contains slighter and more graceful animals such as gazelle and the springbok. Antelopes are mainly grassland species, but many have adapted to flooded grasslands: pukus, waterbucks and lechwes are all good at swimming, usually feeding in deep water, while the sitatunga has long, splayed hooves that enable it to walk freely on swampy ground.</div>
+      <div class="passage-para">The sub-family Caprinae includes the sheep and the goat, together with various relatives such as the goral and the tahr. Most are woolly or have long hair. Several species, such as wild goats, chamois and ibex, are agile cliff- and mountain-dwellers. Tolerance of extreme conditions is most marked in this group: Barbary and bighorn sheep have adapted to arid deserts, while Rocky Mountain sheep survive high up in mountains and musk oxen in arctic tundra.</div>
+      <div class="passage-para">The duiker of Africa belongs to the Cephalophinae sub-family. It is generally small and solitary, often living in thick forest. Although mainly feeding on grass and leaves, some duikers – unlike most other bovids – are believed to eat insects and feed on dead animal carcasses, and even to kill small animals.</div>
+      <div class="passage-para">The pronghorn is the sole survivor of a New World sub-family of herbivorous ruminants, the Antilocapridae in North America. It is similar in appearance and habits to the Old World antelope. Although greatly reduced in numbers since the arrival of Europeans, and the subsequent enclosure of grasslands, the pronghorn is still found in considerable numbers throughout North America, from Washington State to Mexico. When alarmed by the approach of wolves or other predators, hairs on the pronghorn's rump stand erect, so showing and emphasizing the white patch there. At this signal, the whole herd gallops off at speed of over 60 km per hour.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab1" style="display:none">
+      <div class="passage-title">Photovoltaics on the rooftop</div>
+      <div class="passage-para"><em>A natural choice for powering the family home</em></div>
+      <div class="section-label">A</div>
+      <div class="passage-para">In the past, urban homeowners have not always had much choice in the way electricity is supplied to their homes. Now, however, there is a choice, and a rapidly increasing number of households worldwide are choosing the solar energy option. Solar energy, the conversion of sunlight into energy, is made possible through the use of 'photovoltaics', which are simple appliances that fit onto the roof of a house.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">The photovoltaics-powered home remains connected to the power lines, but no storage is required on-site, only a box of electronics (the inverter) to interface between the photovoltaics and the grid network. During the day, when the home may not be using much electricity, excess power from the solar array is fed back to the grid, to factories and offices that need daytime power. At night, power flows the opposite way. The grid network effectively provides storage. If the demand for electricity is well matched to when the sun shines, solar energy is especially valuable. This occurs in places like California in the US and Japan, where air-conditioning loads for offices and factories are large but heating loads for homes are small.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">The first systematic exploration of the use of photovoltaics on homes began in the US during the 1970s. A well-conceived program started with the siting of a number of 'residential experiment stations' at selected locations around the country, representing different climatic zones. These stations contained a number of 'dummy' houses, each with different solar-energy system design. Homes within the communities close to these stations were monitored to see how well their energy use matched the energy generated by the stations' dummy roofs. A change in US government priorities in the early 1980s halted this program.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">With the US effort dropping away, the Japanese Sunshine Project came to the fore. A large residential test station was installed on Rokko Island beginning in 1986. This installation consists of 18 'dummy' homes, each equipped with its own 2-5 kilowatt photovoltaic system (about 20 – 50 square meters for each system). Some of these simulated homes have their own electrical appliances inside, such as TV sets, refrigerators and air conditioning units, which switch on and off under computer control providing a lavish lifestyle for the non-existent occupants. For the other systems, electronics simulate these household loads. This test station has allowed the situation to be explored in a systematic way, under well-controlled test conditions. With no insurmountable problems identified, the Japanese have used the experience gained from this station to begin their own massive residential photovoltaics campaign.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">Meanwhile, Germany began a very important '1,000 roof program' in 1990, aimed at installing photovoltaics on the roofs of 1,000 private homes. Large federal and regional government subsidies were involved, accounting in most cases for 70% of the total system costs. The program proved immensely popular, forcing its extension to over 2,000 homes scattered across Germany. The success of this program stimulated other European countries to launch a similar program.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">Japan's 'one million roof program' was prompted by the experience gained in the Rokko Island test site and the success of the German 1,000 roof program. The initially quoted aims of the Japanese New Energy Development Organization were to have 70,000 homes equipped with the photovoltaics by the year 2000, on the way to 1 million by 2010. The program made a modest start in 1994 when 539 systems were installed with a government subsidy of 50 percent. Under this program, entire new suburban developments are using photovoltaics.</div>
+      <div class="section-label">G</div>
+      <div class="passage-para">The Japanese initiative in embracing residential photovoltaics on a large scale prompted responses in both Europe and the US. The European Commission has called for one million solar residential systems before the year 2010, with 500,000 in Europe and 500,000 in the developing world, to be subsidised by the Commission. In 1997, a similar one million roof target was announced in the US. Since then, several other countries including Germany, Italy, the Netherlands and Australia, have announced their own targets for residential photovoltaics.</div>
+      <div class="section-label">H</div>
+      <div class="passage-para">This is good news, not only for the photovoltaic industry but for everyone concerned with the environment. The use of fossil fuels to generate electricity is not only costly in financial terms, but also in terms of environmental damage. Gases produced by the burning of fossil fuels in the production of electricity are a major contributor to the greenhouse effect. To deal with this problem, many governments are now proposing stringent targets on the amount of greenhouse gas emissions permitted. These targets mean that all sources of greenhouse gas emissions including residential electricity use will receive closer attention in the future.</div>
+      <div class="section-label">I</div>
+      <div class="passage-para">It is likely that in the future, governments will develop building codes that attempt to constrain the energy demands of new housing. For example, the use of photovoltaics or the equivalent may be stipulated to lessen demands on the grid network and hence reduce fossil fuel emissions. Approvals for building renovations may also be conditional upon taking such energy-saving measures. If this were to happen, everyone would benefit. Although there is an initial cost in attaching the system to the rooftop, the householder's outlay is soon compensated with the savings on energy bills. In addition, everyone living on the planet stands to gain from the more benign environmental impact.</div>
+    </div>
+
+    <div class="passage-tab" id="ptab2" style="display:none">
+      <div class="passage-title">How should reading be taught?</div>
+      <div class="passage-para"><em>By Keith Rayner &amp; Barbara R. Foorman</em></div>
+      <div class="section-label">A</div>
+      <div class="passage-para">Learning to speak is automatic for almost all children, but learning to read requires elaborate instruction and conscious effort. Well aware of the difficulties, educators have given a great deal of thought to how they can best help children learn to read. No single method has triumphed. Indeed, heated arguments about the most appropriate form of reading instruction continue to polarize the teaching community.</div>
+      <div class="section-label">B</div>
+      <div class="passage-para">Three general approaches have been tried. In one, called whole-word instruction, children learn by rote how to recognise at a glance a vocabulary of 50 to 100 words. Then they gradually acquire other words, often through seeing them used over and over again in the context of a story. Speakers of most languages learn the relationship between letters and the sounds associated with them (phonemes). That is, children are taught how to use their knowledge of the alphabet to sound out words. This procedure constitutes a second approach to teaching reading – phonics. Many schools have adopted a different approach: the whole-language method. The strategy here relies on the child's experience with the language. For example, students are offered engaging books and are encouraged to guess the words that they do not know by considering the context of the sentence or by looking for clues in the storyline and illustrations, rather than trying to sound them out. Many teachers adopted the whole-language approach because of its intuitive appeal. Making reading fun promises to keep children motivated, and learning to read depends more on what the student does than on what the teacher does. The presumed benefits of whole-language instruction – and the contrast to the perceived dullness of phonics – led to its growing acceptance across America during the 1990s and a movement away from phonics.</div>
+      <div class="section-label">C</div>
+      <div class="passage-para">However, many linguists and psychologists objected strongly to the abandonment of phonics in American schools. Why was this so? In short, because research had clearly demonstrated that understanding how letters relate to the component sounds in words is critically important in reading. This conclusion rests, in part, on knowledge of how experienced readers make sense of words on a page. Advocates of whole-language instruction have argued forcefully that people often derive meanings directly from print without ever determining the sound of the word. Some psychologists today accept this view, but most believe that reading is typically a process of rapidly sounding out words mentally. Compelling evidence for this comes from experiments which show that subjects often confuse homophones (words that sound the same, such as 'rose' and 'rows'). This supports the idea that readers convert strings of letters to sounds.</div>
+      <div class="section-label">D</div>
+      <div class="passage-para">In order to evaluate different approaches to teaching reading, a number of experiments have been carried out, firstly with college students, then with school pupils. Investigators trained English-speaking college students to read using unfamiliar symbols such as Arabic letters (the phonics approach), while another group learned entire words associated with certain strings of Arabic letters (whole-word). Then both groups were required to read a new set of words constructed from the original characters. In general, readers who were taught the rules of phonics could read many more new words than those trained with a whole-word procedure. Classroom studies comparing phonics with either whole-word or whole-language instruction are also quite illuminating. One particularly persuasive study compared two programmes used in 20 first-grade classrooms. Half the students were offered traditional reading instruction, which included the use of phonics drills and applications. The other half were taught using an individualised method that drew from their experiences with languages; these children produced their own booklets of stories and developed sets of words to be recognised (common components of the whole-language approach). This study found that the first group scored higher at year's end on tests of reading and comprehension.</div>
+      <div class="section-label">E</div>
+      <div class="passage-para">If researchers are so convinced about the need for phonics instruction, why does the debate continue? Because the controversy is enmeshed in the philosophical differences between traditional and progressive (or new) approaches, differences that have divided educators for years. The progressives challenge the results of laboratory tests and classroom studies on the basis of a broad philosophical skepticism about the values of such research. They champion student-centred learning and teacher empowerment. Sadly, they fail to realise that these very admirable educational values are equally consistent with the teaching of phonics.</div>
+      <div class="section-label">F</div>
+      <div class="passage-para">If schools of education insisted that would-be reading teachers learned something about the vast research in linguistics and psychology that bears on reading, their graduates would be more eager to use phonics and would be prepared to do so effectively. They could allow their pupils to apply the principles of phonics while reading for pleasure. Using whole-language activities to supplement phonics instruction certainly helps to make reading fun and meaningful for children, so no one would want to see such tools discarded. Indeed, recent work has indicated that the combination of literature-based instruction and phonics is more powerful than either method used alone.</div>
+      <div class="passage-para">Teachers need to strike a balance. But in doing so, we urge them to remember that reading must be grounded in a firm understanding of the connections between letters and sounds. Educators who deny this reality are neglecting decades of research. They are also neglecting the needs of their students.</div>
+    </div>
+  </div><div id="divider"></div><div id="right-panel">
+<div class="qtab" id="qtab0">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 1–3: Choose the correct letter A, B, C or D.</div>
+      <div class="q-block">
+        <div class="q-label">Q1. In which region is the biggest range of bovids to be found?</div>
+        <label class="radio-opt"><input type="radio" name="q1" value="A" onchange="markRad(this)"> A &nbsp; Africa</label>
+        <label class="radio-opt"><input type="radio" name="q1" value="B" onchange="markRad(this)"> B &nbsp; Eurasia</label>
+        <label class="radio-opt"><input type="radio" name="q1" value="C" onchange="markRad(this)"> C &nbsp; North America</label>
+        <label class="radio-opt"><input type="radio" name="q1" value="D" onchange="markRad(this)"> D &nbsp; South-east Asia</label>
+        <div class="q-result" id="r1"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q2. Most bovids have a preference for living in</div>
+        <label class="radio-opt"><input type="radio" name="q2" value="A" onchange="markRad(this)"> A &nbsp; isolation</label>
+        <label class="radio-opt"><input type="radio" name="q2" value="B" onchange="markRad(this)"> B &nbsp; small groups</label>
+        <label class="radio-opt"><input type="radio" name="q2" value="C" onchange="markRad(this)"> C &nbsp; tropical forest</label>
+        <label class="radio-opt"><input type="radio" name="q2" value="D" onchange="markRad(this)"> D &nbsp; wide open spaces</label>
+        <div class="q-result" id="r2"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q3. Which of the following features do all bovids have in common?</div>
+        <label class="radio-opt"><input type="radio" name="q3" value="A" onchange="markRad(this)"> A &nbsp; Their horns are short</label>
+        <label class="radio-opt"><input type="radio" name="q3" value="B" onchange="markRad(this)"> B &nbsp; They have upper incisors</label>
+        <label class="radio-opt"><input type="radio" name="q3" value="C" onchange="markRad(this)"> C &nbsp; They store food in the body</label>
+        <label class="radio-opt"><input type="radio" name="q3" value="D" onchange="markRad(this)"> D &nbsp; Their hooves are undivided</label>
+        <div class="q-result" id="r3"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 4–8: Look at the following characteristics and the list of sub-families below. Match each characteristic with the correct sub-family, A, B, C or D. NB You may use any letter more than once.</div>
+      <div class="word-box"><span>A Antelope</span><span>B Bovinae</span><span>C Caprinae</span><span>D Cephalophinae</span></div>
+      <div class="q-block">
+        <div class="q-label">Q4. can endure very harsh environments</div>
+        <div class="tfng-row"><select id="q4" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
+        <div class="q-result" id="r4"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q5. includes the ox and the cow</div>
+        <div class="tfng-row"><select id="q5" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
+        <div class="q-result" id="r5"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q6. may supplement its diet with meat</div>
+        <div class="tfng-row"><select id="q6" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
+        <div class="q-result" id="r6"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q7. can usually move at speed</div>
+        <div class="tfng-row"><select id="q7" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
+        <div class="q-result" id="r7"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q8. does not defend a particular area of land</div>
+        <div class="tfng-row"><select id="q8" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option></select></div>
+        <div class="q-result" id="r8"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 9–13: Answer the questions below. Choose NO MORE THAN TWO WORDS from the passage for each answer.</div>
+      <div class="q-block">
+        <div class="passage-para">What is the smallest species of Bovid called? <b>9.</b> <input type="text" id="q9" oninput="markTxt(this)" placeholder="answer"><br>
+        Which species of Bovinae has now died out? <b>10.</b> <input type="text" id="q10" oninput="markTxt(this)" placeholder="answer"><br>
+        What facilitates the movement of the sitatunga over wetland? <b>11.</b> <input type="text" id="q11" oninput="markTxt(this)" placeholder="answer"><br>
+        What sort of terrain do barbary sheep live in? <b>12.</b> <input type="text" id="q12" oninput="markTxt(this)" placeholder="answer"><br>
+        What is the only living member of the Antilocapridae sub-family? <b>13.</b> <input type="text" id="q13" oninput="markTxt(this)" placeholder="answer"></div>
+        <div class="q-result" id="r9"></div><div class="q-result" id="r10"></div><div class="q-result" id="r11"></div><div class="q-result" id="r12"></div><div class="q-result" id="r13"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab1" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 14–19: The passage has nine paragraphs A–I. Which paragraph contains the following information? NB You may use any letter more than once.</div>
+      <div class="q-block">
+        <div class="q-label">Q14. examples of countries where electricity use is greater during the day than at night</div>
+        <div class="tfng-row"><select id="q14" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option></select></div>
+        <div class="q-result" id="r14"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q15. a detailed description of an experiment that led to photovoltaics being promoted throughout the country</div>
+        <div class="tfng-row"><select id="q15" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option></select></div>
+        <div class="q-result" id="r15"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q16. the negative effects of using conventional means of generating electricity</div>
+        <div class="tfng-row"><select id="q16" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option></select></div>
+        <div class="q-result" id="r16"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q17. an explanation of the photovoltaic system</div>
+        <div class="tfng-row"><select id="q17" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option></select></div>
+        <div class="q-result" id="r17"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q18. the long-term benefits of using photovoltaics</div>
+        <div class="tfng-row"><select id="q18" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option></select></div>
+        <div class="q-result" id="r18"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q19. a reference to wealthy countries being prepared to help less wealthy countries have access to photovoltaics</div>
+        <div class="tfng-row"><select id="q19" onchange="markSel(this)"><option value="">-- Select --</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option><option value="H">H</option><option value="I">I</option></select></div>
+        <div class="q-result" id="r19"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 20–26: Do the following statements agree with the information given? Write TRUE, FALSE, or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q20. Photovoltaics are used to store electricity.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q20" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q20" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q20" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r20"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q21. Since the 1970s, the US government has provided continuous support for the use of photovoltaics on homes.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q21" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q21" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q21" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r21"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q22. The solar-powered house on Rokko Island is uninhabited.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q22" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q22" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q22" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r22"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q23. In 1994, the Japanese government was providing half the money required for installing photovoltaics on homes.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q23" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q23" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q23" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r23"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q24. Germany, Italy, the Netherlands and Australia all have strict goals with regard to greenhouse gas emissions.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q24" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q24" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q24" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r24"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q25. Residential electricity use is the major source of greenhouse gas emission.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q25" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q25" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q25" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r25"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q26. Energy-saving measures must now be included in the design of all new homes and improvements to buildings.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q26" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q26" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q26" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r26"></div>
+      </div>
+    </div>
+
+    <div class="qtab" id="qtab2" style="display:none">
+      <div style="font-weight:700;color:#1a3a5c;margin-bottom:8px">Questions 27–31: Reading Passage 3 has six sections, A–F. Choose the correct heading for sections B–F from the list of headings below. (Example: Section A = ix, A debate amongst educators)</div>
+      <div class="word-box">
+        <span>i. Disagreement about the reading process</span><span>ii. The roots of the debate</span><span>iii. A combined approach</span>
+        <span>iv. Methods of teaching reading</span><span>v. A controversial approach</span><span>vi. Inconclusive research</span>
+        <span>vii. Research with learners</span><span>viii. Allowing teachers more control</span><span>ix. A debate amongst educators (Example)</span>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q27. Section B</div>
+        <div class="tfng-row"><select id="q27" onchange="markSel(this)"><option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option></select></div>
+        <div class="q-result" id="r27"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q28. Section C</div>
+        <div class="tfng-row"><select id="q28" onchange="markSel(this)"><option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option></select></div>
+        <div class="q-result" id="r28"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q29. Section D</div>
+        <div class="tfng-row"><select id="q29" onchange="markSel(this)"><option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option></select></div>
+        <div class="q-result" id="r29"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q30. Section E</div>
+        <div class="tfng-row"><select id="q30" onchange="markSel(this)"><option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option></select></div>
+        <div class="q-result" id="r30"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q31. Section F</div>
+        <div class="tfng-row"><select id="q31" onchange="markSel(this)"><option value="">-- Select --</option><option value="i">i</option><option value="ii">ii</option><option value="iii">iii</option><option value="iv">iv</option><option value="v">v</option><option value="vi">vi</option><option value="vii">vii</option><option value="viii">viii</option><option value="ix">ix</option></select></div>
+        <div class="q-result" id="r31"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 32–36: Do the following statements agree with the information given? Write TRUE, FALSE, or NOT GIVEN.</div>
+      <div class="q-block">
+        <div class="q-label">Q32. The whole-language approach relates letters to sounds.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q32" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q32" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q32" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r32"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q33. Many educators believe the whole-language approach to be the most interesting way to teach children to read.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q33" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q33" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q33" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r33"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q34. Research supports the theory that we read without linking words to sounds.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q34" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q34" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q34" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r34"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q35. Research has shown that the whole-word approach is less effective than the whole-language approach.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q35" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q35" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q35" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r35"></div>
+      </div>
+      <div class="q-block">
+        <div class="q-label">Q36. Research has shown that phonics is more successful than both the whole-word and whole-language approaches.</div>
+        <div class="tfng-row">
+          <label class="radio-opt"><input type="radio" name="q36" value="TRUE" onchange="markRad(this)"> TRUE</label><label class="radio-opt"><input type="radio" name="q36" value="FALSE" onchange="markRad(this)"> FALSE</label><label class="radio-opt"><input type="radio" name="q36" value="NOT GIVEN" onchange="markRad(this)"> NOT GIVEN</label>
+        </div>
+        <div class="q-result" id="r36"></div>
+      </div>
+      <div style="font-weight:700;color:#1a3a5c;margin:14px 0 6px">Questions 37–40: Complete the summary of sections E and F using the list of words, A–G, below.</div>
+      <div class="word-box">
+        <span>A the phonics method</span><span>B the whole-word method</span><span>C the whole-language method</span>
+        <span>D traditionalists</span><span>E progressives</span><span>F linguistics</span><span>G research studies</span>
+      </div>
+      <div class="q-block">
+        <div class="passage-para">In the teaching community, <b>37.</b> <select id="q37" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> question the usefulness of research into methods of teaching reading. These critics believe that <b>38.</b> <select id="q38" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> is incompatible with student-centred learning. In the future, teachers need to be aware of <b>39.</b> <select id="q39" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> so that they understand the importance of phonics. They should not, however, ignore the ideas of <b>40.</b> <select id="q40" onchange="markSel(this)"><option value="">--</option><option value="A">A</option><option value="B">B</option><option value="C">C</option><option value="D">D</option><option value="E">E</option><option value="F">F</option><option value="G">G</option></select> which make reading enjoyable for learners.</div>
+        <div class="q-result" id="r37"></div><div class="q-result" id="r38"></div><div class="q-result" id="r39"></div><div class="q-result" id="r40"></div>
+      </div>
+
+      <button id="submit-btn" onclick="submitExam()">Submit Answers</button>
+      <div id="score-box"></div>
+    </div>
+  </div></div>
+<script>
+
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
+
+
+var _examStarted=false;
+function tryFullscreen(){
+  _examStarted=false;
+  var el=document.documentElement;
+  var p=el.requestFullscreen?el.requestFullscreen():el.webkitRequestFullscreen?el.webkitRequestFullscreen():el.mozRequestFullScreen?el.mozRequestFullScreen():null;
+  if(p&&p.then){p.then(function(){setTimeout(function(){_examStarted=true;},800);}).catch(function(){setTimeout(function(){_examStarted=true;},800);});}
+  else{setTimeout(function(){_examStarted=true;},800);}
+}
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+  document.getElementById('studentPopup').style.display = 'none';
+  tryFullscreen();
+}
+
+// ANTI-CHEAT
+var warned=0;
+function doWarn(){
+  if(warned<3){warned++;alert('Warning '+warned+'/3: Do not leave the exam window!');}
+  else{document.body.innerHTML='<h2 style="color:red;text-align:center;margin-top:40vh">Exam terminated due to suspicious activity.</h2>';}
+}
+document.addEventListener('visibilitychange',function(){if(document.hidden&&_examStarted)doWarn();});
+window.addEventListener('blur',function(){if(_examStarted)doWarn();});
+document.addEventListener('contextmenu',function(e){e.preventDefault();});
+// ANTI-CHEAT (bo sung: chan copy/paste/cut/keo-tha va Ctrl+C/V)
+document.addEventListener('copy',function(e){e.preventDefault();});
+document.addEventListener('cut',function(e){e.preventDefault();});
+document.addEventListener('paste',function(e){e.preventDefault();});
+document.addEventListener('dragstart',function(e){e.preventDefault();});
+document.addEventListener('drop',function(e){e.preventDefault();});
+document.addEventListener('selectstart',function(e){
+  var t=(e.target&&e.target.tagName)||'';
+  if(t!=='INPUT'&&t!=='TEXTAREA'&&t!=='SELECT'){e.preventDefault();}
+});
+document.addEventListener('keydown',function(e){
+  if(e.ctrlKey&&['c','a','s','u','p','v'].indexOf(e.key.toLowerCase())>=0){e.preventDefault();}
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='F12'||(e.ctrlKey&&e.shiftKey&&(e.key==='I'||e.key==='J'))||(e.ctrlKey&&e.key==='u'))e.preventDefault();
+});
+
+
+
+// TIMER
+var endTime=Date.now()+60*60*1000,graceEnd=null;
+function fmtTime(ms){if(ms<0)ms=0;var s=Math.round(ms/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+var timerEl=document.getElementById('timer-box');
+var timerInterval=setInterval(function(){
+  var now=Date.now();
+  if(graceEnd){var left=graceEnd-now;timerEl.textContent='Grace: '+fmtTime(left);timerEl.classList.add('warn');if(left<=0){clearInterval(timerInterval);submitExam();}}
+  else{var left=endTime-now;timerEl.textContent=fmtTime(left);if(left<=300000)timerEl.classList.add('warn');if(left<=0){timerEl.textContent='Time Up!';graceEnd=Date.now()+5*60*1000;}}
+},500);
+
+// HIGHLIGHT
+var hlColor='';
+function setHL(c){hlColor=c;document.getElementById('hl-mode').textContent=c==='clear'?'Clear mode':c?'Highlight: '+c:'';}
+function doHL(panel){
+  panel.addEventListener('mouseup',function(){
+    if(!hlColor)return;
+    var sel=window.getSelection();if(!sel||sel.isCollapsed)return;
+    var range=sel.getRangeAt(0);
+    if(hlColor==='clear'){
+      var frag=range.extractContents(),wrap=document.createElement('span');wrap.appendChild(frag);
+      var h=wrap.innerHTML.replace(/<mark[^>]*>([\s\S]*?)<\/mark>/gi,'$1');
+      var tmp=document.createElement('span');tmp.innerHTML=h;range.insertNode(tmp);
+      while(tmp.firstChild)tmp.parentNode.insertBefore(tmp.firstChild,tmp);tmp.parentNode.removeChild(tmp);
+    } else {
+      var mark=document.createElement('mark');mark.className='highlight-'+hlColor;mark.appendChild(range.extractContents());range.insertNode(mark);
+    }
+    sel.removeAllRanges();
+  });
+}
+doHL(document.getElementById('left-panel'));
+doHL(document.getElementById('right-panel'));
+
+// TABS
+function showTab(i){
+  document.querySelectorAll('.tab-btn').forEach(function(b,j){b.classList.toggle('active',j===i);});
+  document.querySelectorAll('.passage-tab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+  document.querySelectorAll('.qtab').forEach(function(d,j){d.style.display=j===i?'block':'none';});
+}
+
+// MARKING
+function markRad(el){var nm=el.name;document.querySelectorAll('input[name="'+nm+'"]').forEach(function(r){r.closest('.radio-opt').classList.toggle('selected-answer',r.checked);});}
+function markSel(el){el.classList.toggle('selected-answer',el.value!=='');}
+function markTxt(el){el.classList.toggle('selected-answer',el.value.trim()!=='');}
+
+// HELPERS
+function getRadio(name){var r=document.querySelector('input[name="'+name+'"]:checked');return r?r.value:'';}
+function getVal(id){var el=document.getElementById(id);return el?el.value.trim():'';}
+function chkRad(name,ans){return getRadio(name).toUpperCase()===ans.toUpperCase()?1:0;}
+function chkSel(id,ans){var v=getVal(id).toUpperCase();var opts=String(ans).toUpperCase().split('/');return opts.indexOf(v)>=0?1:0;}
+function normalize(str) {
+  let s = String(str).toLowerCase().trim();
+  s = s.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  s = s.replace(/(\d),(?=\d)/g, '$1');
+  var noWeekday = s.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (noWeekday.length > 0) s = noWeekday;
+  s = s.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  s = s.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  s = s.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  s = s.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  s = s.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  s = s.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  s = s.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var monthDay = new RegExp('\\b(' + months + ')\\s+(\\d{1,2})\\b');
+  s = s.replace(monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  s = s.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return s;
+}
+
+function chkText(id,answers){
+  var v=normalize(getVal(id));
+  if(!Array.isArray(answers))answers=[answers];
+  return answers.some(function(a){return v===normalize(a);})?1:0;
+}
+
+// ANSWER KEY
+var ANS={
+  q1:'D',q2:'D',q3:'C',
+  q4:'C',q5:'B',q6:'D',q7:'A',q8:'B',
+  q9:['royal antelope'],q10:['the auroch','auroch'],q11:['hooves'],q12:['arid deserts'],q13:['the pronghorn','pronghorn'],
+  q14:'B',q15:'D',q16:'H',q17:'B',q18:'I',q19:'G',
+  q20:'FALSE',q21:'FALSE',q22:'TRUE',q23:'TRUE',q24:'NOT GIVEN',q25:'NOT GIVEN',q26:'FALSE',
+  q27:'iv',q28:'i',q29:'vii',q30:'ii',q31:'iii',
+  q32:'FALSE',q33:'NOT GIVEN',q34:'FALSE',q35:'NOT GIVEN',q36:'TRUE',
+  q37:'E',q38:'A',q39:'G',q40:'C' 
+};
+
+function submitExam(){
+  clearInterval(timerInterval);
+  var score=0;
+  for(var i=1;i<=3;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=4;i<=8;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=9;i<=13;i++){var ok=chkText('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i][0]+'</span>';}
+  for(var i=14;i<=19;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=20;i<=26;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=27;i<=31;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=32;i<=36;i++){var ok=chkRad('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  for(var i=37;i<=40;i++){var ok=chkSel('q'+i,ANS['q'+i]);score+=ok;document.getElementById('r'+i).innerHTML=ok?'<span class="correct-label">✓ Correct</span>':'<span class="wrong-label">✗ Correct: '+ANS['q'+i]+'</span>';}
+  var bands=[[39,40,9],[37,38,8.5],[35,36,8],[33,34,7.5],[30,32,7],[27,29,6.5],[23,26,6],[19,22,5.5],[15,18,5],[13,14,4.5],[10,12,4],[0,9,3.5]];
+  var band='3.5';for(var b=0;b<bands.length;b++){if(score>=bands[b][0]&&score<=bands[b][1]){band=bands[b][2];break;}}
+  var sb=document.getElementById('score-box');sb.style.display='block';
+  sb.innerHTML='<h2>Your Score: '+score+' / 40</h2><p style="font-size:16px;margin:8px 0">Estimated IELTS Band: <b style="font-size:1.3em;color:#1a3a5c">'+band+'</b></p>'
+    +'<table class="band-table"><tr><th>Score</th><th>Band</th></tr>'
+    +'<tr><td>39–40</td><td>9.0</td></tr><tr><td>37–38</td><td>8.5</td></tr><tr><td>35–36</td><td>8.0</td></tr>'
+    +'<tr><td>33–34</td><td>7.5</td></tr><tr><td>30–32</td><td>7.0</td></tr><tr><td>27–29</td><td>6.5</td></tr>'
+    +'<tr><td>23–26</td><td>6.0</td></tr><tr><td>19–22</td><td>5.5</td></tr><tr><td>15–18</td><td>5.0</td></tr>'
+    +'<tr><td>13–14</td><td>4.5</td></tr><tr><td>10–12</td><td>4.0</td></tr><tr><td>0–9</td><td>3.5</td></tr></table>';
+  sb.scrollIntoView({behavior:'smooth'});showTab(2);
+
+  // Build details từ ANS object (đúng thứ tự Q1-Q40)
+  var detailsParts=[];
+  for(var i=1;i<=3;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=4;i<=8;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=9;i<=13;i++){var v=getVal('q'+i);var ans=ANS['q'+i];var ok=ans.some(function(x){return v.toLowerCase()===x.toLowerCase();})?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=14;i<=19;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=20;i<=26;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=27;i<=31;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=32;i<=36;i++){var v=getRadio('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  for(var i=37;i<=40;i++){var v=getVal('q'+i);var ok=v.toUpperCase()===ANS['q'+i].toUpperCase()?'✔':'✘';detailsParts.push('Q'+i+':'+ok+'('+v+')');}
+  var details=detailsParts.join(' | ');
+  var elapsed=window._testStartTime?Math.floor((Date.now()-window._testStartTime)/1000):0;var timeTaken=Math.floor(elapsed/60)+'m '+(elapsed%60)+'s';
+  fetch('https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec',{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:'save_result',student:(window._studentName||'')+(window._studentClass?' — '+window._studentClass:''),test:'Reading Test 41',score:score,total:40,band:band,timeTaken:timeTaken,tabViol:0,focusViol:0,fsViol:0,details:details})}).catch(function(){});
+}
+
+// RESIZABLE
+(function(){
+  var div=document.getElementById('divider'),left=document.getElementById('left-panel'),dragging=false,startX,startW;
+  div.addEventListener('mousedown',function(e){dragging=true;startX=e.clientX;startW=left.offsetWidth;e.preventDefault();});
+  document.addEventListener('mousemove',function(e){if(!dragging)return;var w=startW+(e.clientX-startX);w=Math.max(200,Math.min(window.innerWidth-200,w));left.style.width=w+'px';});
+  document.addEventListener('mouseup',function(){dragging=false;});
+})();
+</script>
+</body>
+</html>
