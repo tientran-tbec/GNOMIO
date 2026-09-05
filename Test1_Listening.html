@@ -1,331 +1,1084 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Test 1 – IELTS Listening Practice</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IELTS Listening Test 1</title>
 <style>
-:root{
-  --bg:#eef1f7; --panel:#ffffff; --ink:#1b2540; --muted:#66708a; --line:#e3e7f0;
-  --navy:#122a52; --navy-2:#1c3f74; --brand:#1c3f74; --brand-ink:#ffffff;
-  --good:#128a4e; --bad:#d64545; --good-bg:#e9f9f1; --bad-bg:#fdecec;
-  --accent-bg:#eef2fb; --gold:#c9a24b; --radius:14px;
-  --shadow:0 1px 3px rgba(18,42,82,.06), 0 10px 24px -14px rgba(18,42,82,.18);
-}
-*{box-sizing:border-box;}
-body{margin:0;background:linear-gradient(180deg,#e7ebf5 0%,#eef1f7 320px);color:var(--ink);font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
-.wrap{max-width:940px;margin:0 auto;padding:28px 16px 80px;}
-header.top{padding:6px 4px 22px;text-align:center;}
-header.top .kicker{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.14em;color:var(--gold);background:var(--navy);padding:5px 14px;border-radius:999px;margin-bottom:14px;}
-header.top h1{font-size:26px;margin:0 0 8px;letter-spacing:.01em;color:var(--navy);font-weight:800;}
-header.top p{margin:0;color:var(--muted);font-size:13.5px;}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:22px 0;position:sticky;top:10px;z-index:5;}
-.tab-btn{border:1px solid var(--line);background:var(--panel);color:var(--navy);padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;cursor:pointer;transition:.15s;box-shadow:var(--shadow);}
-.tab-btn:hover{border-color:var(--navy-2);}
-.tab-btn.active{background:var(--navy);color:#fff;border-color:var(--navy);}
-.tab-btn .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--line);margin-right:7px;vertical-align:middle;}
-.tab-btn.done .dot{background:var(--gold);}
-.part{display:none;}
-.part.active{display:block;}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:0 0 22px;margin-bottom:20px;box-shadow:var(--shadow);overflow:hidden;}
-.part-bar{background:linear-gradient(90deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff;padding:15px 24px;font-weight:800;font-size:15.5px;letter-spacing:.02em;display:flex;align-items:center;justify-content:space-between;gap:10px;}
-.part-bar .title{font-weight:600;opacity:.92;font-size:13.5px;}
-.card-body{padding:20px 24px 0;}
-.card .instructions{color:var(--muted);font-size:13.5px;margin-bottom:14px;font-style:italic;}
-.audio-box{display:flex;align-items:center;gap:12px;background:var(--accent-bg);border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:4px 0 16px;}
-.audio-box .icon{font-size:18px;}
-.audio-box .label{font-size:12.5px;font-weight:700;color:var(--navy);white-space:nowrap;}
-audio{width:100%;height:36px;}
-.qgroup{margin:18px 0;}
-.qgroup .header-note{font-size:12.5px;color:var(--navy-2);font-weight:800;margin:16px 0 8px;text-transform:uppercase;letter-spacing:.04em;}
-.qgroup .prompt{font-weight:600;margin-bottom:8px;}
-.opt-list{display:flex;flex-direction:column;gap:6px;margin-bottom:2px;}
-.opt{display:flex;gap:9px;align-items:flex-start;padding:9px 12px;border-radius:9px;border:1px solid var(--line);cursor:pointer;}
-.opt:hover{background:var(--accent-bg);border-color:var(--navy-2);}
-.opt input{margin-top:3px;}
-.opt.correct{background:var(--good-bg);border-color:var(--good);}
-.opt.incorrect{background:var(--bad-bg);border-color:var(--bad);}
-.opt:has(input:disabled){opacity:.45;cursor:not-allowed;}
-.opt input:disabled{cursor:not-allowed;}
-.notes-block{white-space:pre-wrap;line-height:2.2;}
-.notes-block .subhead{display:block;font-weight:800;margin:16px 0 4px;color:var(--navy);font-size:14.5px;}
-.notes-block .bullet{display:block;margin-left:14px;}
-.blank{display:inline-block;border:none;border-bottom:2px solid var(--navy-2);background:var(--accent-bg);border-radius:5px 5px 0 0;padding:3px 8px;font:inherit;font-weight:700;min-width:120px;text-align:center;color:var(--ink);}
-.blank:focus{outline:none;background:#e4eaf9;}
-.blank.correct{border-color:var(--good);background:var(--good-bg);}
-.blank.incorrect{border-color:var(--bad);background:var(--bad-bg);}
-.blank-num{font-size:11px;color:var(--gold);font-weight:800;vertical-align:super;margin-right:2px;}
-.actions{display:flex;gap:10px;align-items:center;margin-top:20px;flex-wrap:wrap;}
-button.primary{background:var(--navy);color:#fff;border:none;padding:12px 24px;border-radius:9px;font-size:14.5px;font-weight:700;cursor:pointer;box-shadow:0 6px 14px -6px rgba(18,42,82,.5);}
-button.primary:hover{background:var(--navy-2);}
-button.ghost{background:#fff;border:1px solid var(--line);color:var(--navy);padding:11px 18px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;}
-button.ghost:hover{border-color:var(--navy-2);color:var(--navy-2);}
-.score-pill{font-weight:800;padding:9px 18px;border-radius:999px;background:var(--navy);color:#fff;font-size:14px;}
-.toggle-section{display:none;margin-top:16px;border-top:1px dashed var(--line);padding-top:16px;}
-.toggle-section.open{display:block;}
-.script-text{font-size:14.5px;background:#f7f8fc;border:1px solid var(--line);border-radius:10px;padding:6px 4px;max-height:520px;overflow-y:auto;}
-.script-text .gap{color:var(--muted);font-style:italic;}
-.script-text mark{background:#ffe392;padding:1px 3px;border-radius:3px;font-weight:700;box-shadow:0 0 0 1px #f0c85f;}
-.script-line{display:flex;gap:12px;align-items:baseline;padding:6px 14px;border-radius:7px;line-height:1.65;}
-.script-line:hover{background:#eef2fb;}
-.script-line:has(mark){background:#fffaf0;}
-.script-line .ts{flex:0 0 auto;font-variant-numeric:tabular-nums;font-size:11.5px;font-weight:700;color:#fff;background:var(--navy-2);border-radius:5px;padding:2px 7px;min-width:44px;text-align:center;}
-.script-line .txt{flex:1 1 auto;color:var(--ink);}
-.expl-item{border-top:1px solid var(--line);padding:14px 0;}
-.expl-item:first-child{border-top:none;}
-.expl-item .eq-head{display:flex;gap:10px;align-items:center;margin-bottom:6px;}
-.expl-item .qnum{background:var(--navy);color:#fff;font-weight:800;font-size:12px;border-radius:6px;padding:3px 9px;}
-.expl-item .ans{font-weight:800;color:var(--good);}
-.expl-item .quote{font-style:italic;color:var(--muted);font-size:13.5px;margin:4px 0 6px;white-space:pre-wrap;}
-.expl-item .explain{font-size:14px;white-space:pre-wrap;}
-.example-line{color:var(--muted);font-style:italic;}
-footer.credit{color:var(--muted);font-size:12px;text-align:center;margin-top:26px;}
-@media(max-width:520px){.wrap{padding:18px 10px 60px;}.card-body{padding:16px 16px 0;}.part-bar{padding:13px 16px;}}
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f4f6f9; color: #222; }
+
+  .container { max-width: 860px; margin: 30px auto; background: #fff; border-radius: 10px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); padding: 36px 40px 50px; }
+
+  h1 { text-align: center; font-size: 1.6em; letter-spacing: 2px; color: #1a3a5c; margin-bottom: 6px; }
+  .subtitle { text-align: center; color: #666; font-size: 0.95em; margin-bottom: 28px; }
+
+  /* Audio */
+  .audio-section { background: #eaf3fb; border: 1px solid #b3d4ef; border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; text-align: center; }
+  .audio-section p { font-weight: bold; color: #1a3a5c; margin-bottom: 10px; }
+  audio { width: 100%; }
+
+  /* Parts */
+  .part { margin-bottom: 36px; }
+  .part-title { background: #1a3a5c; color: #fff; padding: 8px 16px; border-radius: 6px; font-size: 1.05em; font-weight: bold; margin-bottom: 14px; }
+  .question-block { margin-bottom: 18px; }
+  .instruction { font-style: italic; color: #555; margin-bottom: 12px; font-size: 0.93em; }
+  .question-id { font-size: 0.75em; color: #999; margin-bottom: 2px; }
+
+  /* Notes layout */
+  .notes-box { border: 1px solid #ccc; border-radius: 8px; padding: 18px 22px; background: #fafafa; margin-bottom: 12px; }
+  .notes-box h3 { text-align: center; font-size: 1em; color: #1a3a5c; margin-bottom: 12px; border-bottom: 1px solid #ddd; padding-bottom: 6px; }
+  .note-row { display: flex; align-items: center; padding: 5px 0; border-bottom: 1px dotted #e0e0e0; flex-wrap: wrap; gap: 6px; }
+  .note-row:last-child { border-bottom: none; }
+  .note-label { min-width: 160px; font-weight: bold; color: #333; }
+  .note-value { color: #555; }
+  .note-static { color: #444; font-style: italic; }
+  .qid-tag { font-size: 0.72em; color: #aaa; margin-right: 4px; }
+
+  /* Input styling */
+  input[type="text"] {
+    border: none; border-bottom: 2px solid #1a3a5c; background: transparent;
+    font-size: 0.95em; padding: 2px 6px; width: 140px; color: #1a3a5c;
+    outline: none; transition: border-color 0.2s;
+  }
+  input[type="text"]:focus { border-bottom-color: #f39c12; }
+  input[type="text"].correct { border-bottom-color: #27ae60; background: #eafaf1; }
+  input[type="text"].wrong { border-bottom-color: #e74c3c; background: #fdf0ef; }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  th { background: #1a3a5c; color: #fff; padding: 8px 10px; text-align: center; font-size: 0.9em; }
+  td { border: 1px solid #ccc; padding: 8px 10px; text-align: center; font-size: 0.9em; }
+  td.left { text-align: left; }
+  tr:nth-child(even) td { background: #f7f7f7; }
+
+  /* MCQ */
+  .mcq-question { margin-bottom: 20px; }
+  .mcq-question p { font-weight: bold; margin-bottom: 8px; color: #1a3a5c; }
+  .mcq-options { display: flex; flex-direction: column; gap: 6px; margin-left: 16px; }
+  .mcq-options label { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; font-size: 0.95em; }
+  .mcq-options label.correct-label { color: #27ae60; font-weight: bold; }
+  .mcq-options label.wrong-label { color: #e74c3c; }
+
+  /* Matching */
+  .matching-intro { margin-bottom: 10px; font-size: 0.93em; color: #555; }
+  .matching-key { background: #eaf3fb; border-radius: 6px; padding: 10px 16px; margin-bottom: 12px; font-size: 0.9em; }
+  .matching-key p { margin-bottom: 3px; }
+  .matching-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
+  .matching-row span { font-weight: bold; min-width: 160px; }
+  select {
+    border: 1px solid #1a3a5c; border-radius: 4px; padding: 4px 8px;
+    font-size: 0.93em; color: #1a3a5c; background: #fff; cursor: pointer;
+  }
+  select.correct { border-color: #27ae60; background: #eafaf1; color: #27ae60; }
+  select.wrong { border-color: #e74c3c; background: #fdf0ef; color: #e74c3c; }
+
+  /* Submit */
+  .submit-section { text-align: center; margin-top: 36px; }
+  button#submitBtn {
+    background: #1a3a5c; color: #fff; border: none; padding: 13px 50px;
+    font-size: 1.05em; border-radius: 8px; cursor: pointer; letter-spacing: 1px;
+    transition: background 0.2s;
+  }
+  button#submitBtn:hover { background: #f39c12; }
+
+  /* Score */
+  #scoreBoard { display: none; margin-top: 28px; border: 2px solid #1a3a5c; border-radius: 10px; padding: 24px 30px; text-align: center; background: #eaf3fb; }
+  #scoreBoard h2 { color: #1a3a5c; font-size: 1.4em; margin-bottom: 8px; }
+  #scoreBoard p { font-size: 1.05em; color: #333; }
+  .score-num { font-size: 2em; font-weight: bold; color: #f39c12; }
+
+  /* Answer reveal */
+  .answer-reveal { font-size: 0.82em; color: #27ae60; margin-top: 3px; display: none; }
+  .answer-reveal.show { display: inline; }
+  .wrong-ans { color: #e74c3c; }
+
+  /* Timer */
+  #timerBox {
+    position: fixed; top: 18px; right: 22px; z-index: 999;
+    background: #1a3a5c; color: #fff;
+    padding: 10px 18px; border-radius: 10px;
+    font-size: 1.05em; font-weight: bold;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+    min-width: 120px; text-align: center;
+  }
+  #timerBox .timer-label { font-size: 0.72em; letter-spacing: 1px; opacity: 0.8; }
+  #timerBox .timer-time { font-size: 1.4em; letter-spacing: 2px; }
+  #timerBox.warning { background: #e67e22; animation: pulse 1s infinite; }
+  #timerBox.danger  { background: #e74c3c; animation: pulse 0.5s infinite; }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 rgba(231,76,60,0.6); }
+    70%  { box-shadow: 0 0 0 10px rgba(231,76,60,0); }
+    100% { box-shadow: 0 0 0 0 rgba(231,76,60,0); }
+  }
+
+  /* Chống gian lận */
+  body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  input[type="text"], select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+  }
+  @media print {
+    body { display: none !important; }
+  }
+
+  /* Tab warning banner */
+  #tabWarning {
+    display: none; position: fixed; top: 0; left: 0; right: 0; z-index: 99998;
+    background: #e74c3c; color: #fff; text-align: center;
+    padding: 10px; font-size: 0.95em; font-weight: bold;
+  }
+  #tabWarning.show { display: block; }
+  #fsWarning.show  { display: flex !important; }
+
+  /* Log panel */
+  #logPanel {
+    display: none; position: fixed; bottom: 18px; left: 18px; z-index: 9997;
+    background: rgba(26,58,92,0.92); color: #fff; border-radius: 8px;
+    padding: 10px 16px; font-size: 0.78em; max-width: 260px; line-height: 1.6;
+  }
+
+  /* Warning overlay */
+  #warningOverlay {
+    display: none; position: fixed; inset: 0; z-index: 9999;
+    background: rgba(0,0,0,0.55); justify-content: center; align-items: center;
+  }
+  #warningOverlay.show { display: flex; }
+  #warningBox {
+    background: #fff; border-radius: 14px; padding: 36px 40px; text-align: center;
+    max-width: 380px; box-shadow: 0 6px 30px rgba(0,0,0,0.3);
+  }
+  #warningBox h2 { color: #e74c3c; font-size: 1.4em; margin-bottom: 12px; }
+  #warningBox p  { color: #444; margin-bottom: 18px; font-size: 0.97em; line-height: 1.5; }
+  #warningBox .countdown-big { font-size: 2.4em; font-weight: bold; color: #e74c3c; margin-bottom: 16px; }
+  #warningBox button {
+    background: #1a3a5c; color: #fff; border: none;
+    padding: 10px 30px; border-radius: 8px; font-size: 1em; cursor: pointer;
+  }
+  #warningBox button:hover { background: #f39c12; }
+
+  @media (max-width: 600px) {
+    .container { padding: 20px 14px; }
+    .note-label { min-width: 120px; }
+    input[type="text"] { width: 110px; }
+    #timerBox { top: 10px; right: 10px; padding: 7px 12px; min-width: 95px; }
+    #timerBox .timer-time { font-size: 1.15em; }
+  }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top">
-    <span class="kicker">Flight to Success</span>
-    <h1>Test 1 — IELTS Listening</h1>
-    <p>4 parts · 40 questions · Listen to each part, answer, then check your results, script and explanations.</p>
-  </header>
-  <div class="tabs" id="tabs"></div>
-  <div id="parts"></div>
-  <footer class="credit">Flight to Success — Listening Practice</footer>
+<!-- TIMER -->
+<div id="timerBox">
+  <span class="timer-label">⏱ THỜI GIAN</span>
+  <span class="timer-time" id="timerDisplay">40:00</span>
 </div>
+
+<!-- WARNING OVERLAY -->
+<div id="warningOverlay">
+  <div id="warningBox">
+    <h2>⏰ Hết giờ làm bài!</h2>
+    <p>Bạn đã dùng hết <strong>40 phút</strong>.<br>Bài sẽ tự động nộp sau:</p>
+    <div class="countdown-big" id="extraCountdown">5:00</div>
+    <p style="font-size:0.88em; color:#888;">Hoặc bấm nộp bài ngay bây giờ.</p>
+    <button onclick="forceSubmit()">✅ Nộp bài ngay</button>
+  </div>
+</div>
+
+<!-- POPUP NHẬP TÊN -->
+<div id="studentPopup" style="display:flex;position:fixed;inset:0;z-index:999999;background:rgba(0,0,0,0.7);justify-content:center;align-items:center;">
+  <div style="background:#fff;border-radius:14px;padding:36px 40px;max-width:400px;width:90%;box-shadow:0 6px 30px rgba(0,0,0,0.3);text-align:center;">
+    <h2 style="color:#1a3a5c;margin-bottom:8px;font-family:Arial;">🎧 IELTS Listening Test 1</h2>
+    <p style="color:#666;margin-bottom:24px;font-size:0.95em;font-family:Arial;">Vui lòng điền thông tin trước khi bắt đầu làm bài.</p>
+    <div style="text-align:left;margin-bottom:14px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Họ và tên:</label>
+      <input type="text" id="studentName" placeholder="Nguyễn Văn A..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <div style="text-align:left;margin-bottom:24px;">
+      <label style="font-size:0.9em;font-weight:bold;color:#333;font-family:Arial;">Lớp:</label>
+      <input type="text" id="studentClass" placeholder="Ví dụ: 12A1..."
+        style="width:100%;margin-top:6px;padding:8px 12px;border:2px solid #1a3a5c;border-radius:6px;font-size:1em;box-sizing:border-box;user-select:text;-webkit-user-select:text;">
+    </div>
+    <button onclick="startExam()" style="background:#1a3a5c;color:#fff;border:none;padding:12px 40px;border-radius:8px;font-size:1.05em;cursor:pointer;font-family:Arial;width:100%;">
+      ✅ Bắt đầu làm bài
+    </button>
+    <p id="popupError" style="color:#e74c3c;font-size:0.85em;margin-top:10px;display:none;font-family:Arial;">⚠️ Vui lòng nhập đầy đủ họ tên và lớp!</p>
+  </div>
+</div>
+
+<!-- TAB WARNING BANNER -->
+<div id="tabWarning"></div>
+
+<!-- FULLSCREEN WARNING -->
+<div id="fsWarning" style="display:none;position:fixed;inset:0;z-index:99999;background:rgba(0,0,0,0.92);justify-content:center;align-items:center;flex-direction:column;gap:16px;">
+  <h2 style="color:#f39c12;font-family:Arial;">⚠️ Vui lòng quay lại chế độ toàn màn hình!</h2>
+  <p style="color:#fff;font-family:Arial;text-align:center;">Bài thi yêu cầu toàn màn hình.<br>Hành vi thoát fullscreen đã được ghi lại.</p>
+  <button onclick="enterFullscreen()" style="background:#1a3a5c;color:#fff;border:none;padding:10px 30px;border-radius:8px;font-size:1em;cursor:pointer;">🔲 Vào toàn màn hình</button>
+</div>
+
+<!-- LOG PANEL -->
+<div id="logPanel"></div>
+
+<div class="container">
+
+  <h1>IELTS LISTENING — TEST 1</h1>
+  <p class="subtitle">Điền vào chỗ trống hoặc chọn đáp án đúng. Bấm <strong>Submit</strong> để xem kết quả.</p>
+
+  <!-- AUDIO -->
+  <div class="audio-section">
+    <p>🎧 Audio — Listening Test 1</p>
+    <audio controls>
+      <source src="Audio test 1.mp3" type="audio/mpeg">
+      Trình duyệt của bạn không hỗ trợ audio.
+    </audio>
+  </div>
+
+  <!-- ==================== PART 1 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 1 &nbsp;|&nbsp; Questions 1–10</div>
+
+    <!-- Q1-6: Note Completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 1–6: Complete the notes below. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+
+      <div class="notes-box">
+        <h3>School Excursion</h3>
+
+        <div class="note-row">
+          <span class="note-label">Day:</span>
+          <span class="note-static">Wednesday</span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Destination:</span>
+          <span class="qid-tag">Q.01.TEST001</span>
+          <input type="text" id="q1" placeholder="answer..." data-answer="animal park">
+          <span class="answer-reveal" id="r1"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Weather:</span>
+          <span class="qid-tag">Q.02.TEST001</span>
+          <input type="text" id="q2" placeholder="answer..." data-answer="cold and cloudy">
+          <span class="answer-reveal" id="r2"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Arrival time:</span>
+          <span class="qid-tag">Q.03.TEST001</span>
+          <input type="text" id="q3" placeholder="answer..." data-answer="10.15 am">
+          <span class="answer-reveal" id="r3"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Activities planned — See:</span>
+          <span class="qid-tag">Q.04.TEST001</span>
+          <input type="text" id="q4" placeholder="answer..." data-answer="birds of prey">
+          <span class="answer-reveal" id="r4"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Eat:</span>
+          <span class="note-static">Catered lunch</span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Attend:</span>
+          <span class="qid-tag">Q.05.TEST001</span>
+          <input type="text" id="q5" placeholder="answer..." data-answer="reptile display">
+          <span class="answer-reveal" id="r5"></span>
+        </div>
+        <div class="note-row">
+          <span class="note-label">Return time:</span>
+          <span class="qid-tag">Q.06.TEST001</span>
+          <input type="text" id="q6" placeholder="answer..." data-answer="6.30 pm">
+          <span class="answer-reveal" id="r6"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Q7-10: Table Completion -->
+    <div class="question-block">
+      <p class="instruction">Questions 7–10: Complete the table below. Write ONE WORD only for each answer.</p>
+      <div class="notes-box">
+        <table>
+          <thead>
+            <tr><th>Nationality</th><th>%</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="left"><span class="qid-tag">Q.07.TEST001</span><input type="text" id="q7" placeholder="answer..." data-answer="chinese"></td>
+              <td>26</td>
+            </tr>
+            <tr>
+              <td class="left"><span class="qid-tag">Q.08.TEST001</span><input type="text" id="q8" placeholder="answer..." data-answer="japanese"></td>
+              <td>25</td>
+            </tr>
+            <tr>
+              <td class="left"><span class="qid-tag">Q.09.TEST001</span><input type="text" id="q9" placeholder="answer..." data-answer="koreans"></td>
+              <td>16</td>
+            </tr>
+            <tr><td class="left">Indonesia</td><td>15</td></tr>
+            <tr>
+              <td class="left"><span class="qid-tag">Q.10.TEST001</span><input type="text" id="q10" placeholder="answer..." data-answer="thai"></td>
+              <td>8</td>
+            </tr>
+            <tr><td class="left">Saudi</td><td>7</td></tr>
+            <tr><td class="left">Other</td><td>3</td></tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px;">
+          <span class="answer-reveal" id="r7"></span>
+          <span class="answer-reveal" id="r8"></span>
+          <span class="answer-reveal" id="r9"></span>
+          <span class="answer-reveal" id="r10"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 2 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 2 &nbsp;|&nbsp; Questions 11–20</div>
+    <div class="question-block">
+      <p class="instruction">Questions 11–20: Complete the timetable below. Write NO MORE THAN THREE WORDS AND/OR A NUMBER for each answer.</p>
+      <div class="notes-box">
+        <h3>Park Arts Center</h3>
+        <table>
+          <thead>
+            <tr><th>Dates</th><th>Times</th><th>Event</th><th>Notes</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>18 – 24 Feb</td>
+              <td>
+                <span class="qid-tag">Q.11.TEST001</span>
+                <input type="text" id="q11" placeholder="time..." data-answer="2.30/7.30 pm" style="width:110px">
+              </td>
+              <td>Folk music concert</td>
+              <td>Can get a <span class="qid-tag">Q.12.TEST001</span><input type="text" id="q12" placeholder="..." data-answer="cd" style="width:60px"> in shop</td>
+            </tr>
+            <tr>
+              <td>1 – 8 Feb</td>
+              <td>See the <span class="qid-tag">Q.13.TEST001</span><input type="text" id="q13" placeholder="..." data-answer="separate programme" style="width:110px"></td>
+              <td>Annual <span class="qid-tag">Q.14.TEST001</span><input type="text" id="q14" placeholder="..." data-answer="dance festival" style="width:100px"></td>
+              <td>Groups from <span class="qid-tag">Q.15.TEST001</span><input type="text" id="q15" placeholder="..." data-answer="4 continents" style="width:90px"></td>
+            </tr>
+            <tr>
+              <td><span class="qid-tag">Q.16.TEST001</span><input type="text" id="q16" placeholder="date..." data-answer="14-20 march" style="width:100px"></td>
+              <td>8 pm</td>
+              <td>Film: <span class="qid-tag">Q.17.TEST001</span><input type="text" id="q17" placeholder="..." data-answer="love and hope" style="width:100px"></td>
+              <td>Talk by the <span class="qid-tag">Q.18.TEST001</span><input type="text" id="q18" placeholder="..." data-answer="producer" style="width:80px"></td>
+            </tr>
+            <tr>
+              <td>2 April</td>
+              <td>To be confirmed</td>
+              <td><span class="qid-tag">Q.19.TEST001</span><input type="text" id="q19" placeholder="..." data-answer="singing competition" style="width:120px"></td>
+              <td>It will be <span class="qid-tag">Q.20.TEST001</span><input type="text" id="q20" placeholder="..." data-answer="shown on tv" style="width:90px"></td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+          <span class="answer-reveal" id="r11"></span><span class="answer-reveal" id="r12"></span>
+          <span class="answer-reveal" id="r13"></span><span class="answer-reveal" id="r14"></span>
+          <span class="answer-reveal" id="r15"></span><span class="answer-reveal" id="r16"></span>
+          <span class="answer-reveal" id="r17"></span><span class="answer-reveal" id="r18"></span>
+          <span class="answer-reveal" id="r19"></span><span class="answer-reveal" id="r20"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 3 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 3 &nbsp;|&nbsp; Questions 21–30</div>
+
+    <!-- Q21-26: MCQ -->
+    <div class="question-block">
+      <p class="instruction">Questions 21–26: Choose the correct letter A, B or C.</p>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.21.TEST001</span> 21. What kind of research method does the professor recommend?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q21" value="A"> A &nbsp; interview</label>
+          <label><input type="radio" name="q21" value="B"> B &nbsp; observation</label>
+          <label><input type="radio" name="q21" value="C"> C &nbsp; questionnaire</label>
+        </div>
+        <span class="answer-reveal" id="r21"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.22.TEST001</span> 22. What is the project based on?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q22" value="A"> A &nbsp; a study they did before in Australia</label>
+          <label><input type="radio" name="q22" value="B"> B &nbsp; a similar angle someone has done before</label>
+          <label><input type="radio" name="q22" value="C"> C &nbsp; an Australian study</label>
+        </div>
+        <span class="answer-reveal" id="r22"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.23.TEST001</span> 23. What does the professor advise Douglas to do about the formation of the focus groups?</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q23" value="A"> A &nbsp; strengthen the group in size</label>
+          <label><input type="radio" name="q23" value="B"> B &nbsp; reduce the number of children in each group</label>
+          <label><input type="radio" name="q23" value="C"> C &nbsp; build more than 3 groups</label>
+        </div>
+        <span class="answer-reveal" id="r23"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.24.TEST001</span> 24. To do the project best, the professor suggests the students</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q24" value="A"> A &nbsp; interview various people or sectors.</label>
+          <label><input type="radio" name="q24" value="B"> B &nbsp; not be too ambitious.</label>
+          <label><input type="radio" name="q24" value="C"> C &nbsp; work hard enough.</label>
+        </div>
+        <span class="answer-reveal" id="r24"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.25.TEST001</span> 25. To gather data, the professor asks Jane</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q25" value="A"> A &nbsp; to replace other people's advice.</label>
+          <label><input type="radio" name="q25" value="B"> B &nbsp; to simplify the textbook.</label>
+          <label><input type="radio" name="q25" value="C"> C &nbsp; to practice using the date table.</label>
+        </div>
+        <span class="answer-reveal" id="r25"></span>
+      </div>
+
+      <div class="mcq-question">
+        <p><span class="qid-tag">Q.26.TEST001</span> 26. The reason why Douglas hasn't read enough reference books is that</p>
+        <div class="mcq-options">
+          <label><input type="radio" name="q26" value="A"> A &nbsp; he doesn't have enough time.</label>
+          <label><input type="radio" name="q26" value="B"> B &nbsp; he thinks there are too many books to read.</label>
+          <label><input type="radio" name="q26" value="C"> C &nbsp; he hasn't spent time in the library.</label>
+        </div>
+        <span class="answer-reveal" id="r26"></span>
+      </div>
+    </div>
+
+    <!-- Q27-30: Matching -->
+    <div class="question-block">
+      <p class="instruction">Questions 27–30: What do the students decide about the following parts of the project? Write the correct letter A, B or C next to questions 27–30.</p>
+      <div class="matching-key">
+        <p><strong>A</strong> — Jane will do</p>
+        <p><strong>B</strong> — Douglas will do</p>
+        <p><strong>C</strong> — They will do together</p>
+      </div>
+
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.27.TEST001</span> 27. final report</span>
+        <select id="q27" data-answer="C">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r27"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.28.TEST001</span> 28. sheet preparation</span>
+        <select id="q28" data-answer="B">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r28"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.29.TEST001</span> 29. letter</span>
+        <select id="q29" data-answer="A">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r29"></span>
+      </div>
+      <div class="matching-row">
+        <span><span class="qid-tag">Q.30.TEST001</span> 30. transcript</span>
+        <select id="q30" data-answer="C">
+          <option value="">-- select --</option>
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+        </select>
+        <span class="answer-reveal" id="r30"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== PART 4 ==================== -->
+  <div class="part">
+    <div class="part-title">PART 4 &nbsp;|&nbsp; Questions 31–40</div>
+    <div class="question-block">
+      <p class="instruction">Questions 31–40: Complete the notes below. Write ONE WORD ONLY for each answer.</p>
+
+      <div class="notes-box">
+        <h3>History of Ancient Aztecs</h3>
+
+        <p style="font-weight:bold; margin-bottom:8px; color:#1a3a5c;">History of Aztec Origins:</p>
+        <div class="note-row">
+          <span class="note-value">The great Aztec civilization was discovered by Heman Cortez.</span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">The Aztec group was originated in the Northwestern
+            <span class="qid-tag">Q.31.TEST001</span>
+            <input type="text" id="q31" placeholder="..." data-answer="plains">
+            <span class="answer-reveal" id="r31"></span>
+            of Mexico, then moved to the South.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">They created various advances in science, specialized in the fields of
+            <span class="qid-tag">Q.32.TEST001</span>
+            <input type="text" id="q32" placeholder="..." data-answer="astronomy">
+            <span class="answer-reveal" id="r32"></span>
+            and pharmacy.
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Farming Practices:</p>
+        <div class="note-row">
+          <span class="note-value">Increasing productivity by irrigation, fertilizer, and
+            <span class="qid-tag">Q.33.TEST001</span>
+            <input type="text" id="q33" placeholder="..." data-answer="terraces">
+            <span class="answer-reveal" id="r33"></span>
+            built on mount to protect landslide.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">Gardens float on swamps made by digging
+            <span class="qid-tag">Q.34.TEST001</span>
+            <input type="text" id="q34" placeholder="..." data-answer="canals">
+            <span class="answer-reveal" id="r34"></span>
+            between marshes and swamps.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">The chinapas were kept firmly in place to plant main crops like
+            <span class="qid-tag">Q.35.TEST001</span>
+            <input type="text" id="q35" placeholder="..." data-answer="corns">
+            <span class="answer-reveal" id="r35"></span>
+            and vegetables.
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Field of Sciences:</p>
+        <div class="note-row">
+          <span class="note-value">Aztec's Calendar Stone was manufactured from 1427 to
+            <span class="qid-tag">Q.36.TEST001</span>
+            <input type="text" id="q36" placeholder="..." data-answer="1479">
+            <span class="answer-reveal" id="r36"></span>.
+            Dimension: 3-feet thickness, 12-feet
+            <span class="qid-tag">Q.37.TEST001</span>
+            <input type="text" id="q37" placeholder="..." data-answer="diameter">
+            <span class="answer-reveal" id="r37"></span>,
+            24-ton weight.
+          </span>
+        </div>
+        <div class="note-row">
+          <span class="note-value">The "Nemontemi" called
+            <span class="qid-tag">Q.38.TEST001</span>
+            <input type="text" id="q38" placeholder="..." data-answer="sacrificial">
+            <span class="answer-reveal" id="r38"></span>
+            days, added to the calendar.
+          </span>
+        </div>
+
+        <p style="font-weight:bold; margin:12px 0 8px; color:#1a3a5c;">Field of Medicine:</p>
+        <div class="note-row">
+          <span class="note-value">The Aztec believed ailments were derived from God and the wrong signs of
+            <span class="qid-tag">Q.39.TEST001</span>
+            <input type="text" id="q39" placeholder="..." data-answer="birth">
+            <span class="answer-reveal" id="r39"></span>.
+            Illness was treated by praying and killing
+            <span class="qid-tag">Q.40.TEST001</span>
+            <input type="text" id="q40" placeholder="..." data-answer="animals">
+            <span class="answer-reveal" id="r40"></span>.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUBMIT -->
+  <div class="submit-section">
+    <button id="submitBtn" onclick="submitTest()">✅ NỘP BÀI</button>
+  </div>
+
+  <!-- SCORE BOARD -->
+  <div id="scoreBoard">
+    <h2>🎯 KẾT QUẢ</h2>
+    <p class="score-num" id="scoreNum"></p>
+    <p id="scoreMsg"></p>
+  </div>
+
+</div>
+
 <script>
-const TEST_DATA = {"test": "Test 1", "parts": [{"part": 1, "audio": "Test1_Listening_audio/part1.m4a", "title": "Flanders Conference Hotel", "instructions": "Complete the notes below. Write ONE WORD AND/OR A NUMBER for each answer.", "kind": "notes", "notes": ["Example", "Customer Services Manager: ........................................................................................", "Date available", "weekend beginning February 4th", "Conference facilities", "the {{1}} room for talks", "(projector and {{2}} available)", "area for coffee and an {{3}}", "free {{4}} throughout", "a standard buffet lunch costs {{5}} per head", "Accommodation", "Rooms will cost {{6}} including breakfast.", "Other facilities", "The hotel also has a spa and rooftop {{7}} .", "There's a free shuttle service to the {{8}} .", "Location", "Wilby Street (quite near the {{9}} )", "near to restaurants and many {{10}}"], "answers": {"1": "Tesla", "2": "microphone", "3": "exhibition", "4": "wifi", "5": "45", "6": "135", "7": "pool", "8": "airport", "9": "sea", "10": "clubs"}, "explanations": {"1": {"answer_label": "Câu 1", "quote": "Man: OK. Now can you tell me a bit about what conference facilities you have?\n\nAngela: Sure. So for talks and presentations we have the Tesla room.\n\nMan: Sorry?\n\nAngela: Tesla -that's spelled T-E- S-L-A.", "explain": "Câu hỏi:\nConference facilities\n• the 1 room for talks\nKeywords được paraphrase:\nCâu hỏi nằm trong phần “conference facilities” (cơ sở vật chất cho hội nghị). Đáp án cần điền là một danh từ chỉ về “room for talks” (phòng để đàm thoại).\nGiải thích đáp án:\nGiọng nam đưa ra câu hỏi “what conference facilities you have?” (bạn có cơ sở vật chất nào cho hội nghị?). Giọng nữ trả lời ngay sau đó “for talks and presentations we have the Tesla room” (để đàm thoại và trình bày, chúng tôi có phòng Tesla). Vì đây là một tên riêng của căn phòng, sau đó người nữ đã đánh vần từ Tesla."}, "2": {"answer_label": "Câu 2", "quote": "ANGELA: Tesla (Q1) - that's spelled T-E-S-L-A. It holds up to a hundred people, and it's fully equipped with a projector and so on.\n\nMAN: How about a microphone? (Q2)\n\nANGELA: Yes, that'll be all set up ready for you, and there'll be one that members of the audience can use too, for questions, if necessary.", "explain": "Câu hỏi:\nConference facilities\n• the 1 room for talks\n(projector and 2 available)\nKeywords được paraphrase:\nCâu hỏi vẫn nằm trong phần “conference facilities” (cơ sở vật chất cho hội nghị). Đáp án cần điền là một danh từ chỉ đồ vật, bởi trước đó ta có danh từ “projector and...” (máy chiếu và...).\nGiải thích đáp án:\nSau khi đánh vần tên căn phòng Telsa, người phụ nữ giới thiệu “it's fully equipped with a projector” (nó được trang bị đầy đủ với máy chiếu). Người đàn ông hỏi tiếp “How about a microphone?” (Còn mi-cro thì sao?). Cuối cùng, giọng nữ xác nhận “Yes, that'll be all set up ready for you.” (vâng, nó cũng sẽ được lắp sẵn cho bạn). Vì vậy, đáp án cần điền ở đây là “microphone”."}, "3": {"answer_label": "Câu 3", "quote": "Fine. And we'll also need some sort of open area where people can sit and have a cup of coffee, and we'd like to have an exhibition of our products and services there as well, so that'll need to be quite a big space.", "explain": "Câu hỏi:\n• area for coffee and an 3 \nKeywords được paraphrase:\nCâu hỏi vẫn nằm trong phần “conference facilities” (cơ sở vật chất cho hội nghị). Dịch phần câu hỏi “area for coffee and an...” (khu vực có cà phê và một...) Vì vậy, đáp án ở đây sẽ là một danh từ đếm được số ít.\nGiải thích đáp án:\nNgười đàn ông đưa ra vế đầu tiên của câu hỏi “we'll also need some sort of open area where people can sit and have a cup of coffee” (chúng tôi cũng cần một khu vực mở nơi mọi người có thể ngồi và uống cà phê). Sau đó, ông đưa ra yêu cầu tiếp theo\nwe'd like to have an exhibition of our products” (chúng tôi muốn có một buổi triển lãm những sản phẩm). Do đó, đáp án cần điền ở đây là “exhibition”."}, "4": {"answer_label": "Câu 4", "quote": "“MAN: Great. And I presume there’s wifi?\n\nANGELA: Oh yes, that’s free and available throughout the\nhotel\n\nMAN: OK.", "explain": "Câu hỏi:\n•free 4 throughout\nKeywords được paraphrase:\nChỗ trống cần điền là một danh từ bởi\ntrước đó là tính từ “free” (miễn phí) và sau\nđó là trạng từ “throughout” (xuyên suốt).\nGiải thích đáp án:\nNgười đàn ông, đưa ra câu hỏi “I presume there’s wifi?” (tôi đoán là có wifi chứ?). Người phụ nữ xác nhận lại “Oh yes, that’s free and available throughout the hotel.” (Vâng, nó miễn phí và phủ sóng toàn khách sạn). Vì vậy, đáp án ở đây là “wifi”."}, "5": {"answer_label": "Câu 5", "quote": "ANGELA: Would you also like us to provide a buffet lunch? We can do a two-course meal with a number of different options.\nMAN: What sort of price are we looking at for that?\nANGELA: Well, I can send you the copy of the standard menu. That’s $45 (Q5) per person. Or you can have the special for $25 more.\nMAN: I think the standard should be OK, but yes, send me the\nmenu.", "explain": "Câu hỏi:\n• a standard buffet lunch costs 5 $ per head\nKeywords được paraphrase:\nCâu hỏi hỏi về giá tiền của “a standard buffet lunch” (tiệc đứng buổi trưa tiêu chuẩn).\nGiải thích đáp án:\nNgười phụ nữ đưa ra câu hỏi “Would you also like us to provide a buffet lunch?” (Bạn có muốn chúng tôi cung cấp tiệc đứng buổi trưa?). Người đàn ông tiếp tục\nhỏi về thông tin bữa tiệc đứng “What sort of price are we looking at for that?” (có những loại giá nào?). Người phụ nữ giới thiệu “the standard menu. That's $45 per person.” (menu tiêu chuẩn. Nó có giá 45 đô mỗi người). Vì vậy, ta cần điền 45 ở đây."}, "6": {"answer_label": "Câu 6", "quote": "MAN: Now we're also going to need accommodation on the Saturday night for some of the participants ... I'm not sure how many, but probably about 25. So what do you charge for a room?\n\nANGELA: Well, for conference attendees we have a 25% reduction, so we can offer you rooms at $135. Normally a standard room's $180. (Q6)", "explain": "Câu hỏi:\nAccommodation\n• Rooms will cost 6$ including\nbreakfast.\nKeywords được paraphrase:\nCâu hỏi nằm trong phần “accommodation” (phòng ở). Giá tiền cần điền dành cho “rooms ... including breakfast” (phòng bao gồm bữa sáng).\nGiải thích đáp án:\nĐầu tiên, người đàn ông đưa ra câu hỏi về phòng ở “What do you charge for a room?” (Bạn tính tiền một phòng bao nhiêu?). Sau đó, người phụ nữ đưa ra khá nhiều con số, ta cần lưu ý nghe kỹ. “We have a 25% reduction, so we can offer you rooms at $135.” (chúng tôi có giảm giá 25%, vì vậy giá phòng của bạn là 135 đô). Do đó, ở đây ta điền số 135."}, "7": {"answer_label": "Câu 7", "quote": "ANGELA: Sure. And of course, guests can also make use of all the other facilities at the hotel. So we've got a spa where you can get massages and facials and so on, and there's a pool up on the roof for the use of guests. (Q7)", "explain": "Câu hỏi:\nOther facilities\n• The hotel also has a spa and rooftop\n7………………………..\n• There's a free shuttle service to the\n8 ……………………….\nKeywords được paraphrase:\nCâu hỏi nằm trong phần “other facilities” (cơ sở vật chất khác). Phần đáp án cần điền là một danh từ chỉ địa điểm bởi trước đó ta có cụm từ “a spa and rooftop ...” (một spa và nơi ... nằm trên mái nhà).\nGiải thích đáp án:\nNgười phụ nữ dẫn vào câu hỏi bằng câu nói “guests can also make use of all the other facilities at the hotel.” (khách có thể dùng các cơ sở vật chất khác ở khách sạn). Sau đó, người phụ nữ giới thiệu các cơ sở vật chất “we've got a spa...and there's a pool up on the roof” (chúng tôi có một spa..và một cái hồ bơi ở trên mái nhà). Vì vậy, đáp án ở đây là “pool”."}, "8": {"answer_label": "Câu 8", "quote": "MAN: Great. Now what about transport links? The hotel's downtown, isn't it?\nANGELA: Yes, it's about 12 kilometres from the airport (Q8), but there's a complimentary shuttle bus for guests. And it's only about ten minutes' walk from the central railway station.", "explain": "Câu hỏi:\nOther facilities\n• The hotel also has a spa and rooftop\n7 …………………………………………………\n• There's a free shuttle service to the\n8 ………………………………………………… \nKeywords được paraphrase:\nCâu hỏi vẫn nằm trong phần “other facilities” (cơ sở vật chất khác). Phần đáp án cần điền là một danh từ chỉ địa điểm vì trước đó ta có cụm từ “there's a free shuttle service to the...” (có một dịch vụ tàu miễn phí đến.).\nGiải thích đáp án:\nNgười đàn ông chuyển sang vấn đề giao thông bằng câu hỏi “what about transport links?” (còn về mạng lưới giao thông như thế nào?). Người phụ nữ đưa ra câu trả lời “it's about 12 kilometers from the airport. But there's a complimentary shuttle bus for guests.” (khoảng 12 cây số từ sân bay, nhưng có một xe buýt tăng cường cho khách). Ở đây, chữ “complimentary” được thay cho chữ “free”, vì vậy đáp án cần điền là “airport”."}, "9": {"answer_label": "Câu 9", "quote": "ANGELA:Well, it's downtown on Wilby Street, that's quite a small street, and it's not very far from the sea (Q9). And of course if the conference attendees want to go out on the Saturday evening there's a huge choice of places to eat. Then if they want to make a night of it, they can go on to one of the clubs (Q10) in the area - there are a great many to choose from.", "explain": "Câu hỏi:\nLocation\n• Wilby Street (quite near the 9 )\n• near to restaurants and many\n10 \nKeywords được paraphrase:\nCâu hỏi nằm trong phần “location” (địa điểm). Tên riêng Wilby Street được đưa ra trong câu hỏi, sau đó ta cần điền một danh từ chỉ địa điểm bởi trước đó có cụm từ “quite near the...” (khá gần...).\nGiải thích đáp án:\nNgười phụ nữ nhắc đến tên riêng Wilby Street để báo hiệu câu trả lời nằm ngay sau đó. Ta nghe câu “it's not very far from the sea” (nó không quá xa từ biển) tức là nó gần biển. Vì vậy, đáp án cần điền là “sea”."}, "10": {"answer_label": "Câu 10", "quote": "ANGELA:Well, it's downtown on Wilby Street, that's quite a small street, and it's not very far from the sea (Q9). And of course if the conference attendees want to go out on the Saturday evening there's a huge choice of places to eat. Then if they want to make a night of it, they can go on to one of the clubs (Q10) in the area - there are a great many to choose from.", "explain": "Câu hỏi:\nLocation\n• Wilby Street (quite near the 9 )\n• near to restaurants and many\n10 \nKeywords được paraphrase:\nCâu hỏi vẫn nằm trong phần “location” (địa điểm). Ở đây, ta cần điền một danh từ chỉ nơi chốn ở dạng số nhiều vì trước đó có cụm từ “near to restaurants and many...” (gần các nhà hàng và nhiều...).\nGiải thích đáp án:\nNgười phụ nữ đưa ra câu đồng nghĩa với “restaurants” trong câu hỏi là “there's a huge choice of places to eat” (có nhiều sự lựa chọn địa điểm để ăn). Sau đó, người nói tiếp tục đưa ra ý tiếp theo “if they want to make a night of it, they can go to one of the clubs” (nếu họ muốn đi chơi đêm, họ có thể đến một trong những câu lạc bộ). Ở đây, chỉ có danh từ “clubs” phù hợp về nghĩa và loại từ để điền vào đáp án."}}, "script_html": "<div class=\"script-line\"><span class=\"ts\">00:01</span><span class=\"txt\">IELTS 14 tests 1 to 4 published by Cambridge University Press and</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:10</span><span class=\"txt\">UCLSS 2019 this recording is copyright test 3 you will hear a number of</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:21</span><span class=\"txt\">different recordings and you will have to answer questions on what you</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:26</span><span class=\"txt\">hear there will be time for you to read the instructions and questions and you</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:32</span><span class=\"txt\">will have a chance to check your work all the recordings will be played once</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:39</span><span class=\"txt\">only the test is in four sections at the end of the test you will be given</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:48</span><span class=\"txt\">ten minutes to transfer your answers to an answer sheet now turn to section</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:56</span><span class=\"txt\">one section one you will hear a man phoning the customer services manager of</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:09</span><span class=\"txt\">a hotel to get information about holding a</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:12</span><span class=\"txt\">conference there first you have some time to look at</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:17</span><span class=\"txt\">questions one to five you will see that there is an example that has been</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:47</span><span class=\"txt\">done for you on this occasion only the conversation relating to this will be</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:54</span><span class=\"txt\">played first hello Flanders Conference Hotel oh hi I wanted to ask about</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:04</span><span class=\"txt\">conference facilities at the hotel have I come through to the right person</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:08</span><span class=\"txt\">mm-hmm you have under customer services manager my name is Angela the</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:17</span><span class=\"txt\">name of the customer services manager is Angela so Angela has been written in</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:23</span><span class=\"txt\">the space now we shall begin you should answer the questions as you</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:31</span><span class=\"txt\">listen because you will not hear the recording a second time</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:36</span><span class=\"txt\">listen carefully and answer questions one to five</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:44</span><span class=\"txt\">hello Flanders Conference Hotel oh hi I wanted to ask about conference</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:50</span><span class=\"txt\">facilities at the hotel have I come through to the right person mm-hmm you</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:55</span><span class=\"txt\">have under customer services manager my name is Angela so how can I help you</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:01</span><span class=\"txt\">well I'm calling from Barrett and Stanson's we're a medical company</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:05</span><span class=\"txt\">based in Perth oh yes and we're organizing a conference for our</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:10</span><span class=\"txt\">clients to be held in Sydney it'll be held over two days and we're</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:14</span><span class=\"txt\">expecting about 50 or 60 people when were you thinking of having it sometime</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:20</span><span class=\"txt\">early next year like the end of January it'd have to be a weekend let me</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:26</span><span class=\"txt\">see our conference facilities are already booked for the weekend</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:32</span><span class=\"txt\">beginning January the 28th we could do the first weekend in February how</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:39</span><span class=\"txt\">about January the 21st oh I'm afraid that spoke to well let's go for the</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:47</span><span class=\"txt\">February date then so that's the weekend beginning the fourth okay now can</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:54</span><span class=\"txt\">you tell me a bit about what conference facilities you have sure so</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:00</span><span class=\"txt\">for talks and presentations we have the <mark data-q=\"1\">Tesla</mark> room sorry Tesla that</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:06</span><span class=\"txt\">spelled t-e-s-l-a it holds up to a hundred people and it's fully equipped</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:15</span><span class=\"txt\">with a projector and so on how about a <mark data-q=\"2\">microphone</mark> yes that'll be all set up</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:22</span><span class=\"txt\">ready for you and there'll be one that members of the audience can use too for</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:27</span><span class=\"txt\">questions if necessary fine and we'll also need some sort of open area where</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:33</span><span class=\"txt\">people can sit and have a cup of coffee and we'd like to have an</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:37</span><span class=\"txt\"><mark data-q=\"3\">exhibition</mark> of our products and services there as well so that'll need to</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:42</span><span class=\"txt\">be quite a big space mm-hmm that's fine there's a central atrium with all</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:49</span><span class=\"txt\">those facilities and you can come before the conference starts if you want</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:53</span><span class=\"txt\">to set everything up great and I presume this <mark data-q=\"4\">Wi-Fi</mark> oh yes that's free</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:00</span><span class=\"txt\">and available throughout the hotel okay would you also like us to provide a</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:06</span><span class=\"txt\">buffet lunch we can do a two-course meal with a number of different</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:11</span><span class=\"txt\">options what sort of price are we looking out for that well I can send</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:16</span><span class=\"txt\">you a copy of this standard menu that's <mark data-q=\"5\">$45</mark> per person or you can have the</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:23</span><span class=\"txt\">special for $25 more I think the standard should be okay but yes send</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:30</span><span class=\"txt\">me the menu before you hear the rest of the conversation you have some time</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:38</span><span class=\"txt\">to look at questions 6 to 10 now listen and answer questions 6 to 10 now we're</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:13</span><span class=\"txt\">also going to need accommodation on the Saturday night for some of the</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:18</span><span class=\"txt\">participants I'm not sure how many but probably about 25 so what do you</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:24</span><span class=\"txt\">charge for a room well for conference attendees we have a 25% reduction so we</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:31</span><span class=\"txt\">can offer you rooms at <mark data-q=\"6\">$135</mark> normally a standard rooms $180 and does that</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:40</span><span class=\"txt\">include breakfast sure and of course guests can also make use of all the</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:46</span><span class=\"txt\">other facilities at the hotel so we've got a spa where you can get massages</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:51</span><span class=\"txt\">and facials and so on and there's a <mark data-q=\"7\">pool</mark> up on the roof for the use of</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:57</span><span class=\"txt\">guests oh great now what about transport links the hotels downtown</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:04</span><span class=\"txt\">isn't it yes it's about 12 kilometers from the <mark data-q=\"8\">airport</mark> but there's a</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:09</span><span class=\"txt\">complimentary shuttle bus for guests and it's only about 10 minutes walk</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:14</span><span class=\"txt\">from this central railway station okay now I don't know Sydney very well can</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:20</span><span class=\"txt\">you just give me an idea of the location of the hotel ah well it's</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:25</span><span class=\"txt\">downtown on Wilby Street that's quite a small street and it's not very far</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:32</span><span class=\"txt\">from the <mark data-q=\"9\">sea</mark> and of course if the conference attendees want to go out on</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:37</span><span class=\"txt\">this Saturday evening there's a huge choice of places to eat then if they</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:43</span><span class=\"txt\">want to make a night of it they can go on to one of the <mark data-q=\"10\">clubs</mark> in the</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:47</span><span class=\"txt\">area there are a great many to choose from okay so if we go ahead with this</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:55</span><span class=\"txt\">can you give me some information about how much we're looking at that is</span></div>\n<div class=\"script-line\"><span class=\"ts\">08:02</span><span class=\"txt\">the end of section 1 you now have half a minute to check your answers now</span></div>\n<div class=\"script-line\"><span class=\"ts\">08:39</span><span class=\"txt\">turn to section 2</span></div>", "script_source": "asr (Whisper transcript provided by user, answer positions located via KEY + Teacher's Book)"}, {"part": 2, "audio": "Test1_Listening_audio/part2.m4a", "kind": "mcq", "groups": [{"qids": ["11"], "prompt": "When did the Street Play Scheme first take place?", "options": {"A": "two years ago", "B": "three years ago", "C": "six years ago"}, "multi": false, "header": "Questions 11-16 Choose the correct letter, A, B or C."}, {"qids": ["12"], "prompt": "How often is Beechwood Road closed to traffic now?", "options": {"A": "once a week", "B": "on Saturdays and Sundays", "C": "once a month"}, "multi": false, "header": null}, {"qids": ["13"], "prompt": "Who is responsible for closing the road?", "options": {"A": "a council official", "B": "the police", "C": "local wardens"}, "multi": false, "header": null}, {"qids": ["14"], "prompt": "Residents who want to use their cars", "options": {"A": "have to park in another street.", "B": "must drive very slowly.", "C": "need permission from a warden."}, "multi": false, "header": null}, {"qids": ["15"], "prompt": "Alice says that Street Play Schemes are most needed in", "options": {"A": "wealthy areas.", "B": "quiet suburban areas.", "C": "areas with heavy traffic."}, "multi": false, "header": null}, {"qids": ["16"], "prompt": "What has been the reaction of residents who are not parents?", "options": {"A": "Many of them were unhappy at first.", "B": "They like seeing children play in the street.", "C": "They are surprised by the lack of noise."}, "multi": false, "header": null}, {"qids": ["17", "18"], "prompt": "Which TWO benefits for children does Alice think are the most important?", "options": {"A": "increased physical activity", "B": "increased sense of independence", "C": "opportunity to learn new games", "D": "opportunity to be part of a community", "E": "opportunity to make new friends"}, "multi": true, "header": "Questions 17 and 18 Choose TWO letters, A-E."}, {"qids": ["19", "20"], "prompt": "Which TWO results of the King Street experiment surprised Alice?", "options": {"A": "more shoppers", "B": "improved safety", "C": "less air pollution", "D": "more relaxed atmosphere", "E": "less noise pollution"}, "multi": true, "header": "Questions 19 and 20 Choose TWO letters, A-E."}], "answers": {"11": "B", "12": "A", "13": "C", "14": "B", "15": "C", "16": "B", "17": "B", "18": "D", "19": "A", "20": "E"}, "explanations": {"11": {"answer_label": "11. B", "quote": "ALICE: Well, I first had the idea when my oldest child was still a toddler, so that's about six years ago now — but it took at least two years of campaigning before we were actually able to make it happen. So the scheme's been up and running for three years now. We'd love to be able to close our road for longer — for the whole …", "explain": "Câu hỏi: \n11. When did the Street Play Scheme first take place? \nA two years ago \nB three years ago \nC six years ago \nKeywords được paraphrase: \nTa cần gạch dưới các từ khóa “When” (khi nào) “Street Play Scheme” và “first take place” (diễn ra lần đầu tiên). Ta có thể thấy “first take place” được paraphrase lại trong bài bằng “has been up and running for” (đã bắt đầu và hoạt động trong). \nGiải thích đáp án: \nTrong bài, sau khi Alice được hỏi “When did you actually start the scheme?” (Bạn đã bắt đầu kế hoạch này khi nào?). Ta nghe được đoạn “the scheme’s been up and running for three years now” (Chương trình đã bắt và hoạt động được ba năm cho đến hiện tại). Như vậy B là đáp án. \nNgoài ra, trước đoạn này, ta cũng có nghe về những mốc thời gian khác ứng với các sự kiện mà Alice trình bày, tuy nhiên không phải là mốc thời gian bắt đầu của “Street Play Scheme”. Điển hình như “I first had the idea … six years ago” (tôi có ý tưởng này lần đầu … 6 năm về trước); “It took two years of campaigning...” (Nó mất 2 năm vận động chiến dịch…)."}, "12": {"answer_label": "12. A", "quote": "three years now. We'd love to be able to close our road for longer — for the whole weekend, from Saturday morning until Sunday evening, for example. At the moment it's just once a week. But when we started it was only once a month. But we're working on it.", "explain": "Câu hỏi: \n12. How often is Beechwood Road closed to traffic now? \nA once a week \nB on Saturdays and Sundays \nC once a month \nKeywords được paraphrase: \nTa cần chú ý vào từ hỏi “How often” (hỏi độ thường xuyên) ; “closed to traffic” (đóng cửa giao thông) và đặc biệt là “now” (ở hiện tại). Từ khóa “now” xuất hiện trong câu hỏi giúp ta xác định thì của câu chứa thông tin trong bài phải là thì hiện tại. \nGiải thích đáp án: \nTrong bài nghe, có đoạn “At the moment, It’s just once a week” (Ở thời điểm hiện tại, nó chỉ là một lần một tuần). “at the moment” có nghĩa tương đương với “now” trên câu hỏi.\nVì vậy ta chọn đáp án A."}, "13": {"answer_label": "13. C", "quote": "ALICE: We have volunteer wardens, mostly parents but some elderly residents too, who block off our road at either end. The council have provided special signs but there's always a\nvolunteer there to explain what's\nhappening to any motorists. Generally, they're fine about it — we've only had to get the police involved once or twice.", "explain": "Câu hỏi:\n13. Who is responsible for closing the road?\nA a council official\nB the police\nC local wardens\nKeywords được paraphrase:\n“responsible for” (chịu trách nhiệm làm gì) được thay bằng cấu trúc “have sb do something” (có ai đó làm gì). Ngoài ra, “closing” (đóng) cũng được thay bằng “block off” (chặn) trong bài nghe.\nGiải thích đáp án:\nTrong bài nghe, ta nghe được “We have volunteer wardens,…. who block off our road at either end” (Chúng tôi có những người trông coi tình nguyện, những người mà sẽ chặn những con đường ở 2 đầu). Như vậy đáp án là C. Ngoài ra ta cũng nghe được những vị trí khác\nứng với các đáp án A và B. Nhưng trách nhiệm của họ không phải là “closing the road”. Điển hình có “The council have provided special signs” (Hội đồng đã cung cấp những biển báo đặc biệt); “explain what’s happening to…, get the police involved” (giải thích những gì đang diễn ra cho …. gọi cảnh sát tham gia vào)."}, "14": {"answer_label": "14. B", "quote": "Now I should explain that the road isn't completely closed to cars. But only residents' cars are allowed. If people really need to get in or out of Beechwood Road, it's not a problem — as long as they drive at under 20 kilometres per hour.", "explain": "Câu hỏi:\n14. Residents who want to use their cars\nA have to park in another street.\nB must drive very slowly.\nC need permission from a warden. \nKeywords được paraphrase: \nTa cần gạch chân các từ khóa “residents” (cư dân) “use” (sử dụng) và “cars” (ô tô) để hiểu rõ nội dung câu hỏi và xác định được vị trí của câu hỏi trong bài nghe. \nGiải thích đáp án: \nTrong bài nghe, có đoạn “isn’t completely closed to cars” (không đóng hoàn toàn đối với ô tô); “only residents’ cars are allowed” (Chỉ có xe hơi của cư dân trong khu vực là được cho phép); “if people really need to get in or out, it’s not a problem” (Nếu người ta - cư dân muốn đi vào hoặc ra thì không vấn đề gì) ; “as long as they drive at under 20 kilometres per hour” (miễn là họ lái dưới 20km/h) . Như vậy ta chọn đáp án B."}, "15": {"answer_label": "15. C", "quote": "ALICE: Absolutely — we want to include all kids in the city — especially those who live on busy roads. It's here that demand is greatest. Obviously, there isn't such demand in wealthier areas where the children have access to parks or large gardens — or in the suburbs where there are usually more places for children to play outside.", "explain": "Câu hỏi: \n15. Alice says that Street Play Schemes are most needed in \nA wealthy areas. \nB quiet suburban areas. \nC areas with heavy traffic. \nKeywords được paraphrase: \nKeyword “are needed” được thay bằng “demand” (nhu cầu) trong bài nghe. \nGiải thích đáp án: \nTrong bài, ta nghe được “We want to include all kids in the city - especially those who live on busy roads. It’s here that the demand is greatest” (Chúng tôi muốn bao gồm tất cả trẻ em trong thành phố, nhất là những đứa mà sống trên những con đường tấp nập. Chính là ở đó mà nhu cầu là lớn nhất). Ta có thể thấy “busy roads” (những con đường tấp nập) đồng nghĩa với “areas with heavy traffic” (những khu vực mà có giao thông dày đặc) trong câu C. Vì vậy, ta chọn đáp án C. \nNgoài ra, tiếp sau đó, ta có thể nghe được những thông tin liên quan đến các lựa chọn còn lại, tuy nhiên chúng không phải là nơi có nhu cầu lớn nhất theo như yêu cầu câu hỏi “most needed” . Vì vậy ta loại các đáp án này."}, "16": {"answer_label": "16. B", "quote": "", "explain": "Câu hỏi: \n16. What has been the reaction of residents who are not parents? \nA Many of them were unhappy at first. \nB They like seeing children play in the street. \nC They are surprised by the lack of noise. \nKeywords được paraphrase: \nCác keyword quan trọng cần gạch chân là “reaction” (phản ứng) và “residents who are not parents” (những người dân mà không phải là các bậc phụ huynh). \nGiải thích đáp án: \nTrong bài, ta nghe được “everyone is very supportive and say they’re very happy to see children out on the street” (mọi người đều rất ủng hộ và nói rằng họ rất vui khi thấy trẻ em trên đường phố). “be happy to” (rất vui khi) đồng nghĩa với “like” (thích) ở câu B. Vì vậy, ta chọn đáp án B."}, "17": {"answer_label": "17. B & D", "quote": "but for me the biggest advantage is that kids develop confidence in themselves to be outside without their parents. The other really fantastic thing is that children get to know the adults in the street — it's like having a big extended family.", "explain": "Câu hỏi: \nQuestions 17 and 18 Choose TWO letters, A-E. Which TWO benefits for children does Alice think are the most important? \nA increased physical activity \nB increased sense of independence\nC opportunity to learn new games \nD opportunity to be part of a community \nE opportunity to make new friends \nKeywords được paraphrase: \nTa cần tập trung vào các keywords “Benefits” (lợi ích); “Alice think” và “most important” (quan trọng nhất) để nắm rõ thông tin cần nghe. Trong bài nghe, những keyword này được thể hiện qua câu “But for me the biggest advantage is” (nhưng đối với tôi, lợi ích lớn nhất là …). \nGiải thích đáp án: \nSau khi xác định vị trí của câu hỏi 17 và 18 qua cụm từ “for me the biggest advantage is”, ta nghe được “kids develop confidence in themselves to be outside without their parents” (Những đứa trẻ phát triển sự tự tin trong bản thân chúng khi ra ngoài mà không có ba mẹ). Ý của câu này hướng về câu B “increased sense of independence” (cảm giác tự lập được tăng lên). Như vậy lợi ích đầu tiên ta nghe được là B."}, "18": {"answer_label": "18. B & D", "quote": "but for me the biggest advantage is that kids develop confidence in themselves to be outside without their parents. The other really fantastic thing is that children get to know the adults in the street — it's like having a big extended family.", "explain": "Câu hỏi: \nQuestions 17 and 18 Choose TWO letters, A-E. \nWhich TWO benefits for children does Alice think are the most important? \nA increased physical activity \nB increased sense of independence \nC opportunity to learn new games \nD opportunity to be part of a community \nE opportunity to make new friends \nKeywords được paraphrase: \nTa cần tập trung vào các keywords “Benefits” (lợi ích); “Alice think” và “most \nimportant” (quan trọng nhất) để nắm rõ thông tin cần nghe. Trong bài nghe, những keyword này được thể hiện qua câu “But for me the biggest advantage is” (nhưng đối với tôi, lợi ích lớn nhất là …). \nGiải thích đáp án: \nSau đó, Alice chuyển sang lợi ích thứ 2 bằng cách nói “The other really fantastic thing is” (Một điều nữa khá tuyệt vời là…). Sau đó, cô ấy nói “Children get to know the adults in the street - it’s like having a big extended family” (Trẻ em có thể làm quen với những người lớn trong phố - nó giống như thể có một gia đình to lớn vậy). Ý của câu này hướng về lựa chọn D “opportunity to be part of a community” (cơ hội để trở thành một phần của cộng đồng). Rõ ràng những đứa trẻ khi quen biết được những người lớn sống trong cùng khu vực có thể trở thành một phần của một cộng đồng lớn hơn. Như vậy ta chọn đáp án D."}, "19": {"answer_label": "19. A & E", "quote": "It was surprising how much of a difference all this made. As we'd predicted, air quality was significantly better but what I hadn't expected was how much quieter it would be — even with the buses still running. Of course everyone said they felt safer but we were actually amazed that sales in the shops went up considerably that day — we thought there'd be fewer people out shopping — not more.", "explain": "Câu hỏi: \nQuestions 19 and 20 Choose TWO letters, A—E. \nWhich TWO results of the King Street experiment surprised Alice? \nA more shoppers \nB improved safety \nC less air pollution \nD more relaxed atmosphere \nE less noise pollution \nKeywords được paraphrase: \nCần gạch dưới “King Street experiment” vì đây là đối tượng chính của câu hỏi giúp mình xác định được vị trí của câu hỏi trong bài nghe. Ngoài ra cũng chú ý đến keyword \n“results” (kết quả) và “surprised Alice” (làm Alice ngạc nhiên). Như vậy, ta chỉ tập trung vào những kết quả mà làm Alice ngạc nhiên. \nTrong bài “surprised” (làm ngạc nhiên) được paraphrase lại thành các cụm từ “hadn’t expected” (không ngờ đến được) và “were amazed” (rất ngạc nhiên). \nGiải thích đáp án: \nĐoạn thông tin liên quan đến câu hỏi bắt đầu khi Alice nói “It was surprising how much of a difference all this made” (Thật ngạc nhiên làm sao về những sự khác biệt mà tất cả những việc này tạo ra). Sau đó ta nghe được “What I hadn’t expected was how much quieter it would be” (Điều mà tôi đã không ngờ đến được là việc mọi thứ trở nên yên tĩnh hơn như thế nào). Thông tin này hướng về lựa chọn E “less noise pollution” (ít ô nhiễm tiếng ồn hơn). Như vậy đáp án đầu tiên mà ta chọn được là E. \nNgoài ra, trước đó ta nghe được “air quality was…better” (Chất lượng không khí tốt hơn) nhưng ta không chọn lựa chọn C vì kết quả này đã được biết trước “As we’d predicted” (Giống như những gì chúng tôi đã liệu trước)."}, "20": {"answer_label": "20. A & E", "quote": "It was surprising how much of a difference all this made. As we'd predicted, air quality was significantly better but what I hadn't expected was how much quieter it would be — even with the buses still running. Of course everyone said they felt safer but we were actually amazed that sales in the shops went up considerably that day — we thought there'd be fewer people out shopping — not more.", "explain": "Câu hỏi: \nQuestions 19 and 20 Choose TWO letters, A—E. \nWhich TWO results of the King Street experiment surprised Alice? \nA more shoppers \nB improved safety \nC less air pollution \nD more relaxed atmosphere \nE less noise pollution\nCần gạch dưới “King Street experiment” vì đây là đối tượng chính của câu hỏi giúp mình xác định được vị trí của câu hỏi trong bài nghe. Ngoài ra cũng chú ý đến keyword “results” (kết quả) và “surprised Alice” (làm Alice ngạc nhiên). Như vậy, ta chỉ tập trung vào những kết quả mà làm Alice ngạc nhiên. \nTrong bài “surprised” (làm ngạc nhiên) được paraphrase lại thành các cụm từ “hadn’t expected” (không ngờ đến được) và “were amazed” (rất ngạc nhiên). \nGiải thích đáp án: \nTiếp theo, ta nghe được “We were actually amazed that sales in the shops went up considerably that day” (Chúng tôi đã thực sự ngạc nhiên khi doanh thu của các cửa hàng tăng vọt ngày hôm đó). Thông tin này hướng ta đến lựa chọn A “more shoppers” (nhiều người mua sắm hơn). Rõ ràng vì có nhiều người mua sắm hơn nên doanh thu các cửa hàng mới tăng vọt. Vì vậy đáp án thứ hai mà ta chọn được là A. \nTrước đó ta có nghe được “everyone said that they felt safer” (mọi người nói rằng họ cảm thấy an toàn hơn). Thông tin này hướng ta đến lựa chọn B nhưng ta không chọn đáp án này do trước câu này có “Of course” (Tất nhiên là). Như vậy, ta loại lựa chọn này vì nó không làm Alice ngạc nhiên."}}, "script_html": "<div class=\"script-line\"><span class=\"ts\">00:00</span><span class=\"txt\">Part two</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:01</span><span class=\"txt\">You will hear a woman called Alice Riches</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:05</span><span class=\"txt\">Talking on the radio about a scheme which involves closing streets to traffic to allow children to play</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:13</span><span class=\"txt\">First you have some time to look at questions 11 to 16</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:02</span><span class=\"txt\">Now listen carefully and answer questions 11 to 16</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:10</span><span class=\"txt\">My guest on the show today is Alice Riches who started the street play scheme where she lives in Beechwood Road</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:18</span><span class=\"txt\">For those of you that don't already know street play involves local residents closing off their street for a few hours</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:26</span><span class=\"txt\">So the children have a chance to play in the streets safely</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:29</span><span class=\"txt\">She started it in her own street Beechwood Road and the idea caught on and there are now</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:36</span><span class=\"txt\">Street play schemes all over the city. So when did you actually start the scheme Alice?</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:42</span><span class=\"txt\"><mark data-q=\"11\">Well, I first had the idea when my oldest child was still a toddler</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">01:46</span><span class=\"txt\"><mark data-q=\"11\">So that's about six years ago now, but it took at least two years of campaigning before we were actually able to make it happen</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">01:54</span><span class=\"txt\"><mark data-q=\"11\">So the scheme's been up and running for three years now</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">01:57</span><span class=\"txt\"><mark data-q=\"11\">We'd</mark><mark data-q=\"12\"> love to be able to close our road for longer for the whole weekend from Saturday morning until Sunday evening</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:04</span><span class=\"txt\"><mark data-q=\"12\">For example at the moment, it's just once a week</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:07</span><span class=\"txt\"><mark data-q=\"12\">But when we started it was only once a month, but we're working on it</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:12</span><span class=\"txt\"><mark data-q=\"12\">So what actually</mark> happens when Beechwood Road is closed? We have volunteer wardens</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:18</span><span class=\"txt\">Mostly <mark data-q=\"13\">parents, but some elderly residents too who block off our road at either end</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:24</span><span class=\"txt\"><mark data-q=\"13\">The council have provided special signs, but there's always a volunteer there to explain what's happening to any motorists</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:33</span><span class=\"txt\"><mark data-q=\"13\">Generally, they're fine about it. We've only had to get the police involved once or twice</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:39</span><span class=\"txt\"><mark data-q=\"13\">Now I should explain that the road isn't completely</mark> closed to <mark data-q=\"14\">cars, but only residents cars are allowed</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:46</span><span class=\"txt\"><mark data-q=\"14\">If people really need to get in or out of Beechwood Road</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:51</span><span class=\"txt\"><mark data-q=\"14\">It's not a problem as long as they drive at under 20 kilometres per hour</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:56</span><span class=\"txt\"><mark data-q=\"14\">But most people just decide not to use their cars during this time</mark> or they park in another street</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:03</span><span class=\"txt\">The wardens are only there to stop through traffic</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:07</span><span class=\"txt\">So can anyone apply to get involved in street play?</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:12</span><span class=\"txt\"><mark data-q=\"15\">Absolutely, we want to include all kids in the city</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">03:16</span><span class=\"txt\"><mark data-q=\"15\">Especially those who live on busy roads. It's here that demand is greatest</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">03:22</span><span class=\"txt\"><mark data-q=\"15\">Obviously there isn't such demand in wealthier areas where the children have access to parks or large gardens</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">03:29</span><span class=\"txt\"><mark data-q=\"15\">Or in the suburbs where there are usually more places for children to play outside</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">03:35</span><span class=\"txt\"><mark data-q=\"15\">I'd recommend that</mark> anyone listening who likes the idea should just give it a go</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:40</span><span class=\"txt\">We've been surprised by the positive reaction of residents all over the city and that's not just parents</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:47</span><span class=\"txt\">There are always a few who complain, but they're a tiny minority</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:53</span><span class=\"txt\">On the whole everyone is very supportive and say they're very happy to see children out on the street</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:59</span><span class=\"txt\">Even if it does get quite noisy</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:05</span><span class=\"txt\">Before you hear the rest of the conversation you have some time to look at questions 17 to 20</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:11</span><span class=\"txt\">Now listen and answer questions 17 to 20</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:38</span><span class=\"txt\">There have been so many benefits of street play for the kids</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:43</span><span class=\"txt\">Parents really like the fact that the kids are getting fresh air instead of sitting staring at a computer screen</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:49</span><span class=\"txt\">Even if they're not doing anything particularly energetic and of course</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:54</span><span class=\"txt\">It's great that kids can play with their friends outside without being supervised by their parents</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:00</span><span class=\"txt\"><mark data-q=\"17-18\">But for me the biggest advantage is that kids develop confidence in themselves to be outside without their parents</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:08</span><span class=\"txt\"><mark data-q=\"17-18\">The other really fantastic thing is that children get to know the adults in the street</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:13</span><span class=\"txt\"><mark data-q=\"17-18\">It's like having a big extended family.</mark> It certainly does have a lot of benefits</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:19</span><span class=\"txt\">I want to move on now and ask you about a related project in King Street, right?</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:25</span><span class=\"txt\">Well, this was an experiment</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:27</span><span class=\"txt\">I was involved in where local residents decided to try and reduce the traffic along King Street</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:33</span><span class=\"txt\">Which is the busiest main road in our area by persuading people not to use their cars for one day</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:40</span><span class=\"txt\">We thought about making people pay more for parking, but we decided that would be really unpopular</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:47</span><span class=\"txt\">So instead we just stopped people from parking on King Street, but left the other car parks open</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:53</span><span class=\"txt\"><mark data-q=\"19-20\">it was surprising how much of a difference all this made as</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:58</span><span class=\"txt\"><mark data-q=\"19-20\">We'd predicted air quality was significantly better</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:02</span><span class=\"txt\"><mark data-q=\"19-20\">But what I hadn't expected was how much quieter it would be even with the buses still running</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:09</span><span class=\"txt\"><mark data-q=\"19-20\">Of course, everyone said they felt safer</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:11</span><span class=\"txt\"><mark data-q=\"19-20\">But we were actually amazed that sales in the shops went up considerably that day</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:16</span><span class=\"txt\"><mark data-q=\"19-20\">We thought there'd be fewer people out shopping not more.</mark> That's really interesting. So the fact that the street</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:23</span><span class=\"txt\">That is the end of part two</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:29</span><span class=\"txt\">You now have 30 seconds to check your answers to part two</span></div>", "script_source": "asr (Whisper transcript provided by user, answer positions located via KEY + Teacher's Book)"}, {"part": 3, "audio": "Test1_Listening_audio/part3.mp3", "kind": "mcq", "groups": [{"qids": ["21", "22"], "prompt": "Which TWO points does Adam make about his experiment on artificial sweeteners?", "options": {"A": "The results were what he had predicted.", "B": "The experiment was simple to set up.", "C": "A large sample of people was tested.", "D": "The subjects were unaware of what they were drinking.", "E": "The test was repeated several times for each person."}, "multi": true, "header": "Questions 21 and 22 Choose TWO letters, A-E."}, {"qids": ["23", "24"], "prompt": "Which TWO problems did Rosie have when measuring the fat content of nuts?", "options": {"A": "She used the wrong sort of nuts.", "B": "She used an unsuitable chemical.", "C": "She did not grind the nuts finely enough.", "D": "The information on the nut package was incorrect.", "E": "The weighing scales may have been unsuitable."}, "multi": true, "header": "Questions 23 and 24 Choose TWO letters, A-E."}, {"qids": ["25"], "prompt": "Adam suggests that restaurants could reduce obesity if their menus", "options": {"A": "offered fewer options.", "B": "had more low-calorie foods.", "C": "were organised in a particular way."}, "multi": false, "header": "Questions 25-30 Choose the correct letter, A, B or C."}, {"qids": ["26"], "prompt": "The students agree that food manufacturers deliberately", "options": {"A": "make calorie counts hard to understand.", "B": "fail to provide accurate calorie counts.", "C": "use ineffective methods to reduce calories."}, "multi": false, "header": null}, {"qids": ["27"], "prompt": "What does Rosie say about levels of exercise in England?", "options": {"A": "The amount recommended is much too low.", "B": "Most people overestimate how much they do.", "C": "Women now exercise more than they used to."}, "multi": false, "header": null}, {"qids": ["28"], "prompt": "Adam refers to the location and width of stairs in a train station to illustrate", "options": {"A": "practical changes that can influence people’s behaviour.", "B": "methods of helping people who have mobility problems.", "C": "ways of preventing accidents by controlling crowd movement."}, "multi": false, "header": null}, {"qids": ["29"], "prompt": "What do the students agree about including reference to exercise in their presentation?", "options": {"A": "They should probably leave it out.", "B": "They need to do more research on it.", "C": "They should discuss this with their tutor."}, "multi": false, "header": null}, {"qids": ["30"], "prompt": "What are the students going to do next for their presentation?", "options": {"A": "prepare some slides for it", "B": "find out how long they have for it", "C": "decide on its content and organization"}, "multi": false, "header": null}], "answers": {"21": "C", "22": "D", "23": "C", "24": "E", "25": "C", "26": "A", "27": "B", "28": "A", "29": "A", "30": "C"}, "explanations": {"21": {"answer_label": "21 & 22. C & D", "quote": "Adam: Yeah. It took me ages to decide exactly how I'd organise it, especially how I could make sure that people didn't know which drink I was giving them. It was hard to keep track of it all, especially as I had so many people doing it - I had to make sure I kept a proper record\nof what each person had had.\nRosie: So could most people tell the difference?\nAdam: Yeah - I hadn't thought they would be able to, but most people could.", "explain": "Câu hỏi:\n21-22. Which TWO points does Adam make about his experiment on artificial sweeteners?\nA The results were what he had predicted.\nB The experiment was simple to set up.\nC A large sample of people was tested.\nD The subjects were unaware of what they were drinking.\nE The test was repeated several times for each person.\nGiải thích đáp án:\nTất cả các lựa chọn đều được nhắc đến trong đoạn hội thoại bên.\n• Ở lựa chọn A, đoạn hội thoại bên chỉ ra rằng Adam đã không nghĩ rằng họ có thể phân biệt được sự khác nhau, nhưng hầu hết mọi người đều có thể. Vì vậy kết quả thí nghiệm không giống như những gì anh ấy đã dự đoán.\n• Ở lựa chọn B, đoạn hội thoại bên chỉ ra rằng Adam đã mất nhiều thời gian để quyết định chính xác cách anh ấy sắp xếp cuộc thí nghiệm. Vì vậy việt thiết lập cuộc thí nghiệm không hề đơn giản.\n• Ở lựa chọn C, đoạn hội thoại bên chỉ ra rằng thật khó để theo dõi tất cả, đặc biệt là khi anh ấy có rất nhiều người đang tham gia vào cuộc thí nghiệm đó. Có thể thấy rằng một một số lượng lớn người lấy mẫu đã được thử nghiệm. Vì vậy lựa chọn C là đáp án đúng.\n• Ở lựa chọn D, đoạn hội thoại bên chỉ ra rằng Adam phải đảm bảo rằng mọi người không biết anh ấy đang cho họ uống loại đồ uống nào. Có thể thấy rằng các đối tượng không được biết họ đang uống cái gì. Vì vậy lựa chọn C là đáp án đúng.\n• Ở lựa chọn E, đoạn hội thoại bên chỉ ra rằng Adam phải đảm bảo rằng anh ấy đã ghi chép chính xác những gì mỗi người đã uống. Có thể thấy rằng thử nghiệm không được lặp lại nhiều lần cho mỗi người.\nTừ những dữ kiện trên, ta có thể thấy C và D là đáp án đúng."}, "22": {"answer_label": "21 & 22. C & D", "quote": "Adam: Yeah. It took me ages to decide exactly how I'd organise it, especially how I could make sure that people didn't know which drink I was giving them. It was hard to keep track of it all, especially as I had so many people doing it - I had to make sure I kept a proper record\nof what each person had had.\nRosie: So could most people tell the difference?\nAdam: Yeah - I hadn't thought they would be able to, but most people could.", "explain": "Câu hỏi:\n21-22. Which TWO points does Adam make about his experiment on artificial sweeteners?\nA The results were what he had predicted.\nB The experiment was simple to set up.\nC A large sample of people was tested.\nD The subjects were unaware of what they were drinking.\nE The test was repeated several times for each person.\nGiải thích đáp án:\nTất cả các lựa chọn đều được nhắc đến trong đoạn hội thoại bên.\n• Ở lựa chọn A, đoạn hội thoại bên chỉ ra rằng Adam đã không nghĩ rằng họ có thể phân biệt được sự khác nhau, nhưng hầu hết mọi người đều có thể. Vì vậy kết quả thí nghiệm không giống như những gì anh ấy đã dự đoán.\n• Ở lựa chọn B, đoạn hội thoại bên chỉ ra rằng Adam đã mất nhiều thời gian để quyết định chính xác cách anh ấy sắp xếp cuộc thí nghiệm. Vì vậy việt thiết lập cuộc thí nghiệm không hề đơn giản.\n• Ở lựa chọn C, đoạn hội thoại bên chỉ ra rằng thật khó để theo dõi tất cả, đặc biệt là khi anh ấy có rất nhiều người đang tham gia vào cuộc thí nghiệm đó. Có thể thấy rằng một một số lượng lớn người lấy mẫu đã được thử nghiệm. Vì vậy lựa chọn C là đáp án đúng.\n• Ở lựa chọn D, đoạn hội thoại bên chỉ ra rằng Adam phải đảm bảo rằng mọi người không biết anh ấy đang cho họ uống loại đồ uống nào. Có thể thấy rằng các đối tượng không được biết họ đang uống cái gì. Vì vậy lựa chọn C là đáp án đúng.\n• Ở lựa chọn E, đoạn hội thoại bên chỉ ra rằng Adam phải đảm bảo rằng anh ấy đã ghi chép chính xác những gì mỗi người đã uống. Có thể thấy rằng thử nghiệm không được lặp lại nhiều lần cho mỗi người.\nTừ những dữ kiện trên, ta có thể thấy C và D là đáp án đúng."}, "23": {"answer_label": "23 & 24. C & E", "quote": "Rosie: Yes. My results were a bit problematic - the fat content for that type of nut seemed much lower than it said on the package. But I reckon the package information was right. I think I should probably have ground up the nuts more than I did. It's possible that the scales for weighing the fat weren't accurate enough, too...", "explain": "Câu hỏi:\n23-24. Which TWO problems did Rosie have when measuring the fat content of nuts?\nA She used the wrong sort of nuts.\nB She used an unsuitable chemical.\nC She did not grind the nuts finely enough. D The information on the nut package was incorrect.\nE The weighing scales may have been unsuitable.\nGiải thích đáp án:\n• Ở lựa chọn A, thông tin về việc Rosie sử dụng sai loại hạt không được nhắc đến trong bài.\nỞ Ở lựa chọn B, thông tin về việc Rosie sử dụng loại hóa chất không phù hợp không được nhắc đến trong bài.\n• Ở lựa chọn C, đoạn hội thoại bên chỉ ra rằng Rosie nghĩ rằng cô ấy có lẽ nên nghiền các loại hạt kỹ hơn cô ấy đã làm. Có thể thấy vấn đề Rosie gặp phải là cô ấy chưa nghiền các loại hạt đủ mịn. Vì vậy lựa chọn C là đáp án đúng.\n• Ở lựa chọn D, đoạn hội thoại bên chỉ ra rằng Rosie nghĩ rằng các thông tin trên bao bì là đúng chứ không sai.\n• Ở lựa chọn E, đoạn hội thoại bên chỉ ra rằng Rosie nghĩ rằng có thể cân dùng để cân chất béo không đủ chính xác. Có thể thấy vấn đề Rosie gặp phải là cân có thể không phù hợp. Vì vậy lựa chọn E là đáp án đúng.\nTừ những dữ kiện trên, ta có thể thấy C và E là đáp án đúng."}, "24": {"answer_label": "23 & 24. C & E", "quote": "Rosie: Yes. My results were a bit problematic - the fat content for that type of nut seemed much lower than it said on the package. But I reckon the package information was right. I think I should probably have ground up the nuts more than I did. It's possible that the scales for weighing the fat weren't accurate enough, too...", "explain": "Câu hỏi:\n23-24. Which TWO problems did Rosie have when measuring the fat content of nuts?\nA She used the wrong sort of nuts.\nB She used an unsuitable chemical.\nC She did not grind the nuts finely enough. D The information on the nut package was incorrect.\nE The weighing scales may have been unsuitable.\nGiải thích đáp án:\n• Ở lựa chọn A, thông tin về việc Rosie sử dụng sai loại hạt không được nhắc đến trong bài.\nỞ Ở lựa chọn B, thông tin về việc Rosie sử dụng loại hóa chất không phù hợp không được nhắc đến trong bài.\n• Ở lựa chọn C, đoạn hội thoại bên chỉ ra rằng Rosie nghĩ rằng cô ấy có lẽ nên nghiền các loại hạt kỹ hơn cô ấy đã làm. Có thể thấy vấn đề Rosie gặp phải là cô ấy chưa nghiền các loại hạt đủ mịn. Vì vậy lựa chọn C là đáp án đúng.\n• Ở lựa chọn D, đoạn hội thoại bên chỉ ra rằng Rosie nghĩ rằng các thông tin trên bao bì là đúng chứ không sai.\n• Ở lựa chọn E, đoạn hội thoại bên chỉ ra rằng Rosie nghĩ rằng có thể cân dùng để cân chất béo không đủ chính xác. Có thể thấy vấn đề Rosie gặp phải là cân có thể không phù hợp. Vì vậy lựa chọn E là đáp án đúng.\nTừ những dữ kiện trên, ta có thể thấy C và E là đáp án đúng."}, "25": {"answer_label": "25. C", "quote": "Adam: There's a lot we could say about what restaurants could do to reduce obesity ... So, if you put the low-calorie items at the beginning and end of the menu, people will probably go for the food with fewer calories, without even realising what they're doing.", "explain": "Câu hỏi:\nChoose the correct letter, A, B, or C.\n25. Adam suggests that restaurants could reduce obesity if their menus\nA offered fewer options.\nB had more low-calorie foods.\nC were organised in a particular way.\nGiải thích đáp án:\nĐoạn bên chỉ ra rằng Adam nghĩ rằng nếu đặt những món có hàm lượng calo thấp ở đầu và cuối thực đơn, mọi người có thể sẽ chọn món có ít calo hơn mà không hề nhận ra họ đang làm gì. Có thể thấy rằng Adam gợi ý rằng các nhà hàng có thể giảm béo phì nếu thực đơn của họ có nhiều các món ăn có hàm lượng calo thấp. Vì vậy lựa chọn B là đáp án đúng."}, "26": {"answer_label": "26. A", "quote": "Rosie: Well, when manufacturers put calorie counts of a food on the label, they're sometimes really confusing and I suspect they do it on purpose.\nAdam: Yeah, so if you look at the amount of calories in a pizza, they'll give you the calories per quarter pizza and you think, oh that's not too bad. But who's going to eat a quarter pizza? \nRosie: Exactly.", "explain": "Câu hỏi:\n26. The students agree that food manufacturers deliberately\nA make calorie counts hard to understand.\nB fall to provide accurate calorie counts. C use ineffective methods to reduce calories. Keywords được paraphrase: deliberately - on purpose\nhard to understand - confusing\nGiải thích đáp án:\nĐoạn hội thoại bên chỉ ra rằng cả hai đều đồng ý rằng khi các nhà sản xuất đưa số lượng calo của một loại thực phẩm lên nhãn, đôi khi họ cố tính khiến chúng thực sự khó hiểu. Vì vậy lựa chọn A là đáp án đúng."}, "27": {"answer_label": "27. B", "quote": "Adam: I suppose another approach to this problem is to get people to exercise more.\nRosie: Right. In England, ... about 40% of men and 30% of women say then do this, but when you objectively measure the amount of walking they do with motion sensors, you find that only 6% of men and 4% of women do the recommended amount of exercise.", "explain": "Câu hỏi:\n27. What does Rosie say about levels of exercise in England?\nA The amount recommended is much too low. B Most people overestimate how much they do. C Women now exercise more than they used to. Giải thích đáp án:\nĐoạn hội thoại bên chỉ ra rằng ở Anh, khoảng 40% nam giới và 30% phụ nữ nói họ có tập thể dục, nhưng khi bạn đo lường khách quan lượng đi bộ mà họ thực hiện bằng cảm biến chuyển động, bạn thấy rằng chỉ 6% nam giới và 4% phụ nữ làm theo khối lượng bài tập khuyến nghị.\nCó thể thấy rằng hầu hết mọi người đều đánh giá quá cao mức độ họ làm được. Vì vậy lựa chọn B là đáp án đúng."}, "28": {"answer_label": "28. A", "quote": "Adam: If people reach the stairs before they reach the escalator when they're leaving the station, they're more likely to take the stairs. And if you increase the width of the stairs, you'll get more people using them at the same time. It's an unconscious process and influenced by minor modifications in their environment.", "explain": "Câu hỏi:\n28. Adam refers the location and width of stairs in a train station to illustrate\nA practical changes that can influence people's behaviour.\nB methods of helping people who have mobility problems.\nC ways of preventing accidents by controlling crowd movement.\nKeywords được paraphrase:\nchanges - modifications\nGiải thích đáp án:\nĐoạn hội thoại bên chỉ ra rằng nếu mọi người đến cầu thang bộ trước khi họ đến thang cuốn khi rời nhà ga, thì nhiều khả năng họ sẽ đi cầu thang bộ. Và nếu bạn tăng chiều rộng của cầu thang, bạn sẽ có thêm nhiều người sử dụng chúng cùng một lúc. Đó là một quá trình vô thức và bị ảnh hưởng bởi những thay đổi nhỏ trong môi trường của họ.\nCó thể thấy rằng Adam đề cập đến vị trí và chiều rộng của cầu thang trong nhà ga xe lửa để minh họa những thay đổi thực tế có thể ảnh hưởng đến hành vi của mọi người. Vì vậy lựa chọn A là đáp án đúng."}, "29": {"answer_label": "29. A", "quote": "Adam: ... I'm not sure if we should be talking about exercise in our presentation.\nRosie: Well, we've done quite a bit of reading about it. Adam: I know, but it's going to mean we have a very wide focus, and our tutor did say that we need to focus on causes and solutions in terms of nutrition. Rosie: I suppose so. And we've got plenty of information about that. OK, well that will be simpler.", "explain": "Câu hỏi:\n29. What do the students agree about including reference to exercise in their presentation?\nA They should probably leave it out.\nB They need to do more research on it.\nC They should discuss this with their tutor.\nGiải thích đáp án:\nĐoạn hội thoại bên chỉ ra rằng cả Rose và Adam đều đồng ý rằng họ không nên đưa việc nói về việc tập thể dục vào trong bài thuyết trình của họ mà nên tập trung vào nguyên nhân và giải pháp liên quan đến dinh dưỡng.\nVì vậy lựa chọn A là đáp án đúng."}, "30": {"answer_label": "30. C", "quote": "Adam: So what shall we do now? We've still got an hour before our next lecture.\nRosie: Let's think about what we're going to include and what will go where.\nThen we can decide what slides we need. \nAdam: OK, fine.", "explain": "Câu hỏi:\n30. What are the students going to do next for their presentation?\nA prepare some slides for it\nB find out how long they have for it.\nC decide on its content and organisation.\nGiải thích đáp án:\nĐoạn bên chỉ ra rằng cả hai đều đồng ý rằng việc họ làm tiếp theo cho bài thuyết trình là suy nghĩ về những gì họ sẽ bao gồm và những gì sẽ đi đến đâu.\nSau đó, họ có thể quyết định những slide nào mà họ cần.\nCó thể thấy rằng họ sẽ quyết định về nội dung và việc tổ chức bài thuyết trình của họ. Vì vậy lựa chọn C là đáp án đúng."}}, "script_html": "<div class=\"script-line\"><span class=\"ts\">00:00</span><span class=\"txt\">Part 3. You will hear two food science students called Adam and Rosie starting to plan their presentation on diet and obesity.</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:10</span><span class=\"txt\">First you have some time to look at questions 21 to 24. Now listen carefully and answer questions 21 to 24.</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:43</span><span class=\"txt\">OK Rosie, shall we try to get some ideas together for our presentation on diet and obesity?</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:49</span><span class=\"txt\">Sure.</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:50</span><span class=\"txt\">I can talk about the experiment I did to see if people can tell the difference between real sugar and artificial sweeteners.</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:58</span><span class=\"txt\">Where you gave people drinks with either sugar or artificial sweeteners and they had to say which they thought it was.</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:04</span><span class=\"txt\">Yeah, it took me ages to decide exactly how I'd organise <mark data-q=\"21-22\">it, especially how I could make sure that people didn't know which drink I was giving them.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">01:14</span><span class=\"txt\"><mark data-q=\"21-22\">It was hard to keep track of it all, especially as I had so many people doing it. I had to make sure I kept a proper record of what each person had had.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">01:24</span><span class=\"txt\"><mark data-q=\"21-22\">So could most people tell the difference?</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">01:27</span><span class=\"txt\"><mark data-q=\"21-22\">Yeah, I hadn't thought that they would be able to, but most people could.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">01:32</span><span class=\"txt\"><mark data-q=\"21-22\">Then there's that experiment I did measuring the fat content</mark> of nuts to see if the nutritional information given on the packet was accurate.</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:41</span><span class=\"txt\">The one where you ground up the nuts and mixed them with a chemical to absorb the fat?</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:47</span><span class=\"txt\">Yes. My results were a bit <mark data-q=\"23-24\">problematic. The fat content for that type of nut seemed much lower than it said on the package.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">01:56</span><span class=\"txt\"><mark data-q=\"23-24\">But I reckon the package information was right. I think I should probably have ground up the nuts more than I did.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:03</span><span class=\"txt\"><mark data-q=\"23-24\">It's possible that the scales for weighing the fat weren't accurate enough too.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">02:07</span><span class=\"txt\"><mark data-q=\"23-24\">I'd really like to try the experiment again</mark> sometime.</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:14</span><span class=\"txt\">Before you hear the rest of the discussion, you have some time to look at questions 25 to 30.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:06</span><span class=\"txt\">Now listen and answer questions 25 to 30.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:13</span><span class=\"txt\">So what can we say about helping people to lose weight?</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:17</span><span class=\"txt\"><mark data-q=\"25\">There's a lot we could say about what restaurants could do to reduce obesity.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">03:22</span><span class=\"txt\"><mark data-q=\"25\">I read that the items at the start of a menu and the items at the end of a menu are much more likely to be chosen than the items in the middle.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">03:31</span><span class=\"txt\"><mark data-q=\"25\">So if you put the low calorie items at</mark> the beginning and end of the menu, people will probably go for the food with fewer calories without even realising what they're doing.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:43</span><span class=\"txt\">I think food manufacturers could do more to encourage healthy eating.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:47</span><span class=\"txt\">How?</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:47</span><span class=\"txt\"><mark data-q=\"26\">Well, when manufacturers put calorie counts of a food on the label, they're sometimes really confusing.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">03:55</span><span class=\"txt\"><mark data-q=\"26\">And I suspect they do it on purpose because food that's high in calories tastes better and so they'll sell more.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">04:03</span><span class=\"txt\"><mark data-q=\"26\">Yeah, so if you look at the amount of calories in a pizza, they'll give you the calories per quarter pizza and you think, oh, that's</mark> not too bad.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:12</span><span class=\"txt\">But who's going to eat a quarter pizza?</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:15</span><span class=\"txt\"><mark data-q=\"27\">Exactly.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">04:15</span><span class=\"txt\"><mark data-q=\"27\">I suppose another approach to this problem is to get people to exercise more.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">04:22</span><span class=\"txt\"><mark data-q=\"27\">Right. In England, the current guidelines offer at least 30 minutes of brisk walking five days a week.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">04:30</span><span class=\"txt\"><mark data-q=\"27\">Now, when you ask them, about 40% of men and 30% of women say they do this.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">04:36</span><span class=\"txt\"><mark data-q=\"27\">But when you objectively measure the amount of walking they</mark> do with motion sensors, you find that only 6% of men and 4% of women do the recommended amount of exercise.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:49</span><span class=\"txt\">So you can see why obesity is growing.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:52</span><span class=\"txt\">So how can people be encouraged to take more exercise?</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:57</span><span class=\"txt\">Well, for example, think of the location of stairs in a train <mark data-q=\"28\">station.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:03</span><span class=\"txt\"><mark data-q=\"28\">If people reach the stairs before they reach the escalator when they're leaving the station, they're more likely to take the stairs.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:11</span><span class=\"txt\"><mark data-q=\"28\">And if you increase the width of the stairs, you'll get more people using them at the same time.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:17</span><span class=\"txt\"><mark data-q=\"28\">It's an unconscious process and influenced by minor modifications in their environment.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:23</span><span class=\"txt\">Right. And it might not be a big change, but if it happens every day, it all adds up.</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:30</span><span class=\"txt\">Yes. But actually, <mark data-q=\"29\">I'm not sure if we should be talking about exercise in our presentation.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:35</span><span class=\"txt\"><mark data-q=\"29\">Well, we've done quite a bit of reading about it.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:38</span><span class=\"txt\"><mark data-q=\"29\">I know, but it's going to mean we have a very wide focus.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:43</span><span class=\"txt\"><mark data-q=\"29\">And our tutor did say that we need to focus on causes and solutions in terms of nutrition.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:48</span><span class=\"txt\"><mark data-q=\"29\">Oh, I suppose so. And we've got plenty of information about that.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:54</span><span class=\"txt\"><mark data-q=\"29\">OK. Well, that will be simpler.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">05:57</span><span class=\"txt\"><mark data-q=\"29\">So what shall</mark> we do now? We've still got <mark data-q=\"30\">half an hour before our next lecture.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:03</span><span class=\"txt\"><mark data-q=\"30\">Let's think about what we're going to include and what will go where.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:07</span><span class=\"txt\"><mark data-q=\"30\">Then we can decide what slides we need.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:09</span><span class=\"txt\"><mark data-q=\"30\">OK. Fine.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:14</span><span class=\"txt\"><mark data-q=\"30\">That is the end of part three.</mark></span></div>\n<div class=\"script-line\"><span class=\"ts\">06:16</span><span class=\"txt\"><mark data-q=\"30\">You now have half a</mark> minute to check your answers to part three.</span></div>", "script_source": "asr (Whisper transcript provided by user, answer positions located via KEY + Teacher's Book)"}, {"part": 4, "audio": "Test1_Listening_audio/part4.mp3", "title": "Bird Migration Theory", "instructions": "Complete the notes below. Write ONE WORD ONLY for each answer.", "kind": "notes", "notes": ["Most birds are believed to migrate seasonally.", "Hibernation theory", "It was believed that birds hibernated underwater or buried themselves in {{31}} .", "This theory was later disproved by experiments on caged birds.", "Transmutation theory", "Aristotle believed birds changed from one species into another in summer and winter.", "–  In autumn he observed that redstarts experience the loss of {{32}} and thought they then turned into robins.", "–  Aristotle’s assumptions were logical because the two species of birds had a similar {{33}} .", "17th century", "Charles Morton popularised the idea that birds fly to the {{34}} in winter.", "Scientific developments", "In 1822, a stork was killed in Germany which had an African spear in its {{35}} .", "–  previously there had been no {{36}} that storks migrate to Africa", "Little was known about the {{37}} and journeys of migrating birds until the practice of ringing was established.", "–  It was thought large birds carried small birds on some journeys because they were considered incapable of travelling across huge {{38}} .", "–  Ringing depended on what is called the {{39}} of dead birds.", "In 1931, the first {{40}} to show the migration of European birds was printed.", "", ""], "answers": {"31": "mud", "32": "feathers", "33": "shape", "34": "moon", "35": "neck", "36": "evidence", "37": "destinations", "38": "oceans", "39": "recovery", "40": "atlas"}, "explanations": {"31": {"answer_label": "31. mud", "quote": "Take hibernation theory for example - two thousand years ago, it was commonly believed that when birds left an area, they went underwater to hibernate in the seas and oceans. Another theory for the regular appearance and disappearance of birds was that they spend winter hidden in mud", "explain": "Câu hỏi:\nIt was believed that birds hibernated underwater or buried themselves in ...\nKeywords được paraphrase:\nUnderwater - seas and oceans\nburied - hidden\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Người ta tin rằng chim ngủ đông dưới nước hoặc vùi mình trong bùn -‘mud'"}, "32": {"answer_label": "32. feathers", "quote": "He observed that in the autumn, small birds called ‘redstarts' began to lose their feathers", "explain": "Câu hỏi:\nIn autumn he observed that redstarts experience the loss of and thought they then turned into robins\nKeywords được paraphrase:\nbegan to lose - experience the loss of\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Anh ta quán sát được rằng, vào mùa thu, loài chim nhỏ được gọi là “redstarts” sẽ bị rụng lông-‘feather'"}, "33": {"answer_label": "33. shape", "quote": "These assumptions are understandable given that this pair of species are similar in shape, but are a classic example of an incorrect interpretation based on correct observations", "explain": "Câu hỏi:\nAristotle's assumptions were logical because the two species of birds had a similar...\nKeywords được paraphrase:\nLogical - understandable\npair of species - the two species of birds\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Giả định của Aristotle là hợp lý vì hai loài chim có chung hình dạng-‘shape'"}, "34": {"answer_label": "34. moon", "quote": "He wrote a surprisingly well- regarded paper claiming that birds migrate to the moon and back every year", "explain": "Câu hỏi:\nCharles Morton popularised the idea that birds fly to the ... in winter\nKeywords được paraphrase:\nPopularised the idea that - wrote a surprisingly well-regard paper claiming that\nMigrate - fly\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Charles Morton đã phổ biến ý tưởng rằng các loài chim bay mặt trăng-‘moon' vào mùa đông"}, "35": {"answer_label": "35. neck", "quote": "One of the key moments in the development of migration theory came in 1822 when a white stork was shot in Germany. This particular stork made history because of the long spear in its neck", "explain": "Câu hỏi:\nIn 1822, a stork was killed in Germany which had an African spear in its.\nKeywords được paraphrase:\nwas killed - was shot\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Một trong những thời khắc quyết định trong sự phát triển của thuyết di cư đến vào năm 1822 kh mà một con cò trắng bị bắn ở Đức. Con còn này tạo ra lịch sử vì có một cây giáo-‘spear’ dài ở cổ"}, "36": {"answer_label": "36. evidence", "quote": "This was a truly defining moment in the history of ornithology because it was the first evidence that storks spend their winters in sub-Saharan Africa", "explain": "Câu hỏi:\npreviously there had been no ... that storks migrate to Africa\nKeywords được paraphrase:\nspend their winter in sub-Saharan Africa - migrate to Africa\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Đoạn bên nói rằng, đây là một trong những phút giây quyết định nhất trong lịch sử điểu học, vì nó là một trong những bằng chứng-‘evidence’ đầu tiên là cò dành thời gian mùa đông của chúng ở khu vực châu Phi. Câu hỏi: trước đó chưa có một bằng chứng-‘evidence’ nào về việc cò di cư đến châu Phi"}, "37": {"answer_label": "37. destinations", "quote": "Before this, very little information was available about the actual destinations of particular species and how they travelled there", "explain": "Câu hỏi:\nLittle was known about the ... and journeys of migrating birds until the practice of ringing was established.\nKeywords được paraphrase:\nVery little information was available - Little was known about\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Người ta biết rất ít về địa điểm-‘destinations’ và hành trình của các loài chim di cư cho đến khi thực hành tiếng chuông được thành lập"}, "38": {"answer_label": "38.oceans", "quote": "People speculated that larger birds provided a kind of taxi service for smaller birds by carrying them on their backs. This idea came about because it seemed impossible that small birds weighing only a few grams could fly over vast oceans", "explain": "Câu hỏi:\nIt was thought large birds carried small birds on some journeys because they were considered incapable of travelling across huge\nKeywords được paraphrase:\nthat larger birds provided a kind of taxi service for smaller birds by carrying them on their backs - large birds carried small birds\nthey were considered incapable of travelling across - it seemed impossible hat small brids weighing only a few grams could fly over\nvast - huge\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Người ta cho rằng những con chim lớn mang theo những con chim nhỏ trong một số cuộc hành trình vì chúng được coi là không có khả năng đi xuyên đại dương-‘oceans' khổng lồ"}, "39": {"answer_label": "39. recovery", "quote": "The development of bird ringing, by a Danish schoolteacher, Hans Christian Cornelius Mortensen, made many discoveries possible. This is still common practice today and relies upon what is known as ‘recovery’", "explain": "Câu hỏi:\nRinging depended on what is called the ‘ ' of\ndead birds\nKey words được paraphrase:\n Giải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Tiếng kêu phụ thuộc vào những gì được gọi là 'sự phục hồi'-‘recovery’ của những con chim chết"}, "40": {"answer_label": "40. atlas", "quote": "Huge amounts of data were gathered in the early part of the twentieth century and for the first time in history people understood where birds actually went to in winter. In 1931, an atlas was published showing where the most common species of European birds migrated to", "explain": "relies - depended\nwhat is called - what is known as\nCâu hỏi:\nIn 1931, the first ... to show the migration of European birds was printed\nKey words được paraphrase:\nwas printed - was established\nmigration of European birds - most common species of European birds migrated to\nGiải thích đáp án:\nCâu hỏi yêu cầu điền một danh từ. Năm 1931, tờ át lát-‘atlas’ đầu tiên cho thấy sự di cư của các loài chim châu Âu đã được in"}}, "script_html": "<div class=\"script-line\"><span class=\"ts\">00:00</span><span class=\"txt\">Part 4. You will hear a zoology student giving a presentation on bird migration.</span></div>\n<div class=\"script-line\"><span class=\"ts\">00:07</span><span class=\"txt\">First you have some time to look at questions 31 to 40.</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:02</span><span class=\"txt\">Now listen carefully and answer questions 31 to 40.</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:10</span><span class=\"txt\">Scientists believe that a majority of the Earth's bird population migrate in some fashion or other.</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:16</span><span class=\"txt\">Some travel seasonally for relatively short distances, such as birds that move from their winter habitats in lowlands to mountain tops for the summers.</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:28</span><span class=\"txt\">Others, like the Arctic tern, travel more than 25,000 miles seasonally between the northern and southern poles.</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:39</span><span class=\"txt\">Bird migration has been studied over many centuries through a variety of observations,</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:44</span><span class=\"txt\">but until relatively recently, where birds went to in the winter was considered something of a mystery.</span></div>\n<div class=\"script-line\"><span class=\"ts\">01:53</span><span class=\"txt\">The lack of modern science and technology led to many theories that we now recognize as error-filled and even somewhat amusing.</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:03</span><span class=\"txt\">Take hibernation theory for example.</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:06</span><span class=\"txt\">2,000 years ago, it was commonly believed that when birds left an area, they went underwater to hibernate in the seas and oceans.</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:18</span><span class=\"txt\">Another theory for the regular appearance and disappearance of birds was that they spent winter hidden in <mark data-q=\"31\">mud</mark> till the weather changed and food became abundant again.</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:30</span><span class=\"txt\">The theory that some birds hibernate persisted until experiments were done on caged birds in the 1940s, which demonstrated that birds have no hibernation instinct.</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:44</span><span class=\"txt\">One of the earliest naturalists and philosophers from ancient Greece was Aristotle, who was the first writer to discuss the disappearance and reappearance of some bird species at certain times of year.</span></div>\n<div class=\"script-line\"><span class=\"ts\">02:58</span><span class=\"txt\">He developed the theory of transmutation, the seasonal change of one species into another by observing red starts and robins.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:10</span><span class=\"txt\">He observed that in the autumn, small birds called red starts began to lose their <mark data-q=\"32\">feathers</mark>, which convinced Aristotle that they changed into robins for the winter and back into red starts in the summer.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:24</span><span class=\"txt\">These assumptions are understandable, given that this pair of species are similar in <mark data-q=\"33\">shape</mark>, but are a classic example of an incorrect interpretation based on correct observations.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:40</span><span class=\"txt\">The most bizarre theory was put forward by an English amateur scientist, Charles Morton, in the 17th century.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:47</span><span class=\"txt\">He wrote a surprisingly well-regarded paper, claiming that birds migrate to the <mark data-q=\"34\">moon</mark> and back every year.</span></div>\n<div class=\"script-line\"><span class=\"ts\">03:56</span><span class=\"txt\">He came to this conclusion as the only logical explanation for the total disappearance of some species.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:08</span><span class=\"txt\">One of the key moments in the development of migration theory came in 1822, when a white stork was shot in Germany.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:18</span><span class=\"txt\">This particular stork made history because of the long spear in its <mark data-q=\"35\">neck</mark>, which, incredibly, had not killed it.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:28</span><span class=\"txt\">Everyone immediately realised this spear was definitely not European.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:34</span><span class=\"txt\">It turned out to be a spear from a tribe in Central Africa.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:38</span><span class=\"txt\">This was a truly defining moment in the history of ornithology, because it was the first <mark data-q=\"36\">evidence</mark> that storks spend their winters in sub-Saharan Africa.</span></div>\n<div class=\"script-line\"><span class=\"ts\">04:51</span><span class=\"txt\">You can still see the arrow stork in the zoological collection of the University of Rostock in Germany.</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:00</span><span class=\"txt\">People gradually became aware that European birds moved south in autumn and north in summer,</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:07</span><span class=\"txt\">but didn't know much about it until the practice of catching birds and putting rings on their legs became established.</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:16</span><span class=\"txt\">Before this, very little information was available about the actual <mark data-q=\"37\">destinations</mark> of particular species and how they travelled there.</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:24</span><span class=\"txt\">People speculated that larger birds provided a kind of taxi service for smaller birds by carrying them on their backs.</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:35</span><span class=\"txt\">This idea came about because it seemed impossible that small birds, weighing only a few grams, could fly over vast <mark data-q=\"38\">oceans</mark>.</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:44</span><span class=\"txt\">This idea was supported by observations of bird behaviour, such as the harassment of larger birds by smaller birds.</span></div>\n<div class=\"script-line\"><span class=\"ts\">05:52</span><span class=\"txt\">The development of bird ringing by a Danish school teacher, Hans Christian Cornelius Mortensen, made many discoveries possible.</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:05</span><span class=\"txt\">This is still common practice today and relies upon what is known as <mark data-q=\"39\">recovery</mark>.</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:11</span><span class=\"txt\">This is when ringed birds are found dead in the place they have migrated to and identified.</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:18</span><span class=\"txt\">Huge amounts of data were gathered in the early part of the 20th century, and for the first time in history, people understood where birds actually went to in winter.</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:30</span><span class=\"txt\">In 1931, an <mark data-q=\"40\">atlas</mark> was published showing where the most common species of European birds migrated to.</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:39</span><span class=\"txt\">More recent theories about bird migration vary widely.</span></div>\n<div class=\"script-line\"><span class=\"ts\">06:45</span><span class=\"txt\">That is the end of part four. You now have one minute to check your answers to part four. That is the end of the listening test.</span></div>\n<div class=\"script-line\"><span class=\"ts\">07:55</span><span class=\"txt\">In the IELTS test, you would now have ten minutes to transfer your answers to the answer sheet.</span></div>", "script_source": "asr (Whisper transcript provided by user, answer positions located via KEY + Teacher's Book)"}]};
-</script>
-<script>
-(function(){
-  const partsEl = document.getElementById('parts');
-  const tabsEl = document.getElementById('tabs');
-  const state = {}; // part -> {checked:bool}
+// ===================== POPUP NHẬP TÊN =====================
+window._studentName  = '';
+window._studentClass = '';
 
-  function renderNotes(part){
-    let html = '<div class="notes-block">';
-    for(const rawLine of part.notes){
-      const text = rawLine.trim();
-      if(!text) continue;
-      const isBlankLine = /\{\{\d+\}\}/.test(text);
-      const isBulletLine = /^[–\-•]/.test(text);
-      const isExample = /^example$/i.test(text);
-      const rendered = text.replace(/\{\{(\d+)\}\}/g, (m, num) => {
-        return `<span class="blank-num">${num}</span><input class="blank" type="text" data-part="${part.part}" data-q="${num}" autocomplete="off" spellcheck="false">`;
-      });
-      if(isExample){
-        html += `<span class="subhead example-line">Example</span><br>`;
-      } else if(isBlankLine){
-        html += (isBulletLine ? '<span class="bullet">' : '<span>') + rendered + '</span><br>';
-      } else if(isBulletLine){
-        html += `<span class="bullet">${text}</span><br>`;
-      } else if(text.split(' ').length <= 4){
-        html += `<span class="subhead">${text}</span><br>`;
-      } else {
-        html += `<span class="example-line">${text}</span><br>`;
-      }
+function startExam() {
+  var name  = document.getElementById('studentName').value.trim();
+  var cls   = document.getElementById('studentClass').value.trim();
+  var errEl = document.getElementById('popupError');
+
+  if (!name || !cls) {
+    errEl.style.display = 'block';
+    return;
+  }
+
+  window._studentName  = name;
+  window._studentClass = cls;
+  window._testStartTime = Date.now();
+
+  // Đóng popup
+  document.getElementById('studentPopup').style.display = 'none';
+
+  // Bắt đầu vào fullscreen sau khi đóng popup
+  setTimeout(function() { if (window.enterFullscreen) window.enterFullscreen(); }, 300);
+}
+
+// _testStartTime được ghi nhận trong startExam() — không ghi ở đây
+
+// ===================== CHỐNG GIAN LẬN (tab độc lập - GitHub Pages) =====================
+(function() {
+  var log          = [];
+  var tabViolations   = 0;
+  var focusViolations = 0;
+  var fsViolations    = 0;
+  var submitted    = false;
+
+  function addLog(msg) {
+    var now  = new Date();
+    var time = now.toTimeString().slice(0,8);
+    log.push('[' + time + '] ' + msg);
+  }
+  addLog('Bắt đầu làm bài');
+
+  var tabWarningEl = document.getElementById('tabWarning');
+  var tabCountEl   = document.getElementById('tabCount');
+
+  function showWarning(msg) {
+    if (submitted) return;
+    tabWarningEl.innerHTML = msg;
+    tabWarningEl.classList.add('show');
+    setTimeout(function() { tabWarningEl.classList.remove('show'); }, 4000);
+  }
+
+  // 1. Phát hiện chuyển tab
+  document.addEventListener('visibilitychange', function() {
+    if (document.hidden && !submitted) {
+      tabViolations++;
+      addLog('Chuyển tab lần ' + tabViolations);
+      showWarning('⚠️ CẢNH BÁO: Bạn vừa chuyển tab! Hành vi đã được ghi lại. (Tổng vi phạm: <span id="tabCount">' + (tabViolations + focusViolations) + '</span> lần)');
     }
-    html += '</div>';
-    return html;
-  }
-
-  function renderMcq(part){
-    let html = '';
-    for(const g of part.groups){
-      if(g.header){
-        html += `<div class="header-note">${g.header}</div>`;
-      }
-      const qidsLabel = g.qids.length>1 ? `${g.qids[0]}–${g.qids[1]}` : g.qids[0];
-      html += `<div class="qgroup" data-qids="${g.qids.join(',')}" data-multi="${g.multi}">`;
-      html += `<div class="prompt"><span class="blank-num">${qidsLabel}</span> ${g.prompt}</div>`;
-      html += '<div class="opt-list">';
-      for(const [letter, text] of Object.entries(g.options)){
-        const inputType = g.multi ? 'checkbox' : 'radio';
-        const name = g.multi ? `p${part.part}g${g.qids.join('_')}` : `p${part.part}q${g.qids[0]}`;
-        html += `<label class="opt" data-letter="${letter}"><input type="${inputType}" name="${name}" value="${letter}" ${g.multi?`data-max="${g.qids.length}"`:''}>`+
-                `<span><b>${letter}.</b> ${text}</span></label>`;
-      }
-      html += '</div></div>';
-    }
-    return html;
-  }
-
-  function buildScriptHtml(part){
-    // part.script_html is pre-built (server-side) HTML: escaped transcript text with
-    // <mark data-q="N"> spans already placed at the answer locations. Used as-is.
-    if(part.script_html) return part.script_html;
-    const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-    let out = esc(part.script || '');
-    out = out.replace(/\[\.\.\.\]/g, '<span class="gap">&nbsp;· · ·&nbsp;</span>');
-    return out;
-  }
-
-  function buildExplanationsHtml(part){
-    let html = '';
-    const qids = [];
-    if(part.kind === 'notes'){
-      Object.keys(part.answers).sort((a,b)=>a-b).forEach(q=>qids.push(q));
-    } else {
-      part.groups.forEach(g=>g.qids.forEach(q=>qids.push(q)));
-    }
-    for(const q of qids){
-      const e = part.explanations[q] || {};
-      const ans = part.answers[q] || '';
-      html += `<div class="expl-item"><div class="eq-head"><span class="qnum">Câu ${q}</span><span class="ans">${ans}</span></div>`;
-      if(e.quote){
-        html += `<div class="quote">"${e.quote.replace(/</g,'&lt;')}"</div>`;
-      }
-      html += `<div class="explain">${(e.explain||'').replace(/</g,'&lt;')}</div></div>`;
-    }
-    return html;
-  }
-
-  function gradeParts(part){
-    let correct = 0, total = 0;
-    if(part.kind === 'notes'){
-      for(const [q, ans] of Object.entries(part.answers)){
-        total++;
-        const input = partsEl.querySelector(`input.blank[data-part="${part.part}"][data-q="${q}"]`);
-        if(!input) continue;
-        const val = input.value.trim().toLowerCase();
-        const ok = val === String(ans).trim().toLowerCase();
-        input.classList.remove('correct','incorrect');
-        input.classList.add(ok ? 'correct' : 'incorrect');
-        if(ok) correct++;
-        if(!ok){
-          input.title = `Correct answer: ${ans}`;
-        }
-      }
-    } else {
-      for(const g of part.groups){
-        const groupEl = partsEl.querySelector(`.part[data-part="${part.part}"] .qgroup[data-qids="${g.qids.join(',')}"]`);
-        if(!groupEl) continue;
-        const inputs = groupEl.querySelectorAll('input');
-        const correctLetters = g.qids.map(q => part.answers[q]);
-        const selected = Array.from(inputs).filter(i=>i.checked).map(i=>i.value);
-        groupEl.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','incorrect'));
-        inputs.forEach(inp=>{
-          const label = inp.closest('.opt');
-          const letter = label.dataset.letter;
-          if(correctLetters.includes(letter)) label.classList.add('correct');
-          else if(inp.checked) label.classList.add('incorrect');
-        });
-        if(g.multi){
-          total += g.qids.length;
-          const sortedSel = [...selected].sort();
-          const sortedCorrect = [...correctLetters].sort();
-          if(sortedSel.length===sortedCorrect.length && sortedSel.every((v,i)=>v===sortedCorrect[i])){
-            correct += g.qids.length;
-          } else {
-            // partial credit per matched letter (order doesn't matter for these TWO-answer items)
-            correctLetters.forEach(cl=>{ if(selected.includes(cl)) correct++; });
-          }
-        } else {
-          total += 1;
-          if(selected[0] === correctLetters[0]) correct += 1;
-        }
-      }
-    }
-    return {correct, total};
-  }
-
-  function renderPart(part, idx){
-    const wrap = document.createElement('div');
-    wrap.className = 'part' + (idx===0 ? ' active' : '');
-    wrap.dataset.part = part.part;
-
-    const card = document.createElement('div');
-    card.className = 'card';
-    let inner = `<div class="part-bar"><span>PART ${part.part}${part.title ? ' — ' + part.title : ''}</span><span class="title">${part.kind==='notes'?'Note Completion':'Multiple Choice'}</span></div>`;
-    inner += `<div class="card-body">`;
-    if(part.instructions) inner += `<div class="instructions">${part.instructions}</div>`;
-    inner += `<div class="audio-box"><span class="icon">🎧</span><span class="label">Part ${part.part} Audio</span><audio controls preload="none" src="${part.audio}"></audio></div>`;
-    inner += part.kind === 'notes' ? renderNotes(part) : renderMcq(part);
-    inner += `<div class="actions">
-        <button class="primary" data-action="check">Check Answers</button>
-        <button class="ghost" data-action="reset">Reset</button>
-        <span class="score-pill" data-role="score" style="display:none;"></span>
-      </div>
-      <div class="actions" style="margin-top:0;">
-        <button class="ghost" data-action="toggle-script">Show Script</button>
-        <button class="ghost" data-action="toggle-expl">Show Answers &amp; Explanations</button>
-      </div>
-      <div class="toggle-section" data-role="script-section">
-        <h2 style="font-size:15px;color:var(--navy);">Audio Script — Part ${part.part}</h2>
-        <div class="audio-box"><span class="icon">🎧</span><span class="label">Part ${part.part} Audio</span><audio controls preload="none" src="${part.audio}"></audio></div>
-        <div class="script-text">${buildScriptHtml(part)}</div>
-      </div>
-      <div class="toggle-section" data-role="expl-section">
-        <h2 style="font-size:15px;color:var(--navy);">Answers &amp; Explanations — Part ${part.part}</h2>
-        ${buildExplanationsHtml(part)}
-      </div>
-      </div>`;
-    card.innerHTML = inner;
-    wrap.appendChild(card);
-
-    // Enforce "choose exactly N" on multi-select (checkbox) question groups: once N
-    // boxes are checked, the rest are disabled until one is unchecked again.
-    card.querySelectorAll('.qgroup[data-multi="true"]').forEach(groupEl => {
-      const boxes = Array.from(groupEl.querySelectorAll('input[type="checkbox"]'));
-      if(!boxes.length) return;
-      const max = parseInt(boxes[0].dataset.max, 10) || 2;
-      const sync = () => {
-        const checkedCount = boxes.filter(b=>b.checked).length;
-        boxes.forEach(b => { if(!b.checked) b.disabled = checkedCount >= max; });
-      };
-      boxes.forEach(b => b.addEventListener('change', sync));
-    });
-
-    card.querySelector('[data-action="check"]').addEventListener('click', () => {
-      const {correct, total} = gradeParts(part);
-      const pill = card.querySelector('[data-role="score"]');
-      pill.style.display = 'inline-block';
-      pill.textContent = `Score: ${correct} / ${total}`;
-      const tabBtn = tabsEl.querySelector(`[data-tab="${part.part}"]`);
-      if(tabBtn) tabBtn.classList.add('done');
-    });
-    card.querySelector('[data-action="reset"]').addEventListener('click', () => {
-      card.querySelectorAll('input[type="text"]').forEach(i=>{i.value='';i.classList.remove('correct','incorrect');i.title='';});
-      card.querySelectorAll('input[type="radio"],input[type="checkbox"]').forEach(i=>{i.checked=false;i.disabled=false;});
-      card.querySelectorAll('.opt').forEach(o=>o.classList.remove('correct','incorrect'));
-      card.querySelector('[data-role="score"]').style.display='none';
-      const tabBtn = tabsEl.querySelector(`[data-tab="${part.part}"]`);
-      if(tabBtn) tabBtn.classList.remove('done');
-    });
-    card.querySelector('[data-action="toggle-script"]').addEventListener('click', (e) => {
-      const sec = card.querySelector('[data-role="script-section"]');
-      sec.classList.toggle('open');
-      e.target.textContent = sec.classList.contains('open') ? 'Hide Script' : 'Show Script';
-    });
-    card.querySelector('[data-action="toggle-expl"]').addEventListener('click', (e) => {
-      const sec = card.querySelector('[data-role="expl-section"]');
-      sec.classList.toggle('open');
-      e.target.textContent = sec.classList.contains('open') ? 'Hide Answers & Explanations' : 'Show Answers & Explanations';
-    });
-
-    return wrap;
-  }
-
-  TEST_DATA.parts.forEach((part, idx) => {
-    const tabBtn = document.createElement('button');
-    tabBtn.className = 'tab-btn' + (idx===0 ? ' active' : '');
-    tabBtn.dataset.tab = part.part;
-    tabBtn.innerHTML = `<span class="dot"></span>Part ${part.part}`;
-    tabBtn.addEventListener('click', () => {
-      // Stop any audio still playing before switching parts (in the part being left
-      // AND in the one being entered, in case it was left mid-playback earlier).
-      partsEl.querySelectorAll('audio').forEach(a => { a.pause(); });
-      tabsEl.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-      partsEl.querySelectorAll('.part').forEach(p=>p.classList.remove('active'));
-      tabBtn.classList.add('active');
-      partsEl.querySelector(`.part[data-part="${part.part}"]`).classList.add('active');
-      window.scrollTo({top:0, behavior:'smooth'});
-    });
-    tabsEl.appendChild(tabBtn);
-    partsEl.appendChild(renderPart(part, idx));
   });
+
+  // 2. Phát hiện mất focus cửa sổ (window.blur hoạt động đúng ở tab độc lập)
+  window.addEventListener('blur', function() {
+    if (submitted) return;
+    focusViolations++;
+    addLog('Mất focus cửa sổ lần ' + focusViolations);
+    showWarning('⚠️ CẢNH BÁO: Bạn vừa rời khỏi cửa sổ thi! Hành vi đã được ghi lại. (Tổng vi phạm: ' + (tabViolations + focusViolations) + ' lần)');
+  });
+
+  // 3. Fullscreen bắt buộc
+  function enterFullscreen() {
+    var el = document.documentElement;
+    if (el.requestFullscreen)       el.requestFullscreen();
+    else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+    else if (el.mozRequestFullScreen)    el.mozRequestFullScreen();
+    document.getElementById('fsWarning').classList.remove('show');
+  }
+  window.enterFullscreen = enterFullscreen;
+
+  // Fullscreen được kích hoạt từ startExam() sau khi đóng popup
+
+  // Phát hiện thoát fullscreen
+  document.addEventListener('fullscreenchange', function() {
+    if (!document.fullscreenElement && !submitted) {
+      fsViolations++;
+      addLog('Thoát fullscreen lần ' + fsViolations);
+      document.getElementById('fsWarning').classList.add('show');
+    }
+  });
+  document.addEventListener('webkitfullscreenchange', function() {
+    if (!document.webkitFullscreenElement && !submitted) {
+      fsViolations++;
+      addLog('Thoát fullscreen lần ' + fsViolations);
+      document.getElementById('fsWarning').classList.add('show');
+    }
+  });
+
+  // 4. Chặn chuột phải
+  document.addEventListener('contextmenu', function(e) { e.preventDefault(); return false; });
+
+  // 5. Chặn phím tắt
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'F12') { e.preventDefault(); return false; }
+    if (e.ctrlKey && ['c','a','s','u','p','v'].includes(e.key.toLowerCase())) {
+      e.preventDefault(); return false;
+    }
+    if (e.ctrlKey && e.shiftKey && ['i','j','c','k'].includes(e.key.toLowerCase())) {
+      e.preventDefault(); return false;
+    }
+    // Escape thoát fullscreen — chặn
+    if (e.key === 'Escape') { e.preventDefault(); return false; }
+  });
+
+  // 6. Chặn copy & paste
+  document.addEventListener('copy',  function(e) { e.preventDefault(); return false; });
+  document.addEventListener('paste', function(e) { e.preventDefault(); return false; });
+  document.addEventListener('cut',   function(e) { e.preventDefault(); return false; });
+
+  // 7. Chặn drag & drop
+  document.addEventListener('dragstart', function(e) { e.preventDefault(); return false; });
+  document.addEventListener('drop',      function(e) { e.preventDefault(); return false; });
+
+
+  // Export
+  window.getViolationLog = function() {
+    submitted = true;
+    return { tabViolations: tabViolations, focusViolations: focusViolations, fsViolations: fsViolations, log: log };
+  };
 })();
+
+// ===================== TIMER =====================
+(function() {
+  var MAIN_MS  = 40 * 60 * 1000;
+  var EXTRA_MS =  5 * 60 * 1000;
+
+  var startTime    = null;   // set from window._testStartTime when first tick runs
+  var inExtraTime  = false;
+  var extraStart   = null;
+  var timerStopped = false;
+
+  var timerBox     = document.getElementById('timerBox');
+  var timerDisplay = document.getElementById('timerDisplay');
+  var overlay      = document.getElementById('warningOverlay');
+  var extraDisplay = document.getElementById('extraCountdown');
+
+  function fmt(ms) {
+    var total = Math.max(0, Math.ceil(ms / 1000));
+    var m = Math.floor(total / 60);
+    var s = total % 60;
+    return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
+
+  function tick() {
+    if (timerStopped) return;
+    if (!startTime) {
+      // Wait until student has started the exam
+      if (!window._testStartTime) return;
+      startTime = window._testStartTime;
+    }
+    var now = Date.now();
+    if (!inExtraTime) {
+      var remaining = MAIN_MS - (now - startTime);
+      timerDisplay.textContent = fmt(remaining);
+      if      (remaining <= 60000)  timerBox.className = 'danger';
+      else if (remaining <= 300000) timerBox.className = 'warning';
+      if (remaining <= 0) {
+        inExtraTime = true;
+        extraStart  = Date.now();
+        overlay.classList.add('show');
+        timerBox.style.display = 'none';
+      }
+    } else {
+      var extraRemaining = EXTRA_MS - (now - extraStart);
+      extraDisplay.textContent = fmt(extraRemaining);
+      if (extraRemaining <= 0) forceSubmit();
+    }
+  }
+
+  setInterval(tick, 500);
+
+  window.forceSubmit = function() {
+    timerStopped = true;
+    overlay.classList.remove('show');
+    submitTest();
+  };
+
+  window.stopTimer = function() {
+    timerStopped = true;
+  };
+})();
+
+// Answer keys (lowercase, trimmed for comparison)
+const answers = {
+  q1:  ["animal park"],
+  q2:  ["cold and cloudy"],
+  q3:  ["10.15 am","10:15 am","10.15am"],
+  q4:  ["birds of prey"],
+  q5:  ["reptile display"],
+  q6:  ["6.30 pm","6:30 pm","6.30pm"],
+  q7:  ["chinese"],
+  q8:  ["japanese"],
+  q9:  ["koreans","korean"],
+  q10: ["thai"],
+  q11: ["2.30/7.30 pm","2.30 / 7.30 pm","2:30/7:30 pm","2.30 and 7.30 pm"],
+  q12: ["cd"],
+  q13: ["separate programme","separate program"],
+  q14: ["dance festival"],
+  q15: ["4 continents","four continents"],
+  q16: ["14-20 march","14–20 march","march 14-20","march 14–20"],
+  q17: ["love and hope"],
+  q18: ["producer"],
+  q19: ["singing competition"],
+  q20: ["shown on tv","shown on television"],
+  q21: ["a"],
+  q22: ["c"],
+  q23: ["b"],
+  q24: ["b"],
+  q25: ["c"],
+  q26: ["a"],
+  q27: ["c"],
+  q28: ["b"],
+  q29: ["a"],
+  q30: ["c"],
+  q31: ["plains","plain"],
+  q32: ["astronomy"],
+  q33: ["terraces","terrace"],
+  q34: ["canals","canal"],
+  q35: ["corns","corn"],
+  q36: ["1479"],
+  q37: ["diameter"],
+  q38: ["sacrificial"],
+  q39: ["birth"],
+  q40: ["animals","animal"]
+};
+
+function normalize(str) {
+  let _nz = String(str).toLowerCase().trim();
+  _nz = _nz.replace(/[\u2012\u2013\u2014\u2015]/g, '-');
+  _nz = _nz.replace(/(\d),(?=\d)/g, '$1');
+  var _noWeekday = _nz.replace(/\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b,?/g, '').replace(/\s+/g, ' ').trim();
+  if (_noWeekday.length > 0) _nz = _noWeekday;
+  _nz = _nz.replace(/(\d{1,2})\s*[.:]\s*(\d{2})\s*(am|pm)?/g, function(m, h, mi, ap) { return h + ':' + mi + (ap ? ap : ''); });
+  _nz = _nz.replace(/£\s?(\d+(?:\.\d+)?)/g, '$1 pounds');
+  _nz = _nz.replace(/\$\s?(\d+(?:\.\d+)?)/g, '$1 dollars');
+  _nz = _nz.replace(/€\s?(\d+(?:\.\d+)?)/g, '$1 euros');
+  _nz = _nz.replace(/\bpounds?\b/g, 'pounds').replace(/\bdollars?\b/g, 'dollars').replace(/\beuros?\b/g, 'euros');
+  _nz = _nz.replace(/%/g, ' percent').replace(/per\s*cent/g, 'percent');
+  _nz = _nz.replace(/\b(\d{1,2})(st|nd|rd|th)\b/g, '$1');
+  var _months = 'january|february|march|april|may|june|july|august|september|october|november|december';
+  var _monthDay = new RegExp('\\b(' + _months + ')\\s+(\\d{1,2})\\b');
+  _nz = _nz.replace(_monthDay, function(m, mo, d) { return d + ' ' + mo; });
+  _nz = _nz.replace(/,/g, ' ').replace(/\s+/g, ' ').trim();
+  return _nz;
+}
+
+function submitTest() {
+  let score = 0;
+  const total = 40;
+
+  for (let i = 1; i <= 40; i++) {
+    const qId = 'q' + i;
+    const rId = 'r' + i;
+    const correctList = answers[qId];
+    const revealEl = document.getElementById(rId);
+
+    // Text inputs (Q1-20, Q31-40)
+    const inputEl = document.getElementById(qId);
+    if (inputEl && inputEl.tagName === 'INPUT') {
+      const userAns = normalize(inputEl.value);
+      const isCorrect = correctList.some(a => normalize(a) === userAns);
+      inputEl.classList.remove('correct','wrong');
+      inputEl.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ &rarr; <strong>' + correctList[0] + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+
+    // Radio (Q21-26)
+    const radioEls = document.querySelectorAll('input[name="' + qId + '"]');
+    if (radioEls.length > 0) {
+      let userAns = '';
+      radioEls.forEach(r => { if (r.checked) userAns = r.value; });
+      const isCorrect = correctList.some(a => normalize(a) === normalize(userAns));
+      // highlight labels
+      radioEls.forEach(r => {
+        const lbl = r.parentElement;
+        lbl.classList.remove('correct-label','wrong-label');
+        if (r.value === correctList[0].toUpperCase()) lbl.classList.add('correct-label');
+        else if (r.checked && !isCorrect) lbl.classList.add('wrong-label');
+      });
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔ Correct!';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ Answer: <strong>' + correctList[0].toUpperCase() + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+
+    // Select (Q27-30)
+    const selectEl = document.getElementById(qId);
+    if (selectEl && selectEl.tagName === 'SELECT') {
+      const userAns = normalize(selectEl.value);
+      const isCorrect = correctList.some(a => normalize(a) === userAns);
+      selectEl.classList.remove('correct','wrong');
+      selectEl.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (isCorrect) {
+        score++;
+        revealEl.innerHTML = '✔';
+        revealEl.style.color = '#27ae60';
+      } else {
+        revealEl.innerHTML = '✘ &rarr; <strong>' + correctList[0].toUpperCase() + '</strong>';
+        revealEl.style.color = '#e74c3c';
+      }
+      revealEl.classList.add('show');
+    }
+  }
+
+  // Show score
+  const board = document.getElementById('scoreBoard');
+  board.style.display = 'block';
+  document.getElementById('scoreNum').textContent = score + ' / ' + total;
+  let msg = '';
+  if (score >= 35) msg = '🏆 Xuất sắc! Band 8.5–9.0';
+  else if (score >= 30) msg = '🥇 Giỏi! Band 7.5–8.0';
+  else if (score >= 23) msg = '🥈 Khá! Band 6.0–7.0';
+  else if (score >= 16) msg = '🥉 Trung bình. Band 5.0–5.5';
+  else msg = '📚 Cần luyện tập thêm. Band dưới 5.0';
+  document.getElementById('scoreMsg').textContent = msg;
+
+  board.scrollIntoView({ behavior: 'smooth' });
+
+  // ===================== ĐỌC CHI TIẾT TỪNG CÂU (TRƯỚC KHI KHÓA INPUT) =====================
+  var _details = [];
+  for (var di = 1; di <= 40; di++) {
+    var dqId  = 'q' + di;
+    var dqNum = 'Q' + String(di).padStart(2,'0');
+    var dVal  = '';
+    var dOk   = '✘';
+
+    // Text input
+    var dEl = document.getElementById(dqId);
+    if (dEl && dEl.tagName === 'INPUT' && dEl.type === 'text') {
+      dVal = dEl.value || '';
+      dOk  = dEl.classList.contains('correct') ? '✔' : '✘';
+
+    // Select
+    } else if (dEl && dEl.tagName === 'SELECT') {
+      dVal = dEl.value || '';
+      dOk  = dEl.classList.contains('correct') ? '✔' : '✘';
+
+    // Radio
+    } else {
+      var dRadios = document.querySelectorAll('input[name="' + dqId + '"]');
+      if (dRadios.length > 0) {
+        dRadios.forEach(function(r) { if (r.checked) dVal = r.value; });
+        var dChecked = document.querySelector('input[name="' + dqId + '"]:checked');
+        if (dChecked) {
+          dOk = dChecked.parentElement.classList.contains('correct-label') ? '✔' : '✘';
+        }
+      }
+    }
+    _details.push(dqNum + ':' + dOk + '(' + dVal + ')');
+  }
+  window._submittedDetails = _details;
+
+  // Khóa toàn bộ input sau khi nộp
+  document.querySelectorAll('input[type="text"], input[type="radio"], select').forEach(function(el) {
+    el.disabled = true;
+  });
+  document.getElementById('submitBtn').disabled = true;
+  document.getElementById('submitBtn').textContent = '✅ Đã nộp bài';
+
+  // Dừng timer
+  if (window.stopTimer) window.stopTimer();
+  var timerBox = document.getElementById('timerBox');
+  if (timerBox) timerBox.style.display = 'none';
+
+  // Dừng audio
+  var audioEl = document.querySelector('audio');
+  if (audioEl) { audioEl.pause(); }
+
+  // Hiện log vi phạm
+  var v = window.getViolationLog ? window.getViolationLog() : null;
+  var totalV = 0;
+  if (v) {
+    var logPanel = document.getElementById('logPanel');
+    logPanel.style.display = 'block';
+    totalV = v.tabViolations + v.focusViolations + v.fsViolations;
+    logPanel.innerHTML =
+      '<strong>📋 Báo cáo hành vi</strong><br>' +
+      '• Chuyển tab: <b>' + v.tabViolations + '</b> lần<br>' +
+      '• Mất focus cửa sổ: <b>' + v.focusViolations + '</b> lần<br>' +
+      '• Thoát fullscreen: <b>' + v.fsViolations + '</b> lần<br>' +
+      (totalV > 0
+        ? '<span style="color:#f39c12">⚠️ Tổng vi phạm: ' + totalV + ' lần</span>'
+        : '<span style="color:#2ecc71">✅ Không có vi phạm</span>');
+
+    var logSummary = totalV > 0
+      ? '<br><small style="color:#e74c3c">⚠️ Ghi nhận ' + totalV + ' lần hành vi đáng ngờ</small>'
+      : '<br><small style="color:#27ae60">✅ Không phát hiện hành vi gian lận</small>';
+    document.getElementById('scoreMsg').innerHTML += logSummary;
+  }
+
+  // ===================== GỬI KẾT QUẢ LÊN GOOGLE SHEETS =====================
+  (function() {
+    var SHEET_URL = 'https://script.google.com/macros/s/AKfycbyfZgrcZfOw-g5nCLlQ5QyLCCADuct8QRxW31SG8F3IZfkgL0x_3LOoPWBHRFRNiXA1/exec';
+
+    // Tính thời gian làm bài
+    var endTime   = Date.now();
+    var startTime = window._testStartTime || endTime;
+    var elapsed   = Math.floor((endTime - startTime) / 1000);
+    var mm = Math.floor(elapsed / 60);
+    var ss = elapsed % 60;
+    var timeTaken = mm + ' phút ' + ss + ' giây';
+
+    // Chi tiết từng câu — đã đọc trước khi khóa input
+    var details = window._submittedDetails || [];
+
+    // Band
+    var bandEl = document.getElementById('scoreMsg');
+    var band   = bandEl ? bandEl.textContent.replace(/⚠️.*|✅.*/g,'').trim() : '';
+
+    // Payload
+    var payload = {
+      student:    (window._studentName || 'Ẩn danh') + ' — ' + (window._studentClass || ''),
+      test:       'Listening Test 1',
+      score:      score,
+      total:      total,
+      band:       band,
+      timeTaken:  timeTaken,
+      tabViol:    v ? v.tabViolations   : 0,
+      focusViol:  v ? v.focusViolations : 0,
+      fsViol:     v ? v.fsViolations    : 0,
+      details:    details.join(' | ')
+    };
+
+    // Gửi lên Google Sheets
+    fetch(SHEET_URL, {
+      method:  'POST',
+      mode:    'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload)
+    }).then(function() {
+      console.log('Kết quả đã gửi lên Google Sheets!');
+    }).catch(function(err) {
+      console.warn('Không thể gửi kết quả:', err);
+    });
+  })();
+}
 </script>
 </body>
 </html>
